@@ -3,6 +3,7 @@
   - [ ] Front-End
   - [ ] Back-End
   - [ ] Data Preprocessiong
+  
 - 문제 상황에 대한 상세 설명
   - 어떤 상황에서 문제가 발생하는지 적어주세요
 
