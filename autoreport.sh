@@ -18,7 +18,7 @@ if [ $# -le 0 ]; then
 fi
 
 args=()
-whatif=0
+dryrun=0
 while [ $OPTIND -le "$#" ]; do
     if getopts 'hd' option; then
         case $option in
@@ -34,7 +34,7 @@ Options:
   -d        (dryrun) 실제로 작업을 하지는 않고 무슨 일을 할지만 보여줍니다.'
                 exit 0
                 ;;
-            w)
+            d)
                 dryrun=1
                 ;;
             *)
@@ -47,6 +47,11 @@ Options:
         ((OPTIND++))
     fi
 done
+
+if [ ${#args[@]} -ne 3 ]; then
+    show_usage
+    exit 1
+fi
 
 
 # 폴더를 미리 생성해야 합니다.
