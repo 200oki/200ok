@@ -13,11 +13,6 @@ show_usage() {
   echo "Usage: $0 [ -h ] [ -d ] 디렉터리이름 깃랩사용자이름 몇시간전부터"
 }
 
-if [ $# -le 0 ]; then
-    show_usage
-    exit 1
-fi
-
 args=()
 dryrun=0
 while [ $OPTIND -le "$#" ]; do
