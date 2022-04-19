@@ -62,7 +62,7 @@ if [ $dryrun -eq 0 ]; then
 fi
 
 readarray -t hashes < <(
-    git log \
+    git --no-pager log \
         --date='relative' \
         --after="${args[2]} hours ago" \
         --committer="${args[1]}" \
