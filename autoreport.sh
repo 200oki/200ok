@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # git 로그를 분석해 지난 {몇시간전부터} 시간 동안 {깃랩사용자이름} 사용자의 커밋으로 수정된
-# 파일들만 찾아서 "../report-{디렉터리이름}-YY-MM-DD" 폴더에 파일 시스템 구조를 유지한
+# 파일들만 찾아서 "../report-{디렉터리이름}-yymmdd" 폴더에 파일 시스템 구조를 유지한
 # 채로 복사하는 스크립트입니다.
 #
 # 사용 방법: autoreport.sh {디렉터리이름} {깃랩사용자이름} {몇시간전부터}
 # $ autoreport.sh 윤성준 YunSeongJun 24
-#   -> ../report-윤성준-22-04-19 폴더에 YunSeongJun 사용자가 지난 24시간 동안 변경한
+#   -> ../report-윤성준-220419 폴더에 YunSeongJun 사용자가 지난 24시간 동안 변경한
 #      모든 파일을 복사합니다.
 
 show_usage() {
@@ -26,7 +26,7 @@ while [ $OPTIND -le "$#" ]; do
                 show_usage
                 echo -e \
 'git 로그를 분석해 지난 {몇시간전부터} 시간 동안 {깃랩사용자이름} 사용자의 커밋으로 수정된
-파일들만 찾아서 "../report-{디렉터리이름}-YY-MM-DD" 폴더에 파일 시스템 구조를 유지한
+파일들만 찾아서 "../report-{디렉터리이름}-yymmdd" 폴더에 파일 시스템 구조를 유지한
 채로 복사하는 스크립트입니다.
 
 Options:
@@ -55,8 +55,8 @@ fi
 
 
 # 폴더를 미리 생성해야 합니다.
-# 예시 폴더 이름: report-윤성준-22-04-19
-destination="../report-$1-$(date +'%y-%m-%d')"
+# 예시 폴더 이름: report-윤성준-220419
+destination="../report-${args[0]}-$(date +'%y%m%d')"
 if [ $dryrun -eq 0 ]; then
     mkdir $destination
 fi
