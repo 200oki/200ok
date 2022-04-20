@@ -1,1 +1,13 @@
+#back
 back/logs
+back/node_modules
+back/.env
+back/package-lock.json
+
+#front
+front
+front/node_modules
+front/package
+#IDE
+.idea
+.vscode
