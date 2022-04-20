@@ -22,10 +22,6 @@ const ScoreSchema = new Schema(
       type: Number,
       required: true,
     },
-    rank: {
-      type: Number,
-      required: true,
-    },
   },
   {
     timestamps: true,
