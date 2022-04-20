@@ -18,5 +18,12 @@ const ScoreSchema = new Schema(
       type: Number,
       required: true,
     },
-  } 
-)
+  },
+  {
+    timestamps: true,
+  },
+);
+
+const ScoreModel = model("Score", ScoreSchema);
+
+export { ScoreModel };
