@@ -4,6 +4,7 @@ colorama==0.4.4
 debugpy==1.6.0
 decorator==5.1.1
 entrypoints==0.4
+et-xmlfile==1.1.0
 executing==0.8.3
 ipykernel==6.13.0
 ipython==8.2.0
@@ -13,6 +14,7 @@ jupyter-core==4.10.0
 matplotlib-inline==0.1.3
 nest-asyncio==1.5.5
 numpy==1.22.3
+openpyxl==3.0.9
 packaging==21.3
 pandas==1.4.2
 parso==0.8.3
