@@ -16,6 +16,12 @@ class ScoreService {
     
     return userRank;
   }
+
+  static async getRanklist() {
+    const topRanklist = await Score.findTopRank();
+    
+    return topRanklist;
+  }
 }
 
 

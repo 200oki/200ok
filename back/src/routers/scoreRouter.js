@@ -52,6 +52,24 @@ ScoreRouter.get(
     }
   }
 );
+    
+/*** ranking ***/
+ScoreRouter.get(
+  "/scorelist",
+  async function (req, res, next) {
+    try {
+      const rankList = await ScoreService.getRanklist();
+  
+      if (rankList.errorMessage) {
+        throw new Error(rankList.errorMessage);
+      }
+  
+      res.status(200).send(rankList);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 
 export { ScoreRouter };
