@@ -1,4 +1,4 @@
-고유 ID	영문	한글
+id	en	ko
 alp	Cyrus	리포
 dga	Copper	경찰관
 doc	Wilbur	로드리
