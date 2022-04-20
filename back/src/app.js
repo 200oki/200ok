@@ -3,7 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import path from "path"; // 파일 경로 모듈
-import { logger } from "./winton.js";
+import { logger } from "./utils/winstonLogger.js";
 
 // 환경 변수 설정을 위한 dotenv 적용
 const __dirname = path.resolve();
