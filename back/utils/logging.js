@@ -16,10 +16,10 @@ import * as path from "path";
 // const { O_APPEND, O_SYNC } = fs.constants;
 // const { S_IRWXU, S_IRWXG } = fs.constants;
 
-/** @const {string} LOGDIR - Path where log files reside: `/back/log`. */
-const LOGDIR = path.resolve(`${__dirname}`, "..", "..", "log");
+/** @const {string} LOGDIR - Path where log files reside: `/back/logs`. */
+const LOGDIR = path.resolve(`${__dirname}`, "..", "..", "logs");
 
-/** @const {string} UNIFIED_LOG - Default log path: `/back/log/unified.log` */
+/** @const {string} UNIFIED_LOG - Default log path: `/back/logs/unified.log` */
 const UNIFIED_LOG = path.resolve(LOGDIR, "unified.log");
 
 /** Output logs to multiple streams, depending on debug level.
