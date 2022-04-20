@@ -10,6 +10,12 @@ class ScoreService {
 
     return createdNewScore;
   }
+
+  static async getUserRank({ id }) {
+    const userRank = await Score.findUserRank({ id });
+    
+    return userRank;
+  }
 }
 
 

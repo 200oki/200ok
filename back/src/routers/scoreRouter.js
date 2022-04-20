@@ -34,5 +34,24 @@ ScoreRouter.post(
   } 
 );
 
+/*** Get current user's rank and score ***/
+ScoreRouter.get(
+  "/score/:id",
+  async function (req, res, next) {
+    try {
+      const id = req.params.id;
+      const userRank = await ScoreService.getUserRank({ id });
+  
+      if (userRank.errorMessage) {
+        throw new Error(userRank.errorMessage);
+      }
+  
+      res.status(200).send(userRank);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 
 export { ScoreRouter };
