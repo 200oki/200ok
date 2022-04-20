@@ -6,6 +6,7 @@ import { Schema, model } from "mongoose";
  * @field {String} nickname
  * @field {Number} score
  * @field {Number} rank
+ * 
  **/
 const ScoreSchema = new Schema(
   {
