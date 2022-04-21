@@ -24,7 +24,7 @@
   height: fit-content;
   text-align: center;
   font-size: 30px;
-  font-weight: bold;
+  font-family: "TmoneyRoundWindExtraBold";
 }
 
 .form {
@@ -96,7 +96,7 @@
 .textWrapper {
   font-size: 20px;
   text-align: center;
-  font-weight: bold;
+  font-family: "TmoneyRoundWindExtraBold";
 }
 .textWrapper > div {
   line-height: 1.8rem;
