@@ -1,11 +1,11 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
-import { ScoreService } from "../services/scoreService";
+import { ScoreService } from "../services/scoreService.js";
 
-const ScoreRouter = Router();
+const scoreRouter = Router();
 
 /*** Score will be added to db ***/
-ScoreRouter.post(
+scoreRouter.post(
   "/scores",
   async function (req, res, next) {
   try {
@@ -35,7 +35,7 @@ ScoreRouter.post(
 );
 
 /*** Get current user's rank and score ***/
-ScoreRouter.get(
+scoreRouter.get(
   "/scores/:id",
   async function (req, res, next) {
     try {
@@ -54,7 +54,7 @@ ScoreRouter.get(
 );
     
 /*** ranking ***/
-ScoreRouter.get(
+scoreRouter.get(
   "/scorelist",
   async function (req, res, next) {
     try {
@@ -72,4 +72,4 @@ ScoreRouter.get(
 );
 
 
-export { ScoreRouter };
+export { scoreRouter };

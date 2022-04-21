@@ -1,9 +1,9 @@
-import { Score } from "../db"; 
-const crypto = require('crypto');
+import { Score } from "../db/index.js"; 
+import crypto from "crypto";
 
 class ScoreService {
   static async addScore({ nickname, score }) {
-    const id = crypto.randomUUID([])
+    const id = crypto.randomUUID()
     const newScore = { 
       id, 
       nickname, 

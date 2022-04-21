@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { Score } from "./models/Score.js";
-import { Comment } from "./models/Comment.js";
 
 dotenv.config();
 
@@ -20,4 +19,3 @@ db.on("error", (error) =>
 );
 
 export { Score };
-export { Comment };

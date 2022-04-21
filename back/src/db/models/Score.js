@@ -1,4 +1,4 @@
-import { ScoreModel } from "../schemas/score";
+import { ScoreModel } from "../schemas/score.js";
 
 class Score {
   static async create({ newScore }) {
@@ -7,9 +7,9 @@ class Score {
   }
   
   // 본인의 랭크 찾기
-  // 수정 필요
+  // -1로 역순 정렬
   static async findUserRank({ id }) {
-    const userScore = await ScoreModel.sort({ "score": -1 }).findOne({ id });
+    const userScore = await ScoreModel.findOne({ id });
 
     return userScore;
   }

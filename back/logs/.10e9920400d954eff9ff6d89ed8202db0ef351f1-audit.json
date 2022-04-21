@@ -9,6 +9,11 @@
             "date": 1650384575856,
             "name": "logs\\2022-04-20.log",
             "hash": "f2f54c354fb9d73a845494f60e39bfaa"
+        },
+        {
+            "date": 1650517318588,
+            "name": "logs\\2022-04-21.log",
+            "hash": "cd8935833b303d46ef274c8964df669f"
         }
     ],
     "hashType": "md5"
