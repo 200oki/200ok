@@ -1,8 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
-import TodayCharacter from "./TodayCharacter"
-import CelebrationBtn from "./CelebrationBtn"
-import TodayComment from "./TodayComment"
-import * as Api from "../../api";
+// import TodayCharacter from "./TodayCharacter"
+// import CelebrationBtn from "./CelebrationBtn"
+// import TodayComment from "./TodayComment"
+import TodayPhrase from "./TodayPhrase";
+import "../../css/today.css"
+// import * as Api from "../../api";
 
 function Today({ today }) {
   const [todayCharacter, setTC] = useState([]);
@@ -11,21 +13,32 @@ function Today({ today }) {
   const dateParam = month + day
 
   useEffect(() => {
-    Api.get(`characters/${dateParam}`).then((res) => {
-      const { data } = res;
-      setTC(data);
-    });
+    // Api.get(`characters/${dateParam}`).then((res) => {
+    //   const { data } = res;
+    //   setTC(data);
+    // });
+    const data = [
+      {KoreanName:"잭슨"},
+      {KoreanName:"미야용"},
+      {KoreanName:"사랑이"},
+      {KoreanName:"지운"}
+    ]
+    setTC(data);
   }, []);
 
   return (
-    <div>
+    <div style={{
+      margin : 0,
+      padding: 0,
+      backgroundImage: 'url("/images/leafBgImg.jpg")',
+      height: "100vh"
+    }}>
       <TodayPhrase 
         date={dateParam} 
         todayCharacter={todayCharacter}
       />
-      <TodayCharacter todayCharacter={todayCharacter}/>
-      <CelebrationBtn />
-      <TodayComment />
+      {/* <CelebrationBtn /> */}
+      {/* <TodayComment /> */}
     </div>
   );
 }
