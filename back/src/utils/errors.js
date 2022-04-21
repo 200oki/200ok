@@ -1,4 +1,4 @@
-import { STATUS_400_BADREQUEST } from "./status";
+import { STATUS_400_BADREQUEST } from "./status.js";
 
 /** Request Error Class that blames (mostly) bad request kind.
  *
@@ -17,20 +17,20 @@ import { STATUS_400_BADREQUEST } from "./status";
  *  - `params`: Anything that you would otherwise pass to an Error.
  */
 class RequestError extends Error {
-    constructor(
-        { status = STATUS_400_BADREQUEST, payload = { result: false } },
-        ...params
-    ) {
-        super(...params);
+  constructor(
+    { status = STATUS_400_BADREQUEST, payload = { result: false } },
+    ...params
+  ) {
+    super(...params);
 
-        if (Error.captureStackTrace) {
-            Error.captureStackTrace(this, RequestError);
-        }
-
-        this.name = this.constructor.name;
-        this.status = status;
-        this.payload = payload;
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, RequestError);
     }
+
+    this.name = this.constructor.name;
+    this.status = status;
+    this.payload = payload;
+  }
 }
 
 export { RequestError };

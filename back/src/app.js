@@ -5,6 +5,8 @@ import dotenv from "dotenv";
 import path from "path"; // 파일 경로 모듈
 import { logger } from "./utils/winstonLogger.js";
 import { commentRouter } from "./routers/commentRouter.js";
+import { errorMiddleware } from "./middlewares/errorMiddleware.js";
+
 // 환경 변수 설정을 위한 dotenv 적용
 const __dirname = path.resolve();
 dotenv.config({ path: path.join(__dirname, "../.env") });
@@ -20,6 +22,9 @@ app.use(
 ); // morgan 로그 설정
 
 app.use(commentRouter);
+
+app.use(morgan("dev", { stream: logger.stream })); // morgan 로그 설정
+app.use(errorMiddleware);
 
 // 기본 페이지
 // app.get("/", (req, res, next) => {
