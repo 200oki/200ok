@@ -1,4 +1,5 @@
-import { Schema, model } from "mongoose";
+const Schema = mongoose.Schema;
+const model = mongoose.model;
 
 /** Schema representing ranking.
  *
