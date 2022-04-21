@@ -25,7 +25,9 @@ const StyledItem = ({type, content, className, ...children}) => {
             )
             :
             (
-                <Typography className={`${classes.whiteItem} ${className} `}/>
+                <Typography className={`${classes.whiteItem} ${className} `} >
+                    {content}
+                </Typography>
             )
 
     )
