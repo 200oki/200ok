@@ -1,6 +1,7 @@
-import { Schema, model } from "mongoose";
+const Schema = mongoose.Schema;
+const model = mongoose.model;
 
-/** Schema representing an ranking.
+/** Schema representing ranking.
  *
  * @field {uuid} id
  * @field {String} nickname

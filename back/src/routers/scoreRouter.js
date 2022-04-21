@@ -6,7 +6,7 @@ const ScoreRouter = Router();
 
 /*** Score will be added to db ***/
 ScoreRouter.post(
-  "/score/create",
+  "/scores",
   async function (req, res, next) {
   try {
     if (is.emptyObject(req.body)) {
@@ -36,7 +36,7 @@ ScoreRouter.post(
 
 /*** Get current user's rank and score ***/
 ScoreRouter.get(
-  "/score/:id",
+  "/scores/:id",
   async function (req, res, next) {
     try {
       const id = req.params.id;
