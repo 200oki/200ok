@@ -7,7 +7,7 @@ class ScoreService {
     const newScore = { 
       id, 
       nickname, 
-      score 
+      score,
     };
     const createdScore = await Score.create({ newScore });
     return createdScore;
@@ -18,9 +18,9 @@ class ScoreService {
     return userRank;
   }
 
-  static async getRanklist() {
-    const topRanklist = await Score.findTopRank();
-    return topRanklist;
+  static async getRankList() {
+    const topRankList = await Score.findTopRank();
+    return topRankList;
   }
 }
 

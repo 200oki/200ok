@@ -8,48 +8,33 @@ const scoreRouter = Router();
 scoreRouter.post(
   "/scores",
   async function (req, res, next) {
-  try {
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        "필수 파라미터가 존재하지 않습니다."
-      );
-    }
-
     const nickname = req.body.nickname;
     const score = req.body.score;
-
     const newScore = await ScoreService.addScore({
       nickname,
       score,
     });
+    const body = {
+      success: true,
+      user: newScore
+    };
 
-    if (newScore.errorMessage) {
-      throw new Error(newScore.errorMessage);
-    }
-
-      res.status(201).json(newScore);
-    } catch (err) {
-      next(err);
-    }
-  } 
+    return res.status(201).json(body);
+  }
 );
 
 /*** Get current user's rank and score ***/
 scoreRouter.get(
   "/scores/:id",
   async function (req, res, next) {
-    try {
-      const id = req.params.id;
-      const userRank = await ScoreService.getUserRank({ id });
+    const id = req.params.id;
+    const userRank = await ScoreService.getUserRank({ id });
+    const body = {
+      success: true,
+      user: userRank,
+    };
   
-      if (userRank.errorMessage) {
-        throw new Error(userRank.errorMessage);
-      }
-  
-      res.status(200).send(userRank);
-    } catch (err) {
-      next(err);
-    }
+    return res.status(200).json(body);
   }
 );
     
@@ -57,17 +42,13 @@ scoreRouter.get(
 scoreRouter.get(
   "/scorelist",
   async function (req, res, next) {
-    try {
-      const rankList = await ScoreService.getRanklist();
-  
-      if (rankList.errorMessage) {
-        throw new Error(rankList.errorMessage);
-      }
-  
-      res.status(200).send(rankList);
-    } catch (err) {
-      next(err);
-    }
+    const rankList = await ScoreService.getRankList();
+    const body = {
+      success: true,
+      user: rankList,
+    };
+    
+    return res.status(200).json(body);
   }
 );
 
