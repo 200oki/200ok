@@ -1,22 +1,35 @@
 import mongoose from "mongoose";
-import crypto from "crypto";
-
 const Schema = mongoose.Schema;
 const model = mongoose.model;
 
-const CommentSchema = new Schema({
-  id: {
-    type: String,
-    unique: true,
+const CommentSchema = new Schema(
+  {
+    id: {
+      type: String,
+      unique: true,
+    },
+    villager: {
+      type: String,
+    },
+    location: {
+      type: String,
+    },
+    nickname: {
+      type: String,
+      required: true,
+    },
+    comment: {
+      type: String,
+      required: true,
+    },
   },
-  villager: {
-    type: String,
-    unique: true,
-  },
-  comment: {
-    type: [String],
-  },
-});
+  {
+    timestamps: true,
+  }
+);
+
+// 닉네임 중복 허용
+// Date 넣어주기
 
 const CommentModel = model("Comment", CommentSchema);
 

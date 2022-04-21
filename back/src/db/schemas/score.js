@@ -6,7 +6,7 @@ import { Schema, model } from "mongoose";
  * @field {String} nickname
  * @field {Number} score
  * @field {Number} rank
- * 
+ *
  **/
 const ScoreSchema = new Schema(
   {
@@ -29,7 +29,7 @@ const ScoreSchema = new Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 const ScoreModel = model("Score", ScoreSchema);
