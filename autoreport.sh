@@ -60,7 +60,7 @@ fi
 
 readarray -t hashes < <(
     git --no-pager log \
-        --branches
+        --branches \
         --date='relative' \
         --after="${args[2]} hours ago" \
         --committer="${args[1]}" \
