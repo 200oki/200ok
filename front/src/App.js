@@ -4,7 +4,7 @@ import styled from "./css/App.module.css";
 function App() {
   return (
     <div className={styled.App}>
-      <InputNickname />
+      {/* <InputNickname /> */}
     </div>
   );
 }
