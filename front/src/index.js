@@ -1,12 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import "./css/index.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import { NicknameProvider } from "./context/NicknameContext";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <NicknameProvider>
+      <App />
+    </NicknameProvider>
   </React.StrictMode>
 );
 

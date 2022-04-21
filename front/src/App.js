@@ -1,3 +1,6 @@
+import InputNickname from "./components/match/InputNickname";
+import styled from "./css/App.module.css";
+
 import './css/main.css'
 import React from 'react'
 import {useEffect, useState, useRef} from "react";
@@ -16,13 +19,14 @@ function App() {
     }, [])
 
   return (
-      <React.Fragment>
-          <React.Fragment>
-              <img className={effect} src='../public/images/main_logo_rm.png' alt={'animal Crossing'}/>
-              <StyledItem type='button' className={`${classes.startBtn} ${effect}`} content='시작하기' />
-              <Player className={classes.audio} src={mainAudio} autoPlay controls loop volume={0.3} controlsList={'nodownload'} ref={ref}/>
-          </React.Fragment>
-      </React.Fragment>
+    <div className={styled.App}>
+      {/* <InputNickname /> */}
+        <img className={effect} src='../public/images/main_logo_rm.png' alt={'animal Crossing'}/>
+        <StyledItem type='button' className={`${classes.startBtn} ${effect}`} content='시작하기' />
+        <Player className={classes.audio} src={mainAudio} autoPlay controls loop volume={0.3} controlsList={'nodownload'} ref={ref}/>
+    </div>
+
+
   );
 }
 
