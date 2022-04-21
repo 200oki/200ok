@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-/** Schema representing an ranking.
+/** Schema representing ranking.
  *
  * @field {uuid} id
  * @field {String} nickname
