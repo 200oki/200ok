@@ -1,5 +1,7 @@
+import React, {useState} from "react";
 import {useStyles} from "../utils/useStyles";
 import {Typography} from "@mui/material";
+import {ErrorDialog} from "../utils/errorDialog";
 
 /**
  *
@@ -13,22 +15,37 @@ import {Typography} from "@mui/material";
  * @returns {JSX.Element}
  * @constructor
  */
-const StyledItem = ({type, content, className, ...children}) => {
+const StyledItem = ({type, content, className, ...other}) => {
+    const [open, setOpen] = useState(false)
     const classes = useStyles()
+    const handleOnClick = other.onClick ? other.onClick : undefined
 
+    const handleOpen = () => {
+        console.log(open)
+        setOpen(v=> !v)
+    }
     return(
-        type === 'button' ?
-            (
-                <button className={`${classes.ivoryItem} ${className}`}>
-                    {content}
-                </button>
-            )
-            :
-            (
-                <Typography className={`${classes.whiteItem} ${className} `} >
-                    {content}
-                </Typography>
-            )
+        <React.Fragment>
+            {
+                type === 'button' ?
+                (
+                    <React.Fragment>
+                        <button className={`${classes.ivoryItem} ${className}`}
+                                onClick={handleOnClick !== undefined ? handleOnClick : handleOpen}>
+                            {content}
+                        </button>
+                    </React.Fragment>
+
+                )
+                :
+                (
+                    <Typography className={`${classes.whiteItem} ${className} `} onClick={handleOnClick}>
+                        {content}
+                    </Typography>
+                )}
+
+            <ErrorDialog open={open} handleClose={handleOpen}/>
+        </React.Fragment>
 
     )
 }

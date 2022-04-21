@@ -42,4 +42,7 @@ export const useStyles = makeStyles({
         margin: 'auto !important',
         marginTop: '180px !important'
     },
+    audio: {
+        
+    }
 })
