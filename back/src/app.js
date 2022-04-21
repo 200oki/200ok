@@ -15,7 +15,9 @@ app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(morgan("dev", { stream: logger.stream })); // morgan 로그 설정
+app.use(
+  morgan(":method :status :url :response-time ms", { stream: logger.stream })
+); // morgan 로그 설정
 
 app.use(commentRouter);
 
