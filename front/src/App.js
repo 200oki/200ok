@@ -1,7 +1,10 @@
+import InputNickname from "./components/match/InputNickname";
+import styled from "./css/App.module.css";
+
 function App() {
   return (
-    <div className="App">
-      시작
+    <div className={styled.App}>
+      <InputNickname />
     </div>
   );
 }
