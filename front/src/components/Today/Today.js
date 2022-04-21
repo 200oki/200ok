@@ -17,13 +17,13 @@ function Today({ today }) {
     //   const { data } = res;
     //   setTC(data);
     // });
-    const data = [
+    const testdata = [
       {KoreanName:"잭슨"},
       {KoreanName:"미야용"},
       {KoreanName:"사랑이"},
       {KoreanName:"지운"}
     ]
-    setTC(data);
+    setTC(testdata);
   }, []);
 
   return (

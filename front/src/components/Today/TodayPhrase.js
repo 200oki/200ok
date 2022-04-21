@@ -21,7 +21,9 @@ function TodayPhrase({ date, todayCharacter }) {
     const Date = date[2] === '0' ? date.substr(3, 1) : date.substr(2, 2)
     const DatePhrase = `오늘은 ${Month}월 ${Date}일!`
     const Heros = todayCharacter.length === 1 ? todayCharacter.KoreanName : todayCharacter.map((hero)=> checkString(hero.KoreanName)).join(' ').slice(0, -1);
-    const HeroPhrase = `귀여운 ${Heros}의 생일이에요!`
+    const rhetoric = ['귀여운', '사랑스러운', '예쁜', '깜찍한', '앙증맞은']
+    const adjective = rhetoric[Math.floor(Math.random() * rhetoric.length)];
+    const HeroPhrase = `${adjective} ${Heros}의 생일이에요!`
     
 
     return (
