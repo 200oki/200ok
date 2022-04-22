@@ -26,6 +26,13 @@ app.use(commentRouter);
 app.use(morgan("dev", { stream: logger.stream })); // morgan 로그 설정
 app.use(errorMiddleware);
 
+// .env를 검사합니다.
+["SERVER_PORT", "MONGODB_URL", "JWT_SECRET_KEY", "NODE_ENV"].forEach((k) => {
+  if (!(k in process.env)) {
+    throw new Error(`OUR STUPID ADMIN FORGOT TO ADD "${k}" IN THE ENV`);
+  }
+});
+
 // 기본 페이지
 // app.get("/", (req, res, next) => {
 //   // logger.info("test");
