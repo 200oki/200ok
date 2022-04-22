@@ -1,4 +1,5 @@
 import { Character } from "../db";
+import * as status from "../utils/status";
 
 /**
  * @typedef {{
@@ -18,7 +19,17 @@ class CharacterService {
    * @arg {{string}} id - 캐릭터 `id`는 영문 이름의 소문자/공백제거/아스키 버전입니다.
    * @return {{any}|errorinfo} character
    */
-  static async get({ id }) {}
+  static async get({ id }) {
+    const character = Character.get({ id });
+    if (character) {
+      return character;
+    } else {
+      return {
+        errorMessage: `character record ${id} not found`,
+        statusCode: status.STATUS_404_NOTFOUND,
+      };
+    }
+  }
 
   /** 생일이 일치하는 캐릭터들의 객체를 반환합니다.
    *
