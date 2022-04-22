@@ -15,7 +15,7 @@ const charactersMock = [
     gender_asia: "Male",
     personality: "Cranky",
     personality_subtype: "A",
-    hobby: "nature",
+    hobby: "Nature",
     birthday: "01-27",
     birthday_month: 1,
     birthday_day: 27,
