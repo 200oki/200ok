@@ -61,16 +61,24 @@ function MatchResult() {
     }
   };
 
-  const goToBottom = (e) => {
+  const goToPosition = (e) => {
     e.preventDefault();
 
     const pageHeight = window.innerHeight;
 
-    outerDivRef.current.scrollTo({
-      top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
-      left: 0,
-      behavior: "smooth",
-    });
+    if (e.target.innerText === "랭킹") {
+      outerDivRef.current.scrollTo({
+        top: pageHeight + DIVIDER_HEIGHT,
+        left: 0,
+        behavior: "smooth",
+      });
+    } else {
+      outerDivRef.current.scrollTo({
+        top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
+        left: 0,
+        behavior: "smooth",
+      });
+    }
   };
 
   useEffect(() => {
@@ -97,7 +105,8 @@ function MatchResult() {
         <div className={styled.btnsWrapper}>
           <button>공유하기</button>
           <button>다시하기</button>
-          <button onClick={(e) => goToBottom(e)}>반응 남기기</button>
+          <button onClick={(e) => goToPosition(e)}>랭킹</button>
+          <button onClick={(e) => goToPosition(e)}>반응 남기기</button>
         </div>
       </div>
       <div className={styled.divider}></div>
