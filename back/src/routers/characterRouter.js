@@ -6,7 +6,7 @@ import { RequestError } from "../utils/errors.js";
 
 const router = Router();
 
-/** query: birthday=mm-dd&fields=name_ko,name_en */
+/** query: birthday=mm-dd[ &fields=name_ko,name_en ] */
 router.get("/characters", async (req, res, next) => {
   try {
     let found;
