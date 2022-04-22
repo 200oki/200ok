@@ -48,13 +48,13 @@ class Character {
     return characterNames;
   }
 
-  /** 캐릭터 `n`명을 무작위로 골라 반환합니다.
+  /** 캐릭터 `n`명을 무작위로 골라 객체로 반환합니다.
    *
    * @arg {{number}} n - 골라낼 샘플의 크기입니다.
-   * @return {{any}[]} characters
+   * @return {{any}} characters
    */
   static async sample({ n }) {
-    const found = _(characters).chain().pairs().sample(n).value();
+    const found = _(characters).chain().pairs().sample(n).object().value();
     return found;
   }
 
