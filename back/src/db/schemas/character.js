@@ -1,7 +1,7 @@
 // import * as characters from "./characters.json";
 
-const charactersMock = [
-  {
+const charactersMock = {
+  admiral: {
     id: "admiral",
     special: false,
     name_en: "Admiral",
@@ -25,7 +25,7 @@ const charactersMock = [
     styles: ["Cool"],
     colors: ["Black", "Blue"],
   },
-  {
+  cyrus: {
     id: "cyrus",
     special: true,
     name_en: "Cyrus",
@@ -38,7 +38,7 @@ const charactersMock = [
     birthday_month: 1,
     birthday_day: 26,
   },
-];
+};
 
 const characterNamesMock = {
   admiral: "일섭",
