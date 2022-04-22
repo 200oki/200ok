@@ -1,3 +1,5 @@
+import _ from "underscore";
+
 import { characters, characterNames } from "../schemas/character";
 
 /** 캐릭터 데이터의 모델 인터페이스입니다.
@@ -34,11 +36,7 @@ class Character {
    * - 생일이 같은 캐릭터가 여러 명일 수도 있고, 없을 수도 있습니다.
    */
   static async getByBirthday({ birthday }) {
-    const found = Object.fromEntries(
-      Object.entries(characters).filter(([k, v]) => {
-        return v.birthday === birthday;
-      })
-    );
+    const found = _(characters).filter((v, k) => v.birthday === birthday);
     return found;
   }
 
@@ -55,7 +53,10 @@ class Character {
    * @arg {{number}} n - 골라낼 샘플의 크기입니다.
    * @return {{any}[]} characters
    */
-  static async sample({ n }) {}
+  static async sample({ n }) {
+    const found = _(characters).chain().pairs().sample(n).value();
+    return found;
+  }
 
   // static async search({ keywords = [] }) {}
 
