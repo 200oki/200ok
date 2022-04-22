@@ -18,9 +18,12 @@ import * as status from "../utils/status.js";
 class CharacterService {
   /** 캐릭터 한명을 골라 반환합니다. 찾는 `id`가 없으면 404 에러입니다.
    *
-   * @arg {{id: string, fields: string[]}} payload
-   * @arg {string} payload.id - `id`는 영문 이름의 소문자/공백제거/아스키 버전입니다.
-   * @arg {string[]} payload.fields - 포함하고 싶은 필드 목록입니다.
+   * @arg {{id: string, fields: string[]}} payload -
+   * ```js
+   * { id: string, fields: string[] = []}
+   * ```
+   * - `id`는 영문 이름의 소문자/공백제거/아스키 버전입니다.
+   * - `fields`는 포함하고 싶은 필드 목록입니다.
    * - 빈 배열이면 모든 필드를 포함합니다.
    * @return {{any}|errorinfo} character
    */
@@ -42,13 +45,27 @@ class CharacterService {
 
   /** 생일이 일치하는 캐릭터들의 객체를 반환합니다.
    *
-   * @arg {{string}} birthday - `MM-DD` 포맷 날짜입니다.
+   * @arg {{birthday: string, fields: string[]}} payload -
+   * ```js
+   * { birthday: string, fields: string[] = []}
+   * ```
+   * - `birthday`는 `MM-DD` 포맷 날짜입니다.
+   * - `fields`는 포함하고 싶은 필드 목록입니다. 빈 배열이면 모든 필드를 포함합니다.
    * @return {{any}} characters - 캐릭터들의 객체입니다.
    * - 생일이 같은 캐릭터가 여러 명일 수도 있고, 없을 수도 있습니다.
    */
-  static async getByBirthday({ birthday }) {
+  static async getByBirthday({ birthday, fields = [] }) {
     const found = await Character.getByBirthday({ birthday });
-    return found;
+    if (fields.length) {
+      return _(found)
+        .chain()
+        .pairs()
+        .map(([k, v]) => [k, _(v).pick(fields)])
+        .object()
+        .value();
+    } else {
+      return found;
+    }
   }
 
   /** 전체 캐릭터를 `{ id: name_ko }` 형식으로 반환합니다.
