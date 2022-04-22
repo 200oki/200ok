@@ -4,6 +4,7 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import path from "path"; // 파일 경로 모듈
 import { logger } from "./utils/winstonLogger.js";
+import { characterRouter } from "./routers/characterRouter.js";
 import { commentRouter } from "./routers/commentRouter.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 
@@ -21,6 +22,7 @@ app.use(
   morgan(":method :status :url :response-time ms", { stream: logger.stream })
 ); // morgan 로그 설정
 
+app.use(characterRouter);
 app.use(commentRouter);
 
 app.use(morgan("dev", { stream: logger.stream })); // morgan 로그 설정
