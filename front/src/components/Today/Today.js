@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import TodayCharacterImg from "./TodayCharacterImg"
 import CelebrationBtn from "./CelebrationBtn"
 // import TodayComment from "./TodayComment"
+import CelebrationComments from "./CelebrationComments"
 import TodayPhrase from "./TodayPhrase";
 import "../../css/today.css"
 // import * as Api from "../../api";
@@ -41,7 +42,7 @@ function Today({ today }) {
         todayCharacter={todayCharacter}
       />
       <CelebrationBtn />
-      {/* <TodayComment /> */}
+      <CelebrationComments />
     </div>
   );
 }
