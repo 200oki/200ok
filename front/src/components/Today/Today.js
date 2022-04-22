@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-// import TodayCharacter from "./TodayCharacter"
-// import CelebrationBtn from "./CelebrationBtn"
+import TodayCharacterImg from "./TodayCharacterImg"
+import CelebrationBtn from "./CelebrationBtn"
 // import TodayComment from "./TodayComment"
 import TodayPhrase from "./TodayPhrase";
 import "../../css/today.css"
@@ -18,10 +18,10 @@ function Today({ today }) {
     //   setTC(data);
     // });
     const testdata = [
-      {KoreanName:"잭슨"},
-      {KoreanName:"미야용"},
-      {KoreanName:"사랑이"},
-      {KoreanName:"지운"}
+      {name_ko:"쭈니", image_photo:"https://acnhcdn.com/latest/NpcBromide/NpcNmlSqu17.png"},
+      {name_ko:"잭슨", image_photo:"https://acnhcdn.com/latest/NpcBromide/NpcNmlCat23.png"},
+      {name_ko:"시베리아", image_photo:"https://acnhcdn.com/latest/NpcBromide/NpcNmlWol06.png"},
+      {name_ko:"미애", image_photo:"https://acnhcdn.com/latest/NpcBromide/NpcNmlCbr19.png"}
     ]
     setTC(testdata);
   }, []);
@@ -37,7 +37,10 @@ function Today({ today }) {
         date={dateParam} 
         todayCharacter={todayCharacter}
       />
-      {/* <CelebrationBtn /> */}
+      <TodayCharacterImg
+        todayCharacter={todayCharacter}
+      />
+      <CelebrationBtn />
       {/* <TodayComment /> */}
     </div>
   );
