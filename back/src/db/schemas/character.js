@@ -40,6 +40,6 @@ const mock = [
   },
 ];
 
-const characters = mock;
+const characters = Object.freeze(mock);
 
 export { characters };
