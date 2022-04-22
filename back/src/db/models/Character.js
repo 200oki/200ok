@@ -33,7 +33,9 @@ class Character {
    *
    * @return {{any}} characterNames
    */
-  static async list() {}
+  static async list() {
+    return characterNames;
+  }
 
   /** 캐릭터 `n`명을 무작위로 골라 반환합니다.
    *
