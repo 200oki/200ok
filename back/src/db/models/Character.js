@@ -36,7 +36,8 @@ class Character {
    * - 생일이 같은 캐릭터가 여러 명일 수도 있고, 없을 수도 있습니다.
    */
   static async getByBirthday({ birthday }) {
-    const found = _(characters).filter((v, k) => v.birthday === birthday);
+    const found = _(characters).pick((v, k) => v.birthday === birthday);
+    console.log(found);
     return found;
   }
 
