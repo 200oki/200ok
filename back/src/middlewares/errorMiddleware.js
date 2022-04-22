@@ -1,4 +1,4 @@
-import { logger } from "../utils/winstonLogger";
+import { logger } from "../utils/winstonLogger.js";
 import { RequestError } from "../utils/errors.js";
 import * as status from "../utils/status.js";
 
