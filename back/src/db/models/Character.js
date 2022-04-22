@@ -23,7 +23,7 @@ class Character {
    */
   static async get({ id }) {
     if (id in characters) {
-      return characters;
+      return characters[id];
     } else {
       return null;
     }
