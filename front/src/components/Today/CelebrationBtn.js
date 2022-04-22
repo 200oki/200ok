@@ -1,10 +1,11 @@
 // import { useState, useEffect, useCallback } from "react";
 // import * as Api from "../../api";
+// import "../StyledItem"
 
 function TodayCharacterImg({ todayCharacter }) {
     const celebrationHandler = (e) => {
         e.preventDefault();
-        // 이 부분에는 클릭 시에 축하효과(꽃가루나 폭죽 등)가 화면에 표시되게 할 예정
+        
     }
 
     const countComments = () => {

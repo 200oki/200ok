@@ -41,8 +41,11 @@ function Today({ today }) {
       <TodayCharacterImg
         todayCharacter={todayCharacter}
       />
-      <CelebrationBtn />
-      <CelebrationComments />
+      <CelebrationBtn/>
+      <CelebrationComments 
+        date={dateParam} 
+        todayCharacter={todayCharacter}
+      />
     </div>
   );
 }
