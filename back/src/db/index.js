@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { Character } from "./models/Character.js";
 import { Comment } from "./models/Comment.js";
 
 dotenv.config();
@@ -18,4 +19,4 @@ db.on("error", (error) =>
   console.error("MongoDB 연결에 실패하였습니다...\n" + DB_URL + "\n" + error)
 );
 
-export { Comment };
+export { Character, Comment };
