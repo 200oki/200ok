@@ -1,8 +1,8 @@
 import { Router } from "express";
 
-import { CharacterService } from "../services/characterService";
-import * as status from "../utils/status";
-import { RequestError } from "../utils/errors";
+import { CharacterService } from "../services/characterService.js";
+import * as status from "../utils/status.js";
+import { RequestError } from "../utils/errors.js";
 
 const router = Router();
 

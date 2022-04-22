@@ -1,6 +1,6 @@
 import _ from "underscore";
 
-import { characters, characterNames } from "../schemas/character";
+import { characters, characterNames } from "../schemas/character.js";
 
 /** 캐릭터 데이터의 모델 인터페이스입니다.
  *
@@ -23,7 +23,7 @@ class Character {
    */
   static async get({ id }) {
     if (id in characters) {
-      return characters.id;
+      return characters;
     } else {
       return null;
     }

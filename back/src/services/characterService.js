@@ -1,5 +1,5 @@
-import { Character } from "../db";
-import * as status from "../utils/status";
+import { Character } from "../db/index.js";
+import * as status from "../utils/status.js";
 
 /**
  * @typedef {{
@@ -25,7 +25,7 @@ class CharacterService {
       return character;
     } else {
       return {
-        errorMessage: `character record ${{ id }} not found`,
+        errorMessage: `character record {${id}} not found`,
         statusCode: status.STATUS_404_NOTFOUND,
       };
     }
