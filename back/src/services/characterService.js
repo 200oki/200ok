@@ -20,7 +20,7 @@ class CharacterService {
    * @return {{any}|errorinfo} character
    */
   static async get({ id }) {
-    const character = Character.get({ id });
+    const character = await Character.get({ id });
     if (character) {
       return character;
     } else {
