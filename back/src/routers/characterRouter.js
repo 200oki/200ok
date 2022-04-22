@@ -26,20 +26,13 @@ router.get("/characters", async (req, res, next) => {
   }
 });
 
-/** query: fields=["name_ko", "birthday"] */
+/** query: fields=name_ko,name_en */
 router.get("/characters/:id", async (req, res, next) => {
   try {
     // 쿼리에 원하는 필드값을 넣을 수 있습니다.
     let fields = [];
     if (req.query.fields) {
-      try {
-        fields = JSON.parse(fields);
-      } catch (error) {
-        throw new RequestError("Invalid JSON format");
-      }
-      if (!Array.isArray(fields)) {
-        throw new RequestError("Invalid query format");
-      }
+      fields = req.query.fields.split(",");
     }
 
     let found = await CharacterService.get({ id: req.params.id, fields });
