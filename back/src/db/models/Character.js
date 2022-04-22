@@ -37,7 +37,6 @@ class Character {
    */
   static async getByBirthday({ birthday }) {
     const found = _(characters).pick((v, k) => v.birthday === birthday);
-    console.log(found);
     return found;
   }
 
