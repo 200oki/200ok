@@ -19,7 +19,13 @@ class Character {
    * @arg {{string}} id - 캐릭터 `id`는 영문 이름의 소문자/공백제거/아스키 버전입니다.
    * @return {{any}?} character
    */
-  static async get({ id }) {}
+  static async get({ id }) {
+    if (id in characters) {
+      return characters.id;
+    } else {
+      return null;
+    }
+  }
 
   /** 생일이 일치하는 캐릭터의 배열을 반환합니다.
    *
