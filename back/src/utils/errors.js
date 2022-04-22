@@ -9,7 +9,7 @@ import { STATUS_400_BADREQUEST } from "./status.js";
  * ```js
  *  {
  *      status: number = 400,
- *      payload: any = { result: false }
+ *      payload: any = { success: false }
  *  }, ...params
  * ```
  *  - `status`: This is sent to errorMiddleware and then sent to the browser.
@@ -18,7 +18,7 @@ import { STATUS_400_BADREQUEST } from "./status.js";
  */
 class RequestError extends Error {
   constructor(
-    { status = STATUS_400_BADREQUEST, payload = { result: false } },
+    { status = STATUS_400_BADREQUEST, payload = { success: false } },
     ...params
   ) {
     super(...params);
