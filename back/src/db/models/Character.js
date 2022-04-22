@@ -1,12 +1,5 @@
 import { characters, characterNames } from "../schemas/character";
 
-/**
- * @typedef {{
- *  errorMessage: string,
- *  statusCode: number
- * }} errorinfo
- */
-
 /** 캐릭터 데이터의 모델 인터페이스입니다.
  *
  * 캐릭터 데이터는 실제로는 db에 없고, 읽기 전용입니다.
@@ -34,7 +27,7 @@ class Character {
    * @return {{any}[]} characters - 캐릭터의 배열입니다.
    * - 생일이 같은 캐릭터가 여러 명일 수도 있고, 없을 수도 있습니다.
    */
-  static async getByBirthday({ id }) {}
+  static async getByBirthday({ birthday }) {}
 
   /** 전체 캐릭터를 `{ id: name_ko }` 형식으로 반환합니다.
    *
