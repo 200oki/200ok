@@ -1,6 +1,6 @@
 // import * as characters from "./characters.json";
 
-const mock = [
+const charactersMock = [
   {
     id: "admiral",
     special: false,
@@ -40,6 +40,12 @@ const mock = [
   },
 ];
 
-const characters = Object.freeze(mock);
+const characterNamesMock = {
+  admiral: "일섭",
+  cyrus: "리포",
+};
 
-export { characters };
+const characters = Object.freeze(charactersMock);
+const characterNames = Object.freeze(characterNamesMock);
+
+export { characters, characterNames };
