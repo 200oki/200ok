@@ -18,12 +18,12 @@
         {
             "date": 1650555529048,
             "name": "logs\\warn\\2022-04-22.warn.log",
-            "hash": "8ee903b341644723ca6e4a3235698327"
+            "hash": "535cf2bdd43db87e0c3235bff35f23ce"
         },
         {
-            "date": 1650642354095,
+            "date": 1650645030240,
             "name": "logs\\warn\\2022-04-23.warn.log",
-            "hash": "ceee03446254bb324659cc09638a34a5"
+            "hash": "885e2d7cbe96b0cc926f2442ced002f2"
         }
     ],
     "hashType": "md5"
