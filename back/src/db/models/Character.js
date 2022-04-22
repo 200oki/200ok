@@ -27,13 +27,20 @@ class Character {
     }
   }
 
-  /** 생일이 일치하는 캐릭터의 배열을 반환합니다.
+  /** 생일이 일치하는 캐릭터들의 객체를 반환합니다.
    *
    * @arg {{string}} birthday - `MM-DD` 포맷 날짜입니다.
-   * @return {{any}[]} characters - 캐릭터의 배열입니다.
+   * @return {{any}} characters - 캐릭터가 여러 명 포함된 객체입니다.
    * - 생일이 같은 캐릭터가 여러 명일 수도 있고, 없을 수도 있습니다.
    */
-  static async getByBirthday({ birthday }) {}
+  static async getByBirthday({ birthday }) {
+    const found = Object.fromEntries(
+      Object.entries(characters).filter(([k, v]) => {
+        return v.birthday === birthday;
+      })
+    );
+    return found;
+  }
 
   /** 전체 캐릭터를 `{ id: name_ko }` 형식으로 반환합니다.
    *
