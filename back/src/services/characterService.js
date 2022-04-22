@@ -43,7 +43,10 @@ class CharacterService {
    *
    * @return {{any}} characterNames
    */
-  static async list() {}
+  static async list() {
+    const characters = await Character.list();
+    return characters;
+  }
 }
 
 export { CharacterService };
