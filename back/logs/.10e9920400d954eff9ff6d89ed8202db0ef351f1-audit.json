@@ -9,6 +9,28 @@
             "date": 1650696512675,
             "name": "logs\\2022-04-23.log",
             "hash": "bbdaad281165240abdb1d5afcf5a551c"
+        },
+        {
+            "date": 1650517318588,
+            "name": "logs\\2022-04-21.log",
+            "hash": "cd8935833b303d46ef274c8964df669f"
+        },
+        {
+            "date": 1650555529044,
+            "name": "logs\\2022-04-22.log",
+            "hash": "797c90dfd58a05ed9d2618dd1acda3be"
+        },
+        {
+            "date": 1650645030238,
+            "name": "logs\\2022-04-23.log",
+            "hash": "797c90dfd58a05ed9d2618dd1acda3be"
+        },
+        {
+            "date": 1650645030238,
+            "name": "logs\\2022-04-23.log",
+            "hash": "e27ac77a1426ea6bf64b90c3d78520e9"
+
+>>>>>>> score-back
         }
     ],
     "hashType": "md5"

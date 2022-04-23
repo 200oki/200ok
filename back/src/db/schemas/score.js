@@ -1,12 +1,13 @@
-import { Schema, model } from "mongoose";
+import mongoose from "mongoose";
 
-/** Schema representing an ranking.
+const Schema = mongoose.Schema;
+const model = mongoose.model;
+
+/** Schema representing ranking.
  *
  * @field {uuid} id
  * @field {String} nickname
  * @field {Number} score
- * @field {Number} rank
- *
  **/
 const ScoreSchema = new Schema(
   {
@@ -19,10 +20,6 @@ const ScoreSchema = new Schema(
       required: true,
     },
     score: {
-      type: Number,
-      required: true,
-    },
-    rank: {
       type: Number,
       required: true,
     },
