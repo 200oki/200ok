@@ -1,12 +1,13 @@
 import styled from "./css/App.module.css";
 import "./css/main.css";
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useStyles } from "./utils/useStyles";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from "./components/Main";
 import InputNickname from "./components/match/InputNickname";
 import Explore from "./components/explore/Explore";
 import Quiz from "./components/quiz/Quiz";
+import MatchResult from "./components/match/MatchResult";
 
 function App() {
   const today = new Date();
@@ -21,6 +22,7 @@ function App() {
           <Route path="/explore" element={<Explore />} />
           <Route path="/match" element={<InputNickname />} />
           <Route path="/quiz" element={<Quiz />} />
+          <Route path="/matchResult" element={<MatchResult />} />
         </Routes>
       </Router>
     </div>
