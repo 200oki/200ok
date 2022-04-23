@@ -1,11 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import TodayCharacterImg from "./TodayCharacterImg"
 import CelebrationBtn from "./CelebrationBtn"
-// import TodayComment from "./TodayComment"
-import CelebrationComments from "./CelebrationComments"
 import TodayPhrase from "./TodayPhrase";
 import "../../css/today.css"
-// import * as Api from "../../api";
+import * as Api from "../../api";
 
 function Today({ today }) {
   const [todayCharacter, setTC] = useState([]);
@@ -15,27 +13,18 @@ function Today({ today }) {
   const date = { month, day };
 
   useEffect(async () => {
-    // const {payload} = await Api.get(`characters?birthday=${dateQuery}`)
-    const payload = [
-      {name_ko:"쭈니", image_photo:"https://acnhcdn.com/latest/NpcBromide/NpcNmlSqu17.png"},
-      {name_ko:"잭슨", image_photo:"https://acnhcdn.com/latest/NpcBromide/NpcNmlCat23.png"},
-      {name_ko:"시베리아", image_photo:"https://acnhcdn.com/latest/NpcBromide/NpcNmlWol06.png"},
-      {name_ko:"미애", image_photo:"https://acnhcdn.com/latest/NpcBromide/NpcNmlCbr19.png"}
-    ]
-    setTC(payload);
+    const {payload} = await Api.get("characters", "", "", `birthday?${dateQuery}`);
+    const data = Object.values(payload)
+    setTC(data);
   }, []);
   
   const villagers = todayCharacter.map((villager) => villager ? villager.name_ko : null)
-  // const comments = []
-  // villagers.map((
-  //   villager ) => {
-  //     Api.get("comments", params = villager, location = "today").then((
-  //       res)=>{
-  //         comments = [...comments , ...res.comments]
-  //       }
-  //     )
-  //   }
-  // )
+  const comments = []
+  comments.push( villagers.map(async ( villager ) => {
+      const { comments } = await Api.get("comments", villager, "today", "")
+      return comments
+    }
+  ))
 
   return (
     <div style={{
