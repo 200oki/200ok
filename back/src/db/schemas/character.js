@@ -40,12 +40,27 @@ const charactersMock = {
   },
 };
 
-const characterNamesMock = {
-  admiral: "일섭",
-  cyrus: "리포",
-};
+/** `id`별 캐릭터 데이터를 담고 있습니다. */
+const characters = charactersMock;
 
-const characters = Object.freeze(charactersMock);
-const characterNames = Object.freeze(characterNamesMock);
+/** `characters`의 다른 얼굴로 빠른 생일 검색을 위해 생일별로 구분된 버전입니다. */
+const charactersByBirthday = {};
+for (const entry of Object.entries(characters)) {
+  const [id, char] = entry;
+  const birthday = char.birthday;
+  if (!(birthday in charactersByBirthday)) {
+    charactersByBirthday[birthday] = {};
+  }
+  charactersByBirthday[birthday][id] = char;
+}
 
-export { characters, characterNames };
+/** 캐릭터 별 `id`와 한국어 이름만을 빠르게 보내주기 위한 작은 컨테이너입니다. */
+const characterNames = Object.fromEntries(
+  Object.entries(characters).map(([k, v]) => [k, v.name_ko])
+);
+// const characterNamesMock = {
+//   admiral: "일섭",
+//   cyrus: "리포",
+// };
+
+export { characters, charactersByBirthday, characterNames };
