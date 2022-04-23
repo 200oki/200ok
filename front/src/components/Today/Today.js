@@ -11,21 +11,31 @@ function Today({ today }) {
   const [todayCharacter, setTC] = useState([]);
   const month = today.getMonth() >= 9 ? String(today.getMonth() + 1) : '0' + String(today.getMonth() + 1);
   const day = today.getDate() >= 10 ? String(today.getDate()) : '0' + String(today.getDate());
-  const dateParam = month + day
+  const dateQuery = month + "-" + day;
+  const date = { month, day };
 
-  useEffect(() => {
-    // Api.get(`characters/${dateParam}`).then((res) => {
-    //   const { data } = res;
-    //   setTC(data);
-    // });
-    const testdata = [
+  useEffect(async () => {
+    // const {payload} = await Api.get(`characters?birthday=${dateQuery}`)
+    const payload = [
       {name_ko:"쭈니", image_photo:"https://acnhcdn.com/latest/NpcBromide/NpcNmlSqu17.png"},
       {name_ko:"잭슨", image_photo:"https://acnhcdn.com/latest/NpcBromide/NpcNmlCat23.png"},
       {name_ko:"시베리아", image_photo:"https://acnhcdn.com/latest/NpcBromide/NpcNmlWol06.png"},
       {name_ko:"미애", image_photo:"https://acnhcdn.com/latest/NpcBromide/NpcNmlCbr19.png"}
     ]
-    setTC(testdata);
+    setTC(payload);
   }, []);
+  
+  const villagers = todayCharacter.map((villager) => villager ? villager.name_ko : null)
+  // const comments = []
+  // villagers.map((
+  //   villager ) => {
+  //     Api.get("comments", params = villager, location = "today").then((
+  //       res)=>{
+  //         comments = [...comments , ...res.comments]
+  //       }
+  //     )
+  //   }
+  // )
 
   return (
     <div style={{
@@ -35,17 +45,24 @@ function Today({ today }) {
       height: "100vh"
     }}>
       <TodayPhrase 
-        date={dateParam} 
-        todayCharacter={todayCharacter}
+        date={date} 
+        villagers={villagers}
       />
-      <TodayCharacterImg
-        todayCharacter={todayCharacter}
-      />
-      <CelebrationBtn/>
-      <CelebrationComments 
-        date={dateParam} 
-        todayCharacter={todayCharacter}
-      />
+      {villagers.length > 0 ?
+        <>
+          <TodayCharacterImg
+            todayCharacter={todayCharacter}
+          />
+          <CelebrationBtn
+            date={date}
+            todayCharacter={todayCharacter}
+          />
+        </>
+        :
+        <div className="phrase">
+          내일 다시 와 줄래요?
+        </div>
+      }
     </div>
   );
 }

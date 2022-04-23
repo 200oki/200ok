@@ -7,25 +7,74 @@ html {
     font-size: 2rem;
     width: 100%;
     margin: 0px;
-}
-.menu {
     display: flex;
     flex-direction: column;
-    width: 100px;
-}
-.menu > button {
-    border: none;
-}
-.menu > button:hover {
-    background-color: white;
-}
-.dropdown:hover {
-    background-color: white;
+    align-items: center;
 }
 .dropdown {
-    width: 100px;
-    border: none;
-    border-right: 1px solid;
+    border: 1.2px #c0dbdd solid;
+    color: black;
+    padding: 10px;
+    font-size: 1.23rem;
+    line-height: 1.2em;
+    border-radius: 25px 0px 0px 25px;
+    text-align: center;
+    cursor: pointer;
+    width: 10rem;
+    height: 100%;
+    box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, .2);
+    background-color: #ffffff;
+    font-family: TmoneyRoundWindExtraBold;
+}
+input.comment {
+    border: 1.2px #c0dbdd solid;
+    color: black;
+    padding: 10px;
+    font-size: 1.23rem;
+    line-height: 1.2em;
+    border-radius: 0px 25px 25px 0px;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, .2);
+    background-color: #ffffff;
+    font-family: TmoneyRoundWindExtraBold;
+}
+div.comment {
+    height: 100%;
+}
+.btn-comment {
+    border: 1.2px #c0dbdd solid;
+    color: black;
+    padding: 10px;
+    font-size: 1.23rem;
+    line-height: 1.2em;
+    border-radius: 25px;
+    text-align: center;
+    cursor: pointer;
+    width: fit-content;
+    height: 45px;
+    box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, .2);
+    background-color: #fff9e4;
+    font-family: TmoneyRoundWindExtraBold;
+}
+.btn-comment:hover {
+    background-color: #cdcdcd;
+}
+.menu > button{
+    border: 1.2px #c0dbdd solid;
+    color: black;
+    padding: 10px;
+    font-size: 1.23rem;
+    line-height: 1.2em;
+    border-radius: 25px;
+    text-align: center;
+    cursor: pointer;
+    width: fit-content;
+    height: 45px;
+    box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, .2);
+    background-color: #fff9e4;
+    font-family: TmoneyRoundWindExtraBold;
 }
 @font-face {
     font-family: 'TmoneyRoundWindExtraBold';

@@ -21,13 +21,14 @@ function CelebrationComments ({ date, todayCharacter }) {
   }
 
   return (
-    <div>
-      <form onSubmit={{/** */}}>
+    <div className="div-comment">
+      <form onSubmit={{/** */}} style={{display: 'flex', flexDirection: 'row', marginTop: '10px'}}>
         <button onClick={showMenu} className="dropdown">
           {menu}
         </button>
-        <input placeholder="축하 메시지를 남겨주세요"></input>
-        <button type="submit">축하해주기</button>
+        <div className="comment"><input className="comment" placeholder="축하 메시지를 남겨주세요"></input></div>
+        <button type="submit" className="btn-comment" style={{backgroundColor:"#A9FCCA", marginLeft: "30px", width: "12rem"}}>축하해주기</button>
+      </form>
         {
           show
             ? (
@@ -43,7 +44,6 @@ function CelebrationComments ({ date, todayCharacter }) {
               null
             )
         }
-      </form>
     </div>
   );
 }

@@ -1,6 +1,3 @@
-// import { useState, useEffect, useCallback } from "react";
-// import * as Api from "../../api";
-
 function checkString(string){
     //string의 마지막 음절의 유니코드(UTF-16) 
     const charCode = string.charCodeAt(string.length - 1);
@@ -16,19 +13,29 @@ function checkString(string){
     return `${string}과`;
 }
 
-function TodayPhrase({ date, todayCharacter }) {
-    const Month = date[0] === '0' ? date.substr(1, 1) : date.substr(0, 2)
-    const Date = date[2] === '0' ? date.substr(3, 1) : date.substr(2, 2)
-    const DatePhrase = `오늘은 ${Month}월 ${Date}일!`
-    const Heros = todayCharacter.length === 1 ? todayCharacter.name_ko : todayCharacter.map((hero)=> checkString(hero.name_ko)).join(' ').slice(0, -1);
-    const rhetoric = ['귀여운', '사랑스러운', '예쁜', '깜찍한', '앙증맞은']
-    const adjective = rhetoric[Math.floor(Math.random() * rhetoric.length)];
-    const HeroPhrase = `${adjective} ${Heros}의 생일이에요!`
+function TodayPhrase({ date, villagers }) {
+    const Month = parseInt(date.month);
+    const Date = parseInt(date.day);
+    const datePhrase = `오늘은 ${Month}월 ${Date}일!`
 
+    if (villagers.length > 0) {
+        const heroes = villagers.length === 1 ? villagers : villagers.map((hero)=> checkString(hero)).join(' ').slice(0, -1);
+        const rhetoric = ['귀여운', '사랑스러운', '예쁜', '깜찍한', '앙증맞은']
+        const adjective = rhetoric[Math.floor(Math.random() * rhetoric.length)];
+        const villagerPhrase = `${adjective} ${heroes}의 생일이에요!`
+
+        return (
+            <div className="phrase">
+                <p>{datePhrase}</p>
+                <p>{villagerPhrase}</p>
+            </div>
+        )
+    }
+    const villagerPhrase = `오늘은 생일인 주민이 없어요 :(`
     return (
-        <div className="phrase" style ={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <p>{DatePhrase}</p>
-            <p>{HeroPhrase}</p>
+        <div className="phrase">
+            <p>{datePhrase}</p>
+            <p>{villagerPhrase}</p>
         </div>
     )
 }
