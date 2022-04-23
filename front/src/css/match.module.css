@@ -17,7 +17,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("../../public/images/leaf_bg.png");
+  background: url("../../public/images/leafBgImg.jpg");
   opacity: 0.4;
   z-index: -1;
 }
@@ -116,7 +116,7 @@
 }
 
 .commentArea {
-  width: 60%;
+  width: 50%;
   height: 65%;
   background-color: white;
   padding: 10px;
@@ -142,21 +142,27 @@
 }
 
 .commentWrapper {
-  font-family: "TmoneyRoundWindExtraBold";
-  height: 300px;
+  font-family: "TmoneyRoundWindRegular";
+  height: fit-content;
+  padding: 10px;
 }
 
 .writer {
+  font-family: "TmoneyRoundWindExtraBold";
+  font-weight: 300;
   font-size: 18px;
   margin-right: 10px;
+  color: #54200c;
 }
 
 .commentDate {
-  color: #a3a3a3;
+  color: #cec6ba;
 }
 
 .commentContent {
   margin-left: 10px;
+  margin-top: 5px;
+  color: #837156;
 }
 
 .btnActive,

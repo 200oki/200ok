@@ -1,0 +1,75 @@
+{
+  "success": true,
+  "comments": [
+    {
+      "nickname": "고구마",
+      "comment": "이건 코멘트 테스트 ~ :)",
+      "createdAt": "2022-04-21T17:45:00.308Z"
+    },
+    {
+      "nickname": "새우깡",
+      "comment": "이건 코멘트 테스트 2~ :)",
+      "createdAt": "2022-04-21T17:46:35.941Z"
+    },
+    {
+      "nickname": "새우깡",
+      "comment": "이건 코멘트 테스트 2~ :)",
+      "createdAt": "2022-04-21T17:51:37.006Z"
+    },
+    {
+      "nickname": "새우깡",
+      "comment": "이건 코멘트 테스트 2~ :)",
+      "createdAt": "2022-04-21T17:51:50.238Z"
+    },
+    {
+      "nickname": "새우깡2",
+      "comment": "이건 코멘트 테스트 2~ :)",
+      "createdAt": "2022-04-21T18:17:05.410Z"
+    },
+    {
+      "nickname": "새우깡2",
+      "comment": "이건 코멘트 테스트 2~ :)",
+      "createdAt": "2022-04-21T18:42:05.972Z"
+    },
+    {
+      "nickname": "새우깡2",
+      "comment": "이건 코멘트 테스트 2~ :)",
+      "createdAt": "2022-04-21T18:42:13.593Z"
+    },
+    {
+      "nickname": "새우깡2",
+      "comment": "이건 코멘트 테스트 2~ :)",
+      "createdAt": "2022-04-22T01:17:04.955Z"
+    },
+    {
+      "nickname": "새우깡2",
+      "comment": "이건 코멘트 테스트 2~ :)",
+      "createdAt": "2022-04-22T07:24:58.185Z"
+    },
+    {
+      "nickname": "닉네임",
+      "comment": "코멘트 마지막 테스트",
+      "createdAt": "2022-04-22T07:28:27.125Z"
+    },
+    {
+      "nickname": "닉네임",
+      "comment": "코멘트 마지막 테스트",
+      "createdAt": "2022-04-22T07:31:38.832Z"
+    },
+    {
+      "nickname": "닉네임",
+      "comment": "코멘트 마지막 테스트",
+      "createdAt": "2022-04-22T07:32:50.902Z"
+    },
+    {
+      "nickname": "닉네임",
+      "comment": "코멘트 마지막 테스트",
+      "createdAt": "2022-04-22T07:33:12.846Z"
+    },
+    {
+      "nickname": "닉네임",
+      "comment": "코멘트 마지막 테스트",
+      "createdAt": "2022-04-22T07:33:46.979Z"
+    }
+  ]
+}
