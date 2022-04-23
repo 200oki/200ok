@@ -1,6 +1,10 @@
 import _ from "underscore";
 
-import { characters, characterNames } from "../schemas/character.js";
+import {
+  characters,
+  charactersByBirthday,
+  characterNames,
+} from "../schemas/character.js";
 
 /** 캐릭터 데이터의 모델 인터페이스입니다.
  *
@@ -36,8 +40,13 @@ class Character {
    * - 생일이 같은 캐릭터가 여러 명일 수도 있고, 없을 수도 있습니다.
    */
   static async getByBirthday({ birthday }) {
-    const found = _(characters).pick((v, k) => v.birthday === birthday);
-    return found;
+    // const found = _(characters).pick((v, k) => v.birthday === birthday);
+    // return found;
+    if (birthday in charactersByBirthday) {
+      return charactersByBirthday[birthday];
+    } else {
+      return {};
+    }
   }
 
   /** 전체 캐릭터를 `{ id: name_ko }` 형식으로 반환합니다.
