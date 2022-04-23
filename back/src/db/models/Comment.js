@@ -1,20 +1,16 @@
 import { CommentModel } from "../schemas/Comment.js";
 
 class Comment {
-  /**
+  /** 댓글을 생성하는 함수
    *
    * @param {Object} newComment - 생성할 주민 댓글 데이터가 담긴 오브젝트
    * @returns {Object}
    */
   static async create(newComment) {
     const createNewComment = await CommentModel.create(newComment);
-    // const createNewComment = await CommentModel.findOneAndUpdate(
-    //   { villager: newComment.villager },
-    //   { $push: { comments: newComment.comment } }
-    // );
     return createNewComment;
   }
-  /**
+  /** 댓글을 검색하는 함수
    *
    * @param {String} villager - 댓글을 검색할 주민 이름
    * @param {String} location - 댓글을 검색할 위치
