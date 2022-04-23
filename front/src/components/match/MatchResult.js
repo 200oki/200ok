@@ -2,12 +2,14 @@ import React, { useContext, useRef, useEffect } from "react";
 import styled from "../../css/match.module.css";
 
 import { NicknameContext } from "../../context/NicknameContext";
+import { style } from "@mui/system";
 
 const DIVIDER_HEIGHT = 5;
 
 function MatchResult() {
   const { nickname } = useContext(NicknameContext);
   const outerDivRef = useRef();
+  const commentDivRef = useRef();
 
   const wheelHandler = (e) => {
     e.preventDefault();
@@ -83,7 +85,12 @@ function MatchResult() {
 
   useEffect(() => {
     const outerDivRefCurrent = outerDivRef.current;
+    const commentDivRefCurrent = commentDivRef.current;
+
+    console.log("현재: ", commentDivRefCurrent);
+
     outerDivRefCurrent.addEventListener("wheel", wheelHandler);
+
     return () => {
       outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
     };
@@ -112,7 +119,28 @@ function MatchResult() {
       <div className={styled.divider}></div>
       <div className={styled.inner}>랭킹 영역</div>
       <div className={styled.divider}></div>
-      <div className={styled.inner}>댓글 영역</div>
+      <div className={styled.inner}>
+        <form className={styled.commentForm}>
+          <div className={styled.commentBack}>
+            <input />
+          </div>
+          <button type="submit" className={styled.commentReg}>
+            등록
+          </button>
+        </form>
+        <div className={styled.commentArea} ref={commentDivRef}>
+          <div className={styled.commentWrapper}>
+            <span className={styled.writer}>nickname</span>
+            <span className={styled.commentDate}>2022-04-23</span>
+            <div className={styled.commentContent}>댓글내용</div>
+          </div>
+          <div className={styled.commentWrapper}>
+            <span className={styled.writer}>nickname</span>
+            <span className={styled.commentDate}>2022-04-23</span>
+            <div className={styled.commentContent}>댓글내용</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

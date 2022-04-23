@@ -38,7 +38,7 @@ function InputNickname() {
             .start();
         }}
       />
-      <form onSubmit={handleSubmit} className={styled.form}>
+      <form onSubmit={handleSubmit} className={styled.inputForm}>
         <div className={styled.inputBack}>
           <input value={nickname} onChange={handleChange} />
         </div>

@@ -44,7 +44,7 @@
   font-family: "TmoneyRoundWindExtraBold";
 }
 
-.form {
+.inputForm {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -52,15 +52,33 @@
   margin: 10px;
 }
 
-.inputBack {
+.commentForm {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 300px;
-  height: 50px;
+  margin: 10px;
+  width: 80%;
+}
+
+.inputBack,
+.commentBack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 10px;
   background-color: white;
+}
+
+.inputBack {
+  width: 300px;
+  height: 50px;
   border-radius: 50px;
+}
+
+.commentBack {
+  width: 700px;
+  height: 50px;
+  border-radius: 10px;
 }
 
 .inputBack > input {
@@ -69,8 +87,76 @@
   border: none;
 }
 
-.inputBack > input:focus {
+.commentBack > input {
+  width: 90%;
+  height: 60%;
+  border: none;
+}
+
+.inputBack > input:focus,
+.commentBack > input:focus {
   outline: none;
+}
+
+.commentReg {
+  background: #0cc6b6;
+  border: none;
+  border-radius: 10px;
+  width: 60px;
+  height: 50px;
+  font-family: "TmoneyRoundWindExtraBold";
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+}
+
+.commentReg:hover {
+  cursor: pointer;
+  background-color: #0bb5a6;
+  transition: all 0.3s ease-in-out;
+}
+
+.commentArea {
+  width: 60%;
+  height: 65%;
+  background-color: white;
+  padding: 10px;
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
+.commentArea::-webkit-scrollbar {
+  width: 21px;
+}
+
+.commentArea::-webkit-scrollbar-track {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.commentArea::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #d1d1d1;
+  background-clip: padding-box;
+  border: 6px solid transparent;
+}
+
+.commentWrapper {
+  font-family: "TmoneyRoundWindExtraBold";
+  height: 300px;
+}
+
+.writer {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.commentDate {
+  color: #a3a3a3;
+}
+
+.commentContent {
+  margin-left: 10px;
 }
 
 .btnActive,
