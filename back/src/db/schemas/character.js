@@ -40,12 +40,27 @@ const charactersMock = {
   },
 };
 
+/** `id`별 캐릭터 데이터를 담고 있습니다. */
+const characters = charactersMock;
+
+/** `characters`의 다른 얼굴로 빠른 생일 검색을 위해 생일별로 구분된 버전입니다. */
+const charactersByBirthday = {};
+for (const entry of Object.entries(characters)) {
+  const [id, char] = entry;
+  const birthday = char.birthday;
+  if (!(birthday in charactersByBirthday)) {
+    charactersByBirthday[birthday] = {};
+  }
+  charactersByBirthday[birthday][id] = char;
+}
+
 const characterNamesMock = {
   admiral: "일섭",
   cyrus: "리포",
 };
 
-const characters = Object.freeze(charactersMock);
-const characterNames = Object.freeze(characterNamesMock);
-
-export { characters, characterNames };
+export {
+  characters,
+  charactersByBirthday,
+  characterNamesMock as characterNames,
+};
