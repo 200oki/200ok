@@ -1,4 +1,6 @@
-import React, { useContext, useRef, useEffect } from "react";
+import React, { useContext, useRef, useEffect, useState } from "react";
+import moment from "moment";
+import "moment/locale/ko";
 import styled from "../../css/match.module.css";
 
 import { NicknameContext } from "../../context/NicknameContext";
@@ -10,6 +12,7 @@ function MatchResult() {
   const { nickname } = useContext(NicknameContext);
   const outerDivRef = useRef();
   const commentDivRef = useRef();
+  const [comment, setComment] = useState([]);
 
   const wheelHandler = (e) => {
     e.preventDefault();
@@ -83,13 +86,21 @@ function MatchResult() {
     }
   };
 
+  const fetchData = async () => {
+    const request = await fetch("commentTest.json");
+    const response = await request.json();
+    setComment(response.comments);
+  };
+
   useEffect(() => {
     const outerDivRefCurrent = outerDivRef.current;
-    const commentDivRefCurrent = commentDivRef.current;
+    // const commentDivRefCurrent = commentDivRef.current;
 
-    console.log("현재: ", commentDivRefCurrent);
+    // console.log("현재: ", commentDivRefCurrent);
 
     outerDivRefCurrent.addEventListener("wheel", wheelHandler);
+
+    fetchData();
 
     return () => {
       outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
@@ -129,16 +140,17 @@ function MatchResult() {
           </button>
         </form>
         <div className={styled.commentArea} ref={commentDivRef}>
-          <div className={styled.commentWrapper}>
-            <span className={styled.writer}>nickname</span>
-            <span className={styled.commentDate}>2022-04-23</span>
-            <div className={styled.commentContent}>댓글내용</div>
-          </div>
-          <div className={styled.commentWrapper}>
-            <span className={styled.writer}>nickname</span>
-            <span className={styled.commentDate}>2022-04-23</span>
-            <div className={styled.commentContent}>댓글내용</div>
-          </div>
+          {comment.map((item) => (
+            <div className={styled.commentWrapper} key={comment.indexOf(item)}>
+              <span className={styled.writer}>{item.nickname}</span>
+              <span className={styled.commentDate}>
+                {moment(moment.utc(item.createdAt).toDate()).format(
+                  "YYYY-MM-DD HH:mm:ss"
+                )}
+              </span>
+              <div className={styled.commentContent}>{item.comment}</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
