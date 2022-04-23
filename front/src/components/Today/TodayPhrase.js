@@ -24,10 +24,9 @@ function TodayPhrase({ date, todayCharacter }) {
     const rhetoric = ['귀여운', '사랑스러운', '예쁜', '깜찍한', '앙증맞은']
     const adjective = rhetoric[Math.floor(Math.random() * rhetoric.length)];
     const HeroPhrase = `${adjective} ${Heros}의 생일이에요!`
-    
 
     return (
-        <div style ={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <div className="phrase" style ={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <p>{DatePhrase}</p>
             <p>{HeroPhrase}</p>
         </div>

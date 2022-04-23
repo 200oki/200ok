@@ -1,39 +1,51 @@
-import { useState, useEffect, useCallback } from "react";
-import * as Api from "../../api";
-// import { Box, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { useState, useEffect, useCallback} from 'react';
 
-export default function CelebrationComments({ date, todayCharacter }) {
-    const villagers = todayCharacter.map((villager)=>villager.name_ko)
-    
-    const [villager, setVillager] = useState('');
+function CelebrationComments ({ date, todayCharacter }) {
   
-    const handleChange = (event) => {
-        setVillager(event.target.value);
-    };
+  const [show, setShow] = useState(false);
   
-    return (
-      <Box sx={{ minWidth: 120 }}>
-        <FormControl fullWidth>
-          <InputLabel id="selectVillager">주민</InputLabel>
-          <Select
-            labelId="selectVillager"
-            id="selectVillager"
-            value={villager}
-            label="주민"
-            onChange={handleChange}
-          > 
-            {villagers.map((villager, index )=> {
-                return (
-                    <MenuItem key = {index} value={villager}>{villager}</MenuItem>
-                )
-            })}
-          </Select>
-        </FormControl>
-      </Box>
-    );
+  const showMenu = (event) => {
+    event.preventDefault();
+    if (show) {
+      setShow(false);
+    } else {setShow(true);}
   }
+
+  const villagers = todayCharacter.map((villager)=>villager.name_ko) 
+  const [menu, setMenu] = useState("주민")
+
+  const clickMenu = (event) => {
+    event.preventDefault();
+    setShow(false);
+    setMenu(event.target.value);
+  }
+
+  return (
+    <div>
+      <form onSubmit={{/** */}}>
+        <button onClick={showMenu} className="dropdown">
+          {menu}
+        </button>
+        <input placeholder="축하 메시지를 남겨주세요"></input>
+        <button type="submit">축하해주기</button>
+        {
+          show
+            ? (
+              <div className="menu">
+                {villagers.map((villager, index)=>{
+                  return (
+                    <button onClick={clickMenu} key={index} value={villager}>{villager}</button>
+                  )
+                })}
+              </div>
+            )
+            : (
+              null
+            )
+        }
+      </form>
+    </div>
+  );
+}
+
+export default CelebrationComments;
