@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from "./components/Main";
 import InputNickname from "./components/match/InputNickname";
 import Explore from "./components/explore/Explore";
-import Quiz from "./components/quiz/Quiz";
+// import Quiz from "./components/quiz/Quiz";
 import MatchResult from "./components/match/MatchResult";
 import Today from './components/Today/Today';
 
@@ -22,7 +22,7 @@ function App() {
           <Route path='/today' element={<Today today = {today}/>} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/match" element={<InputNickname />} />
-          <Route path="/quiz" element={<Quiz />} />
+          {/*<Route path="/quiz" element={<Quiz />} />*/}
           <Route path="/matchResult" element={<MatchResult />} />
         </Routes>
       </Router>
