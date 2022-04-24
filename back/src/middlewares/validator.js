@@ -1,11 +1,14 @@
 import { validationResult } from "express-validator";
 import { STATUS_400_BADREQUEST, STATUS_404_NOTFOUND } from "../utils/status.js";
+import { logger } from "../utils/winstonLogger.js";
+
 const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();
   }
-  return res.status(400).json({
+  logger.error("유효성 검증에서 400 에러 발생");
+  return res.status(STATUS_400_BADREQUEST).json({
     success: false,
     error: {
       code: STATUS_400_BADREQUEST,
@@ -20,7 +23,8 @@ const notFoundValidate = (req, res, next) => {
   if (errors.isEmpty()) {
     return next();
   }
-  return res.status(404).json({
+  logger.error("유효성 검증에서 404 에러 발생");
+  return res.status(STATUS_404_NOTFOUND).json({
     success: false,
     error: {
       code: STATUS_404_NOTFOUND,

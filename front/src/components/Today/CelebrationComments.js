@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
+
 function CelebrationComments ({ todayCharacter, comments }) {
-  
+  const Default = "images/default.png"
   const [show, setShow] = useState(false);
   
   const showMenu = (event) => {
@@ -49,13 +50,16 @@ function CelebrationComments ({ todayCharacter, comments }) {
       <div className="comment-section">
           {
             comments.map(( comment, index )=> {
-              const villager = todayCharacter.find(villager => villager.name_ko === comment.ㄴ)
-              const imgSrc = todayCharacter.
+              const villager = todayCharacter.find(villager => villager.name_ko === comment.villager)
+              const imgSrc = villager.image_icon || Default
               return (
-                <div>
-                  <img src />
-                  <div key={index} className="speech-bubble">
-                    {comment}
+                <div key={index} className="comment-box">
+                  <img src={imgSrc} style={{
+                    height: '100%',
+                    borderRadius: '50%',
+                  }}/>
+                  <div className="speech-bubble">
+                    {comment.comment}
                   </div>
                 </div>
               )
