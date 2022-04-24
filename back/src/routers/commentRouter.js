@@ -107,8 +107,6 @@ const commentRouter = Router();
  *                        location:
  *                          type: string
  *                          description: 입력 받을 위치
- *
- *
  */
 commentRouter.post(
   "/comments",
@@ -176,9 +174,6 @@ commentRouter.post(
  *                  items:
  *                    type: object
  *                    properties:
- *                      villager
- *                        type: string
- *                        example: 아그네스
  *                      nickname:
  *                        type: string
  *                        example: 고구마
@@ -189,6 +184,7 @@ commentRouter.post(
  *                        type: date
  *                        example: 2022-04-21T17:45:00.308Z
  */
+
 commentRouter.get(
   "/comments/:villager",
   [
