@@ -73,6 +73,7 @@
   width: 300px;
   height: 50px;
   border-radius: 50px;
+  margin: 0 0 30px 0;
 }
 
 .commentBack {
@@ -171,8 +172,11 @@
   height: 30px;
   border: none;
   border-radius: 30px;
-  background: #0cc6b6;
-  transition: all 0.5s ease-in-out;
+  background: #a5e4ff;
+  transition: all 0.5s;
+  font-family: "TmoneyRoundWindExtraBold";
+  font-size: 15px;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 }
 
 .btnActive {
@@ -181,9 +185,10 @@
 
 .btnActive:hover {
   cursor: pointer;
-  box-shadow: 90px 0 0 0 rgba(0, 0, 0, 0.3) inset;
-  color: #fff;
-  transition: all 0.5s ease-in-out;
+  /* box-shadow: 90px 0 0 0 rgba(0, 0, 0, 0.1) inset; */
+  transform: translateY(-0.25em);
+  transition: all 0.5s;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 }
 
 .btnHidden {
