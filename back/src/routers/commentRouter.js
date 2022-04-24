@@ -205,7 +205,6 @@ commentRouter.get(
   async (req, res, next) => {
     const { location } = req.headers;
     const { villager } = req.params;
-    console.log(req.params);
     const comments = await CommentService.listComment({ villager, location });
     const body = {
       success: true,

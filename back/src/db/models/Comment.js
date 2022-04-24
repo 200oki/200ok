@@ -19,7 +19,7 @@ class Comment {
   static async commentList({ villager, location }) {
     const list = await CommentModel.find(
       { villager, location },
-      { _id: 0, __v: 0, id: 0, villager: 0, location: 0, updatedAt: 0 }
+      { _id: 0, __v: 0, id: 0, location: 0, updatedAt: 0 }
     );
     return list;
   }
