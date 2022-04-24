@@ -6,25 +6,32 @@ import "../../css/today.css"
 import * as Api from "../../api";
 
 function Today({ today }) {
-  const [todayCharacter, setTC] = useState([]);
-  const month = today.getMonth() >= 9 ? String(today.getMonth() + 1) : '0' + String(today.getMonth() + 1);
-  const day = today.getDate() >= 10 ? String(today.getDate()) : '0' + String(today.getDate());
+  // const month = today.getMonth() >= 9 ? String(today.getMonth() + 1) : '0' + String(today.getMonth() + 1);
+  // const day = today.getDate() >= 10 ? String(today.getDate()) : '0' + String(today.getDate());
+  const month = '04'
+  const day = '23'
   const dateQuery = month + "-" + day;
   const date = { month, day };
-
-  useEffect(async () => {
-    const {payload} = await Api.get("characters", "", "", `birthday?${dateQuery}`);
-    const data = Object.values(payload)
-    setTC(data);
-  }, []);
   
-  const villagers = todayCharacter.map((villager) => villager ? villager.name_ko : null)
-  const comments = []
-  comments.push( villagers.map(async ( villager ) => {
-      const { comments } = await Api.get("comments", villager, "today", "")
-      return comments
-    }
-  ))
+  const [todayCharacter, setTC] = useState([]);
+  useEffect(() => {
+    Api.get(`characters?birthday=${dateQuery}`)
+      .then((res)=> res.data)
+      .then((data)=>data.payload)
+      .then((payload)=> Object.values(payload))
+      .then((villagers)=> setTC([...todayCharacter, ...villagers]))
+  }, []);
+  const [getComments, setGetComments] = useState([]);
+  const villagers = todayCharacter.map((villager) => villager ? villager.name_ko : null);
+  
+  useEffect(()=>{ villagers.map(( villager ) => {
+    Api.get(`comments/${villager}`, "today")
+      .then((res)=> res.data)
+      .then((data)=> data.comments)
+      .then((comments) => setGetComments([...getComments, ...comments]));
+  })},[]);
+  getComments.sort((a, b) => a.createdAt - b.createdAt );
+  
 
   return (
     <div style={{
@@ -43,8 +50,8 @@ function Today({ today }) {
             todayCharacter={todayCharacter}
           />
           <CelebrationBtn
-            date={date}
             todayCharacter={todayCharacter}
+            comments={getComments}
           />
         </>
         :

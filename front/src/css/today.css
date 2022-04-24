@@ -76,6 +76,41 @@ div.comment {
     background-color: #fff9e4;
     font-family: TmoneyRoundWindExtraBold;
 }
+div.presenting {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+div.writing {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 10%;
+    height: 10%;
+}
+.speech-bubble {
+	position: relative;
+	background: #785700;
+	border-radius: .4em;
+}
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 33px solid transparent;
+	border-right-color: #785700;
+	border-left: 0;
+	border-bottom: 0;
+	margin-top: -16.5px;
+	margin-left: -33px;
+}
 @font-face {
     font-family: 'TmoneyRoundWindExtraBold';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff') format('woff');

@@ -18,10 +18,11 @@ function TodayPhrase({ date, villagers }) {
     const Date = parseInt(date.day);
     const datePhrase = `오늘은 ${Month}월 ${Date}일!`
 
+    const rhetoric = ['귀여운', '사랑스러운', '예쁜', '깜찍한', '앙증맞은', '멋진']
+    const adjective = rhetoric[Math.floor(Math.random() * rhetoric.length)]
+
     if (villagers.length > 0) {
         const heroes = villagers.length === 1 ? villagers : villagers.map((hero)=> checkString(hero)).join(' ').slice(0, -1);
-        const rhetoric = ['귀여운', '사랑스러운', '예쁜', '깜찍한', '앙증맞은']
-        const adjective = rhetoric[Math.floor(Math.random() * rhetoric.length)];
         const villagerPhrase = `${adjective} ${heroes}의 생일이에요!`
 
         return (

@@ -1,10 +1,16 @@
-// import { useState, useEffect, useCallback } from "react";
-// import * as Api from "../../api";
+import { useState, useEffect } from 'react';
 
-function TodayCharacterImg({ todayCharacter }) {
-
+function TodayCharacterImg({ todayCharacter, isWriting }) {
+    const [divClassName, setDCN] = useState('presenting')
+    useEffect(()=>{
+        if (isWriting) {
+            setDCN('writing')
+        } else {
+            setDCN('presenting')
+        }
+    }, [isWriting])
     return (
-        <div style ={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: "10px"}}>
+        <div className={divClassName}>
             {todayCharacter.map(( villager, index ) => (
                 <img src={villager.image_photo} key={index} style={{
                     borderRadius: "50%",

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function CelebrationComments ({ date, todayCharacter }) {
+function CelebrationComments ({ todayCharacter, comments }) {
   
   const [show, setShow] = useState(false);
   
@@ -48,9 +48,16 @@ function CelebrationComments ({ date, todayCharacter }) {
       </div>
       <div className="comment-section">
           {
-            comments.map(( comment, index)=> {
+            comments.map(( comment, index )=> {
+              const villager = todayCharacter.find(villager => villager.name_ko === comment.ㄴ)
+              const imgSrc = todayCharacter.
               return (
-                {}
+                <div>
+                  <img src />
+                  <div key={index} className="speech-bubble">
+                    {comment}
+                  </div>
+                </div>
               )
             })
           }

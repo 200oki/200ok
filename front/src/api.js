@@ -4,31 +4,16 @@ const backendPortNumber = "5001";
 const serverUrl =
   "http://" + window.location.hostname + ":" + backendPortNumber + "/";
 
-async function get(endpoint, params = "", location = "", query = "") {
-  if (params.length > 0 && query.length === 0) {
-    console.log(
-      `%cGET 요청 ${serverUrl + endpoint + "/" + params}`,
-      "color: #a25cd1;"
-      );
-      return axios.get(serverUrl + endpoint + "/" + params, {
-        // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
-        headers: {
-          "location": location,
-        },
-      });
-  }
-    else if (query.length > 0 && params.length === 0) {
-      console.log(
-        `%cGET 요청 ${serverUrl + endpoint + "?" + query}`,
-        "color: #a25cd1;"
-        );
-        return axios.get(serverUrl + endpoint + "/" + params, {
-          // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
-          headers: {
-            "location": location,
-          },
-        });
-  }
+async function get(endpoint, location) {
+  console.log(
+    `%cGET 요청 ${serverUrl + endpoint}`,
+    "color: #a25cd1;"
+  );
+  return axios.get(serverUrl + endpoint, {
+    headers: {
+      "location": location,
+    },
+  });
 }
 
 async function post(endpoint, data) {
