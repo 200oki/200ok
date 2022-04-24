@@ -20,13 +20,19 @@ class CommentService {
       comment,
     };
     const createdComment = await Comment.create(newComment);
-    return createdComment;
+    const body = {
+      villager: createdComment.villager,
+      location: createdComment.location,
+      nickname: createdComment.nickname,
+      comment: createdComment.comment,
+    };
+    return body;
   }
-  /**
+  /** 댓글을 검색하는 함수
    *
    * @param {String} villager - 댓글을 검색할 주민의 이름
    * @param {String} location - 댓글 검색할 곳의 위치
-   * @returns {Object} 
+   * @returns {Object}
    */
   static async listComment({ villager, location }) {
     const readComment = await Comment.commentList({
