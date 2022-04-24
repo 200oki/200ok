@@ -176,6 +176,9 @@ commentRouter.post(
  *                  items:
  *                    type: object
  *                    properties:
+ *                      villager
+ *                        type: string
+ *                        example: 아그네스
  *                      nickname:
  *                        type: string
  *                        example: 고구마
