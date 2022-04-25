@@ -5,11 +5,13 @@ import * as Api from "../../api";
 import styled from "../../css/match.module.css";
 
 import { NicknameContext } from "../../context/NicknameContext";
+import { MatchCommentContext } from "../../context/MatchCommentContext";
 
-function MatchResultComment({ resultComment, fetchCommentData }) {
+function MatchResultComment() {
   const [commentContent, setCommentContent] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const { nickname } = useContext(NicknameContext);
+  const { comment, setComment } = useContext(MatchCommentContext);
 
   const handleContentChange = (e) => {
     setIsTyping(true);
@@ -26,13 +28,12 @@ function MatchResultComment({ resultComment, fetchCommentData }) {
         nickname: nickname,
         location: "recommendation",
       });
-      setCommentContent((cur) => {
+      setComment((cur) => {
         const newComment = [...cur];
         newComment.push(response.data.comments);
         return newComment;
       });
       setIsTyping(false);
-      fetchCommentData();
     } catch (err) {
       console.error(err);
     }
@@ -55,11 +56,8 @@ function MatchResultComment({ resultComment, fetchCommentData }) {
         </button>
       </form>
       <div className={styled.commentArea}>
-        {resultComment.map((item) => (
-          <div
-            className={styled.commentWrapper}
-            key={resultComment.indexOf(item)}
-          >
+        {comment.map((item) => (
+          <div className={styled.commentWrapper} key={comment.indexOf(item)}>
             <span className={styled.writer}>{item.nickname}</span>
             <span className={styled.commentDate}>
               {moment(moment.utc(item.createdAt).toDate()).format(

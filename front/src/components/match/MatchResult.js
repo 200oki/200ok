@@ -5,6 +5,7 @@ import styled from "../../css/match.module.css";
 import MatchResultComment from "./MatchResultComment";
 
 import { NicknameContext } from "../../context/NicknameContext";
+import { MatchCommentContext } from "../../context/MatchCommentContext";
 import { style } from "@mui/system";
 
 const DIVIDER_HEIGHT = 5;
@@ -12,15 +13,15 @@ const DIVIDER_HEIGHT = 5;
 function MatchResult() {
   const navigator = useNavigate();
   const { nickname, setNickname } = useContext(NicknameContext);
+  const { setComment } = useContext(MatchCommentContext);
   const outerDivRef = useRef();
-  const [resultComment, setResultComment] = useState([]);
 
   const fetchCommentData = async () => {
     try {
       const { data } = await Api.get(`comments/아그네스`, "recommendation");
-      setResultComment(data.comments);
+      setComment(data.comments);
     } catch (err) {
-      setResultComment([]);
+      setComment([]);
       console.error(err);
     }
   };
@@ -140,10 +141,7 @@ function MatchResult() {
       <div className={styled.inner}>랭킹 영역</div>
       <div className={styled.divider}></div>
       <div className={styled.inner}>
-        <MatchResultComment
-          resultComment={resultComment}
-          fetchCommentData={fetchCommentData}
-        />
+        <MatchResultComment />
       </div>
     </div>
   );
