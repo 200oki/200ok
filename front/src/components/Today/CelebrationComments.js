@@ -1,8 +1,14 @@
 import { useState } from "react";
+import * as Api from "../../api"
 
-function CelebrationComments({ todayCharacter, comments }) {
+function CelebrationComments({ todayCharacter, comments, getCommentList }) {
   const Default = "images/default.png";
+  const villagers = todayCharacter.map((villager) => villager.name_ko);
+
   const [show, setShow] = useState(false);
+  const [isVillager, setIsVillager] = useState(false)
+  const [menu, setMenu] = useState("주민");
+  const [comment, setComment] = useState("");
 
   const showMenu = (event) => {
     event.preventDefault();
@@ -13,31 +19,47 @@ function CelebrationComments({ todayCharacter, comments }) {
     }
   };
 
-  const villagers = todayCharacter.map((villager) => villager.name_ko);
-  const [menu, setMenu] = useState("주민");
-
   const clickMenu = (event) => {
     event.preventDefault();
     setShow(false);
+    setIsVillager(true);
     setMenu(event.target.value);
+  };
+
+  const clickHanler = async (event) => {
+    event.preventDefault();
+    if (menu === "주민") {
+      setIsVillager(false);
+      return;
+    }
+    const data = {
+      villager: menu,
+      comment: comment,
+      nickname: "anonymous",
+      location: "today"
+    };
+    try {
+      await Api.post("comments", data);
+      getCommentList();
+    } catch (error) { console.error(error) }
+  };
+
+  const inputChangeHandler = (event) => {
+    setComment(event.target.value)
   };
 
   return (
     <div>
       <div className="div-comment">
         <form
-          onSubmit={
-            {
-              /** */
-            }
-          }
+          onSubmit={clickHanler}
           style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}
         >
           <button onClick={showMenu} className="dropdown">
             {menu}
           </button>
           <div className="comment">
-            <input className="comment" placeholder="축하 메시지를 남겨주세요"></input>
+            <input className="comment" placeholder="축하 메시지를 남겨주세요" onChange={inputChangeHandler} value={comment} />
           </div>
           <button type="submit" className="btn-comment" style={{ backgroundColor: "#A9FCCA", marginLeft: "30px", width: "12rem" }}>
             축하해주기
@@ -54,6 +76,7 @@ function CelebrationComments({ todayCharacter, comments }) {
             })}
           </div>
         ) : null}
+        {!isVillager && <div className="alert">주민을 선택해주세요.</div>}
       </div>
       <div className="comment-section">
         {comments.map((comment, index) => {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import * as Api from "../../api";
 import CelebrationComments from "./CelebrationComments";
 import TodayCharacterImg from "./TodayCharacterImg";
@@ -35,18 +35,24 @@ import TodayCharacterImg from "./TodayCharacterImg";
 function CelebrationBtn({ todayCharacter, villagers }) {
     const [comments, setComments] = useState([]);
 
-    async function get(villager) {
-        const { data } = await Api.get(`comments/${villager}`, "today");
-        return data.comments
-    }
-    async function getComments() {
-        const data = await Promise.all(villagers.map((villager) => get(villager)));
-        const commentList = data.reduce((cur, list) => [...cur, ...list], []);
-        setComments([...commentList])
-    }
-    useEffect(() => {
+
+    const getCommentList = useCallback(() => {
+        async function get(villager) {
+            const { data } = await Api.get(`comments/${villager}`, "today");
+            return data.comments
+        }
+        async function getComments() {
+            const data = await Promise.all(villagers.map((villager) => get(villager)));
+            const commentList = data.reduce((cur, list) => [...cur, ...list], []);
+            setComments([...commentList])
+        }
         getComments();
     }, []);
+
+    useEffect(() => {
+        getCommentList();
+    }, [getCommentList]);
+
     const Comments = [...comments].sort(function (a, b) {
         if (a.createdAt > b.createdAt) return 1;
         if (a.createdAt === b.createdAt) return 0;
@@ -71,7 +77,7 @@ function CelebrationBtn({ todayCharacter, villagers }) {
                 <button className="btn btn-comment" onClick={celebrationHandler}>
                     {countComments}명의 유저가 축하해주고 있어요!
                 </button>
-                {commentShow ? <CelebrationComments todayCharacter={todayCharacter} comments={Comments} /> : null}
+                {commentShow ? <CelebrationComments todayCharacter={todayCharacter} comments={Comments} getCommentList={getCommentList} /> : null}
             </div>
         </div>
     );
