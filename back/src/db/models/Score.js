@@ -14,7 +14,7 @@ class Score {
   /** 아이디가 일치하는 유저 순위 반환 함수
    * 
    * @param {String} id - 유저 id 
-   * @returns {Object} - 
+   * @returns {Object}
    */
   static async findUserRank({ id }) {
     const rankList = await ScoreModel.aggregate([
@@ -30,8 +30,13 @@ class Score {
       }
     ]);
 
-    const userRank = rankList.findIndex(i => i.id == id);
+    const userRank = rankList.findIndex(i => i.id === id);
     
+    // findIndex 값이 없을 때 -1 반환
+    if (userRank === -1) {
+      return [];
+    }
+
     return rankList[userRank];
   }
 
