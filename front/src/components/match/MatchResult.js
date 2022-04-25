@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
-import moment from "moment";
-import "moment/locale/ko";
+import axios from "axios";
 import styled from "../../css/match.module.css";
+import MatchResultComment from "./MatchResultComment";
 
 import { NicknameContext } from "../../context/NicknameContext";
 import { style } from "@mui/system";
@@ -11,8 +11,30 @@ const DIVIDER_HEIGHT = 5;
 function MatchResult() {
   const { nickname } = useContext(NicknameContext);
   const outerDivRef = useRef();
-  const commentDivRef = useRef();
-  const [comment, setComment] = useState([]);
+  const [resultComment, setResultComment] = useState([]);
+
+  const fetchCommentData = async () => {
+    try {
+      const { data } = await axios.get(
+        `http://127.0.0.1:5001/comments/아그네스`,
+        {
+          headers: {
+            location: "recommendation",
+          },
+        }
+      );
+      setResultComment(data.comments);
+    } catch (err) {
+      setResultComment([]);
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCommentData();
+  }, []);
+
+  console.log(resultComment);
 
   const wheelHandler = (e) => {
     e.preventDefault();
@@ -86,21 +108,10 @@ function MatchResult() {
     }
   };
 
-  const fetchData = async () => {
-    const request = await fetch("commentTest.json");
-    const response = await request.json();
-    setComment(response.comments);
-  };
-
   useEffect(() => {
     const outerDivRefCurrent = outerDivRef.current;
-    // const commentDivRefCurrent = commentDivRef.current;
-
-    // console.log("현재: ", commentDivRefCurrent);
 
     outerDivRefCurrent.addEventListener("wheel", wheelHandler);
-
-    fetchData();
 
     return () => {
       outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
@@ -131,27 +142,10 @@ function MatchResult() {
       <div className={styled.inner}>랭킹 영역</div>
       <div className={styled.divider}></div>
       <div className={styled.inner}>
-        <form className={styled.commentForm}>
-          <div className={styled.commentBack}>
-            <input />
-          </div>
-          <button type="submit" className={styled.commentReg}>
-            등록
-          </button>
-        </form>
-        <div className={styled.commentArea} ref={commentDivRef}>
-          {comment.map((item) => (
-            <div className={styled.commentWrapper} key={comment.indexOf(item)}>
-              <span className={styled.writer}>{item.nickname}</span>
-              <span className={styled.commentDate}>
-                {moment(moment.utc(item.createdAt).toDate()).format(
-                  "YYYY-MM-DD HH:mm:ss"
-                )}
-              </span>
-              <div className={styled.commentContent}>{item.comment}</div>
-            </div>
-          ))}
-        </div>
+        <MatchResultComment
+          resultComment={resultComment}
+          fetchCommentData={fetchCommentData}
+        />
       </div>
     </div>
   );
