@@ -30,7 +30,6 @@ function Today({ today }) {
     getTodayCharacter();
   }, []);
   const villagers = todayCharacter.map((villager) => (villager ? villager.name_ko : null));
-  console.log("villagers", villagers);
 
   if (isLoading) {
     return <div className="phrase">Loading...</div>;
