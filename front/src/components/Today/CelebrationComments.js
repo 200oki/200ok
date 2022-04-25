@@ -41,6 +41,7 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
     try {
       await Api.post("comments", data);
       getCommentList();
+      setComment("")
     } catch (error) { console.error(error) }
   };
 
