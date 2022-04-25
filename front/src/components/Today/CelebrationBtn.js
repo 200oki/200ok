@@ -37,10 +37,13 @@ function CelebrationBtn({ todayCharacter, villagers }) {
 
     async function get(villager) {
         const { data } = await Api.get(`comments/${villager}`, "today");
-        setComments([...comments, ...data.comments]);
+        return data.comments
     }
     async function getComments() {
-        await Promise.all(villagers.map((villager) => get(villager)));
+        const data = await Promise.all(villagers.map((villager) => get(villager)));
+        const commentList = data.reduce((cur, list) => [...cur, ...list], []);
+        setComments([...commentList])
+        console.log(comments)
     }
     useEffect(() => {
         getComments();
