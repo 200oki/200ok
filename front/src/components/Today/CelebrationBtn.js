@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios"
+import * as Api from "../../api"
 import CelebrationComments from "./CelebrationComments";
 import TodayCharacterImg from "./TodayCharacterImg";
 
@@ -7,16 +7,8 @@ import TodayCharacterImg from "./TodayCharacterImg";
 function CelebrationBtn({ todayCharacter, villagers }) {
     const [comments, setComments] = useState([]);
     async function get( villager ) {
-        try {
-        axios.get(`http://localhost:5001/comments/${villager}`, {
-            headers: {
-            "location": "today",
-            },
-        })
-            .then(res => res.data)
-            .then(data => data.comments)
-            .then(Comments => setComments([...comments, ...Comments]));
-        } catch(error){console.log(error)}
+        const { data } = await Api.get(`comments/${villager}`, "today")
+        setComments([...comments, ...data.comments]);
     };
     async function getComments() {
         await Promise.all(villagers.map(villager=>get(villager)))

@@ -5,8 +5,10 @@ import "../../css/today.css"
 import * as Api from "../../api";
 
 function Today({ today }) {
-  const month = today.getMonth() >= 9 ? String(today.getMonth() + 1) : '0' + String(today.getMonth() + 1);
-  const day = today.getDate() >= 10 ? String(today.getDate()) : '0' + String(today.getDate());
+  // const month = today.getMonth() >= 9 ? String(today.getMonth() + 1) : '0' + String(today.getMonth() + 1);
+  // const day = today.getDate() >= 10 ? String(today.getDate()) : '0' + String(today.getDate());
+  const month = '04'
+  const day = '23'
   const dateQuery = month + "-" + day;
   const date = { month, day };
   
@@ -16,14 +18,9 @@ function Today({ today }) {
 
   async function getTodayCharacter() {
       try {
-          Api.get(`characters?birthday=${dateQuery}`)
-            .then(res => res.data)
-            .then(data => data.payload)
-            .then(payload => Object.values(payload))
-            .then(villagers => {
-              setTodayCharacter([...villagers]);
-              setIsLoading(false);
-            })
+          const { data } = await Api.get(`characters?birthday=${dateQuery}`)
+          setTodayCharacter([...Object.values(data.payload)])
+          setIsLoading(false)
         } catch (error) {console.error(error)}
       };
       
