@@ -3,8 +3,9 @@ import { ScoreModel } from "../schemas/score.js";
 class Score {
   /** 스코어 오브젝트 생성 함수
    * 
-   * @param {Object} NewScore - 생성할 스코어 데이터 오브젝트 
-   * @return {Object}
+   * @param {uuid} id - 유저 id
+   * @param {String} nickname - 유저 닉네임
+   * @param {Number} score - 유저 점수
    */
   static async create({ id, nickname, score }) {
     const createNewScore = await ScoreModel.create({ id, nickname, score });
