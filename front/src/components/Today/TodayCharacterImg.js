@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 
-function TodayCharacterImg({ todayCharacter, isWriting }) {
-    const [divClassName, setDCN] = useState('presenting')
+function TodayCharacterImg({ todayCharacter, commentShow }) {
+    const [divClassName, setDivClassName] = useState('presenting')
     useEffect(() => {
         if (isWriting) {
-            setDCN('writing')
+            setDivClassName('writing')
         } else {
-            setDCN('presenting')
+            setDivClassName('presenting')
         }
     }, [isWriting])
     return (
