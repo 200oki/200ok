@@ -49,7 +49,6 @@ scoreRouter.get(
   ],
   async (req, res, next) => {
     const id = req.query.userId;
-    console.log(id);
     const userRank = await ScoreService.getUserRank({ id });
 
     if (userRank === undefined) {
