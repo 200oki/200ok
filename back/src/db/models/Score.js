@@ -6,8 +6,8 @@ class Score {
    * @param {Object} NewScore - 생성할 스코어 데이터 오브젝트 
    * @return {Object}
    */
-  static async create({ newScore }) {
-    const createNewScore = await ScoreModel.create(newScore);
+  static async create({ id, nickname, score }) {
+    const createNewScore = await ScoreModel.create({ id, nickname, score });
     return createNewScore;
   }
   
@@ -32,10 +32,11 @@ class Score {
 
     const userRank = rankList.findIndex(i => i.id === id);
     
-    // findIndex 값이 없을 때 -1 반환
-    if (userRank === -1) {
-      return [];
-    }
+    // findIndex 값이 없을 때 -1 반환 => 상의하기!!
+    // 이 부분 없이도 router에서 id 없다고 해줌
+    // if (userRank === -1) {
+    //   return [];
+    // }
 
     return rankList[userRank];
   }

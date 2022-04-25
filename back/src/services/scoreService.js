@@ -10,12 +10,7 @@ class ScoreService {
   */
   static async addScore({ nickname, score }) {
     const id = crypto.randomUUID()
-    const newScore = { 
-      id, 
-      nickname, 
-      score,
-    };
-    const createdScore = await Score.create({ newScore });
+    const createdScore = await Score.create({ id, nickname, score });
     return createdScore;
   }
 
