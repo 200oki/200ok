@@ -35,17 +35,11 @@ function Today({ today }) {
     return <div className="phrase">Loading...</div>;
   }
   return (
-    <div
-      style={{
-        margin: 0,
-        padding: 0,
-        backgroundImage: 'url("/images/leafBgImg.jpg")',
-        backgroundOpacity: "70%",
-        height: "100vh",
-      }}
-    >
-      <TodayPhrase date={date} villagers={villagers} />
-      {villagers.length > 0 ? <CelebrationBtn todayCharacter={todayCharacter} villagers={villagers} /> : <div className="phrase">내일 다시 와 줄래요?</div>}
+    <div className="today">
+      <div className="today-content">
+        <TodayPhrase date={date} villagers={villagers} />
+        {villagers.length > 0 ? <CelebrationBtn todayCharacter={todayCharacter} villagers={villagers} /> : <div className="phrase">내일 다시 와 줄래요?</div>}
+      </div>
     </div>
   );
 }
