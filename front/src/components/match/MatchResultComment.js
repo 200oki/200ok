@@ -1,0 +1,74 @@
+import React, { useEffect, useState } from "react";
+import moment from "moment";
+import "moment/locale/ko";
+import axios from "axios";
+import styled from "../../css/match.module.css";
+
+function MatchResultComment({ resultComment, fetchCommentData }) {
+  const [commentContent, setCommentContent] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
+  const handleContentChange = (e) => {
+    setIsTyping(true);
+    setCommentContent(e.target.value);
+  };
+
+  const handleContentSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("http://127.0.0.1:5001/comments", {
+        villager: "아그네스",
+        comment: commentContent,
+        nickname: "test user",
+        location: "recommendation",
+      });
+      setCommentContent((cur) => {
+        const newComment = [...cur];
+        newComment.push(response.data.comments);
+        return newComment;
+      });
+      setIsTyping(false);
+      fetchCommentData();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  return (
+    <>
+      <form className={styled.commentForm} onSubmit={handleContentSubmit}>
+        <div className={styled.commentBack}>
+          <input
+            type="text"
+            placeholder="댓글을 입력해주세요"
+            value={isTyping ? commentContent : ""}
+            onChange={handleContentChange}
+            required
+          />
+        </div>
+        <button type="submit" className={styled.commentReg}>
+          등록
+        </button>
+      </form>
+      <div className={styled.commentArea}>
+        {resultComment.map((item) => (
+          <div
+            className={styled.commentWrapper}
+            key={resultComment.indexOf(item)}
+          >
+            <span className={styled.writer}>{item.nickname}</span>
+            <span className={styled.commentDate}>
+              {moment(moment.utc(item.createdAt).toDate()).format(
+                "YYYY-MM-DD HH:mm:ss"
+              )}
+            </span>
+            <div className={styled.commentContent}>{item.comment}</div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+export default MatchResultComment;
