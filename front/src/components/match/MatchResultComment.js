@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import moment from "moment";
 import "moment/locale/ko";
-import axios from "axios";
+import * as Api from "../../api";
 import styled from "../../css/match.module.css";
+
+import { NicknameContext } from "../../context/NicknameContext";
 
 function MatchResultComment({ resultComment, fetchCommentData }) {
   const [commentContent, setCommentContent] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const { nickname } = useContext(NicknameContext);
 
   const handleContentChange = (e) => {
     setIsTyping(true);
@@ -17,10 +20,10 @@ function MatchResultComment({ resultComment, fetchCommentData }) {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://127.0.0.1:5001/comments", {
+      const response = await Api.post("comments", {
         villager: "아그네스",
         comment: commentContent,
-        nickname: "test user",
+        nickname: nickname,
         location: "recommendation",
       });
       setCommentContent((cur) => {

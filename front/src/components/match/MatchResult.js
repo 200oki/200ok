@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
-import axios from "axios";
+import * as Api from "../../api";
+import { useNavigate } from "react-router-dom";
 import styled from "../../css/match.module.css";
 import MatchResultComment from "./MatchResultComment";
 
@@ -9,20 +10,14 @@ import { style } from "@mui/system";
 const DIVIDER_HEIGHT = 5;
 
 function MatchResult() {
-  const { nickname } = useContext(NicknameContext);
+  const navigator = useNavigate();
+  const { nickname, setNickname } = useContext(NicknameContext);
   const outerDivRef = useRef();
   const [resultComment, setResultComment] = useState([]);
 
   const fetchCommentData = async () => {
     try {
-      const { data } = await axios.get(
-        `http://127.0.0.1:5001/comments/아그네스`,
-        {
-          headers: {
-            location: "recommendation",
-          },
-        }
-      );
+      const { data } = await Api.get(`comments/아그네스`, "recommendation");
       setResultComment(data.comments);
     } catch (err) {
       setResultComment([]);
@@ -33,8 +28,6 @@ function MatchResult() {
   useEffect(() => {
     fetchCommentData();
   }, []);
-
-  console.log(resultComment);
 
   const wheelHandler = (e) => {
     e.preventDefault();
@@ -118,6 +111,11 @@ function MatchResult() {
     };
   }, []);
 
+  const goToFirstPage = () => {
+    setNickname("");
+    navigator("/match");
+  };
+
   return (
     <div className={styled.outer} ref={outerDivRef}>
       <div className={styled.inner}>
@@ -133,7 +131,7 @@ function MatchResult() {
         </div>
         <div className={styled.btnsWrapper}>
           <button>공유하기</button>
-          <button>다시하기</button>
+          <button onClick={goToFirstPage}>다시하기</button>
           <button onClick={(e) => goToPosition(e)}>랭킹</button>
           <button onClick={(e) => goToPosition(e)}>반응 남기기</button>
         </div>

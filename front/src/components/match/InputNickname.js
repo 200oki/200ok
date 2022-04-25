@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import Typewriter from "typewriter-effect";
 import styled from "../../css/match.module.css";
+import { useNavigate } from "react-router-dom";
 import "../../css/typingFont.css";
 import StyledItem from "../StyledItem";
 
@@ -8,12 +9,16 @@ import { NicknameContext } from "../../context/NicknameContext";
 
 function InputNickname() {
   const { nickname, setNickname } = useContext(NicknameContext);
+  const navigator = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    /**
-     * TODO: try-catch
-     */
+
+    try {
+      setNickname(nickname);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleChange = (e) => {
@@ -23,7 +28,6 @@ function InputNickname() {
 
   return (
     <div className={styled.Wrapper}>
-      {/* <div className={styled.title}>닉네임을 입력해주세요</div> */}
       <Typewriter
         onInit={(typewriter) => {
           typewriter
@@ -43,8 +47,11 @@ function InputNickname() {
           <input value={nickname} onChange={handleChange} />
         </div>
         <button
-          type="submit"
+          type="button"
           className={nickname.length > 0 ? styled.btnActive : styled.btnHidden}
+          onClick={() => {
+            navigator("/matchResult");
+          }}
         >
           확인
         </button>
