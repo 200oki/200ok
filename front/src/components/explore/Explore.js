@@ -39,7 +39,9 @@ const Explore = () => {
     if (e.target.innerText === "주민퀴즈") {
       navigator("/quiz");
     } else if (e.target.innerText === "오늘의 주인공") {
-      navigator("/today")
+      navigator("/today");
+    } else if (e.target.innerText === "나와 맞는 주민 찾기") {
+      navigator("/match");
     }
   };
 
