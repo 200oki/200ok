@@ -24,6 +24,11 @@ function CelebrationBtn({ todayCharacter, villagers }) {
     useEffect(() => {
         getComments();
     },[])
+    const Comments = [...comments].sort(function(a, b){ 
+        if(a.createdAt > b.createdAt) return 1; 
+        if(a.createdAt === b.createdAt) return 0; 
+        if(a.createdAt < b.createdAt) return -1;
+     });
     const [commentShow, setCommentShow] = useState(false);
     const celebrationHandler = (e) => {
         e.preventDefault();
@@ -32,7 +37,7 @@ function CelebrationBtn({ todayCharacter, villagers }) {
         } else { setCommentShow(true) }
     }
     
-    const countComments = comments.length
+    const countComments = Comments.length
 
     return (
         <div>
@@ -41,7 +46,7 @@ function CelebrationBtn({ todayCharacter, villagers }) {
                 <button className="btn btn-comment" onClick={celebrationHandler}>{countComments}명의 유저가 축하해주고 있어요!</button>
                 {commentShow
                 ?
-                <CelebrationComments todayCharacter={todayCharacter} comments={comments}/>
+                <CelebrationComments todayCharacter={todayCharacter} comments={Comments}/>
                 :
                 null
                 }
