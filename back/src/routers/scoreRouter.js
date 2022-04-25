@@ -34,7 +34,7 @@ scoreRouter.post(
   } 
 );
 
-/** query: /scores/userId?id=${id} */
+/** query: scores?userId=${id} */
 scoreRouter.get(
   "/scores",
   [
