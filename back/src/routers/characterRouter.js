@@ -6,6 +6,13 @@ import { RequestError } from "../utils/errors.js";
 
 const router = Router();
 
+/**
+ *  @swagger
+ *  tags:
+ *    name: Characters
+ *    description: Characters MVP API 문서입니다.
+ */
+
 /** query: birthday=mm-dd[ &fields=name_ko,name_en ] */
 router.get("/characters", async (req, res, next) => {
   try {
