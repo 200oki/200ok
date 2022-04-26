@@ -39,7 +39,7 @@ function CelebrationBtn({ todayCharacter, villagers, date }) {
 
     const getCommentList = useCallback(() => {
         async function get(villager) {
-            const { data } = await Api.get(`comments/${villager}`, "today");
+            const { data } = await Api.get(`comments?villager=${villager}&location=today`);
             return data.comments
         }
         async function getComments() {

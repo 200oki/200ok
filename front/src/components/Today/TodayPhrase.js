@@ -31,30 +31,22 @@ function TodayPhrase({ date, villagers, commentShow }) {
     const rhetoric = ["귀여운", "사랑스러운", "예쁜", "깜찍한", "앙증맞은", "멋진"];
     const adjective = rhetoric[Math.floor(Math.random() * rhetoric.length)];
 
-    if (villagers.length > 0) {
-        const heroes =
-            villagers.length === 1
-                ? villagers
-                : villagers
-                    .map((hero) => checkString(hero))
-                    .join(" ")
-                    .slice(0, -1);
-        const villagerPhrase = `${adjective} ${heroes}의 생일이에요!`;
+    const heroes =
+        villagers.length === 1
+            ? villagers
+            : villagers
+                .map((hero) => checkString(hero))
+                .join(" ")
+                .slice(0, -1);
+    const villagerPhrase = `${adjective} ${heroes}의 생일이에요!`;
 
-        return (
-            <div className={className}>
-                <p>{datePhrase}</p>
-                <p>{villagerPhrase}</p>
-            </div>
-        );
-    }
-    const villagerPhrase = `오늘은 생일인 주민이 없어요 :(`;
     return (
-        <div className="phrase">
+        <div className={className}>
             <p>{datePhrase}</p>
             <p>{villagerPhrase}</p>
         </div>
     );
+
 }
 
 export default TodayPhrase;

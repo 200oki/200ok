@@ -35,6 +35,8 @@ function Today({ today }) {
   }, []);
   const villagers = todayCharacter.map((villager) => (villager ? villager.name_ko : null));
 
+  const villagerPhrase = `오늘은 생일인 주민이 없어요 :(`;
+
   if (isLoading) {
     return <div className="phrase">Loading...</div>;
   }
@@ -42,7 +44,15 @@ function Today({ today }) {
     <div className="today">
       <button className="back" onClick={handleBackClick}>{"< 뒤로가기"}</button>
       <div className="today-content">
-        {villagers.length > 0 ? <CelebrationBtn date={date} todayCharacter={todayCharacter} villagers={villagers} /> : <div className="phrase">내일 다시 와 줄래요?</div>}
+        {villagers.length > 0
+          ?
+          <CelebrationBtn date={date} todayCharacter={todayCharacter} villagers={villagers} />
+          :
+          <div className="phrase" style={{ top: "33%" }}>
+            <p>{`오늘은 ${parseInt(month)}월 ${parseInt(day)}일!`}</p>
+            <p>{villagerPhrase}</p>
+            <p>내일 다시 와 줄래요?</p>
+          </div>}
       </div>
     </div>
   );
