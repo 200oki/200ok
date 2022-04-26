@@ -3,7 +3,6 @@ import Typewriter from "typewriter-effect";
 import styled from "../../css/match.module.css";
 import { useNavigate } from "react-router-dom";
 import "../../css/typingFont.css";
-import StyledItem from "../StyledItem";
 
 import { NicknameContext } from "../../context/NicknameContext";
 
@@ -13,7 +12,6 @@ function InputNickname() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     try {
       setNickname(nickname);
     } catch (err) {
@@ -23,8 +21,8 @@ function InputNickname() {
   const handleCheckUri = () => {
     if (window.location.pathname === "/game") {
       navigator("/game-start");
-    }else if(window.location.pathname === "/match"){
-        navigator("/matchResult");
+    } else if (window.location.pathname === "/match") {
+      navigator("/matchResult");
     }
   };
 
