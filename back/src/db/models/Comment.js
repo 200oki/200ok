@@ -6,7 +6,7 @@ class Comment {
    * @param {Object} newComment - 생성할 주민 댓글 데이터가 담긴 오브젝트
    * @returns {Object}
    */
-  static async create(newComment) {
+  static async create({ newComment }) {
     const createNewComment = await CommentModel.create(newComment);
     return createNewComment;
   }
@@ -20,7 +20,7 @@ class Comment {
     const list = await CommentModel.find(
       { villager, location },
       { _id: 0, __v: 0, id: 0, location: 0, updatedAt: 0 }
-    ).sort({ createdAt: -1 }); 
+    ).sort({ createdAt: -1 });
     return list;
   }
 }

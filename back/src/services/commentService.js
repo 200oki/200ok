@@ -19,7 +19,7 @@ class CommentService {
       nickname,
       comment,
     };
-    const createdComment = await Comment.create(newComment);
+    const createdComment = await Comment.create({newComment});
     const body = {
       villager: createdComment.villager,
       location: createdComment.location,

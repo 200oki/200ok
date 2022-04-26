@@ -1,8 +1,14 @@
 import { CommentService } from "../services/commentService.js";
 import { Router } from "express";
-import { STATUS_201_CREATED, STATUS_200_OK } from "../utils/status.js";
+import {
+  STATUS_201_CREATED,
+  STATUS_200_OK,
+  STATUS_400_BADREQUEST,
+} from "../utils/status.js";
 import { validate, notFoundValidate } from "../middlewares/validator.js";
-import { check, param, body, header } from "express-validator";
+import { check, param, body, query } from "express-validator";
+import { logger } from "../utils/winstonLogger.js";
+
 const commentRouter = Router();
 /**
  *  @swagger
@@ -10,6 +16,7 @@ const commentRouter = Router();
  *    name: Comments
  *    description: Comments MVP.
  */
+
 /**
  * @swagger
  * /comments:
@@ -121,37 +128,41 @@ commentRouter.post(
     validate,
   ],
   async (req, res, next) => {
-    const { villager, comment, nickname, location } = req.body;
-    const createdComment = await CommentService.addComment({
-      villager,
-      comment,
-      nickname,
-      location,
-    });
-    // const data = createComment.comment;
-    const body = {
-      success: true,
-      comments: createdComment,
-    };
-    return res.status(STATUS_201_CREATED).json(body);
+    try {
+      const { villager, comment, nickname, location } = req.body;
+      const createdComment = await CommentService.addComment({
+        villager,
+        comment,
+        nickname,
+        location,
+      });
+      const body = {
+        success: true,
+      };
+      return res.status(STATUS_201_CREATED).json(body);
+    } catch (error) {
+      error.status = STATUS_400_BADREQUEST;
+      logger.warn("Comment Post Catch");
+      next(error);
+    }
   }
 );
 /**
  * @swagger
- * /comments/{villager}:
+ * /comments?villager="주민이름"&location="댓글 위치":
  *   get:
  *    summary: 댓글을 조회하는 API
  *    description: 댓글을 조회할 때 사용하는 API 입니다.
  *    tags: [Comments]
  *    parameters:
- *      - in: path
+ *      - in: query
  *        name: villager
  *        required: true
  *        description: 주민 이름
  *        example: 아그네스
  *        schema:
  *          type: string
- *      - in: header
+ *      - in: query
  *        name: location
  *        required: true
  *        description: 조회할 댓글이 있는 위치
@@ -185,34 +196,38 @@ commentRouter.post(
  *                        example: 2022-04-21T17:45:00.308Z
  */
 
+/**
+ * query: vilager = 주민 이름, location = 댓글 위치
+ */
 commentRouter.get(
-  "/comments/:villager",
+  "/comments",
   [
-    check("villager")
-      .trim()
-      .isLength({ min: 1 })
+    query("villager")
       .exists()
-      .withMessage("parameter 값으로 주민 이름을 입력해주세요.")
+      .withMessage("query에 주민 이름을 입력해주세요.")
       .bail(),
-    notFoundValidate,
-    header("location")
+    validate,
+    query("location")
       .exists()
-      .withMessage("header에 location 값을 입력해주세요.")
+      .withMessage("query에 location 값을 입력해주세요.")
       .bail(),
     validate,
   ],
   async (req, res, next) => {
-    const { location } = req.headers;
-    const { villager } = req.params;
-    const comments = await CommentService.listComment({ villager, location });
-    const body = {
-      success: true,
-      comments,
-    };
-    return res.status(STATUS_200_OK).json(body);
+    try {
+      const { location, villager } = req.query;
+      const comments = await CommentService.listComment({ villager, location });
+      const body = {
+        success: true,
+        payload: comments,
+      };
+      return res.status(STATUS_200_OK).json(body);
+    } catch (error) {
+      error.status = STATUS_400_BADREQUEST;
+      logger.warn("Comment Get Catch");
+      next(error);
+    }
   }
 );
 
 export { commentRouter };
-
-// 닉네임 넣기 :)
