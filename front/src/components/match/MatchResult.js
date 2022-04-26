@@ -1,18 +1,34 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
-import moment from "moment";
-import "moment/locale/ko";
+import * as Api from "../../api";
+import { useNavigate } from "react-router-dom";
 import styled from "../../css/match.module.css";
+import MatchResultComment from "./MatchResultComment";
 
 import { NicknameContext } from "../../context/NicknameContext";
+import { MatchCommentContext } from "../../context/MatchCommentContext";
 import { style } from "@mui/system";
 
 const DIVIDER_HEIGHT = 5;
 
 function MatchResult() {
-  const { nickname } = useContext(NicknameContext);
+  const navigator = useNavigate();
+  const { nickname, setNickname } = useContext(NicknameContext);
+  const { setComment } = useContext(MatchCommentContext);
   const outerDivRef = useRef();
-  const commentDivRef = useRef();
-  const [comment, setComment] = useState([]);
+
+  const fetchCommentData = async () => {
+    try {
+      const { data } = await Api.get(`comments/아그네스`, "recommendation");
+      setComment(data.comments);
+    } catch (err) {
+      setComment([]);
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCommentData();
+  }, []);
 
   const wheelHandler = (e) => {
     e.preventDefault();
@@ -86,26 +102,22 @@ function MatchResult() {
     }
   };
 
-  const fetchData = async () => {
-    const request = await fetch("commentTest.json");
-    const response = await request.json();
-    setComment(response.comments);
-  };
-
   useEffect(() => {
     const outerDivRefCurrent = outerDivRef.current;
-    // const commentDivRefCurrent = commentDivRef.current;
 
-    // console.log("현재: ", commentDivRefCurrent);
-
-    outerDivRefCurrent.addEventListener("wheel", wheelHandler);
-
-    fetchData();
+    if (outerDivRef && outerDivRefCurrent) {
+      outerDivRefCurrent.addEventListener("wheel", wheelHandler);
+    }
 
     return () => {
       outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
     };
   }, []);
+
+  const goToFirstPage = () => {
+    setNickname("");
+    navigator("/match");
+  };
 
   return (
     <div className={styled.outer} ref={outerDivRef}>
@@ -122,7 +134,7 @@ function MatchResult() {
         </div>
         <div className={styled.btnsWrapper}>
           <button>공유하기</button>
-          <button>다시하기</button>
+          <button onClick={goToFirstPage}>다시하기</button>
           <button onClick={(e) => goToPosition(e)}>랭킹</button>
           <button onClick={(e) => goToPosition(e)}>반응 남기기</button>
         </div>
@@ -131,27 +143,7 @@ function MatchResult() {
       <div className={styled.inner}>랭킹 영역</div>
       <div className={styled.divider}></div>
       <div className={styled.inner}>
-        <form className={styled.commentForm}>
-          <div className={styled.commentBack}>
-            <input />
-          </div>
-          <button type="submit" className={styled.commentReg}>
-            등록
-          </button>
-        </form>
-        <div className={styled.commentArea} ref={commentDivRef}>
-          {comment.map((item) => (
-            <div className={styled.commentWrapper} key={comment.indexOf(item)}>
-              <span className={styled.writer}>{item.nickname}</span>
-              <span className={styled.commentDate}>
-                {moment(moment.utc(item.createdAt).toDate()).format(
-                  "YYYY-MM-DD HH:mm:ss"
-                )}
-              </span>
-              <div className={styled.commentContent}>{item.comment}</div>
-            </div>
-          ))}
-        </div>
+        <MatchResultComment />
       </div>
     </div>
   );

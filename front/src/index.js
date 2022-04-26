@@ -5,12 +5,15 @@ import reportWebVitals from "./reportWebVitals";
 import "./css/index.css";
 
 import { NicknameProvider } from "./context/NicknameContext";
+import { MatchCommentProvider } from "./context/MatchCommentContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <NicknameProvider>
-      <App />
+      <MatchCommentProvider>
+        <App />
+      </MatchCommentProvider>
     </NicknameProvider>
   </React.StrictMode>
 );

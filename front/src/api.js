@@ -11,7 +11,7 @@ async function get(endpoint, location) {
   );
   return axios.get(serverUrl + endpoint, {
     headers: {
-      "location": location,
+      location : location
     },
   });
 }
