@@ -46,7 +46,7 @@ const scoreRouter = Router();
  *                success:
  *                  type: string
  *                  example: true
- *                scores:
+ *                payload:
  *                  type: object
  *                  properties:
  *                    id:
@@ -128,6 +128,70 @@ scoreRouter.post(
 );
 
 /** query: scores/userId?userId={id} */
+/**
+ * @swagger
+ * /scores/userId?userId=${id}:
+ *   get:
+ *    summary: 유저 점수 조회 API
+ *    description: 유저 점수를 조회할 때 사용하는 API 입니다.
+ *    tags: [Scores]
+ *    responses:
+ *      200:
+ *        description: 점수 조회
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                success:
+ *                  type: string
+ *                  example: true
+ *                payload:
+ *                  type: object
+ *                  properties:
+ *                    id:
+ *                      type: string
+ *                      description: 무작위 생성 아이디
+ *                      example: 무작위 생성 아이디
+ *                    nickname:
+ *                      type: string
+ *                      description: 게임한 유저 이름
+ *                      example: 닉네임
+ *                    score:
+ *                      type: number
+ *                      description: 점수
+ *                      example: 5
+ *                    rank:
+ *                      type: number
+ *                      description: 점수
+ *                      example: 1
+ *                    
+ *      400:
+ *        description: 점수 조회 오류
+ *        content:
+ *         application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                success:
+ *                  type: string
+ *                  example: false
+ *                error:
+ *                  type: object
+ *                  properties:
+ *                    code:
+ *                      type: integer
+ *                      description: http status
+ *                      example: 400
+ *                    message:
+ *                      type: string
+ *                      description: 오류 내용
+ *                      example: id가 존재하지 않습니다.
+ *                    detail:
+ *                      type: string
+ *                      description: id가 존재하지 않습니다.
+ *                          
+*/
 scoreRouter.get(
   "/scores/userId",
   [
@@ -161,7 +225,46 @@ scoreRouter.get(
     return res.status(status.STATUS_200_OK).json(body);
   }
 );
-    
+
+/**
+ * @swagger
+ * /scores:
+ *   get:
+ *    summary: 랭킹 조회 API
+ *    description: 랭킹을 조회할 때 사용하는 API 입니다.
+ *    tags: [Scores]
+ *    responses:
+ *      200:
+ *        description: 랭킹 조회
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                success:
+ *                  type: string
+ *                  example: true
+ *                payload:
+ *                  type: object
+ *                  properties:
+ *                    id:
+ *                      type: string
+ *                      description: 무작위 생성 아이디
+ *                      example: 무작위 생성 아이디
+ *                    nickname:
+ *                      type: string
+ *                      description: 게임한 유저 이름
+ *                      example: 닉네임
+ *                    score:
+ *                      type: number
+ *                      description: 점수
+ *                      example: 5
+ *                    rank:
+ *                      type: number
+ *                      description: 랭크
+ *                      example: 1
+ *                                       
+*/
 scoreRouter.get(
   "/scores",
   async (req, res, next) => {
