@@ -1,7 +1,32 @@
-html {
-  margin: 0;
-  padding: 0;
+/* Seperate components from the background image, in order to set the background transparently  */
+.today {
+  position: relative;
 }
+.today::before {
+  background-image: url("/public/images/leafBgImg.jpg");
+  content: " ";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
+  background-position: 50% 0;
+}
+.today-content {
+  position: relative;
+}
+
+/* Download font */
+@font-face {
+  font-family: "TmoneyRoundWindExtraBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Font application to phrases */
 .phrase {
   font-family: TmoneyRoundWindExtraBold;
   font-size: 2rem;
@@ -11,6 +36,13 @@ html {
   flex-direction: column;
   align-items: center;
 }
+
+/*  */
+.phrase-transparent {
+  opacity: 0;
+}
+
+/* Villager selector as dropdown menu*/
 .dropdown {
   border: 1.2px #c0dbdd solid;
   color: black;
@@ -26,40 +58,8 @@ html {
   background-color: #ffffff;
   font-family: TmoneyRoundWindExtraBold;
 }
-input.comment {
-  border: 1.2px #c0dbdd solid;
-  color: black;
-  padding: 10px;
-  font-size: 1.23rem;
-  line-height: 1.2em;
-  border-radius: 0px 25px 25px 0px;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
-  background-color: #ffffff;
-  font-family: TmoneyRoundWindExtraBold;
-}
-div.comment {
-  height: 100%;
-}
-.btn-comment {
-  border: 1.2px #c0dbdd solid;
-  color: black;
-  padding: 10px;
-  font-size: 1.23rem;
-  line-height: 1.2em;
-  border-radius: 25px;
-  text-align: center;
-  cursor: pointer;
-  width: fit-content;
-  height: 45px;
-  box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
-  background-color: #fff9e4;
-  font-family: TmoneyRoundWindExtraBold;
-}
-.btn-comment:hover {
-  background-color: #cdcdcd;
+.dropdown:hover {
+  opacity: 0.75;
 }
 .menu > button {
   border: 1.2px #c0dbdd solid;
@@ -76,22 +76,54 @@ div.comment {
   background-color: #fff9e4;
   font-family: TmoneyRoundWindExtraBold;
 }
-div.presenting {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+.menu > button:hover {
+  opacity: 0.8;
 }
-div.writing {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 10%;
-  height: 10%;
+
+/* Comment inputbox */
+input.comment {
+  border: 1.2px #c0dbdd solid;
+  color: black;
+  padding: 10px;
+  font-size: 1.23rem;
+  line-height: 1.2em;
+  border-radius: 0px 25px 25px 0px;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
+  background-color: #ffffff;
+  font-family: TmoneyRoundWindExtraBold;
 }
+input.comment:hover {
+  opacity: 0.75;
+}
+div.comment {
+  height: 100%;
+}
+
+/* Buttons */
+.btn-comment {
+  border: 1.2px #c0dbdd solid;
+  color: black;
+  padding: 10px;
+  font-size: 1.23rem;
+  line-height: 1.2em;
+  border-radius: 25px;
+  text-align: center;
+  cursor: pointer;
+  width: fit-content;
+  height: 45px;
+  box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
+  background-color: #fff9e4;
+  font-family: TmoneyRoundWindExtraBold;
+}
+.btn-comment:hover {
+  background-color: #cdcdcd !important;
+  transform: translateY(-10%);
+}
+
+/*  Comment Section */
 .speech-bubble {
   position: relative;
   border: 1.2px #c0dbdd solid;
@@ -117,6 +149,7 @@ div.writing {
   gap: 10px;
   margin-top: 20px;
 }
+/* Notification to select a villager */
 .alert {
   font-family: TmoneyRoundWindExtraBold;
   font-size: 1rem;
@@ -127,27 +160,41 @@ div.writing {
   flex-direction: column;
   align-items: center;
 }
-.today {
-  position: relative;
+
+/* Apply animations */
+.presenting {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  animation-name: enlarge;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
 }
-.today::before {
-  background-image: url("/public/images/leafBgImg.jpg");
-  content: " ";
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  opacity: 0.5;
-  background-position: 50% 0;
+.writing {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  animation-name: smallen;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
 }
-.today-content {
-  position: relative;
+@keyframes smallen {
+  from {
+    transform: scale(100%);
+  }
+  to {
+    transform: scale(50%) translateY(-150%);
+  }
 }
-@font-face {
-  font-family: "TmoneyRoundWindExtraBold";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/TmoneyRoundWindExtraBold.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+@keyframes enlarge {
+  from {
+    transform: scale(50%) translateY(-150%);
+  }
+  to {
+    transform: scale(100%);
+  }
 }
