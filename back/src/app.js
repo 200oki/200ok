@@ -28,8 +28,6 @@ app.use(scoreRouter);
 
 app.use(errorMiddleware);
 
-app.use(commentRouter);
-
 // .env를 검사합니다.
 ["SERVER_PORT", "MONGODB_URL", "JWT_SECRET_KEY", "NODE_ENV"].forEach((k) => {
   if (!(k in process.env)) {
