@@ -7,13 +7,90 @@ import { RequestError } from "../utils/errors.js";
 const router = Router();
 
 /**
- *  @swagger
- *  tags:
- *    name: Characters
- *    description: Characters MVP API 문서입니다.
+ * @swagger
+ * tags:
+ *  name: Characters
+ *  description: Characters API 문서입니다.
  */
 
-/** query: birthday=mm-dd[ &fields=name_ko,name_en ] */
+/** query: birthday=mm-dd[ &fields=field1,field2,... ] */
+/**
+ * @swagger
+ * /characters:
+ *  get:
+ *    summary: "전체 캐릭터를 반환합니다."
+ *    description: |
+ *      반환 형식은 다음과 같습니다.
+ *      ```js
+ *      { id: name_ko }
+ *      ```
+ *    tags: [Characters]
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                  description: 요청 성공 여부
+ *                  example: true
+ *                payload:
+ *                  type: object
+ *                  additionalProperties:
+ *                    type: string
+ *                    example: 일섭
+ *                  description: |
+ *                    키는 캐릭터의 id이고, 값은 한국어판 이름입니다.
+ */
+/**
+ * @swagger
+ * /characters?birthday=mm-dd [ &fields=field1,field2,... ]:
+ *  get:
+ *    summary: "(DEPRECATED) 생일인 캐릭터들을 반환합니다."
+ *    description: |
+ *      반환 형식은 다음과 같습니다.
+ *      ```js
+ *      { id: char }
+ *      ```
+ *    tags: [Characters]
+ *    parameters:
+ *      - in: query
+ *        name: birthday
+ *        schema:
+ *          type: string
+ *          format: mm-dd
+ *          pattern: '^[01][0-9]-[0-3][0-9]$'
+ *        required: true
+ *        description: 생일이 `mm-dd`인 캐릭터들의 객체를 반환합니다.
+ *        example: 01-26
+ *      - in: query
+ *        name: fields
+ *        schema:
+ *          type: string
+ *          format: field[]
+ *        required: false
+ *        description: |
+ *          데이터에 받고 싶은 필드를 쉼표로 구분해서 넣어줍니다.
+ *          이 쿼리가 없으면 모든 필드가 반환됩니다.
+ *          `birthday` 쿼리가 없으면 `fields` 쿼리는 무시됩니다.
+ *        example: name_en,gender
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                  description: 요청 성공 여부
+ *                  example: true
+ *                payload:
+ *                  type: object
+ *                  additionalProperties:
+ *                    type: object
+ *                    description: character 데이터입니다.
+ */
 router.get("/characters", async (req, res, next) => {
   try {
     let found;
