@@ -20,7 +20,7 @@ class Comment {
     const list = await CommentModel.find(
       { villager, location },
       { _id: 0, __v: 0, id: 0, location: 0, updatedAt: 0 }
-    );
+    ).sort({ createdAt: -1 }); 
     return list;
   }
 }
