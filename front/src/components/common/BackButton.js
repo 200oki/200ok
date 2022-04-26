@@ -9,7 +9,9 @@ const BackButton = () => {
   const navigator = useNavigate();
 
   const backHome = () => {
-    navigator("/explore");
+    if (window.location.pathname === "/game-start") {
+      navigator("/explore");
+    }
   };
 
   return (
