@@ -13,9 +13,15 @@
   height: 100vh;
   opacity: 0.5;
   background-position: 50% 0;
+  z-index: -100;
 }
 .today-content {
   position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Download font */
@@ -29,12 +35,17 @@
 /* Font application to phrases */
 .phrase {
   font-family: TmoneyRoundWindExtraBold;
-  font-size: 2rem;
+  font-size: 3rem;
   width: 100%;
-  margin: 0px;
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
+  top: 5%;
+}
+.phrase p {
+  margin: 0.7em 0 0 0;
 }
 
 /*  */
@@ -73,11 +84,16 @@
   width: fit-content;
   height: 45px;
   box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
-  background-color: #fff9e4;
+  background-color: #ffb9ed;
   font-family: TmoneyRoundWindExtraBold;
 }
 .menu > button:hover {
   opacity: 0.8;
+}
+.menu {
+  margin-top: 5px;
+  margin-bottom: -50px;
+  z-index: 100;
 }
 
 /* Comment inputbox */
@@ -98,7 +114,25 @@ input.comment {
 input.comment:hover {
   opacity: 0.75;
 }
+.submitForm {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Notification to select a villager */
+.alert {
+  font-family: TmoneyRoundWindExtraBold;
+  font-size: 1rem;
+  color: #f14d41;
+  width: 100%;
+  margin-left: 1%;
+}
+.noAlert {
+  display: none;
+}
+
 div.comment {
+  width: 30vw;
   height: 100%;
 }
 
@@ -124,6 +158,19 @@ div.comment {
 }
 
 /*  Comment Section */
+.comment-section {
+  z-index: 0;
+}
+.comment-box {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
 .speech-bubble {
   position: relative;
   border: 1.2px #c0dbdd solid;
@@ -139,62 +186,34 @@ div.comment {
   background-color: #fff9e4;
   font-family: TmoneyRoundWindExtraBold;
 }
-.comment-box {
-  width: 100%;
-  height: 50px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-/* Notification to select a villager */
-.alert {
-  font-family: TmoneyRoundWindExtraBold;
-  font-size: 1rem;
-  color: #f14d41;
-  width: 100%;
-  margin: 0px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 /* Apply animations */
 .presenting {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  animation-name: enlarge;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
+  width: auto;
+  position: fixed;
 }
 .writing {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  width: auto;
   animation-name: smallen;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
   animation-fill-mode: forwards;
+  position: fixed;
 }
 @keyframes smallen {
   from {
     transform: scale(100%);
+    top: 38vh;
   }
   to {
-    transform: scale(50%) translateY(-150%);
-  }
-}
-@keyframes enlarge {
-  from {
-    transform: scale(50%) translateY(-150%);
-  }
-  to {
-    transform: scale(100%);
+    transform: scale(65%);
+    top: 5%;
   }
 }

@@ -26,7 +26,7 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
     setMenu(event.target.value);
   };
 
-  const clickHanler = async (event) => {
+  const clickHandler = async (event) => {
     event.preventDefault();
     if (menu === "주민") {
       setIsVillager(false);
@@ -51,10 +51,11 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
 
   return (
     <div>
-      <div className="div-comment">
+      <div className="submitForm">
+        <div className={!isVillager ? "alert" : "noAlert"}>주민을 선택해주세요.</div>
         <form
-          onSubmit={clickHanler}
-          style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}
+          onSubmit={clickHandler}
+          style={{ display: "flex", flexDirection: "row" }}
         >
           <button onClick={showMenu} className="dropdown">
             {menu}
@@ -62,7 +63,7 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
           <div className="comment">
             <input className="comment" placeholder="축하 메시지를 남겨주세요" onChange={inputChangeHandler} value={comment} />
           </div>
-          <button type="submit" className="btn-comment" style={{ backgroundColor: "#A9FCCA", marginLeft: "30px", width: "12rem" }}>
+          <button type="submit" className="btn-comment" style={{ backgroundColor: "#A9FCCA", marginLeft: "2.5rem", width: "12rem" }}>
             축하해주기
           </button>
         </form>
@@ -77,7 +78,6 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
             })}
           </div>
         ) : null}
-        {!isVillager && <div className="alert">주민을 선택해주세요.</div>}
       </div>
       <div className="comment-section">
         {comments.map((comment, index) => {
