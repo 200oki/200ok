@@ -22,6 +22,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  animation-duration: 1s;
+  animation-name: pop;
+  animation-fill-mode: forwards;
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Download font */
