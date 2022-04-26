@@ -130,11 +130,17 @@ scoreRouter.post(
 /** query: scores/userId?userId={id} */
 /**
  * @swagger
- * /scores/userId?userId=${id}:
+ * /scores/userId/{userId}:
  *   get:
  *    summary: 유저 점수 조회 API
  *    description: 유저 점수를 조회할 때 사용하는 API 입니다.
  *    tags: [Scores]
+ *    parameters:
+ *      -in: query
+ *      userId: id
+ *      schema:
+ *        type: string
+ *      description: 유저 아이디
  *    responses:
  *      200:
  *        description: 점수 조회
@@ -235,7 +241,7 @@ scoreRouter.get(
  *    tags: [Scores]
  *    responses:
  *      200:
- *        description: 랭킹 조회
+ *        description: 랭킹 조회. 배열 오브젝트를 반환합니다.
  *        content:
  *          application/json:
  *            schema:
