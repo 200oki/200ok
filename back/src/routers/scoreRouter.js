@@ -6,6 +6,99 @@ import * as status from "../utils/status.js";
 
 const scoreRouter = Router();
 
+/**
+ *  @swagger
+ *  tags:
+ *    name: Scores
+ *    description: Scores MVP
+ */
+/**
+ * @swagger
+ * /scores:
+ *   post:
+ *    summary: 점수 생성 API
+ *    description: 점수를 생성할 때 사용하는 API 입니다.
+ *    tags: [Scores]
+ *    requestBody:
+ *      x-name: body
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            required:
+ *            - nickname
+ *            - score
+ *            properties:
+ *              nickname:
+ *                type: string
+ *                example: tester
+ *              score:
+ *                type: number
+ *                example: 5
+ *    responses:
+ *      201:
+ *        description: 점수 생성
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                success:
+ *                  type: string
+ *                  example: true
+ *                scores:
+ *                  type: object
+ *                  properties:
+ *                    id:
+ *                      type: string
+ *                      description: 무작위 생성 아이디
+ *                      example: 무작위 생성 아이디
+ *                    nickname:
+ *                      type: string
+ *                      description: 게임한 유저 이름
+ *                      example: 닉네임
+ *                    score:
+ *                      type: number
+ *                      description: 점수
+ *                      example: 5
+ *      400:
+ *        description: 점수 생성 오류
+ *        content:
+ *         application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                success:
+ *                  type: string
+ *                  example: false
+ *                error:
+ *                  type: object
+ *                  properties:
+ *                    code:
+ *                      type: integer
+ *                      description: http status
+ *                      example: 400
+ *                    message:
+ *                      type: string
+ *                      description: 오류 내용
+ *                      example: 닉네임을 입력해주세요.
+ *                    detail:
+ *                      type: object
+ *                      description: 오류 세부 사항
+ *                      properties:
+ *                        msg:
+ *                          type: string
+ *                          description: 오류 내용
+ *                          example: 닉네임을 입력해주세요.
+ *                        param:
+ *                          type: string
+ *                          description: 입력하지 않은 파라미터
+ *                          example: nickname
+ *                        location:
+ *                          type: string
+ *                          description: 입력받을 위치 
+ *                          
+*/
 scoreRouter.post(
   "/scores",
   [
