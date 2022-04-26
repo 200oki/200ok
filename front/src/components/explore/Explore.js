@@ -3,24 +3,11 @@ import { useStyles } from "../../utils/useStyles";
 import StyledItem from "../StyledItem";
 import { menuList } from "../../utils/util";
 import HomeButton from "../common/HomeButton";
-import { useNavigate } from "react-router-dom";
+import { navigator } from "../../utils/navigator";
 import "../../css/explore.css";
 
 const Explore = () => {
   const classes = useStyles();
-  const navigator = useNavigate();
-
-  const handleNavigate = (e) => {
-    if (e.target.innerText === "주민퀴즈") {
-      navigator("/game");
-    } else if (e.target.innerText === "오늘의 주인공") {
-      navigator("/today");
-    } else if (e.target.innerText === "나와 맞는 주민 찾기") {
-      navigator("/match");
-    } else if (e.target.innerText === "주민도감") {
-      navigator("/bestiary");
-    }
-  };
 
   return (
     <div className={"root"}>
@@ -31,7 +18,7 @@ const Explore = () => {
             type="whiteItem"
             content={item}
             className={classes.menuItem}
-            onClick={handleNavigate}
+            onClick={navigator}
           />
         );
       })}
