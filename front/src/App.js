@@ -19,11 +19,12 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path='/today' element={<Today today = {today}/>} />
+          <Route path='/today' element={<Today today={today} />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/match" element={<InputNickname />} />
           {/*<Route path="/quiz" element={<Quiz />} />*/}
           <Route path="/matchResult" element={<MatchResult />} />
+          <Route path="/bestiary" element={<Bestiary />} />
         </Routes>
       </Router>
     </div>

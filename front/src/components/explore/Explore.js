@@ -42,6 +42,8 @@ const Explore = () => {
       navigator("/today");
     } else if (e.target.innerText === "나와 맞는 주민 찾기") {
       navigator("/match");
+    } else if (e.target.innerText === "주민도감") {
+      navigator("/bestiary")
     }
   };
 
