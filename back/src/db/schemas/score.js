@@ -8,7 +8,6 @@ const model = mongoose.model;
  * @field {uuid} id
  * @field {String} nickname
  * @field {Number} score
- * 
  **/
 const ScoreSchema = new Schema(
   {
@@ -27,7 +26,7 @@ const ScoreSchema = new Schema(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 const ScoreModel = model("Score", ScoreSchema);
