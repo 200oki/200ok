@@ -1,19 +1,25 @@
 import React, { useContext } from "react";
 import Typewriter from "typewriter-effect";
 import styled from "../../css/match.module.css";
+import { useNavigate } from "react-router-dom";
 import "../../css/typingFont.css";
-import StyledItem from "../StyledItem";
 
 import { NicknameContext } from "../../context/NicknameContext";
 
 function InputNickname() {
   const { nickname, setNickname } = useContext(NicknameContext);
+  const navigator = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     /**
      * TODO: try-catch
      */
+  };
+  const handleCheckUri = () => {
+    if (window.location.pathname === "/game") {
+      navigator("/game-start");
+    }
   };
 
   const handleChange = (e) => {
@@ -45,6 +51,7 @@ function InputNickname() {
         <button
           type="submit"
           className={nickname.length > 0 ? styled.btnActive : styled.btnHidden}
+          onClick={handleCheckUri}
         >
           확인
         </button>
