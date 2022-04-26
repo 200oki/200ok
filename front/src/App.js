@@ -9,6 +9,7 @@ import Explore from "./components/explore/Explore";
 // import Quiz from "./components/quiz/Quiz";
 import MatchResult from "./components/match/MatchResult";
 import Today from './components/Today/Today';
+import Bestiary from "./components/Bestiary/Bestiary"
 
 function App() {
   const today = new Date();
