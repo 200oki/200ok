@@ -117,6 +117,53 @@ router.get("/characters", async (req, res, next) => {
 });
 
 /** query: fields=name_ko,name_en */
+/**
+ * @swagger
+ * /characters/:id [ &fields=field1,field2,... ]:
+ *  get:
+ *    summary: id와 일치하는 캐릭터를 반환합니다.
+ *    description: 한 캐릭터의 데이터를 전부 또는 일부 반환합니다.
+ *    tags: [Characters]
+ *    parameters:
+ *      - in: query
+ *        name: fields
+ *        schema:
+ *          type: string
+ *          format: field[]
+ *        required: false
+ *        description: |
+ *          데이터에 받고 싶은 필드를 쉼표로 구분해서 넣어줍니다.
+ *          이 쿼리가 없으면 모든 필드가 반환됩니다.
+ *        example: name_en,name_ko,birthday
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                  description: 요청 성공
+ *                  example: true
+ *                payload:
+ *                  type: object
+ *                  additionalProperties:
+ *                    type: object
+ *                    description: character 데이터입니다.
+ *      404:
+ *        description: 찾는 id가 없으면 404입니다.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                  description: 요청 실패
+ *                  example: false
+ *                errorMessage:
+ *                  type: string
+ *                  example: character record {spam} not found
+ */
 router.get("/characters/:id", async (req, res, next) => {
   try {
     // 쿼리에 원하는 필드값을 넣을 수 있습니다.
