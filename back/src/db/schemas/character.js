@@ -90,6 +90,10 @@ const ALL_COLORS = [
   "노랑색",
 ];
 
+// TIL `Array.fill`은 복사를 안한다.
+const popEmptyArray = () => [];
+const emptyArrays = (len) => Array.from(Array(len), popEmptyArray);
+
 /** 캐릭터의 데이터를 담는 맵입니다. 동일한 데이터에 여러가지 키로 접근 가능합니다.
  *
  * ## 구조 예시
@@ -114,15 +118,15 @@ const characters = {
   id: _chars,
   name_ko: {},
   birthday: {},
-  birthday_month: _.object(_.range(1, 13), Array(12).fill([])),
-  tier: _.object(_.range(1, 7), Array(6).fill([])),
-  hobby: _.object(ALL_HOBBIES, Array(ALL_HOBBIES.length).fill([])),
+  birthday_month: _.object(_.range(1, 13), emptyArrays(12)),
+  tier: _.object(_.range(1, 7), emptyArrays(6)),
+  hobby: _.object(ALL_HOBBIES, emptyArrays(ALL_HOBBIES.length)),
   personality: _.object(
     ALL_PERSONALITIES,
-    Array(ALL_PERSONALITIES.length).fill([])
+    emptyArrays(ALL_PERSONALITIES.length)
   ),
-  colors: _.object(ALL_COLORS, Array(ALL_COLORS.length).fill([])),
-  styles: _.object(ALL_STYLES, Array(ALL_STYLES.length).fill([])),
+  colors: _.object(ALL_COLORS, emptyArrays(ALL_COLORS.length)),
+  styles: _.object(ALL_STYLES, emptyArrays(ALL_STYLES.length)),
 };
 
 /** 모든 캐릭터의 한국어 이름을 담고 있습니다. 존재 여부 검사에 사용합니다.
@@ -145,7 +149,6 @@ for (const entry of Object.entries(characters.id)) {
   let birthday_month_str = birthday_month.toString();
   // String(undefined)는 'undefined'이고 undefined?.toString은 undefined입니다.
   let tier_str = tier?.toString();
-  console.log(`${char.id}: ${tier} = ${tier_str}`);
 
   // name_ko는 검색 용도도 있지만 코멘트 쿼리에서 주민 존재 검사에도 쓸 수 있습니다.
   if (!(name_ko in characters.name_ko)) {
@@ -193,11 +196,11 @@ const characterNames = Object.fromEntries(
 //   cyrus: "리포",
 // };
 
-console.log(
-  _(characters.tier).mapObject((v, k) => {
-    return _(v).pluck("id");
-  })
-);
+// console.log(
+//   _(characters.tier).mapObject((v, k) => {
+//     return _(v).pluck("id");
+//   })
+// );
 
 export {
   characters,
