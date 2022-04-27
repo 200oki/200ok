@@ -98,7 +98,6 @@ router.get("/characters/random", async (req, res, next) => {
     let fields = parseArrayQuery(req.query.fields);
 
     let result = await CharacterService.sample(size, tiers, fields);
-    console.log(result);
     res.status(status.STATUS_200_OK).json({ success: true, payload: result });
   } catch (error) {
     next(error);
