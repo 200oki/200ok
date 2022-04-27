@@ -1,10 +1,24 @@
-import { Router } from "express";
+import { query, Router } from "express";
 
 import { CharacterService } from "../services/characterService.js";
 import * as status from "../utils/status.js";
 import { RequestError } from "../utils/errors.js";
 
 const router = Router();
+
+/** ","로 구분된 쿼리 스트링을 처리해 배열로 바꿔줍니다.
+ *
+ * @arg {string?} queryStr - 생 쿼리 문자열입니다.
+ * @return {string[]} fields - 필드의 배열입니다.
+ *  - 사실 존재하는 필드가 아닐 수도 있지만, 무시되기 때문에 괜찮습니다.
+ */
+const processFieldsQuery = (queryStr) => {
+  if (!queryStr) {
+    return [];
+  } else {
+    return queryStr.split(",");
+  }
+};
 
 /**
  * @swagger
@@ -13,7 +27,7 @@ const router = Router();
  *  description: Characters API 문서입니다.
  */
 
-/** query: birthday=mm-dd[ &fields=field1,field2,... ] */
+/** DEPRECATED query: birthday=mm-dd[&fields=field1,field2,...] */
 /**
  * @swagger
  * /characters:
