@@ -12,7 +12,7 @@ import { characters, characterNames } from "../schemas/character.js";
  * - `static async getByBirthday({ id })` -
  *  생일이 일치하는 캐릭터의 배열을 반환합니다.
  * - `static async list()` - 전체 캐릭터를 `{ id: name_ko }` 형식으로 반환합니다.
- * - `static async sample({ n })`- 캐릭터 `n`명을 무작위로 골라 반환합니다.
+ * - `static async sample({ n })`- 캐릭터 `n`명을 무작위로 골라 배열로 반환합니다.
  *
  */
 class Character {
