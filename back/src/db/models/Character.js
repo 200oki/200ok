@@ -1,10 +1,6 @@
 import _ from "underscore";
 
-import {
-  characters,
-  charactersByBirthday,
-  characterNames,
-} from "../schemas/character.js";
+import { characters, characterNames } from "../schemas/character.js";
 
 /** 캐릭터 데이터의 모델 인터페이스입니다.
  *
