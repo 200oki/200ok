@@ -139,8 +139,6 @@ const characters = {
  */
 // const ALLNAMES_KO = {};
 
-console.log(characters.tier);
-
 // characters.id 이외의 다른 프로퍼티를 채워 넣습니다.
 for (const entry of Object.entries(characters.id)) {
   // const [id, char] = entry;
