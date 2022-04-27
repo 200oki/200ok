@@ -151,4 +151,4 @@ const characterNames = Object.fromEntries(
 //   cyrus: "리포",
 // };
 
-export { characters, charactersByBirthday, characterNames };
+export { characters, characterNames };
