@@ -67,9 +67,9 @@ const _chars = JSON.parse(raw);
  *    "name_ko": { name_ko: char },
  *    "birthday": { birthday: [ char ] },
  *    "birthday_month": { birthday_month: [ char ] },
- *    "color": { color: [ char ] },
  *    "hobby": { hobby: [ char ] },
- *    "style": { style: [ char ] },
+ *    "colors": { color: [ char ] },
+ *    "styles": { style: [ char ] },
  * }
  * ```
  */
@@ -78,9 +78,9 @@ const characters = {
   name_ko: {},
   birthday: {},
   birthday_month: {},
-  color: {},
   hobby: {},
-  style: {},
+  colors: {},
+  styles: {},
 };
 
 /** 모든 캐릭터의 한국어 이름을 담고 있습니다. 존재 여부 검사에 사용합니다.
@@ -97,8 +97,8 @@ const characters = {
 for (const entry of Object.entries(characters.id)) {
   // const [id, char] = entry;
   const char = entry[1];
-  let { name_ko, birthday, birthday_month, color, hobby, style } = char;
-  let birthday_month_str = birthday_month.toString;
+  let { name_ko, birthday, birthday_month, colors, hobby, styles } = char;
+  let birthday_month_str = birthday_month.toString();
 
   // name_ko는 검색 용도도 있지만 코멘트 쿼리에서 주민 존재 검사에도 쓸 수 있습니다.
   if (!(name_ko in characters.name_ko)) {
@@ -118,7 +118,7 @@ for (const entry of Object.entries(characters.id)) {
   characters.birthday_month[birthday_month_str].push(char);
 
   // special npc는 아래 항목들이 없습니다.
-  if (special) {
+  if (char.special) {
     continue;
   }
 
@@ -128,18 +128,18 @@ for (const entry of Object.entries(characters.id)) {
   characters.hobby[hobby].push(char);
 
   // color, style은 원래 배열이기 때문에 까먹지 말고 한바퀴 더 돌립니다.
-  for (const k of color) {
-    if (!(k in characters.color)) {
-      characters.color[k] = [];
+  for (const k of colors) {
+    if (!(k in characters.colors)) {
+      characters.colors[k] = [];
     }
-    characters.color[k].push(char);
+    characters.colors[k].push(char);
   }
 
-  for (const k of style) {
-    if (!(k in characters.style)) {
-      characters.style[k] = [];
+  for (const k of styles) {
+    if (!(k in characters.styles)) {
+      characters.styles[k] = [];
     }
-    characters.style[k].push(char);
+    characters.styles[k].push(char);
   }
 }
 
