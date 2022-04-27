@@ -1,10 +1,13 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useMemo } from "react";
 
 const NicknameContext = createContext();
 
 const NicknameProvider = ({ children }) => {
   const [nickname, setNickname] = useState("");
-  const store = { nickname, setNickname };
+  const store = useMemo(
+    () => ({ nickname, setNickname }),
+    [nickname, setNickname]
+  );
 
   return (
     <NicknameContext.Provider value={store}>
