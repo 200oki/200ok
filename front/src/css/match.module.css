@@ -1,0 +1,247 @@
+.Wrapper,
+.inner {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Wrapper::before,
+.inner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("../../public/images/leafBgImg.jpg");
+  opacity: 0.4;
+  z-index: -1;
+}
+
+.outer {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.outer::-webkit-scrollbar {
+  display: none;
+}
+
+.divider {
+  width: 100%;
+  height: 5px;
+  background-color: transparent;
+}
+
+.title {
+  height: fit-content;
+  text-align: center;
+  font-size: 30px;
+  font-family: "TmoneyRoundWindExtraBold";
+}
+
+.inputForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.commentForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  width: 80%;
+}
+
+.inputBack,
+.commentBack {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  background-color: white;
+}
+
+.inputBack {
+  width: 300px;
+  height: 50px;
+  border-radius: 50px;
+  margin: 0 0 30px 0;
+}
+
+.commentBack {
+  width: 700px;
+  height: 50px;
+  border-radius: 10px;
+}
+
+.inputBack > input {
+  width: 80%;
+  height: 60%;
+  border: none;
+}
+
+.commentBack > input {
+  width: 90%;
+  height: 60%;
+  border: none;
+}
+
+.inputBack > input:focus,
+.commentBack > input:focus {
+  outline: none;
+}
+
+.commentReg {
+  background: #0cc6b6;
+  border: none;
+  border-radius: 10px;
+  width: 60px;
+  height: 50px;
+  font-family: "TmoneyRoundWindExtraBold";
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+}
+
+.commentReg:hover {
+  cursor: pointer;
+  background-color: #0bb5a6;
+  transition: all 0.3s ease-in-out;
+}
+
+.commentArea {
+  width: 50%;
+  height: 65%;
+  background-color: white;
+  padding: 10px;
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
+.commentArea::-webkit-scrollbar {
+  width: 21px;
+}
+
+.commentArea::-webkit-scrollbar-track {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.commentArea::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #d1d1d1;
+  background-clip: padding-box;
+  border: 6px solid transparent;
+}
+
+.commentWrapper {
+  font-family: "TmoneyRoundWindRegular";
+  height: fit-content;
+  padding: 10px;
+}
+
+.writer {
+  font-family: "TmoneyRoundWindExtraBold";
+  font-weight: 300;
+  font-size: 18px;
+  margin-right: 10px;
+  color: #54200c;
+}
+
+.commentDate {
+  color: #cec6ba;
+}
+
+.commentContent {
+  margin-left: 10px;
+  margin-top: 5px;
+  color: #837156;
+}
+
+.btnActive,
+.btnHidden {
+  width: 70px;
+  height: 30px;
+  border: none;
+  border-radius: 30px;
+  background: #a5e4ff;
+  transition: all 0.5s;
+  font-family: "TmoneyRoundWindExtraBold";
+  font-size: 15px;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.btnActive {
+  opacity: 1;
+}
+
+.btnActive:hover {
+  cursor: pointer;
+  /* box-shadow: 90px 0 0 0 rgba(0, 0, 0, 0.1) inset; */
+  transform: translateY(-0.25em);
+  transition: all 0.5s;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.btnHidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.imgWrapper {
+  width: 240px;
+  height: 240px;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  margin-bottom: 20px;
+}
+
+.textWrapper {
+  font-size: 20px;
+  text-align: center;
+  font-family: "TmoneyRoundWindExtraBold";
+}
+.textWrapper > div {
+  line-height: 1.8rem;
+}
+
+.villagerName {
+  font-size: 30px;
+  margin: 7px 0 7px 0;
+}
+
+.btnsWrapper {
+  width: 80%;
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btnsWrapper > button {
+  font-size: 15px;
+  font-weight: bold;
+  background: #fff9e4;
+  border-radius: 50px;
+  width: 150px;
+  height: 40px;
+  border: none;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  transition: transform 250ms;
+  font-family: "TmoneyRoundWindExtraBold";
+}
+
+.btnsWrapper > button:hover {
+  transform: translateY(-0.25em);
+  cursor: pointer;
+}
