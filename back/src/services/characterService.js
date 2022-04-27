@@ -43,7 +43,7 @@ class CharacterService {
     }
   }
 
-  /** 생일이 일치하는 캐릭터들의 객체를 반환합니다.
+  /** **DEPRECATED** 생일이 일치하는 캐릭터들의 객체를 반환합니다.
    *
    * @arg {{birthday: string, fields: string[]}} payload -
    * ```js
