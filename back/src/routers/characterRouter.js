@@ -111,10 +111,7 @@ router.get("/characters", async (req, res, next) => {
     if (req.query.birthday) {
       // birthday 쿼리가 있을 때는 오늘의 생일 모드입니다.
       // 쿼리에 원하는 필드값을 넣을 수 있습니다.
-      let fields = [];
-      if (req.query.fields) {
-        fields = req.query.fields.split(",");
-      }
+      let fields = processFieldsQuery(req.query.fields);
       found = await CharacterService.getByBirthday({
         birthday: req.query.birthday,
         fields,
@@ -181,10 +178,7 @@ router.get("/characters", async (req, res, next) => {
 router.get("/characters/:id", async (req, res, next) => {
   try {
     // 쿼리에 원하는 필드값을 넣을 수 있습니다.
-    let fields = [];
-    if (req.query.fields) {
-      fields = req.query.fields.split(",");
-    }
+    let fields = processFieldsQuery(req.query.fields);
 
     let found = await CharacterService.get({ id: req.params.id, fields });
     if (found.errorMessage) {
