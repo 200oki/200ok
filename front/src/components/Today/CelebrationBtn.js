@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import * as Api from "../../api";
 import CelebrationComments from "./CelebrationComments";
 import TodayCharacterImg from "./TodayCharacterImg";
+import TodayPhrase from "./TodayPhrase";
 
 /* 
     todayCharacter 예시 : 
@@ -32,13 +33,13 @@ import TodayCharacterImg from "./TodayCharacterImg";
     villagers = ["경찰관", "미란다"]
 */
 
-function CelebrationBtn({ todayCharacter, villagers }) {
+function CelebrationBtn({ todayCharacter, villagers, date }) {
     const [comments, setComments] = useState([]);
 
 
     const getCommentList = useCallback(() => {
         async function get(villager) {
-            const { data } = await Api.get(`comments/${villager}`, "today");
+            const { data } = await Api.get(`comments?villager=${villager}&location=today`);
             return data.comments
         }
         async function getComments() {
@@ -71,15 +72,18 @@ function CelebrationBtn({ todayCharacter, villagers }) {
     const countComments = Comments.length;
 
     return (
-        <div>
-            <TodayCharacterImg todayCharacter={todayCharacter} />
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "30px" }}>
-                <button className="btn btn-comment" onClick={celebrationHandler}>
+        <>
+            <TodayPhrase date={date} villagers={villagers} commentShow={commentShow} />
+            <div className={commentShow ? "writing" : "presenting"}>
+                <TodayCharacterImg todayCharacter={todayCharacter} />
+                <button className="btn-comment" onClick={celebrationHandler} style={{ marginTop: "2em" }} disabled={commentShow} >
                     {countComments}명의 유저가 축하해주고 있어요!
                 </button>
+            </div>
+            <div>
                 {commentShow ? <CelebrationComments todayCharacter={todayCharacter} comments={Comments} getCommentList={getCommentList} /> : null}
             </div>
-        </div>
+        </>
     );
 }
 

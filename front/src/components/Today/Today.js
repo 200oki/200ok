@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import CelebrationBtn from "./CelebrationBtn";
-import TodayPhrase from "./TodayPhrase";
 import "../../css/today.css";
 import * as Api from "../../api";
+import { useNavigate } from "react-router-dom";
 
 function Today({ today }) {
   const month = today.getMonth() >= 9 ? String(today.getMonth() + 1) : '0' + String(today.getMonth() + 1);
@@ -12,8 +12,9 @@ function Today({ today }) {
   const dateQuery = month + "-" + day;
   const date = { month, day };
 
-  const [todayCharacter, setTodayCharacter] = useState([]);
+  const navigator = useNavigate();
 
+  const [todayCharacter, setTodayCharacter] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   async function getTodayCharacter() {
@@ -25,27 +26,34 @@ function Today({ today }) {
       console.error(error);
     }
   }
+  const handleBackClick = () => {
+    navigator("/explore");
+  };
 
   useEffect(() => {
     getTodayCharacter();
   }, []);
   const villagers = todayCharacter.map((villager) => (villager ? villager.name_ko : null));
 
+  const villagerPhrase = `오늘은 생일인 주민이 없어요 :(`;
+
   if (isLoading) {
     return <div className="phrase">Loading...</div>;
   }
   return (
-    <div
-      style={{
-        margin: 0,
-        padding: 0,
-        backgroundImage: 'url("/images/leafBgImg.jpg")',
-        backgroundOpacity: "70%",
-        height: "100vh",
-      }}
-    >
-      <TodayPhrase date={date} villagers={villagers} />
-      {villagers.length > 0 ? <CelebrationBtn todayCharacter={todayCharacter} villagers={villagers} /> : <div className="phrase">내일 다시 와 줄래요?</div>}
+    <div className="today">
+      <button className="back" onClick={handleBackClick}>{"< 뒤로가기"}</button>
+      <div className="today-content">
+        {villagers.length > 0
+          ?
+          <CelebrationBtn date={date} todayCharacter={todayCharacter} villagers={villagers} />
+          :
+          <div className="phrase" style={{ top: "33%" }}>
+            <p>{`오늘은 ${parseInt(month)}월 ${parseInt(day)}일!`}</p>
+            <p>{villagerPhrase}</p>
+            <p>내일 다시 와 줄래요?</p>
+          </div>}
+      </div>
     </div>
   );
 }
