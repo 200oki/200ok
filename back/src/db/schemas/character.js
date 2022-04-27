@@ -74,7 +74,6 @@ const _chars = JSON.parse(raw);
  * ```
  */
 const characters = {
-  // id, name_ko는 매핑 타입입니다.
   id: _chars,
   name_ko: {},
   birthday: {},
@@ -116,17 +115,31 @@ for (const entry of Object.entries(characters.id)) {
     characters.birthday_month[birthday_month_str] = [];
   }
   characters.birthday_month[birthday_month_str].push(char);
-}
 
-/** `characters`의 다른 얼굴로 빠른 생일 검색을 위해 생일별로 구분된 버전입니다. */
-const charactersByBirthday = {};
-for (const entry of Object.entries(characters)) {
-  const [id, char] = entry;
-  const birthday = char.birthday;
-  if (!(birthday in charactersByBirthday)) {
-    charactersByBirthday[birthday] = {};
+  // special npc는 아래 항목들이 없습니다.
+  if (special) {
+    continue;
   }
-  charactersByBirthday[birthday][id] = char;
+
+  if (!(hobby in characters.hobby)) {
+    characters.hobby[hobby] = [];
+  }
+  characters.hobby[hobby].push(char);
+
+  // color, style은 원래 배열이기 때문에 까먹지 말고 한바퀴 더 돌립니다.
+  for (const k of color) {
+    if (!(k in characters.color)) {
+      characters.color[k] = [];
+    }
+    characters.color[k].push(char);
+  }
+
+  for (const k of style) {
+    if (!(k in characters.style)) {
+      characters.style[k] = [];
+    }
+    characters.style[k].push(char);
+  }
 }
 
 /** 캐릭터 별 `id`와 한국어 이름만을 빠르게 보내주기 위한 작은 컨테이너입니다. */
