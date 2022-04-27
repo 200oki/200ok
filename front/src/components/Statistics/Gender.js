@@ -1,25 +1,44 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
+import styled from "../../css/match.module.css";
 import {Chart, registerables} from 'chart.js'
 Chart.register(...registerables)
 
 const Gender = () => {
   return (
-    <div>
+    <div className={styled.Wrapper}>
       <Bar 
         data={{
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: ['Female', 'Male'],
             datasets: [
             {
-              label: '# of votes',
-              data: [12, 19, 3, 5, 2, 3],
-            }
+              label: '# Gender',
+              data: [208, 244],
+              backgroundColor: [
+                'rgba(242, 214, 74, 0.8)',
+                'rgba(54, 162, 235, 0.2)'
+              ],
+              borderColor: [
+                'rgba(205, 173, 14, 1)',
+                'rgba(54, 162, 235, 1)'
+              ],
+              borderWidth: 1
+              }
             ]
         }}
         height={400}
-        width={600}
+        width={400}
         options= {{
-          maintainAspectRatio: false
+            responsive: false,
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+            },
         }}
       />
     </div>
