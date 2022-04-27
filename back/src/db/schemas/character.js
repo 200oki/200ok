@@ -95,7 +95,8 @@ const characters = {
 
 // characters.id 이외의 다른 프로퍼티를 채워 넣습니다.
 for (const entry of Object.entries(characters.id)) {
-  const [id, char] = entry;
+  // const [id, char] = entry;
+  const char = entry[1];
   let { name_ko, birthday, birthday_month, color, hobby, style } = char;
   let birthday_month_str = birthday_month.toString;
 
