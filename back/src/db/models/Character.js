@@ -41,7 +41,15 @@ class Character {
         `Field name "${key}" either doesn't exist or not peekable`
       );
     }
-    return value in characters[key];
+    if (!(value in characters[key])) {
+      return false;
+    } else {
+      return (
+        // id와 name_ko는 1:1 대응인 객체의 객체 형식이고 나머지는 배열인데,
+        // characters 맵을 빌드하기 전에 키를 미리 만들어 놓기 때문에 빈 배열이 있습니다.
+        value === "name_ko" || value === "id" || characters[key].length > 0
+      );
+    }
   }
 
   /** 캐릭터 한명을 골라 반환합니다. 찾는 `id`가 없으면 `null`을 돌려줍니다.
