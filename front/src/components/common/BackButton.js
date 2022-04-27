@@ -1,11 +1,8 @@
-import { ArrowLeft } from "@mui/icons-material";
-import { Typography } from "@mui/material";
+import "../../css/backButton.css";
 import React from "react";
-import { useStyles } from "../../utils/useStyles";
 import { useNavigate } from "react-router-dom";
 
 const BackButton = () => {
-  const classes = useStyles();
   const navigator = useNavigate();
 
   const backHome = () => {
@@ -16,10 +13,9 @@ const BackButton = () => {
   };
 
   return (
-    <Typography className={classes.quizName} onClick={backHome}>
-      <ArrowLeft className={classes.leftArrow} />
-      뒤로가기
-    </Typography>
+    <div className="leftArrow" onClick={backHome}>
+      뒤로 가기
+    </div>
   );
 };
 

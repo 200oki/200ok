@@ -1,0 +1,29 @@
+.leftArrow {
+    left: 20px;
+    font-family: 'TmoneyRoundWindExtraBold';
+    top: 30px;
+    position: relative;
+    background-color: #826449;
+    line-height: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    color: #fff;
+    width: 180px;
+    height: 40px;
+    border-radius: 12px;
+}
+.leftArrow:hover{
+    cursor: pointer;
+}
+.leftArrow::before {
+    content: "";
+    position: absolute;
+    left: -12px;
+    top: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-right: 20px solid #826449;
+}
+
+
