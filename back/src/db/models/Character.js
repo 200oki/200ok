@@ -22,8 +22,8 @@ class Character {
    * @return {{any}?} character
    */
   static async get({ id }) {
-    if (id in characters) {
-      return characters[id];
+    if (id in characters.id) {
+      return characters.id[id];
     } else {
       return null;
     }
