@@ -99,8 +99,10 @@ const characters = {
 for (const entry of Object.entries(characters.id)) {
   // const [id, char] = entry;
   const char = entry[1];
-  let { name_ko, birthday, birthday_month, colors, hobby, styles } = char;
+  let { name_ko, birthday, birthday_month, tier, colors, hobby, styles } = char;
   let birthday_month_str = birthday_month.toString();
+  // String(undefined)는 'undefined'이고 undefined?.toString은 undefined입니다.
+  let tier_str = tier?.toString();
 
   // name_ko는 검색 용도도 있지만 코멘트 쿼리에서 주민 존재 검사에도 쓸 수 있습니다.
   if (!(name_ko in characters.name_ko)) {
@@ -118,6 +120,13 @@ for (const entry of Object.entries(characters.id)) {
     characters.birthday_month[birthday_month_str] = [];
   }
   characters.birthday_month[birthday_month_str].push(char);
+
+  // tier는 게임에 사용됩니다.
+  // 주의사항은, tier 값이 없는 녀석들도 있습니다.
+  if (tier && !(tier in characters.tier)) {
+    characters.tier[tier] = [];
+  }
+  characters.tier[tier].push(char);
 
   // special npc는 아래 항목들이 없습니다.
   if (char.special) {
