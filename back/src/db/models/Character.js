@@ -29,6 +29,7 @@ class Character {
    *  - `name_ko`
    *  - `birthday`
    *  - `birthday_month`
+   *  - `tier`
    *  - `hobby`
    *  - `colors`
    *
