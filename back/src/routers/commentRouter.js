@@ -59,25 +59,7 @@ const commentRouter = Router();
  *                success:
  *                  type: string
  *                  example: true
- *                comments:
- *                  type: object
- *                  properties:
- *                    villager:
- *                      type: string
- *                      description: 주민 이름.
- *                      example: 아그네스
- *                    location:
- *                      type: string
- *                      description: 댓글 작성 위치.
- *                      example: recommendation
- *                    nickname:
- *                      type: string
- *                      description: 댓글 작성자 이름.
- *                      example: 닉네임
- *                    comment:
- *                      type: string
- *                      description: 댓글 내용
- *                      example: 얍얍
+ *
  *      400:
  *        description: 댓글 생성 오류
  *        content:
@@ -180,7 +162,7 @@ commentRouter.post(
  *                  type: string
  *                  description: 응답 여부
  *                  example: true
- *                comments:
+ *                payload:
  *                  type: array
  *                  items:
  *                    type: object
@@ -231,3 +213,23 @@ commentRouter.get(
 );
 
 export { commentRouter };
+
+// payload:
+//  *                  type: object
+//  *                  properties:
+//  *                    villager:
+//  *                      type: string
+//  *                      description: 주민 이름.
+//  *                      example: 아그네스
+//  *                    location:
+//  *                      type: string
+//  *                      description: 댓글 작성 위치.
+//  *                      example: recommendation
+//  *                    nickname:
+//  *                      type: string
+//  *                      description: 댓글 작성자 이름.
+//  *                      example: 닉네임
+//  *                    comment:
+//  *                      type: string
+//  *                      description: 댓글 내용
+//  *                      example: 얍얍
