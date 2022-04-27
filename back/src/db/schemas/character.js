@@ -1,6 +1,9 @@
 import fs from "fs";
 import path from "path";
-// import * as characters from "./characters.json";
+// json 임포트 불가: 아마 babel을 사용하지 않아서 그런 것 같습니다.
+// 어쨌든 fs로 읽어도 되니까 가만히 둡시다.
+// 고장 안났으면 고칠 필요 없습니다.
+// import * as characters from "./src/db/schemas/characters.json";
 
 const __dirname = path.resolve();
 let raw = fs.readFileSync(
