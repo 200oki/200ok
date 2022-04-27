@@ -76,6 +76,27 @@ class CharacterService {
     const characters = await Character.list();
     return characters;
   }
+
+  /** 캐릭터 `n`명을 무작위로 골라 배열로 반환합니다.
+   *
+   * @arg {number} n - 골라낼 샘플의 크기입니다.
+   * @arg {string[]} [tiers] - 걸러낼 티어 값들입니다.
+   *  - 티어는 원래 숫자이지만 해시테이블 키이기 때문에, 그리고 쿼리에서 받아오는 값이기
+   *    때문에 여기서는 문자열입니다.
+   * @arg {string[]} [fields] - `fields`는 포함하고 싶은 필드 목록입니다. 빈 배열이면 모든 필드를 포함합니다.
+   * @return {any[]} randomCharacters - 반환값의 순서 역시 무작위입니다.
+   */
+  static async sample(n, tiers = [], fields = []) {
+    const result = await Character.sample(n, tiers);
+    if (fields.length) {
+      return _(result)
+        .chain()
+        .map((v) => _(v).pick(fields))
+        .value();
+    } else {
+      return result;
+    }
+  }
 }
 
 export { CharacterService };
