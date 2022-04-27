@@ -36,7 +36,9 @@ class Character {
    */
   static async exists(key, value) {
     if (!(key in characters)) {
-      throw new Error(`Field name ${key} either doesn't exist or not peekable`);
+      throw new Error(
+        `Field name "${key}" either doesn't exist or not peekable`
+      );
     }
     return value in characters[key];
   }
