@@ -130,20 +130,21 @@ scoreRouter.post(
 /** query: scores/userId?userId={id} */
 /**
  * @swagger
- * /scores/userId/{userId}:
+ * /scores/userId?userId=${userId}:
  *   get:
- *    summary: 유저 점수 조회 API
- *    description: 유저 점수를 조회할 때 사용하는 API 입니다.
+ *    summary: 유저 점수 & 랭크 조회 API
+ *    description: 유저 점수 & 랭크를 조회할 때 사용하는 API 입니다.
  *    tags: [Scores]
  *    parameters:
- *      -in: query
- *      userId: id
- *      schema:
- *        type: string
- *      description: 유저 아이디
+ *      - in: query
+ *        name: userId
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: 유저 점수 & 랭크를 반환합니다.
  *    responses:
  *      200:
- *        description: 점수 조회
+ *        description: 점수 & 랭크 조회
  *        content:
  *          application/json:
  *            schema:
@@ -173,7 +174,7 @@ scoreRouter.post(
  *                      example: 1
  *                    
  *      400:
- *        description: 점수 조회 오류
+ *        description: 점수 & 랭크 조회 오류
  *        content:
  *         application/json:
  *            schema:
@@ -225,7 +226,7 @@ scoreRouter.get(
 
     const body = {
       success: true,
-      userRank,
+      payload: userRank,
     };
 
     return res.status(status.STATUS_200_OK).json(body);
@@ -278,7 +279,7 @@ scoreRouter.get(
 
     const body = {
       success: true,
-      rankList,
+      payload: rankList,
     };
 
     return res.status(status.STATUS_200_OK).json(body);
