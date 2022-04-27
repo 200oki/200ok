@@ -125,9 +125,9 @@ function MatchResult() {
   // useEffect(() => {
   //   const outerDivRefCurrent = outerDivRef.current;
 
-  //   if (outerDivRef && outerDivRefCurrent) {
-  //     outerDivRefCurrent.addEventListener("wheel", wheelHandler);
-  //   }
+    if (outerDivRef && outerDivRefCurrent) {
+      outerDivRefCurrent.addEventListener("wheel", wheelHandler);
+    }
 
   //   return () => {
   //     outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
