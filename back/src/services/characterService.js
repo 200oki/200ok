@@ -14,6 +14,17 @@ import * as status from "../utils/status.js";
  *
  * 캐릭터 데이터는 읽기 전용입니다.
  * 찾는 `id`가 없으면 `errorinfo`를 반환합니다.
+ *
+ * ## Methods
+ *
+ * - `static async get({ id, fields = [] })`
+ *    - 캐릭터 한명을 골라 반환합니다.
+ * 찾는 `id`가 없으면 404 에러입니다.
+ * - ~~`static async getByBirthday({ birthday, fields = [] })`~~
+ *    - ~~생일이 일치하는 캐릭터들의 객체를 반환합니다.~~
+ * - `static async list()` - 전체 캐릭터를 `{ id: name_ko }` 형식으로 반환합니다.
+ * - `static async sample(n, tiers = [], fields = [])`
+ *    - 캐릭터 `n`명을 무작위로 골라 배열로 반환합니다.
  */
 class CharacterService {
   /** 캐릭터 한명을 골라 반환합니다. 찾는 `id`가 없으면 404 에러입니다.
