@@ -29,7 +29,7 @@ class Character {
     }
   }
 
-  /** 생일이 일치하는 캐릭터들의 객체를 반환합니다.
+  /** **DEPRECATED** 생일이 일치하는 캐릭터들의 객체를 반환합니다.
    *
    * @arg {{string}} birthday - `MM-DD` 포맷 날짜입니다.
    * @return {{any}} characters - 캐릭터가 여러 명 포함된 객체입니다.
@@ -38,8 +38,13 @@ class Character {
   static async getByBirthday({ birthday }) {
     // const found = _(characters).pick((v, k) => v.birthday === birthday);
     // return found;
-    if (birthday in charactersByBirthday) {
-      return charactersByBirthday[birthday];
+    if (birthday in characters.birthday) {
+      // 호환성을 위해 남겨둔 객체 형식 반환 코드입니다.
+      return _(characters.birthday[birthday])
+        .chain()
+        .map((v) => [v.id, v])
+        .object()
+        .value();
     } else {
       return {};
     }
