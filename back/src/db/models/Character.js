@@ -100,11 +100,18 @@ class Character {
    * @arg {string[]} [tiers] - 걸러낼 티어 값들입니다.
    *  - 티어는 원래 숫자이지만 해시테이블 키이기 때문에, 그리고 쿼리에서 받아오는 값이기
    *    때문에 여기서는 문자열입니다.
-   * @return {any[]} characters
+   * @return {any[]} randomCharacters - 반환값의 순서 역시 무작위입니다.
    */
-  static async sample(n, tiers = null) {
-    const found = _(characters).chain().pairs().sample(n).object().value();
-    return found;
+  static async sample(n, tiers = []) {
+    // const found = _(characters).chain().pairs().sample(n).object().value();
+    // return found;
+    let pool;
+    if (tiers.length === 0) {
+      pool = _(characters.id).values();
+    } else {
+      pool = _(characters.tier).chain().pick(tiers).values().value();
+    }
+    return _(pool).sample(n);
   }
 
   // static async search({ keywords = [] }) {}
