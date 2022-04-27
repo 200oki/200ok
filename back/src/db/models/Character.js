@@ -16,6 +16,31 @@ import { characters, characterNames } from "../schemas/character.js";
  *
  */
 class Character {
+  /** 캐릭터(들)이 있는지 살펴봅니다.
+   *
+   * @arg {string} key - 찾으려는 필드입니다. (`name_ko`, `id`, ...)
+   * @arg {string} value - 찾아볼 값입니다. (`일섭`, `admiral`, ...)
+   *  - **주의**: 값이 원래 숫자라도 룩업 목적으로는 문자열입니다.
+   *    (예시: `birthday_month`)
+   * @return {boolean} exists
+   *
+   * 필드는 아래에 언급된 값 중 하나입니다.
+   *  - `id`
+   *  - `name_ko`
+   *  - `birthday`
+   *  - `birthday_month`
+   *  - `hobby`
+   *  - `colors`
+   *
+   * 이 안에 없는 필드를 쿼리하는 것은 에러입니다.
+   */
+  static async exists(key, value) {
+    if (!(key in characters)) {
+      throw new Error(`Field name ${key} either doesn't exist or not peekable`);
+    }
+    return value in characters[key];
+  }
+
   /** 캐릭터 한명을 골라 반환합니다. 찾는 `id`가 없으면 `null`을 돌려줍니다.
    *
    * @arg {{string}} id - 캐릭터 `id`는 영문 이름의 소문자/공백제거/아스키 버전입니다.
