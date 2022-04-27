@@ -135,6 +135,8 @@ const characters = {
  */
 // const ALLNAMES_KO = {};
 
+console.log(characters.tier);
+
 // characters.id 이외의 다른 프로퍼티를 채워 넣습니다.
 for (const entry of Object.entries(characters.id)) {
   // const [id, char] = entry;
@@ -143,6 +145,7 @@ for (const entry of Object.entries(characters.id)) {
   let birthday_month_str = birthday_month.toString();
   // String(undefined)는 'undefined'이고 undefined?.toString은 undefined입니다.
   let tier_str = tier?.toString();
+  console.log(`${char.id}: ${tier} = ${tier_str}`);
 
   // name_ko는 검색 용도도 있지만 코멘트 쿼리에서 주민 존재 검사에도 쓸 수 있습니다.
   if (!(name_ko in characters.name_ko)) {
@@ -189,6 +192,12 @@ const characterNames = Object.fromEntries(
 //   admiral: "일섭",
 //   cyrus: "리포",
 // };
+
+console.log(
+  _(characters.tier).mapObject((v, k) => {
+    return _(v).pluck("id");
+  })
+);
 
 export {
   characters,

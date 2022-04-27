@@ -109,7 +109,7 @@ class Character {
     if (tiers.length === 0) {
       pool = _(characters.id).values();
     } else {
-      pool = _(characters.tier).chain().pick(tiers).values().value();
+      pool = _(characters.tier).chain().pick(tiers).values().flatten().value();
     }
     return _(pool).sample(n);
   }
