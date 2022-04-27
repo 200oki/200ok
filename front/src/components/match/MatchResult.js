@@ -112,9 +112,15 @@ function MatchResult() {
         left: 0,
         behavior: "smooth",
       });
-    } else {
+    } else if (e.target.innerText === "반응 남기기") {
       outerDivRef.current.scrollTo({
         top: PAGE_HEIGHT * 2 + DIVIDER_HEIGHT * 2,
+        left: 0,
+        behavior: "smooth",
+      });
+    } else {
+      outerDivRef.current.scrollTo({
+        top: 0,
         left: 0,
         behavior: "smooth",
       });
@@ -160,10 +166,10 @@ function MatchResult() {
         </div>
       </div>
       <div className={styled.inner}>
-        <MatchResultRank sample={sample} />
+        <MatchResultRank sample={sample} goToPosition={goToPosition} />
       </div>
       <div className={styled.inner}>
-        <MatchResultComment />
+        <MatchResultComment goToPosition={goToPosition} />
       </div>
       {/* </ReactPageScroller> */}
     </div>
