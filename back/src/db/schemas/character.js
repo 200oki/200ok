@@ -97,6 +97,12 @@ const characters = {
 // const ALLNAMES_KO = {};
 
 // characters.id 이외의 다른 프로퍼티를 채워 넣습니다.
+for (const entry of Object.entries(characters.id)) {
+  const [id, char] = entry;
+  let { name_ko, birthday, birthday_month, color, hobby, style } = char;
+
+  // 엔트리가 없으면 지금 새로 만듭니다.
+}
 
 /** `characters`의 다른 얼굴로 빠른 생일 검색을 위해 생일별로 구분된 버전입니다. */
 const charactersByBirthday = {};
