@@ -88,14 +88,12 @@ class Character {
   /** 캐릭터 `n`명을 무작위로 골라 배열로 반환합니다.
    *
    * @arg {number} n - 골라낼 샘플의 크기입니다.
-   * @arg {{field: value}} [filter] - 걸러낼 필드와 값의 짝들입니다.
-   *  예시:
-   *  ```js
-   *  { tier: 1 }
-   *  ```
+   * @arg {string} [tier] - 걸러낼 티어 값입니다.
+   *  - 티어는 원래 숫자이지만 해시테이블 키이기 때문에, 그리고 쿼리에서 받아오는 값이기
+   *    때문에 여기서는 문자열입니다.
    * @return {any[]} characters
    */
-  static async sample(n, filter = {}) {
+  static async sample(n, tier = null) {
     const found = _(characters).chain().pairs().sample(n).object().value();
     return found;
   }
