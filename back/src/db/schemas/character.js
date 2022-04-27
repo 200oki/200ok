@@ -62,14 +62,14 @@ const _chars = JSON.parse(raw);
  *
  * ```js
  * {
- *  id: { id: char },
- *  name_ko: { name_ko: char },
+ *    id: { id: char },
+ *    name_ko: { name_ko: char },
  *
- *  birthday: [ char ],
- *  birthday_month: [ char ],
- *  color: [ char ],
- *  hobby: [ char ],
- *  style: [ char ],
+ *    birthday: [ char ],
+ *    birthday_month: [ char ],
+ *    color: [ char ],
+ *    hobby: [ char ],
+ *    style: [ char ],
  * }
  * ```
  */
@@ -95,6 +95,8 @@ const characters = {
  * 그래서 이것도 `Set`이 아니고 값이 없는 객체입니다.
  */
 // const ALLNAMES_KO = {};
+
+// characters.id 이외의 다른 프로퍼티를 채워 넣습니다.
 
 /** `characters`의 다른 얼굴로 빠른 생일 검색을 위해 생일별로 구분된 버전입니다. */
 const charactersByBirthday = {};
