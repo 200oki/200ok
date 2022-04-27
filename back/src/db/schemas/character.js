@@ -106,6 +106,9 @@ const ALL_COLORS = [
  *    "styles": { style: [ char ] },
  * }
  * ```
+ *
+ * @todo `tier` 값이 없는 녀석들은 어떻게 해야 할까요... 현재 그런 녀석들은 티어가
+ *  정해진 게임에는 절대로 못 나옵니다.
  */
 const characters = {
   id: _chars,
