@@ -54,9 +54,47 @@ const charactersMock = {
 
 /** `id`별 캐릭터 데이터를 담고 있습니다. */
 // const characters = charactersMock;
-const characters = JSON.parse(raw);
-// raw는 크기가 꽤 크므로 없애 버립니다.
-raw = null;
+const _chars = JSON.parse(raw);
+// raw는 크기가 꽤 크므로 없애 버립니다. -> 없앨 필요 없습니다.
+// raw = null;
+
+/** 캐릭터의 데이터를 담는 맵입니다. 동일한 데이터에 여러가지 키로 접근 가능합니다.
+ *
+ * ```js
+ * {
+ *  id: { id: char },
+ *  name_ko: { name_ko: char },
+ *
+ *  birthday: [ char ],
+ *  birthday_month: [ char ],
+ *  color: [ char ],
+ *  hobby: [ char ],
+ *  style: [ char ],
+ * }
+ * ```
+ */
+const characters = {
+  // id, name_ko는 매핑 타입입니다.
+  id: _chars,
+  name_ko: {},
+
+  // 여기부터는 1:1 매칭이 되지 않을 수 있으므로 매핑이 아닌 컨테이너입니다.
+  birthday: [],
+  birthday_month: [],
+  color: [],
+  hobby: [],
+  style: [],
+};
+
+/** 모든 캐릭터의 한국어 이름을 담고 있습니다. 존재 여부 검사에 사용합니다.
+ *
+ * - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
+ * - https://leetcode.com/problems/contains-duplicate/discuss/515531/javascript-set-vs-object
+ *
+ * 언급된 두 아티클을 참고해 보면 자바스크립트 `Set`은 해시테이블 방식이 아닌 듯 합니다.
+ * 그래서 이것도 `Set`이 아니고 값이 없는 객체입니다.
+ */
+// const ALLNAMES_KO = {};
 
 /** `characters`의 다른 얼굴로 빠른 생일 검색을 위해 생일별로 구분된 버전입니다. */
 const charactersByBirthday = {};
