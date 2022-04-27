@@ -190,4 +190,12 @@ router.get("/characters/:id", async (req, res, next) => {
   }
 });
 
+/** query: [ size=n ] [ &tiers=1,3,... ] [ &fields=field1,field2,... ] */
+router.get("/characters/random", async (req, res, next) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+});
+
 export { router as characterRouter };
