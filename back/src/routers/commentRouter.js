@@ -114,12 +114,13 @@ commentRouter.post(
       const { villager, comment, nickname, location } = req.body;
       const createdComment = await CommentService.addComment({
         villager,
-        comment,
         nickname,
+        comment,
         location,
       });
       const body = {
         success: true,
+        payload: createdComment,
       };
       return res.status(STATUS_201_CREATED).json(body);
     } catch (error) {
