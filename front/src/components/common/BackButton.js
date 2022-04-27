@@ -9,15 +9,16 @@ const BackButton = () => {
   const navigator = useNavigate();
 
   const backHome = () => {
-    if (window.location.pathname === "/game-start") {
-      navigator("/explore");
-    }
+    navigator(-1);
+    // if (window.location.pathname === "/game-start") {
+    //   navigator("/explore");
+    // }
   };
 
   return (
     <Typography className={classes.quizName} onClick={backHome}>
       <ArrowLeft className={classes.leftArrow} />
-      메인메뉴
+      뒤로가기
     </Typography>
   );
 };
