@@ -6,6 +6,19 @@ import { RequestError } from "../utils/errors.js";
 
 const router = Router();
 
+/** ","로 구분된 쿼리 스트링을 처리해 배열로 바꿔줍니다.
+ *
+ * @arg {string?} queryStr - 생 쿼리 문자열입니다.
+ * @return {string[]} values - 쿼리값의 배열입니다.
+ */
+const parseArrayQuery = (queryStr) => {
+  if (!queryStr) {
+    return [];
+  } else {
+    return queryStr.split(",");
+  }
+};
+
 /**
  * @swagger
  * tags:
@@ -13,7 +26,24 @@ const router = Router();
  *  description: Characters API 문서입니다.
  */
 
-/** query: birthday=mm-dd[ &fields=field1,field2,... ] */
+/** query: [ size=n ] [ &tiers=1,3,... ] [ &fields=field1,field2,... ] */
+router.get("/characters/random", async (req, res, next) => {
+  try {
+    let size = Number(req.query.size);
+    if (isNaN(size)) {
+      size = 1;
+    }
+    let tiers = parseArrayQuery(req.query.tiers);
+    let fields = parseArrayQuery(req.query.fields);
+
+    let result = await CharacterService.sample(size, tiers, fields);
+    res.status(status.STATUS_200_OK).json({ success: true, payload: result });
+  } catch (error) {
+    next(error);
+  }
+});
+
+/** DEPRECATED query: birthday=mm-dd[&fields=field1,field2,...] */
 /**
  * @swagger
  * /characters:
@@ -45,7 +75,7 @@ const router = Router();
  */
 /**
  * @swagger
- * /characters?birthday=mm-dd [ &fields=field1,field2,... ]:
+ * /characters?birthday=:
  *  get:
  *    summary: "(DEPRECATED) 생일인 캐릭터들을 반환합니다."
  *    description: |
@@ -97,10 +127,7 @@ router.get("/characters", async (req, res, next) => {
     if (req.query.birthday) {
       // birthday 쿼리가 있을 때는 오늘의 생일 모드입니다.
       // 쿼리에 원하는 필드값을 넣을 수 있습니다.
-      let fields = [];
-      if (req.query.fields) {
-        fields = req.query.fields.split(",");
-      }
+      let fields = parseArrayQuery(req.query.fields);
       found = await CharacterService.getByBirthday({
         birthday: req.query.birthday,
         fields,
@@ -119,12 +146,19 @@ router.get("/characters", async (req, res, next) => {
 /** query: fields=name_ko,name_en */
 /**
  * @swagger
- * /characters/:id [ &fields=field1,field2,... ]:
+ * /characters/{id}:
  *  get:
  *    summary: id와 일치하는 캐릭터를 반환합니다.
  *    description: 한 캐릭터의 데이터를 전부 또는 일부 반환합니다.
  *    tags: [Characters]
  *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: 캐릭터 id는 영문 이름 소문자에서 공백을 제거한 문자열입니다.
+ *        example: admiral
  *      - in: query
  *        name: fields
  *        schema:
@@ -167,10 +201,7 @@ router.get("/characters", async (req, res, next) => {
 router.get("/characters/:id", async (req, res, next) => {
   try {
     // 쿼리에 원하는 필드값을 넣을 수 있습니다.
-    let fields = [];
-    if (req.query.fields) {
-      fields = req.query.fields.split(",");
-    }
+    let fields = parseArrayQuery(req.query.fields);
 
     let found = await CharacterService.get({ id: req.params.id, fields });
     if (found.errorMessage) {
@@ -181,5 +212,67 @@ router.get("/characters/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+/** /characters/random swagger 문서
+ * @swagger
+ * /characters/random:
+ *  get:
+ *    summary: "무작위 캐릭터를 반환합니다."
+ *    description: |
+ *      size, tiers, fields 쿼리로 반환값을 세밀하게 조정할 수 있습니다.
+ *      반환 형식은 다음과 같습니다. 순서 역시 무작위입니다.
+ *      ```js
+ *      [ char1, char2, char3, ... ]
+ *      ```
+ *    tags: [Characters]
+ *    parameters:
+ *      - in: query
+ *        name: size
+ *        schema:
+ *          type: integer
+ *        required: false
+ *        description: 골라낼 무작위 캐릭터의 수입니다.
+ *        example: 4
+ *      - in: query
+ *        name: tiers
+ *        schema:
+ *          type: string
+ *          format: integer[]
+ *          pattern: "^[1-6](?:,[1-6])*?$"
+ *        required: false
+ *        description: |
+ *          특정 티어에 속한 캐릭터들 중에서만 무작위로 골라냅니다.
+ *          여러 티어를 지정하면 지정된 티어들의 합집합에서 고릅니다.
+ *          티어 순서가 연속적이거나 정렬되어 있을 필요는 없습니다.
+ *          (티어는 1부터 6까지의 정수입니다.)
+ *        example: 1,3,4
+ *      - in: query
+ *        name: fields
+ *        schema:
+ *          type: string
+ *          format: field[]
+ *        required: false
+ *        description: |
+ *          데이터에 받고 싶은 필드를 쉼표로 구분해서 넣어줍니다.
+ *          이 쿼리가 없으면 모든 필드가 반환됩니다.
+ *        example: id,tier,name_ko,image_photo
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                  description: 요청 성공 여부
+ *                  example: true
+ *                payload:
+ *                  type: array
+ *                  items:
+ *                    type: object
+ *                    additionalProperties:
+ *                      type: object
+ *                      description: character 데이터입니다.
+ */
 
 export { router as characterRouter };
