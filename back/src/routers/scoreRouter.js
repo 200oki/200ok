@@ -130,7 +130,7 @@ scoreRouter.post(
 /** query: scores/userId?userId={id} */
 /**
  * @swagger
- * /scores/userId?userId=${userId}:
+ * /scores/userId/{userId}:
  *   get:
  *    summary: 유저 점수 & 랭크 조회 API
  *    description: 유저 점수 & 랭크를 조회할 때 사용하는 API 입니다.
