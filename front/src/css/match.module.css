@@ -125,6 +125,14 @@
   border-radius: 10px;
 }
 
+/* .commentArea:focus {
+  background-color: red;
+} */
+/* 
+.commentArea > div {
+  width: 100% !important;
+} */
+
 .commentArea::-webkit-scrollbar {
   width: 21px;
 }
@@ -168,8 +176,8 @@
 
 .btnActive,
 .btnHidden {
-  width: 70px;
-  height: 30px;
+  width: 90px;
+  height: 40px;
   border: none;
   border-radius: 30px;
   background: #a5e4ff;
@@ -228,20 +236,130 @@
   justify-content: space-around;
 }
 
-.btnsWrapper > button {
+.btnsWrapper > button,
+.goToCharInfoBtn {
   font-size: 15px;
   font-weight: bold;
-  background: #fff9e4;
+  background: #fff5d0;
   border-radius: 50px;
   width: 150px;
   height: 40px;
   border: none;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  color: #7e725c;
   transition: transform 250ms;
   font-family: "TmoneyRoundWindExtraBold";
 }
 
-.btnsWrapper > button:hover {
+.btnsWrapper > button:hover,
+.goToCharInfoBtn:hover {
   transform: translateY(-0.25em);
   cursor: pointer;
 }
+
+.rankCharWrapper {
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.rankCharCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.rankCharTitle,
+.rankCharName {
+  font-family: "TmoneyRoundWindExtraBold";
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.rankCharTitleBg {
+  width: 200px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 80px;
+  color: #fff;
+  background-color: rgba(21, 203, 188, 0.7);
+  box-shadow: 0 3px rgba(21, 158, 147, 0.8);
+}
+
+.rankCharTitle {
+  font-size: 25px;
+}
+
+.rankCharName {
+  font-size: 18px;
+  color: #835a2a;
+}
+
+.rankCharImage > img {
+  border-radius: 50%;
+}
+
+.slider {
+  width: 500vw;
+  transition: transform 0.8s;
+}
+
+.testContent {
+  width: 100vw;
+  float: left;
+}
+
+.birthFormWrapper {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.personForm {
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+}
+
+.personForm > div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.personRadioBtn {
+  width: 80%;
+  height: 45px;
+}
+
+.personForm > div {
+  text-align: center;
+}
+/* 
+.personRadioBtn input[type="radio"]:checked {
+  visibility: hidden;
+}
+
+.personRadioBtn label {
+  display: block;
+  border-radius: 50px;
+  margin: 0 auto;
+  text-align: center;
+  height: -webkit-fill-available;
+  line-height: 45px;
+}
+
+.personRadioBtn input[type="radio"] + label {
+  width: 100%;
+  background: white;
+}
+
+.personRadioBtn input[type="radio"]:checked + label {
+  background: #184da0;
+  color: #fff;
+} */
