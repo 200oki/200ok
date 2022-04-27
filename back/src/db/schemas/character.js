@@ -58,13 +58,25 @@ const _chars = JSON.parse(raw);
 // raw는 크기가 꽤 크므로 없애 버립니다. -> 없앨 필요 없습니다.
 // raw = null;
 
-/** 캐릭터의 데이터를 담는 맵입니다. 동일한 데이터에 여러가지 키로 접근 가능합니다. */
+/** 캐릭터의 데이터를 담는 맵입니다. 동일한 데이터에 여러가지 키로 접근 가능합니다.
+ *
+ * ## 구조 예시
+ * ```js
+ * {
+ *    "id": { id: char },
+ *    "name_ko": { name_ko: char },
+ *    "birthday": { birthday: [ char ] },
+ *    "birthday_month": { birthday_month: [ char ] },
+ *    "color": { color: [ char ] },
+ *    "hobby": { hobby: [ char ] },
+ *    "style": { style: [ char ] },
+ * }
+ * ```
+ */
 const characters = {
   // id, name_ko는 매핑 타입입니다.
   id: _chars,
   name_ko: {},
-
-  // 여기부터는 1:1 매칭이 되지 않을 수 있으므로 매핑이 아닌 컨테이너입니다.
   birthday: {},
   birthday_month: {},
   color: {},
