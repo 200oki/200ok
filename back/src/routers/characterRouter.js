@@ -9,10 +9,9 @@ const router = Router();
 /** ","로 구분된 쿼리 스트링을 처리해 배열로 바꿔줍니다.
  *
  * @arg {string?} queryStr - 생 쿼리 문자열입니다.
- * @return {string[]} fields - 필드의 배열입니다.
- *  - 사실 존재하는 필드가 아닐 수도 있지만, 무시되기 때문에 괜찮습니다.
+ * @return {string[]} values - 쿼리값의 배열입니다.
  */
-const processFieldsQuery = (queryStr) => {
+const parseArrayQuery = (queryStr) => {
   if (!queryStr) {
     return [];
   } else {
@@ -111,7 +110,7 @@ router.get("/characters", async (req, res, next) => {
     if (req.query.birthday) {
       // birthday 쿼리가 있을 때는 오늘의 생일 모드입니다.
       // 쿼리에 원하는 필드값을 넣을 수 있습니다.
-      let fields = processFieldsQuery(req.query.fields);
+      let fields = parseArrayQuery(req.query.fields);
       found = await CharacterService.getByBirthday({
         birthday: req.query.birthday,
         fields,
@@ -178,7 +177,7 @@ router.get("/characters", async (req, res, next) => {
 router.get("/characters/:id", async (req, res, next) => {
   try {
     // 쿼리에 원하는 필드값을 넣을 수 있습니다.
-    let fields = processFieldsQuery(req.query.fields);
+    let fields = parseArrayQuery(req.query.fields);
 
     let found = await CharacterService.get({ id: req.params.id, fields });
     if (found.errorMessage) {
