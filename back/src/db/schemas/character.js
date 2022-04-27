@@ -5,6 +5,8 @@ import path from "path";
 // 고장 안났으면 고칠 필요 없습니다.
 // import * as characters from "./src/db/schemas/characters.json";
 
+import _ from "underscore";
+
 const __dirname = path.resolve();
 let raw = fs.readFileSync(
   path.resolve(__dirname, "./src/db/schemas/characters.json")
@@ -58,6 +60,36 @@ const _chars = JSON.parse(raw);
 // raw는 크기가 꽤 크므로 없애 버립니다. -> 없앨 필요 없습니다.
 // raw = null;
 
+// characters 맵 빌드를 위한 준비 작업이지만 상수로도 쓰려면 쓸 수 있을 것 같습니다.
+const ALL_HOBBIES = ["자연", "운동", "놀이", "교육", "패션", "음악"];
+const ALL_PERSONALITIES = [
+  "무뚝뚝",
+  "아이돌",
+  "단순 활발",
+  "먹보",
+  "친절함",
+  "성숙함",
+  "운동광",
+  "느끼함",
+];
+const ALL_STYLES = ["액티브", "쿨", "큐트", "엘레강스", "고져스", "심플"];
+const ALL_COLORS = [
+  "베이지색",
+  "검정색",
+  "파랑색",
+  "갈색",
+  "컬러풀색",
+  "회색",
+  "초록색",
+  "연파랑색",
+  "오렌지색",
+  "핑크색",
+  "보라색",
+  "빨강색",
+  "하양색",
+  "노랑색",
+];
+
 /** 캐릭터의 데이터를 담는 맵입니다. 동일한 데이터에 여러가지 키로 접근 가능합니다.
  *
  * ## 구조 예시
@@ -69,6 +101,7 @@ const _chars = JSON.parse(raw);
  *    "birthday_month": { birthday_month: [ char ] },
  *    "tier": { tier: [ char ] },
  *    "hobby": { hobby: [ char ] },
+ *    "personality": { personality: [ char ] },
  *    "colors": { color: [ char ] },
  *    "styles": { style: [ char ] },
  * }
@@ -78,11 +111,15 @@ const characters = {
   id: _chars,
   name_ko: {},
   birthday: {},
-  birthday_month: {},
-  tier: {},
-  hobby: {},
-  colors: {},
-  styles: {},
+  birthday_month: _.object(_.range(1, 13), Array(12).fill([])),
+  tier: _.object(_.range(1, 7), Array(6).fill([])),
+  hobby: _.object(ALL_HOBBIES, Array(ALL_HOBBIES.length).fill([])),
+  personality: _.object(
+    ALL_PERSONALITIES,
+    Array(ALL_PERSONALITIES.length).fill([])
+  ),
+  colors: _.object(ALL_COLORS, Array(ALL_COLORS.length).fill([])),
+  styles: _.object(ALL_STYLES, Array(ALL_STYLES.length).fill([])),
 };
 
 /** 모든 캐릭터의 한국어 이름을 담고 있습니다. 존재 여부 검사에 사용합니다.
@@ -116,45 +153,32 @@ for (const entry of Object.entries(characters.id)) {
   characters.birthday[birthday].push(char);
 
   // birthday_month는 이달의 생일 캐릭터 및 달력에 사용됩니다.
-  if (!(birthday_month_str in characters.birthday_month)) {
-    characters.birthday_month[birthday_month_str] = [];
-  }
   characters.birthday_month[birthday_month_str].push(char);
 
   // tier는 게임에 사용됩니다.
   // 주의사항은, tier 값이 없는 녀석들도 있습니다.
-  if (tier && !(tier in characters.tier)) {
-    characters.tier[tier] = [];
+  if (tier) {
+    characters.tier[tier_str].push(char);
   }
-  characters.tier[tier].push(char);
 
   // special npc는 아래 항목들이 없습니다.
   if (char.special) {
     continue;
   }
 
-  if (!(hobby in characters.hobby)) {
-    characters.hobby[hobby] = [];
-  }
   characters.hobby[hobby].push(char);
 
   // color, style은 원래 배열이기 때문에 까먹지 말고 한바퀴 더 돌립니다.
   for (const k of colors) {
-    if (!(k in characters.colors)) {
-      characters.colors[k] = [];
-    }
     characters.colors[k].push(char);
   }
 
   for (const k of styles) {
-    if (!(k in characters.styles)) {
-      characters.styles[k] = [];
-    }
     characters.styles[k].push(char);
   }
 }
 
-/** 캐릭터 별 `id`와 한국어 이름만을 빠르게 보내주기 위한 작은 컨테이너입니다. */
+/** 캐릭터 별 `id`와 한국어 이름만을 빠르게 보내주기 위한 작은 맵입니다. */
 const characterNames = Object.fromEntries(
   Object.entries(characters.id).map(([k, v]) => [k, v.name_ko])
 );
@@ -163,4 +187,11 @@ const characterNames = Object.fromEntries(
 //   cyrus: "리포",
 // };
 
-export { characters, characterNames };
+export {
+  characters,
+  characterNames,
+  ALL_COLORS,
+  ALL_HOBBIES,
+  ALL_PERSONALITIES,
+  ALL_STYLES,
+};
