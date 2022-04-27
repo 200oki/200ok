@@ -98,8 +98,24 @@ const characters = {
 for (const entry of Object.entries(characters.id)) {
   const [id, char] = entry;
   let { name_ko, birthday, birthday_month, color, hobby, style } = char;
+  let birthday_month_str = birthday_month.toString;
 
-  // 엔트리가 없으면 지금 새로 만듭니다.
+  // name_ko는 검색 용도도 있지만 코멘트 쿼리에서 주민 존재 검사에도 쓸 수 있습니다.
+  if (!(name_ko in characters.name_ko)) {
+    characters.name_ko[name_ko] = char;
+  }
+
+  // birthday는 오늘의 생일 얻기에 사용됩니다.
+  if (!(birthday in characters.birthday)) {
+    characters.birthday[birthday] = [];
+  }
+  characters.birthday[birthday].push(char);
+
+  // birthday_month는 이달의 생일 캐릭터 및 달력에 사용됩니다.
+  if (!(birthday_month_str in characters.birthday_month)) {
+    characters.birthday_month[birthday_month_str] = [];
+  }
+  characters.birthday_month[birthday_month_str].push(char);
 }
 
 /** `characters`의 다른 얼굴로 빠른 생일 검색을 위해 생일별로 구분된 버전입니다. */
