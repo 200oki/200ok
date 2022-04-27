@@ -1,4 +1,5 @@
 .env
+back/log
 logs
 node_modules
 ~$*
