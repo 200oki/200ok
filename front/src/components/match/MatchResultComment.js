@@ -30,7 +30,7 @@ function MatchResultComment() {
       });
       setComment((cur) => {
         const newComment = [...cur];
-        newComment.push(response.data.comments);
+        newComment.unshift(response.data.payload);
         return newComment;
       });
       setIsTyping(false);

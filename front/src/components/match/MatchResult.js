@@ -7,11 +7,10 @@ import MatchResultComment from "./MatchResultComment";
 
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchCommentContext } from "../../context/MatchCommentContext";
-import { style } from "@mui/system";
-
-import ReactPageScroller from "react-page-scroller";
 
 const DIVIDER_HEIGHT = 5;
+const v = "아그네스";
+const l = "recommendation";
 
 function MatchResult() {
   const navigator = useNavigate();
@@ -24,8 +23,8 @@ function MatchResult() {
 
   const fetchCommentData = async () => {
     try {
-      const { data } = await Api.get(`comments/아그네스`, "recommendation");
-      setComment(data.comments);
+      const { data } = await Api.get(`comments?villager=${v}&location=${l}`);
+      setComment([...Object.values(data.payload)]);
     } catch (err) {
       setComment([]);
       console.error(err);
@@ -125,9 +124,9 @@ function MatchResult() {
   // useEffect(() => {
   //   const outerDivRefCurrent = outerDivRef.current;
 
-  //   if (outerDivRef && outerDivRefCurrent) {
-  //     outerDivRefCurrent.addEventListener("wheel", wheelHandler);
-  //   }
+  // if (outerDivRef && outerDivRefCurrent) {
+  //   outerDivRefCurrent.addEventListener("wheel", wheelHandler);
+  // }
 
   //   return () => {
   //     outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
