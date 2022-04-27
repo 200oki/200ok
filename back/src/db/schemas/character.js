@@ -145,7 +145,7 @@ for (const entry of Object.entries(characters.id)) {
 
 /** 캐릭터 별 `id`와 한국어 이름만을 빠르게 보내주기 위한 작은 컨테이너입니다. */
 const characterNames = Object.fromEntries(
-  Object.entries(characters).map(([k, v]) => [k, v.name_ko])
+  Object.entries(characters.id).map(([k, v]) => [k, v.name_ko])
 );
 // const characterNamesMock = {
 //   admiral: "일섭",
