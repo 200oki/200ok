@@ -6,7 +6,6 @@ import MatchResultComment from "./MatchResultComment";
 
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchCommentContext } from "../../context/MatchCommentContext";
-import { style } from "@mui/system";
 
 const DIVIDER_HEIGHT = 5;
 
@@ -15,6 +14,9 @@ function MatchResult() {
   const { nickname, setNickname } = useContext(NicknameContext);
   const { setComment } = useContext(MatchCommentContext);
   const outerDivRef = useRef();
+
+  const [sample, setSample] = useState([]);
+  const [isloaded, setLoaded] = useState(false);
 
   const fetchCommentData = async () => {
     try {
@@ -26,8 +28,22 @@ function MatchResult() {
     }
   };
 
+  const getChar = async () => {
+    if (!isloaded) {
+      try {
+        const { data } = await Api.get(`characters?birthday=04-02`);
+        setSample([...Object.values(data.payload)]);
+      } catch (err) {
+        console.error(err);
+      }
+      setLoaded(true);
+    }
+    return () => {};
+  };
+
   useEffect(() => {
     fetchCommentData();
+    getChar();
   }, []);
 
   const wheelHandler = (e) => {
@@ -35,38 +51,38 @@ function MatchResult() {
 
     const { deltaY } = e;
     const { scrollTop } = outerDivRef.current; // 스크롤 위쪽 끝부분 위치
-    const pageHeight = window.innerHeight;
+    const PAGE_HEIGHT = window.innerHeight;
 
     if (deltaY > 0) {
       // 스크롤 내릴 때
-      if (scrollTop >= 0 && scrollTop < pageHeight) {
+      if (scrollTop >= 0 && scrollTop < PAGE_HEIGHT) {
         outerDivRef.current.scrollTo({
-          top: pageHeight + DIVIDER_HEIGHT,
+          top: PAGE_HEIGHT + DIVIDER_HEIGHT,
           left: 0,
           behavior: "smooth",
         });
-      } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
+      } else if (scrollTop >= PAGE_HEIGHT && scrollTop < PAGE_HEIGHT * 2) {
         outerDivRef.current.scrollTo({
-          top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
+          top: PAGE_HEIGHT * 2 + DIVIDER_HEIGHT * 2,
           left: 0,
           behavior: "smooth",
         });
       } else {
         outerDivRef.current.scrollTo({
-          top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
+          top: PAGE_HEIGHT * 2 + DIVIDER_HEIGHT * 2,
           left: 0,
           behavior: "smooth",
         });
       }
     } else {
       // 스크롤 올릴 때
-      if (scrollTop >= 0 && scrollTop < pageHeight) {
+      if (scrollTop >= 0 && scrollTop < PAGE_HEIGHT) {
         outerDivRef.current.scrollTo({
           top: 0,
           left: 0,
           behavior: "smooth",
         });
-      } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
+      } else if (scrollTop >= PAGE_HEIGHT && scrollTop < PAGE_HEIGHT * 2) {
         outerDivRef.current.scrollTo({
           top: 0,
           left: 0,
@@ -74,7 +90,7 @@ function MatchResult() {
         });
       } else {
         outerDivRef.current.scrollTo({
-          top: pageHeight + DIVIDER_HEIGHT,
+          top: PAGE_HEIGHT + DIVIDER_HEIGHT,
           left: 0,
           behavior: "smooth",
         });
@@ -85,34 +101,22 @@ function MatchResult() {
   const goToPosition = (e) => {
     e.preventDefault();
 
-    const pageHeight = window.innerHeight;
+    const PAGE_HEIGHT = window.innerHeight;
 
     if (e.target.innerText === "랭킹") {
       outerDivRef.current.scrollTo({
-        top: pageHeight + DIVIDER_HEIGHT,
+        top: PAGE_HEIGHT + DIVIDER_HEIGHT,
         left: 0,
         behavior: "smooth",
       });
     } else {
       outerDivRef.current.scrollTo({
-        top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
+        top: PAGE_HEIGHT * 2 + DIVIDER_HEIGHT * 2,
         left: 0,
         behavior: "smooth",
       });
     }
   };
-
-  useEffect(() => {
-    const outerDivRefCurrent = outerDivRef.current;
-
-    if (outerDivRef && outerDivRefCurrent) {
-      outerDivRefCurrent.addEventListener("wheel", wheelHandler);
-    }
-
-    return () => {
-      outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
-    };
-  }, []);
 
   const goToFirstPage = () => {
     setNickname("");
@@ -123,7 +127,7 @@ function MatchResult() {
     <div className={styled.outer} ref={outerDivRef}>
       <div className={styled.inner}>
         <div className={styled.imgWrapper}>
-          <img src="/images/Aurora.png" />
+          <img src="/images/Aurora.png" alt={"주민 사진"} />
         </div>
         <div className={styled.textWrapper}>
           <div>{nickname} 님과 잘 어울리는 주민은</div>
@@ -135,8 +139,8 @@ function MatchResult() {
         <div className={styled.btnsWrapper}>
           <button>공유하기</button>
           <button onClick={goToFirstPage}>다시하기</button>
-          <button onClick={(e) => goToPosition(e)}>랭킹</button>
-          <button onClick={(e) => goToPosition(e)}>반응 남기기</button>
+          <button onClick={goToPosition}>랭킹</button>
+          <button onClick={goToPosition}>반응 남기기</button>
         </div>
       </div>
       <div className={styled.divider}></div>
