@@ -85,12 +85,17 @@ class Character {
     return characterNames;
   }
 
-  /** 캐릭터 `n`명을 무작위로 골라 객체로 반환합니다.
+  /** 캐릭터 `n`명을 무작위로 골라 배열로 반환합니다.
    *
-   * @arg {{number}} n - 골라낼 샘플의 크기입니다.
-   * @return {{any}} characters
+   * @arg {number} n - 골라낼 샘플의 크기입니다.
+   * @arg {{field: value}} [filter] - 걸러낼 필드와 값의 짝들입니다.
+   *  예시:
+   *  ```js
+   *  { tier: 1 }
+   *  ```
+   * @return {any[]} characters
    */
-  static async sample({ n }) {
+  static async sample(n, filter = {}) {
     const found = _(characters).chain().pairs().sample(n).object().value();
     return found;
   }
