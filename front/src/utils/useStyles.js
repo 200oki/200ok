@@ -54,16 +54,25 @@ export const useStyles = makeStyles({
     margin: "auto !important",
   },
   menuItem: {
-    marginBottom: "50px !important",
     width: "320px",
-    marginLeft: "50px !important",
   },
   quizRoot: {
-    backgroundImage: "url(images/leafBgImg.jpg)",
     height: "100%",
-    opacity: "0.8",
     justifyContent: "center",
     overflow: "hidden",
+    position: "relative",
+    zIndex: "1",
+    "&:after": {
+      height: "100%",
+      width: "100%",
+      top: "0",
+      left: "0",
+      backgroundImage: "url(images/leafBgImg.jpg)",
+      position: "absolute",
+      content: '""',
+      opacity: "0.4",
+      zIndex: "-1",
+    },
   },
   quizName: {
     fontFamily: "TmoneyRoundWindExtraBold !important",
@@ -74,9 +83,25 @@ export const useStyles = makeStyles({
     height: "auto",
   },
   leftArrow: {
-    fontSize: "1.75em !important",
+    left: "20px",
+    top: "30px",
+    position: "relative",
+    backgroundColor: "#826449",
+    lineHeight: "40px",
+    marginBottom: "20px",
     textAlign: "center",
-    verticalAlign: "bottom",
+    color: "#fff",
+    width: "240px",
+    height: "40px",
+    "&:before": {
+      content: "",
+      position: "absolute",
+      left: "-20px",
+      top: "0",
+      borderTop: "20px solid transparent",
+      borderBottom: "20px solid transparent",
+      borderRight: "20px solid #826449",
+    },
   },
   quizContent: {
     textAlign: "center",
@@ -103,7 +128,7 @@ export const useStyles = makeStyles({
     fontFamily: "TmoneyRoundWindExtraBold !important",
   },
   progressBar: {
-    backgroundColor: "whitesmoke",
+    backgroundColor: "white",
     borderRadius: "25px",
     margin: "0 auto",
     marginTop: "20px",
@@ -127,7 +152,7 @@ export const useStyles = makeStyles({
     width: "245px",
     height: "200px",
     borderRadius: "25%",
-    backgroundColor: "whitesmoke",
+    backgroundColor: "white",
     transition: "transform 250ms",
     marginTop: "25px",
     boxShadow: "1px 3px 2px 1px rgba(25, 25, 25, .2)",
@@ -159,12 +184,15 @@ export const useStyles = makeStyles({
   wrapCard: {
     display: "inline-block",
   },
-  topBtn: {
-    position: "absolute !important",
-    right: "50px !important",
-    margin: "auto !important",
+  gameResultImg: {
+    height: "400px",
+    position: "relative",
   },
-  selectBtn: {
-    backgroundColor: "#ffffff",
+  bottomArrow: {
+    width: "80px",
+    height: "80px",
+    position: "absolute",
+    top: "620px",
+    right: "48%",
   },
 });
