@@ -1,11 +1,9 @@
 import HomeIcon from "@mui/icons-material/Home";
 import { Fab } from "@mui/material";
 import React from "react";
-import { useStyles } from "../../utils/useStyles";
 import { useNavigate } from "react-router-dom";
 
-const HomeButton = () => {
-  const classes = useStyles();
+const HomeButton = ({ Icon, className }) => {
   const navigator = useNavigate();
 
   const styles = {
@@ -22,13 +20,8 @@ const HomeButton = () => {
     navigator("/");
   };
   return (
-    <Fab
-      sx={styles}
-      aria-label="home"
-      className={classes.fab}
-      onClick={backHome}
-    >
-      <HomeIcon />
+    <Fab sx={styles} aria-label="home" className={className} onClick={backHome}>
+      {Icon === undefined ? <HomeIcon /> : <Icon />}
     </Fab>
   );
 };
