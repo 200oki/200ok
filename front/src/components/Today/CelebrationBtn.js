@@ -40,7 +40,7 @@ function CelebrationBtn({ todayCharacter, villagers, date }) {
     const getCommentList = useCallback(() => {
         async function get(villager) {
             const { data } = await Api.get(`comments?villager=${villager}&location=today`);
-            return data.comments
+            return data.payload;
         }
         async function getComments() {
             const data = await Promise.all(villagers.map((villager) => get(villager)));
@@ -76,7 +76,7 @@ function CelebrationBtn({ todayCharacter, villagers, date }) {
             <TodayPhrase date={date} villagers={villagers} commentShow={commentShow} />
             <div className={commentShow ? "writing" : "presenting"}>
                 <TodayCharacterImg todayCharacter={todayCharacter} />
-                <button className="btn-comment" onClick={celebrationHandler} style={{ marginTop: "2em" }} disabled={commentShow} >
+                <button className="btn-comment" onClick={celebrationHandler} style={{ marginTop: "2em" }}>
                     {countComments}명의 유저가 축하해주고 있어요!
                 </button>
             </div>

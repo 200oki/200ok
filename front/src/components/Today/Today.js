@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
-import CelebrationBtn from "./CelebrationBtn";
-import "../../css/today.css";
-import * as Api from "../../api";
 import { useNavigate } from "react-router-dom";
+import * as Api from "../../api";
+import "../../css/today.css";
+import CelebrationBtn from "./CelebrationBtn";
+import BackButton from "../common/BackButton";
+import HomeButton from "../common/HomeButton";
 
-function Today({ today }) {
+function Today() {
+  const today = new Date();
   const month = today.getMonth() >= 9 ? String(today.getMonth() + 1) : '0' + String(today.getMonth() + 1);
   const day = today.getDate() >= 10 ? String(today.getDate()) : '0' + String(today.getDate());
   // const month = "04";
@@ -42,7 +45,10 @@ function Today({ today }) {
   }
   return (
     <div className="today">
-      <button className="back" onClick={handleBackClick}>{"< 뒤로가기"}</button>
+      <div className="nav-bar" style={{ position: "fixed", top: "0", zIndex: "1" }}>
+        <BackButton />
+        <HomeButton />
+      </div>
       <div className="today-content">
         {villagers.length > 0
           ?

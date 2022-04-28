@@ -10,14 +10,12 @@ import Today from "./components/Today/Today";
 import Bestiary from "./components/Bestiary/Bestiary";
 
 function App() {
-  const today = new Date();
-
   return (
     <div className={styled.App}>
       <Router>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/today" element={<Today today={today} />} />
+          <Route path="/today" element={<Today />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/match" element={<InputNickname />} />
           <Route path="/game" element={<InputNickname />} />

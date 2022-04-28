@@ -50,7 +50,7 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
   };
 
   return (
-    <div>
+    <div className="comment-container">
       <div className="submitForm">
         <div className={!isVillager ? "alert" : "noAlert"}>주민을 선택해주세요.</div>
         <form

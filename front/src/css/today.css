@@ -66,7 +66,7 @@
 
 /* Villager selector as dropdown menu*/
 .dropdown {
-  border: 1.2px #c0dbdd solid;
+  border: none;
   color: black;
   padding: 10px;
   font-size: 1.23rem;
@@ -84,7 +84,7 @@
   opacity: 0.75;
 }
 .menu > button {
-  border: 1.2px #c0dbdd solid;
+  border: none;
   color: black;
   padding: 10px;
   font-size: 1.23rem;
@@ -109,7 +109,7 @@
 
 /* Comment inputbox */
 input.comment {
-  border: 1.2px #c0dbdd solid;
+  border: none;
   color: black;
   padding: 10px;
   font-size: 1.23rem;
@@ -124,6 +124,10 @@ input.comment {
 }
 input.comment:hover {
   opacity: 0.75;
+}
+input.comment::placeholder {
+  font-size: 0.9rem;
+  color: #81d7a4;
 }
 .submitForm {
   display: flex;
@@ -149,7 +153,7 @@ div.comment {
 
 /* Buttons */
 .btn-comment {
-  border: 1.2px #c0dbdd solid;
+  border: none;
   color: black;
   padding: 10px;
   font-size: 1.23rem;
@@ -184,7 +188,7 @@ div.comment {
 }
 .speech-bubble {
   position: relative;
-  border: 1.2px #c0dbdd solid;
+  border: none;
   color: black;
   padding: 10px;
   font-size: 1.23rem;
@@ -197,6 +201,17 @@ div.comment {
   background-color: #fff9e4;
   font-family: TmoneyRoundWindExtraBold;
 }
+.comment-container {
+  animation: show forwards 1s;
+}
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 /* Apply animations */
 .presenting {
@@ -205,6 +220,8 @@ div.comment {
   align-items: center;
   justify-content: center;
   width: auto;
+  animation-name: enlarge;
+  animation-fill-mode: forwards;
   position: fixed;
 }
 .writing {
@@ -226,5 +243,15 @@ div.comment {
   to {
     transform: scale(65%);
     top: 5%;
+  }
+}
+@keyframes enlarge {
+  from {
+    transform: scale(65%);
+    top: 5%;
+  }
+  to {
+    transform: scale(100%);
+    top: 38vh;
   }
 }
