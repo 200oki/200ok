@@ -164,4 +164,7 @@ export const useStyles = makeStyles({
     right: "50px !important",
     margin: "auto !important",
   },
+  selectBtn: {
+    backgroundColor: "#ffffff",
+  },
 });
