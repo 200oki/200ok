@@ -29,15 +29,12 @@ function App() {
           <Route path="/today" element={<Today />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/match" element={<InputNickname />} />
-<<<<<<< HEAD
           <Route path="/match-test" element={<MatchTest />} />
           <Route path="/match-result" element={<MatchResult />} />
-=======
           <Route path="/game" element={<InputNickname />} />
           <Route path="/matchResult" element={<MatchResult />} />
           <Route path="/bestiary" element={<Bestiary />}>
           </Route>
->>>>>>> e8010d7 (feat: 주민도감페이지 구성완료)
         </Routes>
       </Router>
     </div>
