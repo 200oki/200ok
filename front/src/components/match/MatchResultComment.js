@@ -1,13 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import moment from "moment";
 import "moment/locale/ko";
 import * as Api from "../../api";
 import styled from "../../css/match.module.css";
+import TopButton from "../common/TopButton";
 
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchCommentContext } from "../../context/MatchCommentContext";
 
-function MatchResultComment() {
+function MatchResultComment({ goToPosition }) {
   const [commentContent, setCommentContent] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const { nickname } = useContext(NicknameContext);
@@ -68,6 +69,7 @@ function MatchResultComment() {
           </div>
         ))}
       </div>
+      <TopButton goToPosition={goToPosition} />
     </>
   );
 }
