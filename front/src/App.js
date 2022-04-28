@@ -9,6 +9,7 @@ import MatchTest from "./components/match/MatchTest";
 import MatchResult from "./components/match/MatchResult";
 import Today from "./components/Today/Today";
 import Bestiary from "./components/Bestiary/Bestiary";
+import GameResult from "./components/game/GameResult";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/explore" element={<Explore />} />
           <Route path="/match" element={<InputNickname />} />
           <Route path="/game" element={<InputNickname />} />
+          <Route path="/game-result" element={<GameResult />} />
           <Route path="/matchTest" element={<MatchTest />} />
           <Route path="/matchResult" element={<MatchResult />} />
         </Routes>
