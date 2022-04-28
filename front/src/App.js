@@ -8,6 +8,7 @@ import Explore from "./components/explore/Explore";
 import MatchResult from "./components/match/MatchResult";
 import Today from "./components/Today/Today";
 import Bestiary from "./components/Bestiary/Bestiary";
+import Gender from "./components/Statistics/Gender";
 
 function App() {
   const today = new Date();
@@ -22,6 +23,7 @@ function App() {
           <Route path="/match" element={<InputNickname />} />
           <Route path="/game" element={<InputNickname />} />
           <Route path="/matchResult" element={<MatchResult />} />
+          <Route path="/stats/gender" element={<Gender />} />
         </Routes>
       </Router>
     </div>
