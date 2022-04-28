@@ -3,7 +3,7 @@ import "./css/main.css";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from "./components/Main";
-import InputNickname from "./components/match/InputNickname";
+import InputNickname from "./components/nickname/InputNickname";
 import Explore from "./components/explore/Explore";
 import MatchTest from "./components/match/MatchTest";
 import MatchResult from "./components/match/MatchResult";
