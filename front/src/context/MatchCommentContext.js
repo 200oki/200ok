@@ -1,10 +1,10 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useMemo } from "react";
 
 const MatchCommentContext = createContext();
 
 const MatchCommentProvider = ({ children }) => {
   const [comment, setComment] = useState([]);
-  const store = { comment, setComment };
+  const store = useMemo(() => ({ comment, setComment }), [comment, setComment]);
 
   return (
     <MatchCommentContext.Provider value={store}>
