@@ -22,7 +22,7 @@ function InputNickname() {
     if (window.location.pathname === "/game") {
       navigator("/game-start");
     } else if (window.location.pathname === "/match") {
-      navigator("/matchResult");
+      navigator("/match-result");
     }
   };
 
