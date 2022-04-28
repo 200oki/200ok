@@ -1,28 +1,4 @@
-.Wrapper,
-.inner {
-  width: 100%;
-  height: 100vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.Wrapper::before,
-.inner::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url("../../public/images/leafBgImg.jpg");
-  opacity: 0.4;
-  z-index: -1;
-}
-
-.stats, .firstDiv, .secondDiv {
+.stats {
   position: relative;
   display: flex;
   align-items: end;
