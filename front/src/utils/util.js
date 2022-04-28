@@ -5,7 +5,7 @@ export const menuList = [
   "주민퀴즈",
 ];
 
-export const statMenuList = [
+export const statList = [
   "성별 분포",
   "종 분포",
   "성격 분포",
