@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { StatService } from "../services/statService.js";
+import { statList } from "../db/publicSchemas/stats.js";
 import { validate, notFoundValidate } from "../middlewares/validator.js";
 import { check } from "express-validator";
 import * as status from "../utils/status.js";
@@ -14,9 +14,9 @@ const statRouter = Router();
  */
 /**
  * @swagger
- * /stats/:columns:
+ * /stats/{columnName}
  *   get:
- *    summary: 컬럼 값으로 조회 API
+ *    summary: 컬럼 값으로 그룹핑하는 API
  *    description: 컬럼을 조회할 때 사용하는 API 입니다.
  *    tags: [Stats]
  *    responses:
@@ -33,36 +33,48 @@ const statRouter = Router();
  *                payload:
  *                  type: object
  *                  properties:
- *                    xLabel:
+ *                    groupName:
  *                      type: string
- *                      description: 컬럼 groupby한 값
- *                      example: Female
- *                    yLabel:
+ *                      description: groupby 하는 값
+ *                      example: gender
+ *                    colName:
  *                      type: string
- *                      description: 컬럼별 count 값
+ *                      description: groupby 행 배열
+ *                      example: 여성
+ *                    counts:
+ *                      type: number
+ *                      description: groupby count 배열
  *                      example: 10
  *                                       
 */
 statRouter.get(
-  "characters/stats",
+  "/stats",
   [
     check("columnName")
-    .trim()
-    .isLength({ min: 1 })
-    .exists()
-    .withMessage("parameter 값으로 컬럼 이름을 입력해주세요.")
-    .bail(),
+      .trim()
+      .isLength({ min: 1 })
+      .exists()
+      .withMessage("parameter 값으로 컬럼명을 입력해주세요.")
+      .bail(),
     notFoundValidate,
     validate,
   ],
   async (req, res, next) => {
-    const columnName = req.query.columnName;
-    console.log("Router :", columnName);
-    const columnList = await StatService.getColumnList({ columnName });
+    const groupName = req.query.groupName;
+    const index = statList.findIndex(x => x.groupName === groupName);
+    console.log("groupName :", groupName);
+    console.log("index :", index);
+    
+    if (index === -1) {
+      const body = {
+        success: false,
+      }
+      return res.status(status.STATUS_400_BADREQUEST).json(body);
+    }
 
     const body = {
       success: true,
-      payload: columnList,
+      payload: statList[index],
     };
 
     return res.status(status.STATUS_200_OK).json(body);
