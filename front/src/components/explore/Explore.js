@@ -1,6 +1,6 @@
 import React from "react";
 import { useStyles } from "../../utils/useStyles";
-import StyledItem from "../StyledItem";
+import StyledItem from "../common/StyledItem";
 import { menuList } from "../../utils/util";
 import HomeButton from "../common/HomeButton";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +39,7 @@ const Explore = () => {
           />
         );
       })}
-      <HomeButton />
+      <HomeButton className={classes.fab} />
     </div>
   );
 };

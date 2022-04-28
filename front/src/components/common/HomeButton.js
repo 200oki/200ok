@@ -3,11 +3,11 @@ import { Fab } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const HomeButton = ({ Icon, className }) => {
+const HomeButton = ({ Icon, className, ...other }) => {
   const navigator = useNavigate();
+  const handleOnclick = other.onClick ? other.onClick : undefined;
 
   const styles = {
-    top: "30px",
     color: "common.white",
     backgroundColor: "#ffae74",
     "&:hover": {
@@ -20,7 +20,12 @@ const HomeButton = ({ Icon, className }) => {
     navigator("/");
   };
   return (
-    <Fab sx={styles} aria-label="home" className={className} onClick={backHome}>
+    <Fab
+      sx={styles}
+      aria-label="home"
+      className={className}
+      onClick={handleOnclick === undefined ? backHome : handleOnclick}
+    >
       {Icon === undefined ? <HomeIcon /> : <Icon />}
     </Fab>
   );
