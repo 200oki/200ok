@@ -4,9 +4,9 @@ const backendPortNumber = "5001";
 const serverUrl =
   "http://" + window.location.hostname + ":" + backendPortNumber + "/";
 
-async function get(endpoint, params = "") {
-  console.log(`GET 요청 ${serverUrl + endpoint + "/" + params}`);
-  return axios.get(serverUrl + endpoint + "/" + params);
+async function get(endpoint) {
+  console.log(`GET 요청 ${serverUrl + endpoint}`);
+  return axios.get(serverUrl + endpoint);
 }
 
 async function post(endpoint, data) {
