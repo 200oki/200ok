@@ -28,6 +28,7 @@
     left: 50px;
     right: 50px;
     text-align: center;
+    color: #837156;
     vertical-align: middle;
 }
 .content1 {
@@ -40,6 +41,33 @@
     top: 590px;
 }
 
+.btnWrapper {
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btnWrapper > button {
+    font-size: 15px;
+    font-weight: bold;
+    background: #fff5d0;
+    border-radius: 50px;
+    width: 150px;
+    height: 40px;
+    border: none;
+    box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.15);
+    color: #7e725c;
+    transition: transform 250ms;
+    font-family: "TmoneyRoundWindExtraBold";
+}
+.btnWrapper > button:hover{
+    transform: translateY(-0.25em);
+    cursor: pointer;
+}
+.gameResultScore, .gameResultRank{
+    color: #1ac8b9;
+}
 .blinkImg{
     animation: blink 0.8s step-end infinite;
 }
