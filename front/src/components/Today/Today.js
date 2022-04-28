@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import * as Api from "../../api";
 import "../../css/today.css";
 import CelebrationBtn from "./CelebrationBtn";
@@ -15,8 +14,6 @@ function Today() {
   const dateQuery = month + "-" + day;
   const date = { month, day };
 
-  const navigator = useNavigate();
-
   const [todayCharacter, setTodayCharacter] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -29,9 +26,6 @@ function Today() {
       console.error(error);
     }
   }
-  const handleBackClick = () => {
-    navigator("/explore");
-  };
 
   useEffect(() => {
     getTodayCharacter();
