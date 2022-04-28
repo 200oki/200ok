@@ -195,4 +195,10 @@ export const useStyles = makeStyles({
     top: "620px",
     right: "48%",
   },
+  topBtn: {
+    bottom: "30px",
+    position: "absolute !important",
+    right: "50px !important",
+    margin: "auto !important",
+  },
 });
