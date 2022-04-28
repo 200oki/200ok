@@ -17,13 +17,13 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/game" element={<InputNickname />} />
+          <Route path="/game-result" element={<GameResult />} />
           <Route path="/today" element={<Today />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/match" element={<InputNickname />} />
-          <Route path="/game" element={<InputNickname />} />
-          <Route path="/game-result" element={<GameResult />} />
-          <Route path="/matchTest" element={<MatchTest />} />
-          <Route path="/matchResult" element={<MatchResult />} />
+          <Route path="/match-test" element={<MatchTest />} />
+          <Route path="/match-result" element={<MatchResult />} />
         </Routes>
       </Router>
     </div>
