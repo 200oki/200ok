@@ -159,4 +159,12 @@ export const useStyles = makeStyles({
   wrapCard: {
     display: "inline-block",
   },
+  topBtn: {
+    position: "absolute !important",
+    right: "50px !important",
+    margin: "auto !important",
+  },
+  selectBtn: {
+    backgroundColor: "#ffffff",
+  },
 });

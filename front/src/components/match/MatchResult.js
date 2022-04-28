@@ -2,12 +2,15 @@ import React, { useContext, useRef, useEffect, useState } from "react";
 import * as Api from "../../api";
 import { useNavigate } from "react-router-dom";
 import styled from "../../css/match.module.css";
+import MatchResultRank from "./MatchResultRank";
 import MatchResultComment from "./MatchResultComment";
 
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchCommentContext } from "../../context/MatchCommentContext";
 
 const DIVIDER_HEIGHT = 5;
+const v = "아그네스";
+const l = "recommendation";
 
 function MatchResult() {
   const navigator = useNavigate();
@@ -20,8 +23,8 @@ function MatchResult() {
 
   const fetchCommentData = async () => {
     try {
-      const { data } = await Api.get(`comments/아그네스`, "recommendation");
-      setComment(data.comments);
+      const { data } = await Api.get(`comments?villager=${v}&location=${l}`);
+      setComment([...Object.values(data.payload)]);
     } catch (err) {
       setComment([]);
       console.error(err);
@@ -109,14 +112,32 @@ function MatchResult() {
         left: 0,
         behavior: "smooth",
       });
-    } else {
+    } else if (e.target.innerText === "반응 남기기") {
       outerDivRef.current.scrollTo({
         top: PAGE_HEIGHT * 2 + DIVIDER_HEIGHT * 2,
         left: 0,
         behavior: "smooth",
       });
+    } else {
+      outerDivRef.current.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
     }
   };
+
+  // useEffect(() => {
+  //   const outerDivRefCurrent = outerDivRef.current;
+
+  // if (outerDivRef && outerDivRefCurrent) {
+  //   outerDivRefCurrent.addEventListener("wheel", wheelHandler);
+  // }
+
+  //   return () => {
+  //     outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
+  //   };
+  // }, []);
 
   const goToFirstPage = () => {
     setNickname("");
@@ -125,6 +146,7 @@ function MatchResult() {
 
   return (
     <div className={styled.outer} ref={outerDivRef}>
+      {/* <ReactPageScroller blockScrollUp> */}
       <div className={styled.inner}>
         <div className={styled.imgWrapper}>
           <img src="/images/Aurora.png" alt={"주민 사진"} />
@@ -143,12 +165,13 @@ function MatchResult() {
           <button onClick={goToPosition}>반응 남기기</button>
         </div>
       </div>
-      <div className={styled.divider}></div>
-      <div className={styled.inner}>랭킹 영역</div>
-      <div className={styled.divider}></div>
       <div className={styled.inner}>
-        <MatchResultComment />
+        <MatchResultRank sample={sample} goToPosition={goToPosition} />
       </div>
+      <div className={styled.inner}>
+        <MatchResultComment goToPosition={goToPosition} />
+      </div>
+      {/* </ReactPageScroller> */}
     </div>
   );
 }
