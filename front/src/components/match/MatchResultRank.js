@@ -1,9 +1,13 @@
 import React from "react";
 import styled from "../../css/match.module.css";
 import MatchResultRankChar from "./MatchResultRankChar";
-import TopButton from "../common/TopButton";
+import { useStyles } from "../../utils/useStyles";
+import HomeButton from "../common/HomeButton";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 function MatchResultRank({ sample, goToPosition }) {
+  const classes = useStyles();
+
   return (
     <>
       <div className={`${styled.rankCharTitle} ${styled.rankCharTitleBg}`}>
@@ -19,7 +23,11 @@ function MatchResultRank({ sample, goToPosition }) {
           />
         ))}
       </div>
-      <TopButton goToPosition={goToPosition} />
+      <HomeButton
+        Icon={ArrowUpwardIcon}
+        className={classes.topBtn}
+        onClick={goToPosition}
+      />
     </>
   );
 }

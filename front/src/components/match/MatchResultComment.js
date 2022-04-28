@@ -2,8 +2,10 @@ import React, { useState, useContext, useEffect } from "react";
 import moment from "moment";
 import "moment/locale/ko";
 import * as Api from "../../api";
+import { useStyles } from "../../utils/useStyles";
 import styled from "../../css/match.module.css";
-import TopButton from "../common/TopButton";
+import HomeButton from "../common/HomeButton";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchCommentContext } from "../../context/MatchCommentContext";
@@ -13,6 +15,8 @@ function MatchResultComment({ goToPosition }) {
   const [isTyping, setIsTyping] = useState(false);
   const { nickname } = useContext(NicknameContext);
   const { comment, setComment } = useContext(MatchCommentContext);
+
+  const classes = useStyles();
 
   const handleContentChange = (e) => {
     setIsTyping(true);
@@ -69,7 +73,11 @@ function MatchResultComment({ goToPosition }) {
           </div>
         ))}
       </div>
-      <TopButton goToPosition={goToPosition} />
+      <HomeButton
+        Icon={ArrowUpwardIcon}
+        className={classes.topBtn}
+        onClick={goToPosition}
+      />
     </>
   );
 }
