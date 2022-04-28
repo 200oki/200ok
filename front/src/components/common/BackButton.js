@@ -1,20 +1,23 @@
 import "../../css/backButton.css";
 import React from "react";
+import usePathParams from "../../utils/usePathParams";
 import { useNavigate } from "react-router-dom";
 
-const BackButton = () => {
+const BackButton = ({ content }) => {
   const navigator = useNavigate();
+  const pathname = usePathParams();
 
   const backHome = () => {
-    navigator(-1);
-    // if (window.location.pathname === "/game-start") {
-    //   navigator("/explore");
-    // }
+    if (pathname === "/match-result") {
+      navigator("/explore");
+    } else {
+      navigator(-1);
+    }
   };
 
   return (
     <div className="leftArrow" onClick={backHome}>
-      뒤로 가기
+      {content}
     </div>
   );
 };
