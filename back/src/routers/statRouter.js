@@ -62,8 +62,6 @@ statRouter.get(
   async (req, res, next) => {
     const groupName = req.query.groupName;
     const index = statList.findIndex(x => x.groupName === groupName);
-    console.log("groupName :", groupName);
-    console.log("index :", index);
     
     if (index === -1) {
       const body = {
