@@ -1,8 +1,8 @@
 export const statList = [
   {
     id: 0,
-    groupingName: "gender",
-    columnName: [
+    groupName: "gender",
+    colName: [
       '여성', 
       '남성',
     ],
@@ -10,8 +10,8 @@ export const statList = [
   },
   {
     id: 1,
-    groupingName: "species",
-    columnName: ['Alligator', 'Anteater', 'Bear', 'Bird', 'Bull', 'Cat', 'Chicken',
+    groupName: "species",
+    colName: ['Alligator', 'Anteater', 'Bear', 'Bird', 'Bull', 'Cat', 'Chicken',
     'Cow', 'Cub', 'Deer', 'Dog', 'Duck', 'Eagle', 'Elephant', 'Frog',
     'Goat', 'Gorilla', 'Hamster', 'Hippo', 'Horse', 'Kangaroo',
     'Koala', 'Lion', 'Monkey', 'Mouse', 'Octopus', 'Ostrich',
@@ -23,8 +23,8 @@ export const statList = [
   },
   {
     id: 2,
-    groupingName: "personality",
-    columnName: [
+    groupName: "personality",
+    colName: [
       '느끼함', 
       '단순 활발', 
       '먹보', 
@@ -38,8 +38,8 @@ export const statList = [
   },
   {
     id: 3,
-    groupingName: "hobby",
-    columnName: [
+    groupName: "hobby",
+    colName: [
       '교육', 
       '놀이', 
       '운동', 
@@ -51,8 +51,8 @@ export const statList = [
   },
   {
     id: 4,
-    groupingName: "style",
-    columnName:  [
+    groupName: "style",
+    colName:  [
       '액티브', 
       '쿨', 
       '큐트', 
