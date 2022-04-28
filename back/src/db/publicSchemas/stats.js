@@ -1,6 +1,5 @@
 export const statList = [
   {
-    id: 0,
     groupName: "gender",
     colName: [
       '여성', 
@@ -9,7 +8,6 @@ export const statList = [
     counts: [208, 244,],
   },
   {
-    id: 1,
     groupName: "species",
     colName: ['Alligator', 'Anteater', 'Bear', 'Bird', 'Bull', 'Cat', 'Chicken',
     'Cow', 'Cub', 'Deer', 'Dog', 'Duck', 'Eagle', 'Elephant', 'Frog',
@@ -22,7 +20,6 @@ export const statList = [
      11,],
   },
   {
-    id: 2,
     groupName: "personality",
     colName: [
       '느끼함', 
@@ -37,7 +34,6 @@ export const statList = [
     counts: [34, 24, 60, 55, 55, 49, 55, 59,],
   },
   {
-    id: 3,
     groupName: "hobby",
     colName: [
       '교육', 
@@ -50,7 +46,6 @@ export const statList = [
     counts: [64, 65, 66, 64, 66, 66,],
   },
   {
-    id: 4,
     groupName: "style",
     colName:  [
       '액티브', 
