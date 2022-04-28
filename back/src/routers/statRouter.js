@@ -50,7 +50,7 @@ const statRouter = Router();
 statRouter.get(
   "/stats",
   [
-    check("columnName")
+    check("groupName")
       .trim()
       .isLength({ min: 1 })
       .exists()
