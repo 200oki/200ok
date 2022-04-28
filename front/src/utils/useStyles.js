@@ -49,6 +49,7 @@ export const useStyles = makeStyles({
     marginTop: "180px !important",
   },
   fab: {
+    top: "30px",
     position: "fixed !important",
     right: "50px !important",
     margin: "auto !important",
@@ -185,6 +186,7 @@ export const useStyles = makeStyles({
     display: "inline-block",
   },
   gameResultImg: {
+    top: "100px",
     height: "400px",
     position: "relative",
   },
