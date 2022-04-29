@@ -94,22 +94,22 @@ const ALL_COLORS = [
 /** 값이 일치하면 매치합니다. */
 const MATCH_EXACT = 1;
 /** 문자열 키워드가 포함되어 있으면 매치합니다. */
-const MATCH_INCLUDE = 2;
+const MATCH_SUBSTRING = 2;
 /** 리스트 안에 일치하는 값이 있으면 매치합니다. */
-const MATCH_EXACTIN = 3;
+const MATCH_INCLUDEEXACT = 3;
 /** 리스트 안에 키워드를 포함하는 문자열이 있으면 매치합니다. */
-const MATCH_INCLUDEIN = 4;
+const MATCH_INCLUDESUBSTRING = 4;
 /** 검색 시 매치를 판단하는 스킴입니다. */
 const MATCH_SCHEMES = {
   id: MATCH_EXACT,
-  name_ko: MATCH_INCLUDE,
+  name_ko: MATCH_SUBSTRING,
   birthday: MATCH_EXACT,
   birthday_month: MATCH_EXACT,
   tier: MATCH_EXACT,
-  hobby: MATCH_INCLUDE,
-  personality: MATCH_INCLUDE,
-  colors: MATCH_INCLUDEIN,
-  styles: MATCH_INCLUDEIN,
+  hobby: MATCH_SUBSTRING,
+  personality: MATCH_SUBSTRING,
+  colors: MATCH_INCLUDESUBSTRING,
+  styles: MATCH_INCLUDESUBSTRING,
   "*": MATCH_EXACT,
 };
 
@@ -242,7 +242,7 @@ export {
   ALL_STYLES,
   MATCH_SCHEMES,
   MATCH_EXACT,
-  MATCH_EXACTIN,
-  MATCH_INCLUDE,
-  MATCH_INCLUDEIN,
+  MATCH_INCLUDEEXACT,
+  MATCH_SUBSTRING,
+  MATCH_INCLUDESUBSTRING,
 };
