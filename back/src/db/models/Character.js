@@ -18,8 +18,9 @@ import * as status from "../../utils/status.js";
  *  생일이 일치하는 캐릭터의 배열을 반환합니다.~~
  * - `static async list()` - 전체 캐릭터를 `{ id: name_ko }` 형식으로 반환합니다.
  * - `static async sample({ n })`- 캐릭터 `n`명을 무작위로 골라 배열로 반환합니다.
- * - `static async filter(keyword, pool = characters.ALL)` -
- *  캐릭터 데이터를 필터해서 반환합니다.
+ * - `static async filter(keyword, pool)` - 캐릭터 데이터를 필터해서 반환합니다.
+ * - `static compareBySearchPriority(a, b)` -
+ *  검색 키워드를 효율적으로 정렬하기 위한 비교 함수입니다.
  */
 class Character {
   /** 캐릭터(들)이 있는지 살펴봅니다.
