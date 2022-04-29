@@ -91,7 +91,19 @@ class Character {
    *
    * 이 안에 없는 필드를 쿼리하는 것은 에러입니다.
    */
-  static async getMany(field, value) {}
+  static async getMany(field, value) {
+    if (!(field in characters)) {
+      throw new Error(
+        `Field name "${field}" either doesn't exist or not searchable`
+      );
+    }
+    if (!(value in characters[field])) {
+      return [];
+    } else {
+      const found = characters[field][value];
+      return Array.isArray(found) ? found : [found];
+    }
+  }
 
   /** **DEPRECATED** 생일이 일치하는 캐릭터들의 객체를 반환합니다.
    *
