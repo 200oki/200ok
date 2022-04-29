@@ -20,7 +20,7 @@ const { characters, characterNames, ...constants } = characterSchema;
 class Character {
   /** 캐릭터(들)이 있는지 살펴봅니다.
    *
-   * @arg {string} key - 찾으려는 필드입니다. (`name_ko`, `id`, ...)
+   * @arg {string} field - 찾으려는 필드입니다. (`name_ko`, `id`, ...)
    * @arg {string} value - 찾아볼 값입니다. (`일섭`, `admiral`, ...)
    *  - **주의**: 값이 원래 숫자라도 룩업 목적으로는 문자열입니다.
    *    (예시: `birthday_month`)
@@ -33,23 +33,25 @@ class Character {
    *  - `birthday_month`
    *  - `tier`
    *  - `hobby`
+   *  - `personality`
    *  - `colors`
+   *  - `styles`
    *
    * 이 안에 없는 필드를 쿼리하는 것은 에러입니다.
    */
-  static async exists(key, value) {
-    if (!(key in characters)) {
+  static async exists(field, value) {
+    if (!(field in characters)) {
       throw new Error(
-        `Field name "${key}" either doesn't exist or not peekable`
+        `Field name "${field}" either doesn't exist or not peekable`
       );
     }
-    if (!(value in characters[key])) {
+    if (!(value in characters[field])) {
       return false;
     } else {
       return (
         // id와 name_ko는 1:1 대응인 객체의 객체 형식이고 나머지는 배열인데,
         // characters 맵을 빌드하기 전에 키를 미리 만들어 놓기 때문에 빈 배열이 있습니다.
-        value === "name_ko" || value === "id" || characters[key].length > 0
+        value === "name_ko" || value === "id" || characters[field].length > 0
       );
     }
   }
