@@ -171,7 +171,8 @@ class Character {
    * @return {any[]} result - 필터된 데이터를 반환합니다.
    */
   static async filter(keyword, pool) {
-    const [field, value] = keyword;
+    const field = keyword[0];
+    const value = keyword[1].toLowerCase();
     if (!(field in characters) || field === "ALL") {
       throw new RequestError(
         { status: status.STATUS_405_METHODNOTALLOWED },

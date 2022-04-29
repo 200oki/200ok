@@ -154,7 +154,7 @@ class CharacterService {
   static page(toPage, by, nth) {
     const start = by * (nth - 1);
     const end = Math.min(by * nth, toPage.length);
-    if (start >= end || start < 0) {
+    if (start > end || start < 0) {
       throw new RequestError(
         { status: status.STATUS_400_BADREQUEST },
         `Won't produce invalid page`
