@@ -108,6 +108,7 @@ class Character {
     }
     if (!(value in characters[field])) {
       // 부분 문자열 검색이 가능하게 하기 위해 여기서도 필요하면 필터를 합니다.
+      // 필터가 하나밖에 없고 문자열 검색이면 characters에 키가 없기 때문입니다.
       return this.filter([field, value], characters.ALL);
     } else {
       const found = characters[field][value];
