@@ -327,7 +327,7 @@ let _commentFoldDummy1;
  *      `page`, `size` 쿼리로 한 페이지만 받습니다. <br>
  *      ----
  *      반환 형식은 다음과 같습니다. 한국어 이름 순으로 정렬되어 있습니다.
- *      ```js
+ *      ```
  *      {
  *        success: true,
  *        total: totalNumberOfItems,
