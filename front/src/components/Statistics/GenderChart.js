@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as Api from "../../api";
 import styled from "../../css/match.module.css";
 import StatBtn from "./StatBtn.js";
-import {Chart, registerables} from "chart.js";
+import { Chart, registerables } from "chart.js";
 import { Pie } from 'react-chartjs-2';
 Chart.register(...registerables)
 

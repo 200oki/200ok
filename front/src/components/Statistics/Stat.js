@@ -1,13 +1,16 @@
 import React from 'react';
 import StatBtn from "./StatBtn.js";
 import { Outlet } from "react-router-dom";
-import styled from "../../css/match.module.css";
+import "../../css/stats.css";
 
 const Stat = () => {
   return (
-    <div className={styled.Wrapper}>
+    <div className="bgImg">
       <StatBtn />
       <Outlet />
+      <p className="desc">
+        버튼을 클릭해주세요!
+      </p>
     </div>
   );
 }
