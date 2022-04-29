@@ -26,6 +26,10 @@ import * as status from "../utils/status.js";
  * - `static async list()` - 전체 캐릭터를 `{ id: name_ko }` 형식으로 반환합니다.
  * - `static async sample(n, tiers = [], fields = [])`
  *    - 캐릭터 `n`명을 무작위로 골라 배열로 반환합니다.
+ * - `static async search(props, values, fields)`
+ *    - 검색 키워드 여러 개로 `AND` 검색한 전체 결과를 반환합니다.
+ * - `static page(toPage, by, nth)`
+ *    - 배열을 `by` 크기로 나누어 (1부터 세어) `nth` 덩어리를 반환합니다.
  */
 class CharacterService {
   /** 캐릭터 한명을 골라 반환합니다. 찾는 `id`가 없으면 404 에러입니다.
@@ -153,12 +157,12 @@ class CharacterService {
     if (start >= end) {
       throw new RequestError(
         { status: status.STATUS_400_BADREQUEST },
-        `Page beyond maximum requested`
+        `Can't produce page beyond maximum`
       );
     } else if (start < 0) {
       throw new RequestError(
         { status: status.STATUS_400_BADREQUEST },
-        `Negative page requested`
+        `Cant' produce negative page`
       );
     }
     return toPage.slice(start, end);
