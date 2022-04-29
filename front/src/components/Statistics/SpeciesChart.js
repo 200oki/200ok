@@ -28,22 +28,19 @@ const SpeciesChart = () => {
         labels: dataList[1],
           datasets: [
           {
-            label: dataList[1],
             data: dataList[2],
             backgroundColor: [
-              'rgba(242, 214, 74, 0.5)',
-              'rgba(54, 162, 235, 0.3)'
+              'rgba(242, 135, 5, 0.3)'
             ],
             borderColor: [
-              'rgba(205, 173, 14, 1)',
-              'rgba(54, 162, 235, 1)'
+              'rgba(242, 135, 5, 1)'
             ],
             borderWidth: 1
             }
           ]
       }}
       height={500}
-      width={1000}
+      width={1200}
       options= {{
           responsive: false,
           scales: {
