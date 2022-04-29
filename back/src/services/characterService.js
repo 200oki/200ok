@@ -140,7 +140,7 @@ class CharacterService {
     }
 
     // 검색어가 여러 개라면 여기에서 차례로 거릅니다.
-    for (const keyword of _.zip(props, values)) {
+    for (const keyword of _.zip(props, values).reverse()) {
       result = await Character.filter(keyword, result);
     }
 
