@@ -38,11 +38,11 @@ function SelectPersonality({ nextSlide }) {
                   <input
                     type="radio"
                     value={i}
-                    id={i}
+                    id={`personality${i}`}
                     name="personality"
                     onChange={handlePersonalityChange}
                   />
-                  <label htmlFor={i}>{p}</label>
+                  <label htmlFor={`personality${i}`}>{p}</label>
                 </div>
               ))}
           </div>
@@ -54,11 +54,11 @@ function SelectPersonality({ nextSlide }) {
                   <input
                     type="radio"
                     value={i + 4}
-                    id={i + 4}
+                    id={`personality${i + 4}`}
                     name="personality"
                     onChange={handlePersonalityChange}
                   />
-                  <label htmlFor={i + 4}>{p}</label>
+                  <label htmlFor={`personality${i + 4}`}>{p}</label>
                 </div>
               ))}
           </div>
