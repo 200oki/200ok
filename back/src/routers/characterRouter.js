@@ -353,7 +353,7 @@ let _commentFoldDummy1;
  *        name: props
  *        schema:
  *          type: string
- *          format: field[]
+ *          format: propertyName[]
  *        required: false
  *        description: |
  *          검색할 프로퍼티의 이름 목록입니다.<br>
@@ -376,7 +376,7 @@ let _commentFoldDummy1;
  *        name: values
  *        schema:
  *          type: string
- *          format: field[]
+ *          format: propertyValue[]
  *        required: false
  *        description: |
  *          검색할 프로퍼티의 값 목록입니다. props와 순서와 길이가 같아야 합니다.
@@ -412,6 +412,7 @@ let _commentFoldDummy1;
  *                total:
  *                  type: integer
  *                  description: 총 결과 수
+ *                  example: 1
  *                payload:
  *                  type: array
  *                  items:
