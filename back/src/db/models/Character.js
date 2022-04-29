@@ -165,7 +165,31 @@ class Character {
    *  - 없으면 모든 캐릭터(`characters.ALL`)에 적용됩니다.
    * @return {any[]} result - 필터된 데이터를 반환합니다.
    */
-  static async filter(keyword, pool = characters.ALL) {}
+  static async filter(keyword, pool = characters.ALL) {
+    const [field, value] = keyword;
+    if (!(field in characters) || field === "ALL") {
+      throw new RequestError(
+        { status: status.STATUS_405_METHODNOTALLOWED },
+        `Field name "${field}" either doesn't exist or not searchable`
+      );
+    }
+    const scheme = constants.MATCH_SCHEMES[field];
+    // is ${value} substring of ${v}?
+    const substringOf = (v) => v.includes(value);
+
+    return pool.filter((char) => {
+      switch (scheme) {
+        case constants.MATCH_SUBSTRING:
+        case constants.MATCH_INCLUDEEXACT:
+          return char[field]?.includes(value);
+        case constants.MATCH_INCLUDESUBSTRING:
+          return char[field]?.some(substringOf);
+        default:
+          // 기본적으로 정확히 일치해야 통과합니다.
+          return String(char[field]) === value;
+      }
+    });
+  }
 }
 
 export { Character };
