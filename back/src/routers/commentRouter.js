@@ -8,7 +8,7 @@ import {
 import { validate, notFoundValidate } from "../middlewares/validator.js";
 import { check, param, body, query } from "express-validator";
 import { logger } from "../utils/winstonLogger.js";
-
+// import { client, checkCache } from "../middlewares/redisMiddleware.js";
 const commentRouter = Router();
 /**
  *  @swagger
@@ -22,7 +22,17 @@ const commentRouter = Router();
  * /comments:
  *   post:
  *    summary: 댓글을 생성하는 API
- *    description: 댓글을 생성할 때 사용하는 API 입니다.
+ *    description: |
+ *      댓글을 생성할 때 사용하는 API 입니다.
+ *
+ *      ``Request Body``
+ *      ```js
+ *       {
+ *        "villager" : "주민이름",
+ *        "nickname" : "닉네임",
+ *        "comment" : " 댓글 내용",
+ *        "location" : "댓글 위치"
+ *      }
  *    tags: [Comments]
  *    requestBody:
  *      x-name: body
@@ -59,7 +69,18 @@ const commentRouter = Router();
  *                success:
  *                  type: string
  *                  example: true
- *
+ *                payload:
+ *                   type: object
+ *                   properties:
+ *                    nickname:
+ *                      type: string
+ *                      example: 고구마
+ *                    comment:
+ *                      type: string
+ *                      example: 댓글내용
+ *                    createdAt:
+ *                      type: date
+ *                      example: 2022-04-21T17:45:00.308Z
  *      400:
  *        description: 댓글 생성 오류
  *        content:
@@ -200,6 +221,7 @@ commentRouter.get(
     try {
       const { location, villager } = req.query;
       const comments = await CommentService.listComment({ villager, location });
+      // await client.set(req.url, JSON.stringify(comments));
       const body = {
         success: true,
         payload: comments,
