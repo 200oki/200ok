@@ -28,15 +28,22 @@ const PersonalityChart = () => {
         labels: dataList[1],
           datasets: [
           {
-            label: dataList[1],
             data: dataList[2],
             backgroundColor: [
-              'rgba(242, 214, 74, 0.5)',
-              'rgba(54, 162, 235, 0.3)'
+              'rgba(242, 34, 110, 0.3)',
+              'rgba(5, 151, 242, 0.3)',
+              'rgba(3, 166, 60, 0.3)',
+              'rgba(242, 226, 5, 0.3)',
+              'rgba(242, 135, 5, 0.3)',
+              'rgba(3, 166, 60, 0.3)',
             ],
             borderColor: [
-              'rgba(205, 173, 14, 1)',
-              'rgba(54, 162, 235, 1)'
+              'rgba(242, 34, 110, 1)',
+              'rgba(5, 151, 242, 1)',
+              'rgba(3, 166, 60, 1)',
+              'rgba(242, 226, 5, 1)',
+              'rgba(242, 135, 5, 1)',
+              'rgba(3, 166, 60, 1)',
             ],
             borderWidth: 1,
             }
@@ -54,9 +61,6 @@ const PersonalityChart = () => {
                 },
               },
             ],
-          },
-          chartArea: {
-            backgroundColor: 'rgba(0, 0, 0, 0.7)'
           },
       }}
     />
