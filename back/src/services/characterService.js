@@ -115,13 +115,36 @@ class CharacterService {
    *    빈 배열이면 모든 필드를 포함합니다.
    * @return {any[]} result - 검색 결과의 배열입니다.
    */
-  static async search(props, values, fields) {}
+  static async search(props, values, fields) {
+    if (props.length !== values.length) {
+      throw new RequestError(
+        { status: status.STATUS_400_BADREQUEST },
+        `Search queries can't produce proper pairs`
+      );
+    }
+
+    let result;
+    if (props.length === 0) {
+      // 도감 때문에 전체 캐릭터 리스트가 필요합니다.
+      result = await Character.getMany("ALL");
+    } else {
+      result = await Character.getMany(props.pop(), values.pop());
+    }
+
+    // 검색어가 여러 개라면 여기에서 차례로 거릅니다.
+    for (const keyword of _.zip(props, values)) {
+      result = await Character.filter(keyword, result);
+    }
+
+    // 필드를 골라서 반환합니다.
+    return _(result).map((v) => _(v).pick(fields));
+  }
 
   /** 배열을 `by` 크기로 나누어 (1부터) `nth` 덩어리를 반환합니다.
    *
    * @arg {any[]} toPage - 자를 배열입니다.
    * @arg {number} by - 한 페이지의 아이템 수입니다.
-   * @arg {number} nth - 페이지 번호. 1부터 시작합니다.
+   * @arg {number} nth - 페이지 번호는 1부터 시작합니다.
    * @return {any[]} paged - 배열의 일부분의 복사본을 반환합니다.
    */
   static page(toPage, by, nth) {}
