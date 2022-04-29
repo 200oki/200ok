@@ -13,6 +13,8 @@ const HobbyChart = () => {
       const { data } = await Api.get('stats', '?groupName=hobby');
       setDataList([...Object.values(data.payload)]);
       setIsLoading(false);
+      console.log(dataList[1]); // 삭제 !!!
+
     } catch (error) {
       console.error(error);
     }
@@ -28,7 +30,7 @@ const HobbyChart = () => {
         labels: dataList[1],
           datasets: [
           {
-            // label:,
+            label: '# Hobby',
             data: dataList[2],
             backgroundColor: [
               'rgba(242, 34, 110, 0.2)',
@@ -53,7 +55,7 @@ const HobbyChart = () => {
       height={500}
       width={1200}
       options= {{
-        responsive: false,
+          responsive: false,
       }}
     />
   );
