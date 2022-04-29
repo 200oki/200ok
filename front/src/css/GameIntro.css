@@ -1,0 +1,37 @@
+.gameIntroCommentImg{
+    top: 400px;
+    left: 530px;
+    height: 350px;
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.gameIntroComment{
+    position: absolute;
+    left: 50px;
+    right: 50px;
+    text-align: center;
+    color: #837156;
+    vertical-align: middle;
+    top: 570px;
+}
+.btnWrapper > button {
+    position: absolute;
+    top: 750px;
+    font-size: 15px;
+    font-weight: bold;
+    background: #adefff;
+    border-radius: 50px;
+    width: 150px;
+    height: 60px;
+    border: none;
+    box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.15);
+    color: #7e725c;
+    transition: transform 250ms;
+    font-family: "TmoneyRoundWindExtraBold";
+}
+.btnWrapper > button:hover{
+    transform: translateY(-0.25em);
+    cursor: pointer;
+}
