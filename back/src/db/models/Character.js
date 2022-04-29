@@ -12,11 +12,13 @@ import * as status from "../../utils/status.js";
  * ## Methods
  *
  * - `static async get({ id })` - 캐릭터 한명을 골라 반환합니다.
+ * - `static async getMany(field, value)` -
+ *  `[field]: value` 필터 한 가지를 정확히 만족하는 캐릭터들을 반환합니다.
  * - ~~`static async getByBirthday({ id })` -
  *  생일이 일치하는 캐릭터의 배열을 반환합니다.~~
  * - `static async list()` - 전체 캐릭터를 `{ id: name_ko }` 형식으로 반환합니다.
  * - `static async sample({ n })`- 캐릭터 `n`명을 무작위로 골라 배열로 반환합니다.
- * - `static async filter(keywords, pool = characters.ALL)` -
+ * - `static async filter(keyword, pool = characters.ALL)` -
  *  캐릭터 데이터를 필터해서 반환합니다.
  */
 class Character {
