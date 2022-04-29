@@ -14,7 +14,8 @@ const { characters, characterNames, ...constants } = characterSchema;
  *  생일이 일치하는 캐릭터의 배열을 반환합니다.~~
  * - `static async list()` - 전체 캐릭터를 `{ id: name_ko }` 형식으로 반환합니다.
  * - `static async sample({ n })`- 캐릭터 `n`명을 무작위로 골라 배열로 반환합니다.
- *
+ * - `static async filter(keywords, pool = characters.ALL)` -
+ *  캐릭터 데이터를 필터해서 반환합니다.
  */
 class Character {
   /** 캐릭터(들)이 있는지 살펴봅니다.
@@ -115,9 +116,15 @@ class Character {
     return _(pool).sample(n);
   }
 
-  // static async search({ keywords = [] }) {}
-
-  // static async searchBirthdayRange({})
+  /** 캐릭터 데이터를 필터해서 반환합니다.
+   *
+   * @arg {Array.<string[]>} keywords - 검색 키워드 필드/값 쌍의 배열입니다.
+   *  - 예시: `[ [ field1, value1 ], [ field2, value2 ], ... ]`
+   * @arg {any[]} [pool] - 필터를 적용할 대상입니다.
+   *  - 없으면 모든 캐릭터(`characters.ALL`)에 적용됩니다.
+   * @return {any[]} result - 필터된 데이터를 반환합니다.
+   */
+  static async filter(keywords, pool = characters.ALL) {}
 }
 
 export { Character };
