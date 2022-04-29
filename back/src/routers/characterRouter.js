@@ -43,6 +43,37 @@ router.get("/characters/random", async (req, res, next) => {
   }
 });
 
+/** queries: fields, [ props, ] [ values, ] [ page, size ]
+ *  - fields=field1,field2,...
+ *  - [ props=prop1,prop2,... ]
+ *  - [ values=value1,value2,... ]
+ *  - [ page=n ]
+ *  - [ size=n ]
+ */
+router.get("/characters/search", async (req, res, next) => {
+  try {
+    const fields = parseArrayQuery(req.query.fields);
+    const props = parseArrayQuery(req.query.props);
+    const values = parseArrayQuery(req.query.values);
+    const page = Number(req.query.page);
+    const size = Number(req.query.size);
+    // page, size 쿼리는 없어도 되지만 있으려면 둘 다 있어야 합니다.
+    if (isNaN(page) != isNaN(size)) {
+      throw new RequestError(
+        `"page" and "size" both need to be present if one is provided`
+      );
+    }
+
+    let result = await CharacterService.search(props, values, fields);
+    if (!isNaN(page)) {
+      result = CharacterService.page(result, size, page);
+    }
+    res.status(status.STATUS_200_OK).json({ success: true, payload: result });
+  } catch (error) {
+    next(error);
+  }
+});
+
 /** DEPRECATED query: birthday=mm-dd[&fields=field1,field2,...] */
 /**
  * @swagger
