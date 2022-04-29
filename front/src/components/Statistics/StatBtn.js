@@ -1,7 +1,7 @@
 import React from "react";
 import { useStyles } from "../../utils/useStyles";
 import StyledItem from "../StyledItem";
-import { statMenuList } from "../../utils/util";
+import { statList } from "../../utils/util";
 import { useNavigate } from "react-router-dom";
 import "../../css/stats.css";
 
@@ -32,9 +32,8 @@ const StatBtn = () => {
   
   return (
     <>
-      <div className="firstDiv">
-        {statMenuList
-          .filter((menu) => menu.indexOf(menu) <= 2)
+      <div className="stats">
+        {statList
           .map((item, idx) => {
             return (
               <StyledItem
@@ -45,22 +44,7 @@ const StatBtn = () => {
                 onClick={handleClick}
               />
             );
-          })}
-      </div>
-      <div className="secondDiv">
-        {statMenuList
-            .filter((menu) => menu.indexOf(menu) > 2)
-            .map((item, idx) => {
-              return (
-                  <StyledItem
-                      key={idx}
-                      type="whiteItem"
-                      content={item}
-                      className={classes.menuItem}
-                      onClick={handleClick}
-                  />
-              );
-            })}
+        })}
       </div>
     </>
   );
