@@ -12,7 +12,7 @@ let raw = fs.readFileSync(
   path.resolve(__dirname, "./src/db/schemas/characters.json")
 );
 
-/*
+/* 필드 예시 (outdated)
 const charactersMock = {
   admiral: {
     id: "admiral",
@@ -57,6 +57,10 @@ const charactersMock = {
 /** `id`별 캐릭터 데이터를 담고 있습니다. */
 // const characters = charactersMock;
 const _chars = JSON.parse(raw);
+// 미리 한국어 이름으로 정렬해서 이후에 정렬을 할 필요가 없게 합니다.
+// 물론 검색 시에 커스텀 정렬 쿼리를 받는 기능이 생기면 다 쓸데없는 짓입니다.
+const _sorted = _(_chars).chain().values().sortBy("name_ko").value();
+
 // raw는 크기가 꽤 크므로 없애 버립니다. -> 없앨 필요 없습니다.
 // raw = null;
 
@@ -122,15 +126,16 @@ const emptyArrays = (len) => Array.from(Array(len), popEmptyArray);
  * ## 구조 예시
  * ```js
  * {
- *    "id": { id: char },
- *    "name_ko": { name_ko: char },
- *    "birthday": { birthday: [ char ] },
- *    "birthday_month": { birthday_month: [ char ] },
- *    "tier": { tier: [ char ] },
- *    "hobby": { hobby: [ char ] },
- *    "personality": { personality: [ char ] },
- *    "colors": { color: [ char ] },
- *    "styles": { style: [ char ] },
+ *    "ALL": [ char ],
+ *    "id": { [id]: char },
+ *    "name_ko": { [name_ko]: char },
+ *    "birthday": { [birthday]: [ char ] },
+ *    "birthday_month": { [birthday_month]: [ char ] },
+ *    "tier": { [tier]: [ char ] },
+ *    "hobby": { [hobby]: [ char ] },
+ *    "personality": { [personality]: [ char ] },
+ *    "colors": { [color]: [ char ] },
+ *    "styles": { [style]: [ char ] },
  * }
  * ```
  *
@@ -138,6 +143,7 @@ const emptyArrays = (len) => Array.from(Array(len), popEmptyArray);
  *  정해진 게임에는 절대로 못 나옵니다.
  */
 const characters = {
+  ALL: _sorted,
   id: _chars,
   name_ko: {},
   birthday: {},
@@ -163,21 +169,10 @@ const characters = {
 // const ALLNAMES_KO = {};
 
 // characters.id 이외의 다른 프로퍼티를 채워 넣습니다.
-// 루프 전에 미리 한국어 이름으로 정렬해서 이후에 정렬을 할 필요가 없게 합니다.
-// 물론 검색 시에 커스텀 정렬 쿼리를 받는 기능이 생기면 다 쓸데없는 짓입니다.
 /** 한국어 이름으로 정렬된 모든 캐릭터입니다. */
-const charactersSorted = Object.entries(characters.id).sort((a, b) => {
-  if (a[1].name_ko < b[1].name_ko) {
-    return -1;
-  } else if (a[1].name_ko > b[1].name_ko) {
-    return 1;
-  } else {
-    return 0;
-  }
-});
-for (const entry of charactersSorted) {
+for (const char of characters.ALL) {
   // const [id, char] = entry;
-  const char = entry[1];
+  // const char = entry[1];
   let { name_ko, birthday, birthday_month, tier, colors, hobby, styles } = char;
   let birthday_month_str = birthday_month.toString();
   // String(undefined)는 'undefined'이고 undefined?.toString은 undefined입니다.
@@ -238,7 +233,6 @@ const characterNames = Object.fromEntries(
 export {
   characters,
   characterNames,
-  charactersSorted,
   ALL_COLORS,
   ALL_HOBBIES,
   ALL_PERSONALITIES,
