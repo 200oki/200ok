@@ -29,7 +29,7 @@ const HobbyChart = () => {
         labels: dataList[1],
           datasets: [
           {
-            label: dataList[1],
+            // label: ['먹보', '운동광', '하나하나'],
             data: dataList[2],
             backgroundColor: [
               'rgba(242, 34, 110, 0.2)',
@@ -63,9 +63,6 @@ const HobbyChart = () => {
                 },
               },
             ],
-          },
-          chartArea: {
-            backgroundColor: 'rgba(0, 0, 0, 0.7)'
           },
       }}
     />
