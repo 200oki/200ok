@@ -247,3 +247,9 @@ div.comment {
     top: 38vh;
   }
 }
+
+.today-calendar {
+  top: 30px;
+  right: 50px;
+  position: relative;
+}
