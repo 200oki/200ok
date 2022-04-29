@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import * as Api from "../../api";
 import {Chart, registerables} from "chart.js";
-import { Pie } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 Chart.register(...registerables)
 
-const Style = () => {
+const Species = () => {
   const [dataList, setDataList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   
   async function getDataList() {
     try {
-      const { data } = await Api.get('stats', '?groupName=style');
+      const { data } = await Api.get('stats', '?groupName=species');
       setDataList([...Object.values(data.payload)]);
       setIsLoading(false);
     } catch (error) {
@@ -23,7 +23,7 @@ const Style = () => {
   }, []);
 
   return (
-    <Pie 
+    <Bar className="graphBack"
       data={{
         labels: dataList[1],
           datasets: [
@@ -38,12 +38,12 @@ const Style = () => {
               'rgba(205, 173, 14, 1)',
               'rgba(54, 162, 235, 1)'
             ],
-            borderWidth: 1,
+            borderWidth: 1
             }
           ]
       }}
       height={500}
-      width={500}
+      width={1000}
       options= {{
           responsive: false,
           scales: {
@@ -55,12 +55,9 @@ const Style = () => {
               },
             ],
           },
-          chartArea: {
-            backgroundColor: 'rgba(0, 0, 0, 0.7)'
-          },
       }}
     />
   );
 }
 
-export default Style;
+export default Species;

@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 import * as Api from "../../api";
-import styled from "../../css/match.module.css";
-import StatBtn from "./StatBtn.js";
 import {Chart, registerables} from "chart.js";
 import { Pie } from 'react-chartjs-2';
 Chart.register(...registerables)
 
-// 젠더는 npc도 포함이라 더 갯수가 많다고 적어주기!
-
-const Gender = () => {
+const Style = () => {
   const [dataList, setDataList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   
   async function getDataList() {
     try {
-      const { data } = await Api.get('stats', '?groupName=gender');
+      const { data } = await Api.get('stats', '?groupName=style');
       setDataList([...Object.values(data.payload)]);
       setIsLoading(false);
     } catch (error) {
@@ -27,7 +23,7 @@ const Gender = () => {
   }, []);
 
   return (
-    <Pie 
+    <Pie className="graphBack"
       data={{
         labels: dataList[1],
           datasets: [
@@ -46,8 +42,8 @@ const Gender = () => {
             }
           ]
       }}
-      height={400}
-      width={400}
+      height={500}
+      width={500}
       options= {{
           responsive: false,
           scales: {
@@ -67,4 +63,4 @@ const Gender = () => {
   );
 }
 
-export default Gender;
+export default Style;
