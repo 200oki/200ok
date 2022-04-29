@@ -164,10 +164,9 @@ class Character {
    * @arg {[field: string, value: string]} keyword - 검색 키워드 필드/값 쌍입니다.
    *  - 예시: `[ field, value ]`
    * @arg {any[]} [pool] - 필터를 적용할 대상입니다.
-   *  - 없으면 모든 캐릭터(`characters.ALL`)에 적용됩니다.
    * @return {any[]} result - 필터된 데이터를 반환합니다.
    */
-  static async filter(keyword, pool = characters.ALL) {
+  static async filter(keyword, pool) {
     const [field, value] = keyword;
     if (!(field in characters) || field === "ALL") {
       throw new RequestError(
