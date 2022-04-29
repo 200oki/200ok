@@ -4,7 +4,7 @@ import {Chart, registerables} from "chart.js";
 import { Bar } from 'react-chartjs-2';
 Chart.register(...registerables)
 
-const Species = () => {
+const SpeciesChart = () => {
   const [dataList, setDataList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   
@@ -60,4 +60,4 @@ const Species = () => {
   );
 }
 
-export default Species;
+export default SpeciesChart;

@@ -4,7 +4,7 @@ import {Chart, registerables} from "chart.js";
 import { Pie } from 'react-chartjs-2';
 Chart.register(...registerables)
 
-const Hobby = () => {
+const HobbyChart = () => {
   const [dataList, setDataList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   
@@ -63,4 +63,4 @@ const Hobby = () => {
   );
 }
 
-export default Hobby;
+export default HobbyChart;

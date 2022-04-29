@@ -6,7 +6,7 @@ import {Chart, registerables} from "chart.js";
 import { Pie } from 'react-chartjs-2';
 Chart.register(...registerables)
 
-const Gender = () => {
+const GenderChart = () => {
   const [dataList, setDataList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   
@@ -41,7 +41,7 @@ const Gender = () => {
                 'rgba(205, 173, 14, 1)',
                 'rgba(54, 162, 235, 1)'
               ],
-              borderWidth: 1,
+              weight: 100,
               }
             ]
         }}
@@ -71,4 +71,4 @@ const Gender = () => {
   );
 }
 
-export default Gender;
+export default GenderChart;
