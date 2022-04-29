@@ -156,8 +156,8 @@ class Character {
 
   /** 캐릭터 데이터를 필터해서 반환합니다.
    *
-   * @arg {Array.<string[]>} keywords - 검색 키워드 필드/값 쌍의 배열입니다.
-   *  - 예시: `[ [ field1, value1 ], [ field2, value2 ], ... ]`
+   * @arg {[field: string, value: string]} keywords - 검색 키워드 필드/값 쌍입니다.
+   *  - 예시: `[ field, value ]`
    * @arg {any[]} [pool] - 필터를 적용할 대상입니다.
    *  - 없으면 모든 캐릭터(`characters.ALL`)에 적용됩니다.
    * @return {any[]} result - 필터된 데이터를 반환합니다.
