@@ -9,3 +9,7 @@
   margin: 0 auto;
   z-index: 1;
 }
+
+.graphBack {
+  background-color: #F7F8EE;
+}
