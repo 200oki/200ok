@@ -183,7 +183,7 @@ class Character {
     }
     const scheme = constants.MATCH_SCHEMES[field];
     // is ${v} superstring of keyword?
-    const superstringOfKeyword = (v) => v.includes(value);
+    const superstringOfKeyword = (v) => v.toLowerCase().includes(value);
 
     return pool.filter((char) => {
       switch (scheme) {
