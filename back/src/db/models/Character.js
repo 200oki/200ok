@@ -2,6 +2,8 @@ import _ from "underscore";
 
 import * as characterSchema from "../schemas/character.js";
 const { characters, characterNames, ...constants } = characterSchema;
+import { RequestError } from "../../utils/errors.js";
+import * as status from "../../utils/status.js";
 
 /** 캐릭터 데이터의 모델 인터페이스입니다.
  *
@@ -93,7 +95,8 @@ class Character {
    */
   static async getMany(field, value) {
     if (!(field in characters) || field === "ALL") {
-      throw new Error(
+      throw new RequestError(
+        { status: status.STATUS_405_METHODNOTALLOWED },
         `Field name "${field}" either doesn't exist or not searchable`
       );
     }
