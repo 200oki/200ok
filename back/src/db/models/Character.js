@@ -40,7 +40,7 @@ class Character {
    * 이 안에 없는 필드를 쿼리하는 것은 에러입니다.
    */
   static async exists(field, value) {
-    if (!(field in characters)) {
+    if (!(field in characters) || field === "ALL") {
       throw new Error(
         `Field name "${field}" either doesn't exist or not peekable`
       );
@@ -92,7 +92,7 @@ class Character {
    * 이 안에 없는 필드를 쿼리하는 것은 에러입니다.
    */
   static async getMany(field, value) {
-    if (!(field in characters)) {
+    if (!(field in characters) || field === "ALL") {
       throw new Error(
         `Field name "${field}" either doesn't exist or not searchable`
       );
