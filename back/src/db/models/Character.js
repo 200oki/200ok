@@ -67,6 +67,29 @@ class Character {
     }
   }
 
+  /** `[field]: value` 필터 한 가지를 정확히 만족하는 캐릭터들을 반환합니다.
+   *
+   * @arg {string} field - 찾으려는 필드입니다. (`name_ko`, `id`, ...)
+   * @arg {string} value - 찾아볼 값입니다. (`일섭`, `admiral`, ...)
+   *  - **주의**: 값이 원래 숫자라도 룩업 목적으로는 문자열입니다.
+   *    (예시: `birthday_month`)
+   * @return {any[]} found - 캐릭터들의 배열을 반환합니다.
+   *    캐릭터가 한 명이라도 배열입니다.
+   *
+   * 필드는 아래에 언급된 값 중 하나입니다.
+   *  - `id`
+   *  - `name_ko`
+   *  - `birthday`
+   *  - `birthday_month`
+   *  - `tier`
+   *  - `hobby`
+   *  - `personality`
+   *  - `colors`
+   *
+   * 이 안에 없는 필드를 쿼리하는 것은 에러입니다.
+   */
+  static async getMany(field, value) {}
+
   /** **DEPRECATED** 생일이 일치하는 캐릭터들의 객체를 반환합니다.
    *
    * @arg {{string}} birthday - `MM-DD` 포맷 날짜입니다.
