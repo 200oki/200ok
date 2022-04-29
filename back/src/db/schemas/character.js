@@ -165,7 +165,7 @@ const characters = {
 // characters.id 이외의 다른 프로퍼티를 채워 넣습니다.
 // 루프 전에 미리 한국어 이름으로 정렬해서 이후에 정렬을 할 필요가 없게 합니다.
 // 물론 검색 시에 커스텀 정렬 쿼리를 받는 기능이 생기면 다 쓸데없는 짓입니다.
-for (const entry of Object.entries(characters.id).sort((a, b) => {
+const charactersSorted = Object.entries(characters.id).sort((a, b) => {
   if (a[1].name_ko < b[1].name_ko) {
     return -1;
   } else if (a[1].name_ko > b[1].name_ko) {
@@ -173,7 +173,8 @@ for (const entry of Object.entries(characters.id).sort((a, b) => {
   } else {
     return 0;
   }
-})) {
+});
+for (const entry of charactersSorted) {
   // const [id, char] = entry;
   const char = entry[1];
   let { name_ko, birthday, birthday_month, tier, colors, hobby, styles } = char;
@@ -236,6 +237,7 @@ const characterNames = Object.fromEntries(
 export {
   characters,
   characterNames,
+  charactersSorted,
   ALL_COLORS,
   ALL_HOBBIES,
   ALL_PERSONALITIES,
