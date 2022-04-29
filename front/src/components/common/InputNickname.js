@@ -20,7 +20,7 @@ function InputNickname() {
   };
   const handleCheckUri = () => {
     if (window.location.pathname === "/game") {
-      navigator("/game-start");
+      navigator("/game-intro");
     } else if (window.location.pathname === "/match") {
       navigator("/match-result");
     }
