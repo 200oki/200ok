@@ -135,7 +135,6 @@ class CharacterService {
       [props, values] = _.unzip(
         _.zip(props, values).sort(Character.compareBySearchPriority)
       );
-      console.log("props:", props);
       result = await Character.getMany(props.pop(), values.pop());
     }
 
