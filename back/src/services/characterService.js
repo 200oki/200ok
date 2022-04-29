@@ -1,6 +1,7 @@
 import _ from "underscore";
 
 import { Character } from "../db/index.js";
+import { RequestError } from "../utils/errors.js";
 import * as status from "../utils/status.js";
 
 /**
@@ -105,6 +106,25 @@ class CharacterService {
       return result;
     }
   }
+
+  /** 검색 키워드 여러 개로 `AND` 검색한 전체 결과를 반환합니다.
+   *
+   * @arg {string[]} props - 검색할 필드(프로퍼티) 목록입니다.
+   * @arg {string[]} values - 검색할 필드에 대응하는 값 목록입니다.
+   * @arg {string[]} [fields] - `fields`는 포함하고 싶은 필드 목록입니다.
+   *    빈 배열이면 모든 필드를 포함합니다.
+   * @return {any[]} result - 검색 결과의 배열입니다.
+   */
+  static async search(props, values, fields) {}
+
+  /** 배열을 `by` 크기로 나누어 (1부터) `nth` 덩어리를 반환합니다.
+   *
+   * @arg {any[]} toPage - 자를 배열입니다.
+   * @arg {number} by - 한 페이지의 아이템 수입니다.
+   * @arg {number} nth - 페이지 번호. 1부터 시작합니다.
+   * @return {any[]} paged - 배열의 일부분의 복사본을 반환합니다.
+   */
+  static page(toPage, by, nth) {}
 }
 
 export { CharacterService };
