@@ -107,7 +107,8 @@ class Character {
       );
     }
     if (!(value in characters[field])) {
-      return [];
+      // 부분 문자열 검색이 가능하게 하기 위해 여기서도 필요하면 필터를 합니다.
+      return this.filter([field, value], characters.ALL);
     } else {
       const found = characters[field][value];
       return Array.isArray(found) ? found : [found];
