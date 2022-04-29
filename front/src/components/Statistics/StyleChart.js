@@ -63,9 +63,6 @@ const StyleChart = () => {
               },
             ],
           },
-          // chartArea: {
-          //   backgroundColor: 'rgba(0, 0, 0, 0.7)'
-          // },
       }}
     />
   );
