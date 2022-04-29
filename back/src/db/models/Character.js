@@ -1,6 +1,7 @@
 import _ from "underscore";
 
-import { characters, characterNames } from "../schemas/character.js";
+import * as characterSchema from "../schemas/character.js";
+const { characters, characterNames, ...constants } = characterSchema;
 
 /** 캐릭터 데이터의 모델 인터페이스입니다.
  *
