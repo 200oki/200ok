@@ -140,14 +140,29 @@ class CharacterService {
     return _(result).map((v) => _(v).pick(fields));
   }
 
-  /** 배열을 `by` 크기로 나누어 (1부터) `nth` 덩어리를 반환합니다.
+  /** 배열을 `by` 크기로 나누어 (1부터 세어) `nth` 덩어리를 반환합니다.
    *
    * @arg {any[]} toPage - 자를 배열입니다.
    * @arg {number} by - 한 페이지의 아이템 수입니다.
    * @arg {number} nth - 페이지 번호는 1부터 시작합니다.
    * @return {any[]} paged - 배열의 일부분의 복사본을 반환합니다.
    */
-  static page(toPage, by, nth) {}
+  static page(toPage, by, nth) {
+    const start = by * (nth - 1);
+    const end = Math.min(by * nth, toPage.length);
+    if (start >= end) {
+      throw new RequestError(
+        { status: status.STATUS_400_BADREQUEST },
+        `Page beyond maximum requested`
+      );
+    } else if (start < 0) {
+      throw new RequestError(
+        { status: status.STATUS_400_BADREQUEST },
+        `Negative page requested`
+      );
+    }
+    return toPage.slice(start, end);
+  }
 }
 
 export { CharacterService };
