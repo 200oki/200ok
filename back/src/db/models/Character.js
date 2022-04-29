@@ -85,6 +85,7 @@ class Character {
    *  - `hobby`
    *  - `personality`
    *  - `colors`
+   *  - `styles`
    *
    * 이 안에 없는 필드를 쿼리하는 것은 에러입니다.
    */
