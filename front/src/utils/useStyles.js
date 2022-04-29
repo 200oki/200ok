@@ -203,4 +203,9 @@ export const useStyles = makeStyles({
     right: "50px !important",
     margin: "auto !important",
   },
+  gameIntroImg: {
+    top: "60px",
+    height: "500px",
+    position: "relative",
+  },
 });
