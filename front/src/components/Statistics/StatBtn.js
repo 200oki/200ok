@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useStyles } from "../../utils/useStyles";
+import { DescContext } from "./Stat";
 import StyledItem from "../StyledItem";
 import { statList } from "../../utils/util";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +9,7 @@ import "../../css/stats.css";
 const StatBtn = () => {
   const classes = useStyles();
   const navigator = useNavigate();
+  const { setIsDesc } = useContext(DescContext);
 
   const handleClick = (e) => {
     // eslint-disable-next-line default-case
@@ -29,26 +31,27 @@ const StatBtn = () => {
         break;
     }
   };
-  
+
   return (
     <>
       <div className="stats">
-        {statList
-          .map((item, idx) => {
-            return (
-              <StyledItem
-                key={idx}
-                type="whiteItem"
-                content={item}
-                className={classes.menuItem}
-                onClick={handleClick}
-              />
-            );
+        {statList.map((item, idx) => {
+          return (
+            <StyledItem
+              key={idx}
+              type="whiteItem"
+              content={item}
+              className={classes.menuItem}
+              onClick={(e) => {
+                handleClick(e);
+                setIsDesc(true);
+              }}
+            />
+          );
         })}
       </div>
     </>
   );
 };
-
 
 export default StatBtn;
