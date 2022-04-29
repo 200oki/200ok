@@ -83,6 +83,7 @@ class Character {
    *    캐릭터가 한 명이라도 배열입니다.
    *
    * 필드는 아래에 언급된 값 중 하나입니다.
+   *  - `ALL`: 전체 캐릭터의 리스트입니다. `value` 인자는 무시됩니다.
    *  - `id`
    *  - `name_ko`
    *  - `birthday`
@@ -96,7 +97,10 @@ class Character {
    * 이 안에 없는 필드를 쿼리하는 것은 에러입니다.
    */
   static async getMany(field, value) {
-    if (!(field in characters) || field === "ALL") {
+    if (field === "ALL") {
+      return characters.ALL;
+    }
+    if (!(field in characters)) {
       throw new RequestError(
         { status: status.STATUS_405_METHODNOTALLOWED },
         `Field name "${field}" either doesn't exist or not searchable`
