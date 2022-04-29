@@ -25,6 +25,7 @@
   text-align: center;
   font-size: 50px;
   font-family: "TmoneyRoundWindExtraBold";
+  animation: blink-effect 1s step-end infinite;
 }
 
 .stats {
@@ -41,4 +42,10 @@
 
 .graphBack {
   background-color: #F7F8EE;
+}
+
+@keyframes blink-effect {
+  50% {
+    opacity: 0;
+  }
 }
