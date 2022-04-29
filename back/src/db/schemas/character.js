@@ -119,13 +119,15 @@ const MATCH_SCHEMES = {
 };
 /** 다중 검색시 먼저 필터링할 우선도입니다. (높을수록 먼저) */
 const SEARCH_PRIORITIES = {
-  id: 70,
-  birthday: 60,
-  birthday_month: 50,
-  tier: 40,
-  personality: 30,
-  hobby: 20,
-  name_ko: 10,
+  id: 90,
+  birthday: 80,
+  birthday_month: 70,
+  tier: 60,
+  personality: 50,
+  hobby: 40,
+  name_ko: 30,
+  styles: 20,
+  colors: 10,
 };
 
 // TIL `Array.fill`은 복사를 안한다.
