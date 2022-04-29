@@ -154,17 +154,13 @@ class CharacterService {
   static page(toPage, by, nth) {
     const start = by * (nth - 1);
     const end = Math.min(by * nth, toPage.length);
-    if (start >= end) {
+    if (start >= end || start < 0) {
       throw new RequestError(
         { status: status.STATUS_400_BADREQUEST },
-        `Can't produce page beyond maximum`
-      );
-    } else if (start < 0) {
-      throw new RequestError(
-        { status: status.STATUS_400_BADREQUEST },
-        `Cant' produce negative page`
+        `Won't produce invalid page`
       );
     }
+
     return toPage.slice(start, end);
   }
 }
