@@ -176,8 +176,8 @@ class Character {
       );
     }
     const scheme = constants.MATCH_SCHEMES[field];
-    // is ${value} substring of ${v}?
-    const substringOf = (v) => v.includes(value);
+    // is ${v} superstring of keyword?
+    const superstringOfKeyword = (v) => v.includes(value);
 
     return pool.filter((char) => {
       switch (scheme) {
@@ -185,7 +185,7 @@ class Character {
         case constants.MATCH_INCLUDEEXACT:
           return char[field]?.includes(value);
         case constants.MATCH_INCLUDESUBSTRING:
-          return char[field]?.some(substringOf);
+          return char[field]?.some(superstringOfKeyword);
         default:
           // 기본적으로 정확히 일치해야 통과합니다.
           return String(char[field]) === value;
