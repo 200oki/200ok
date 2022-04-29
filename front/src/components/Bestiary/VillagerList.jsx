@@ -133,7 +133,7 @@ const Card = styled.div`
 `;
 
 const Row = styled.div`
-  margin-left: 20px;
+  margin-right: 70px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -304,7 +304,78 @@ const VillagerList = () => {
               검색
             </Button>
           </SearchForm>
-          <ContentContainer id="content"></ContentContainer>
+          <ContentContainer id="content">
+            <Row>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+            </Row>
+            <Row>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+            </Row>
+            <Row>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+            </Row>
+            <Row>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+            </Row>
+            <Row>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+            </Row>
+            <Row>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+            </Row>
+            <Row>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+            </Row>
+            <Row>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+            </Row>
+            <Row>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+            </Row>
+            <Row>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+            </Row>
+            <Row>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+            </Row>
+            <Row>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+            </Row>
+            <Row>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+            </Row>
+            <Row>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+            </Row>
+          </ContentContainer>
           <PrettoSlider onChange={scrollHandler} />
         </ContentWrapper>
       </Content>
