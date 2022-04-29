@@ -52,6 +52,12 @@ router.get("/characters/random", async (req, res, next) => {
  */
 router.get("/characters/search", async (req, res, next) => {
   try {
+    if (!("fields" in req.query)) {
+      throw new RequestError(
+        { status: status.STATUS_400_BADREQUEST },
+        `"fields" query is required`
+      );
+    }
     const fields = parseArrayQuery(req.query.fields);
     const props = parseArrayQuery(req.query.props);
     const values = parseArrayQuery(req.query.values);
@@ -60,6 +66,7 @@ router.get("/characters/search", async (req, res, next) => {
     // page, size 쿼리는 없어도 되지만 있으려면 둘 다 있어야 합니다.
     if (isNaN(page) != isNaN(size)) {
       throw new RequestError(
+        { status: status.STATUS_400_BADREQUEST },
         `"page" and "size" both need to be present if one is provided`
       );
     }

@@ -121,7 +121,10 @@ class CharacterService {
    */
   static async search(props, values, fields) {
     if (props.length !== values.length) {
-      throw new RequestError(`Search queries not producing proper pairs`);
+      throw new RequestError(
+        { status: status.STATUS_400_BADREQUEST },
+        `Search queries not producing proper pairs`
+      );
     }
 
     let result;
@@ -152,7 +155,10 @@ class CharacterService {
     const start = by * (nth - 1);
     const end = Math.min(by * nth, toPage.length);
     if (start >= end || start < 0) {
-      throw new RequestError(`Won't produce invalid page`);
+      throw new RequestError(
+        { status: status.STATUS_400_BADREQUEST },
+        `Won't produce invalid page`
+      );
     }
 
     return toPage.slice(start, end);
