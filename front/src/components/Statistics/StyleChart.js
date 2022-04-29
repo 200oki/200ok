@@ -28,7 +28,6 @@ const StyleChart = () => {
         labels: dataList[1],
           datasets: [
           {
-            label: dataList[1],
             data: dataList[2],
             backgroundColor: [
               'rgba(242, 34, 110, 0.2)',
