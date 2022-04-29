@@ -117,6 +117,13 @@ const MATCH_SCHEMES = {
   styles: MATCH_INCLUDESUBSTRING,
   "*": MATCH_EXACT,
 };
+/** 다중 검색시 먼저 필터링할 우선도입니다. (높을수록 먼저) */
+const SEARCH_PRIORITIES = {
+  id: 40,
+  birthday: 30,
+  birthday_month: 20,
+  tier: 10,
+};
 
 // TIL `Array.fill`은 복사를 안한다.
 const emptyArrays = (len) => Array.from(Array(len), () => []);
@@ -261,4 +268,5 @@ export {
   MATCH_INCLUDEEXACT,
   MATCH_SUBSTRING,
   MATCH_INCLUDESUBSTRING,
+  SEARCH_PRIORITIES,
 };
