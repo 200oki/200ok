@@ -1,7 +1,7 @@
 .root{
     position: relative;
     display: flex;
-    align-items: end;
+    align-items: flex-end;
     justify-content: center;
     height: 100%;
     width: 100%;
