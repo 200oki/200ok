@@ -72,10 +72,13 @@ router.get("/characters/search", async (req, res, next) => {
     }
 
     let result = await CharacterService.search(props, values, fields);
+    const total = result.length;
     if (!isNaN(page)) {
       result = CharacterService.page(result, size, page);
     }
-    res.status(status.STATUS_200_OK).json({ success: true, payload: result });
+    res
+      .status(status.STATUS_200_OK)
+      .json({ success: true, total, payload: result });
   } catch (error) {
     next(error);
   }
