@@ -3,6 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import path from "path"; // 파일 경로 모듈
+import redis from "redis";
 import { logger } from "./utils/winstonLogger.js";
 import { characterRouter } from "./routers/characterRouter.js";
 import { commentRouter } from "./routers/commentRouter.js";
@@ -13,6 +14,7 @@ import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 const __dirname = path.resolve();
 dotenv.config({ path: path.join(__dirname, "../.env") });
 const app = express();
+
 // CORS 에러 방지
 app.use(cors());
 app.use(express.json());
