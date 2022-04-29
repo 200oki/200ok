@@ -132,6 +132,10 @@ class CharacterService {
       // 도감 때문에 전체 캐릭터 리스트가 필요합니다.
       result = await Character.getMany("ALL");
     } else {
+      [props, values] = _.unzip(
+        _.zip(props, values).sort(Character.compareBySearchPriority)
+      );
+      console.log("props:", props);
       result = await Character.getMany(props.pop(), values.pop());
     }
 
