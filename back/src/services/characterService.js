@@ -100,10 +100,7 @@ class CharacterService {
   static async sample(n, tiers = [], fields = []) {
     const result = await Character.sample(n, tiers);
     if (fields.length) {
-      return _(result)
-        .chain()
-        .map((v) => _(v).pick(fields))
-        .value();
+      return _(result).map((v) => _(v).pick(fields));
     } else {
       return result;
     }
