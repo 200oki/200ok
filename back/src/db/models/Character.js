@@ -198,6 +198,34 @@ class Character {
       }
     });
   }
+
+  /** 검색 키워드를 효율적으로 정렬하기 위한 비교 함수입니다.
+   *
+   * @arg {[string, string]} a
+   * @arg {[string, string]} b
+   * - `a`, `b`는 `[ field, value ]` 쌍입니다.
+   *    정렬할때 `zip`하면 됩니다.
+   * @return number - 정렬 결과 *우선도가 높은 필드가 뒤로 갑니다.*
+   */
+  static compareBySearchPriority(a, b) {
+    // 실험 결과 자바스크립트는 불리언에 비트시프트를 하면 알아서 숫자로 바꿉니다.
+    const flag =
+      ((b[0] in constants.SEARCH_PRIORITIES) << 1) |
+      (a[0] in constants.SEARCH_PRIORITIES);
+    switch (flag) {
+      case 0b11:
+        return (
+          constants.SEARCH_PRIORITIES[a[0]] - constants.SEARCH_PRIORITIES[b[0]]
+        );
+      case 0b10:
+        // b가 있고 a는 없으면 b가 뒤로 갑니다. 아래는 그 반대.
+        return -1;
+      case 0b01:
+        return 1;
+      default:
+        return 0;
+    }
+  }
 }
 
 export { Character };
