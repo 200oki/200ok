@@ -6,6 +6,7 @@ import path from "path";
 // import * as characters from "./src/db/schemas/characters.json";
 
 import _ from "underscore";
+// import { logger } from "../../utils/winstonLogger.js";
 
 const __dirname = path.resolve();
 let raw = fs.readFileSync(
@@ -172,7 +173,16 @@ const characters = {
 for (const char of characters.ALL) {
   // const [id, char] = entry;
   // const char = entry[1];
-  let { name_ko, birthday, birthday_month, tier, colors, hobby, styles } = char;
+  let {
+    name_ko,
+    birthday,
+    birthday_month,
+    tier,
+    colors,
+    hobby,
+    personality,
+    styles,
+  } = char;
   let birthday_month_str = birthday_month.toString();
   // String(undefined)는 'undefined'이고 undefined?.toString은 undefined입니다.
   let tier_str = tier?.toString();
@@ -202,6 +212,7 @@ for (const char of characters.ALL) {
     continue;
   }
 
+  characters.personality[personality].push(char);
   characters.hobby[hobby].push(char);
 
   // color, style은 원래 배열이기 때문에 까먹지 말고 한바퀴 더 돌립니다.
@@ -223,11 +234,20 @@ const characterNames = Object.fromEntries(
 //   cyrus: "리포",
 // };
 
-// console.log(
-//   _(characters.tier).mapObject((v, k) => {
-//     return _(v).pluck("id");
-//   })
-// );
+if (process.env.NODE_ENV === "dev") {
+  console.log(
+    _(characters).mapObject((v, k) => {
+      if (k === "ALL") {
+        return v.length;
+      } else if (["id", "name_ko", "birthday"].includes(k)) {
+        return _(v).keys().length;
+      }
+      return _(v).mapObject((v, k) => {
+        return v.length;
+      });
+    })
+  );
+}
 
 export {
   characters,
