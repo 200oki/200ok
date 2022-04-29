@@ -118,8 +118,7 @@ const MATCH_SCHEMES = {
 };
 
 // TIL `Array.fill`은 복사를 안한다.
-const popEmptyArray = () => [];
-const emptyArrays = (len) => Array.from(Array(len), popEmptyArray);
+const emptyArrays = (len) => Array.from(Array(len), () => []);
 
 /** 캐릭터의 데이터를 담는 맵입니다. 동일한 데이터에 여러가지 키로 접근 가능합니다.
  *
