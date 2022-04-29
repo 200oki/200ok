@@ -2,7 +2,9 @@ import React, { createRef } from "react";
 import styled from "../../css/match.module.css";
 
 import InputBirthday from "./InputBirthday";
+import SelectColor from "./SelectColor";
 import SelectPersonality from "./SelectPersonality";
+import SelectHobbyStyle from "./SelectHobbyStyle";
 
 /* 
 ? 테스트 순서
@@ -13,14 +15,27 @@ function MatchTest() {
   const slideRef = createRef(null);
 
   const nextSlide = () => {
-    console.log(slideRef.current);
     slideRef.current.style.transform += "translateX(-100vw)";
   };
+
+  const hobby = ["취미", "자연", "운동", "놀이", "교육", "패션", "음악"];
+  const styles = [
+    "스타일",
+    "액티브",
+    "쿨",
+    "큐트",
+    "엘레강스",
+    "고져스",
+    "심플",
+  ];
 
   return (
     <div className={styled.slider} ref={slideRef}>
       <InputBirthday nextSlide={nextSlide} />
+      <SelectColor nextSlide={nextSlide} />
       <SelectPersonality nextSlide={nextSlide} />
+      <SelectHobbyStyle array={hobby} nextSlide={nextSlide} />
+      <SelectHobbyStyle array={styles} nextSlide={nextSlide} />
     </div>
   );
 }

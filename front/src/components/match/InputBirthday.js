@@ -13,6 +13,11 @@ function InputBirthday({ nextSlide }) {
   const [day, setDay] = useState("");
 
   const classes = useStyles();
+  const selectStyles = {
+    fontFamily: "TmoneyRoundWindRegular",
+    fontSize: "15px",
+    backgroundColor: "white",
+  };
 
   const monthArr = Array(12)
     .fill()
@@ -39,6 +44,7 @@ function InputBirthday({ nextSlide }) {
             onChange={handleChangeM}
             displayEmpty
             className={classes.selectBtn}
+            sx={selectStyles}
           >
             <MenuItem value="">
               <em>Month</em>
@@ -57,6 +63,7 @@ function InputBirthday({ nextSlide }) {
             onChange={handleChangeD}
             displayEmpty
             className={classes.selectBtn}
+            sx={selectStyles}
           >
             <MenuItem value="">
               <em>Day</em>

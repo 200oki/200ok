@@ -317,7 +317,9 @@
   margin-bottom: 30px;
 }
 
-.personForm {
+.personForm,
+.hobbyStyleForm,
+.colorForm {
   display: flex;
   width: 80%;
   justify-content: center;
@@ -326,27 +328,61 @@
   margin-bottom: 30px;
 }
 
-.personForm > div {
+.personForm > div,
+.hobbyStyleForm > div,
+.colorForm > div {
   width: 100%;
   display: flex;
-  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
 }
 
-.personRadioBtn {
-  width: 80%;
+.colorForm > div {
+  flex-direction: column;
+}
+
+.personRadioBtn,
+.hobbyStyleRadioBtn,
+.colorRadioBtn {
   height: 45px;
 }
 
+.personRadioBtn,
+.hobbyStyleRadioBtn {
+  width: 80%;
+}
+
+.colorRadioBtn {
+  width: 50%;
+  margin: 20px;
+}
+
+.personRadioBtn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.hobbyStyleRadioBtn {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.colorTopDiv,
+.colorBottomDiv,
 .personalityLeftDiv,
-.personalityRightDiv {
+.personalityRightDiv,
+.hobbyStyleDiv {
   width: 100%;
   text-align: center;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.personalityLeftDiv,
+.personalityRightDiv,
+.hobbyStyleDiv {
+  flex-direction: column;
 }
 
 .testTitle {
@@ -355,17 +391,18 @@
   margin-bottom: 30px;
 }
 
-.personRadioBtn {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
 .personRadioBtn input[type="radio"],
-.personRadioBtn input[type="radio"]:checked {
+.personRadioBtn input[type="radio"]:checked,
+.hobbyStyleRadioBtn input[type="radio"],
+.hobbyStyleRadioBtn input[type="radio"]:checked,
+.colorRadioBtn input[type="radio"],
+.colorRadioBtn input[type="radio"]:checked {
   display: none;
 }
 
-.personRadioBtn label {
+.personRadioBtn label,
+.hobbyStyleRadioBtn label,
+.colorRadioBtn label {
   font-family: "TmoneyRoundWindRegular";
   font-size: 18px;
   display: block;
@@ -373,22 +410,44 @@
   margin: 0 auto;
   text-align: center;
   height: -webkit-fill-available;
-  line-height: 45px;
   padding: 5px;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 }
 
-.personRadioBtn label:hover {
+.personRadioBtn label,
+.hobbyStyleRadioBtn label {
+  line-height: 45px;
+}
+
+.colorRadioBtn label {
+  line-height: 35px;
+}
+
+.personRadioBtn label:hover,
+.hobbyStyleRadioBtn label:hover,
+.colorRadioBtn label:hover {
   cursor: pointer;
 }
 
-.personRadioBtn input[type="radio"] + label {
-  width: 100%;
+.personRadioBtn input[type="radio"] + label,
+.hobbyStyleRadioBtn input[type="radio"] + label,
+.colorRadioBtn input[type="radio"] + label {
   background: white;
   color: #7e725c;
 }
 
-.personRadioBtn input[type="radio"]:checked + label {
+.personRadioBtn input[type="radio"] + label,
+.colorRadioBtn input[type="radio"] + label {
+  width: 100%;
+}
+
+.hobbyStyleRadioBtn input[type="radio"] + label {
+  width: 60%;
+}
+
+.personRadioBtn input[type="radio"]:checked + label,
+.hobbyStyleRadioBtn input[type="radio"]:checked + label,
+.colorRadioBtn input[type="radio"]:checked + label {
   background: #66d267;
   /* background: #a9fbca; */
   color: white;
