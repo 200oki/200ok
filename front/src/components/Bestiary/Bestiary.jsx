@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 import styled, { keyframes } from "styled-components";
-import VillagerList from "./VillagerList";
-import Statistics from "./Statistics";
 
 const Navigator = styled.div`
   position: fixed;
   top: 0;
   z-index: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100vw;
 `;
 
 const Container = styled.div`
@@ -73,34 +75,37 @@ const ButtonWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const Wrapper = styled.div`
+  position: relative;
+  top: 30px;
+  right: 50px;
+`;
 
 const Bestiary = () => {
-  const [toggle, setToggle] = useState("initial");
+  const navigate = useNavigate();
 
   const clickHandler = (e) => {
     e.preventDefault();
-    setToggle(e.target.value);
+    navigate(e.target.value);
   };
 
   return (
     <Container>
       <Navigator>
-        <BackButton />
-        <HomeButton />
+        <BackButton content={"메인메뉴"} />
+        <Wrapper>
+          <HomeButton />
+        </Wrapper>
       </Navigator>
       <Content>
-        {toggle === "initial" && (
-          <ButtonWrapper>
-            <Button onClick={clickHandler} value="list">
-              주민 도감
-            </Button>
-            <Button onClick={clickHandler} value="statistics">
-              주민 통계
-            </Button>
-          </ButtonWrapper>
-        )}
-        {toggle === "list" && <VillagerList />}
-        {toggle === "statistics" && <Statistics />}
+        <ButtonWrapper>
+          <Button onClick={clickHandler} value="list">
+            주민 도감
+          </Button>
+          <Button onClick={clickHandler} value="statistics">
+            주민 통계
+          </Button>
+        </ButtonWrapper>
       </Content>
     </Container>
   );

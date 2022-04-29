@@ -1,9 +1,53 @@
-import { useEffect } from "react";
-import styled from "styled-components";
+import { useEffect, useState } from "react";
+import styled, { keyframes } from "styled-components";
 import * as Api from "../../api";
-import Slider from "@mui/material/Slider";
+import { Slider } from "@mui/material";
 import { styled as Styled } from "@mui/material/styles";
+import BackButton from "../common/BackButton";
+import HomeButton from "../common/HomeButton";
 
+const Navigator = styled.div`
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100vw;
+`;
+
+const Container = styled.div`
+  position: relative;
+&::before {
+  background-image: url("/images/leafBgImg.jpg");
+  content: " ";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
+  background-position: 50% 0;
+  z-index: -100;
+`;
+const pop = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+const Content = styled.div`
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: ${pop} 1s linear forwards;
+`;
 const SearchForm = styled.form`
   display: flex;
   justify-content: center;
@@ -11,19 +55,20 @@ const SearchForm = styled.form`
   width: 70%;
 `;
 const Input = styled.input`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
   width: 100%;
-  margin-right: 3rem;
   height: 3rem;
+  padding: 0;
+  margin-right: 3rem;
+  padding-left: 2rem;
+  background-color: white;
   border: none;
-  border-radius: 1rem;
+  border-left: 1px solid #a5e4ff;
+  border-radius: 0 1rem 1rem 0;
   transition: all 0.5s;
   font-family: "TmoneyRoundWindExtraBold";
   font-size: 1.24rem;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  -webkit-appearance: none;
   &:hover {
     opacity: 0.6;
   }
@@ -34,10 +79,12 @@ const Button = styled.button`
   border: none;
   border-radius: 1rem;
   background: #a5e4ff;
-  transition: all 0.5s;
+  transition: all 0.3s;
+  cursor: pointer;
   font-family: "TmoneyRoundWindExtraBold";
   font-size: 1.24rem;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  -webkit-appearance: none;
   &:hover {
     background-color: #cdcdcd;
     transform: translateY(-5%);
@@ -45,6 +92,12 @@ const Button = styled.button`
 `;
 
 const Wrapper = styled.div`
+  position: relative;
+  top: 30px;
+  right: 50px;
+`;
+
+const ContentWrapper = styled.div`
   width: 85vw;
   height: 100vh;
   display: flex;
@@ -85,7 +138,6 @@ const Row = styled.div`
   flex-direction: column;
   justify-content: space-around;
 `;
-
 const PrettoSlider = Styled(Slider)({
   color: "#52af77",
   height: 8,
@@ -125,30 +177,71 @@ const PrettoSlider = Styled(Slider)({
   },
 });
 
+const Select = styled.button`
+  width: 12rem;
+  height: 3rem;
+  border: none;
+  border-right: 1px solid #a5e4ff;
+  border-radius: 1rem 0 0 1rem;
+  background: white;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-family: "TmoneyRoundWindExtraBold";
+  font-size: 1.24rem;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  -webkit-appearance: none;
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+const Option = styled.button`
+  width: 12rem;
+  height: 3rem;
+  border: none;
+  border-right: 1px solid #a5e4ff;
+  border-radius: 0;
+  background: white;
+  transition: all 0.5s;
+  cursor: pointer;
+  font-family: "TmoneyRoundWindExtraBold";
+  font-size: 1.24rem;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  -webkit-appearance: none;
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+const OptionWrapper = styled.div`
+  display: ${(props) => (props.show ? "flex" : "none")};
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  z-index: 2;
+`;
+const Selector = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 const VillagerList = () => {
+  const [data, setData] = useState([]);
+  const options = {
+    이름: "name_ko",
+    성격: "presonality",
+    취미: "hobby",
+    노래: "song",
+    색깔: "color",
+    스타일: "style",
+  };
   const searchVillager = async () => {
     const result = await Api.get("characters");
     return result;
   };
 
-  // const [windowSize, setWindowSize] = useState({
-  //   width: window.innerWidth,
-  //   height: window.innerHeight,
-  // });
-
-  // const handleResize = () => {
-  //   setWindowSize({
-  //     width: window.innerWidth,
-  //     height: window.innerHeight,
-  //   });
-  // };
-
   useEffect(() => {
     searchVillager();
-    // window.addEventListener("resize", handleResize);
-    // return () => {
-    //   window.removeEventListener("resize", handleResize);
-    // };
   }, []);
 
   const clickHandler = (e) => {
@@ -160,73 +253,62 @@ const VillagerList = () => {
     const maxScrollLeft = element.scrollWidth - element.clientWidth;
     element.scrollLeft = (maxScrollLeft / 100) * val;
   };
+
+  const [show, setShow] = useState(false);
+  const [option, setOption] = useState("검색조건");
+  const [ipt, setIpt] = useState("");
+
+  const showOptions = (e) => {
+    e.preventDefault();
+    setShow(!show);
+  };
+  const optionHandler = (e) => {
+    e.preventDefault();
+    setOption(e.target.value);
+    setShow(!show);
+  };
+
+  const searchHandler = async () => {
+    const queryString = `?${options[option]}=${ipt}`;
+    const { data } = await Api.get(`characters${queryString}`);
+    setData([...data.payload]);
+  };
+
+  const inputHandler = (e) => {
+    setIpt(e.target.value);
+  };
+
   return (
-    <Wrapper>
-      <SearchForm>
-        <Input placeholder="검색어를 입력해주세요." />
-        <Button type="submit" onClick={clickHandler}>
-          검색
-        </Button>
-      </SearchForm>
-      <ContentContainer id="content">
-        <Row>
-          <Card />
-          <Card />
-          <Card />
-        </Row>
-        <Row>
-          <Card>1</Card>
-          <Card />
-          <Card />
-        </Row>
-        <Row>
-          <Card />
-          <Card />
-          <Card />
-        </Row>
-        <Row>
-          <Card />
-          <Card />
-          <Card />
-        </Row>
-        <Row>
-          <Card />
-          <Card />
-          <Card />
-        </Row>
-        <Row>
-          <Card />
-          <Card />
-          <Card />
-        </Row>
-        <Row>
-          <Card />
-          <Card />
-          <Card />
-        </Row>
-        <Row>
-          <Card />
-          <Card />
-          <Card />
-        </Row>
-        <Row>
-          <Card />
-          <Card />
-          <Card />
-        </Row>
-        <Row>
-          <Card />
-          <Card />
-          <Card />
-        </Row>
-        <Row>
-          <Card />
-          <Card />
-          <Card />
-        </Row>
-      </ContentContainer>
-      <PrettoSlider onChange={scrollHandler} />
-    </Wrapper>
+    <Container>
+      <Navigator>
+        <BackButton content={"메인메뉴"} />
+        <Wrapper>
+          <HomeButton />
+        </Wrapper>
+      </Navigator>
+      <Content>
+        <ContentWrapper>
+          <SearchForm onSubmit={searchHandler}>
+            <Selector>
+              <Select onClick={showOptions}>{option}</Select>
+              <OptionWrapper id="options" show={show}>
+                {Object.keys(options).map((option, i) => (
+                  <Option key={i} value={option} onClick={optionHandler}>
+                    {option}
+                  </Option>
+                ))}
+              </OptionWrapper>
+            </Selector>
+            <Input placeholder="검색어를 입력해주세요." onChange={inputHandler} value={ipt} />
+            <Button type="submit" onClick={clickHandler}>
+              검색
+            </Button>
+          </SearchForm>
+          <ContentContainer id="content"></ContentContainer>
+          <PrettoSlider onChange={scrollHandler} />
+        </ContentWrapper>
+      </Content>
+    </Container>
   );
 };
 
