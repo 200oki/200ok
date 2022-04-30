@@ -40,6 +40,7 @@ function App() {
           <Route path="/bestiary" element={<Bestiary />} />
           <Route path="/bestiary/list" element={<VillagerList />} />
           <Route path="/bestiary/statistics" element={<Statistics />} />
+          <Route path="/villagerDetail/:id" element={<VillagerDetail />} />
         </Routes>
       </Router>
     </div>
