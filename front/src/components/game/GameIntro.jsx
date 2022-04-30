@@ -39,7 +39,9 @@ const GameIntro = () => {
           ♪ ~ ♪ ♪ ♪ ~ ♪ ♪
         </Typography>
         <div className="btnWrapper">
-          <button onClick={handleClick}>게임 시작</button>
+          <button className="introBtn" onClick={handleClick}>
+            게임 시작
+          </button>
         </div>
       </div>
     </div>
