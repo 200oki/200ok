@@ -57,16 +57,10 @@ const PersonalityChart = () => {
       height={500}
       width={1200}
       options= {{
-          responsive: false,
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                },
-              },
-            ],
-          },
+        responsive: false,
+        plugins: {
+          legend: false // Hide legend
+        },
       }}
     />
   );
