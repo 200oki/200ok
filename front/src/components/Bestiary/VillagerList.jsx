@@ -237,10 +237,12 @@ const VillagerList = () => {
   };
 
   const [data, setData] = useState([]);
+  const [count, setCount] = useState(0);
 
   const dataInit = async () => {
-    const { payload } = await Api.get("characters/search?fields=name_ko,image_photo");
+    const { payload, total } = await Api.get("characters/search?fields=name_ko,image_photo");
     setData([...payload]);
+    setCount(total);
   };
 
   useEffect(() => {
