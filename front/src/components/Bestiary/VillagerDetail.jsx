@@ -53,6 +53,19 @@ const Content = styled.div`
   animation: ${pop} 1s linear forwards;
 `;
 
+const Detail = styled.div`
+  background-color: ${(props) => props.color};
+  width: 100px;
+  height: 40px;
+  border-radius: 20px;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "TmoneyRoundWindExtraBold";
+  font-size: 1.24rem;
+`;
+
 const VillagerDetail = () => {
   const [villager, setVillager] = useState({});
   const { id } = useParams();
@@ -73,7 +86,11 @@ const VillagerDetail = () => {
       </Navigator>
       <Content>
         <img src={villager.image_photo} alt="주민사진" style={{ borderRadius: "50%" }} />
-        <div>상세페이지 디테일입력</div>
+        <div>
+          <Detail color="green">
+            <Detail color="white"></Detail>
+          </Detail>
+        </div>
       </Content>
     </Container>
   );
