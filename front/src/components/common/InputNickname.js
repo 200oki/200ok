@@ -4,6 +4,7 @@ import styled from "../../css/match.module.css";
 import { useNavigate } from "react-router-dom";
 import "../../css/typingFont.css";
 import usePathParams from "../../utils/usePathParams";
+import BackButton from "./BackButton";
 
 import { NicknameContext } from "../../context/NicknameContext";
 
@@ -11,6 +12,7 @@ function InputNickname() {
   const { nickname, setNickname } = useContext(NicknameContext);
   const navigator = useNavigate();
   const pathname = usePathParams();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
@@ -19,11 +21,12 @@ function InputNickname() {
       console.error(err);
     }
   };
+
   const handleCheckUri = () => {
     if (pathname === "/game") {
       navigator("/game-intro");
     } else if (pathname === "/match") {
-      navigator("/match-result");
+      navigator("/match-intro");
     }
   };
 
@@ -34,6 +37,12 @@ function InputNickname() {
 
   return (
     <div className={styled.Wrapper}>
+      <div
+        className="nav-bar"
+        style={{ position: "fixed", top: "0", left: "0", zIndex: "1" }}
+      >
+        <BackButton content={"메인으로"} />
+      </div>
       <Typewriter
         onInit={(typewriter) => {
           typewriter
