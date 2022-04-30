@@ -298,6 +298,12 @@ const VillagerList = () => {
     setIpt(e.target.value);
   };
 
+  const handleKeyUp = (e) => {
+    if (e.key === "Enter") {
+      search();
+    }
+  };
+
   useEffect(() => {
     search();
   }, []);
@@ -338,7 +344,7 @@ const VillagerList = () => {
       </Navigator>
       <Content>
         <ContentWrapper>
-          <SearchForm>
+          <div style={{ display: "flex", flexDirection: "row", width: "7  0%", justifyContent: "center" }}>
             <Selector>
               <Select onClick={showOptions}>{option}</Select>
               <OptionWrapper id="options" show={show}>
@@ -349,13 +355,15 @@ const VillagerList = () => {
                 ))}
               </OptionWrapper>
             </Selector>
-            <Input placeholder="검색어를 입력해주세요." onChange={inputHandler} value={ipt} />
-            <div>
-              <Button type="submit" onClick={clickHandler}>
-                검색
-              </Button>
-            </div>
-          </SearchForm>
+            <SearchForm>
+              <Input placeholder="검색어를 입력해주세요." onChange={inputHandler} value={ipt} onKeyUp={handleKeyUp} />
+              <div>
+                <Button type="submit" onClick={clickHandler}>
+                  검색
+                </Button>
+              </div>
+            </SearchForm>
+          </div>
           <ContentContainer id="content">
             {columns.map((column, idx) => {
               return <Column key={idx}>{column}</Column>;
