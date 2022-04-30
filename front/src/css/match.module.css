@@ -290,6 +290,18 @@
   margin-bottom: 20px;
 }
 
+.rankCharSubTitle {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-family: "TmoneyRoundWindExtraBold";
+}
+
+.charSmallSubTitle {
+  font-size: 15px;
+  font-family: "TmoneyRoundWindRegular";
+}
+
 .rankCharTitleBg {
   width: 200px;
   text-align: center;
