@@ -39,6 +39,7 @@ class Character {
    *  - `tier`
    *  - `hobby`
    *  - `personality`
+   *  - `species`
    *  - `colors`
    *  - `styles`
    *
@@ -92,6 +93,7 @@ class Character {
    *  - `tier`
    *  - `hobby`
    *  - `personality`
+   *  - `species`
    *  - `colors`
    *  - `styles`
    *
