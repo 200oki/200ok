@@ -28,7 +28,7 @@ const VillagerDetail = () => {
   return (
     <div>
       <Navigator>
-        <BackButton content={window.location.pathname === "/bestiary" ? "메인메뉴" : "뒤로가기"} />
+        <BackButton content={"뒤로가기"} />
 
         <HomeButton />
       </Navigator>
