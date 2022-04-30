@@ -36,27 +36,35 @@ const GameResult = () => {
         onClick={gameResultHandler}
       />
       <img
-        src="images/raccoon.png"
+        src="images/rakun.png"
         alt="raccoon"
         className={classes.gameResultImg}
       />
       <div className="contentRoot">
-        <img src="images/gameResult.png" alt="comment" />
-        <img
-          className={`${classes.bottomArrow} blinkImg`}
-          src="images/triangleBottomArrow.png"
-          alt="arrow"
-        />
-        <Typography sx={typoStyles} variant={"body1"} className="content1">
-          축하합니다!
-        </Typography>
-        <Typography sx={typoStyles} variant={"body1"} className="content2">
-          당신의 기록은 <span className="gameResultScore">{score}점</span> 이고,
-        </Typography>
-        <Typography sx={typoStyles} variant={"body1"} className="content3">
-          최종 순위는 <span className="gameResultRank">{rank}등</span> 입니다!
-        </Typography>
-        <div className="btnWrapper">
+        <div>
+          <img
+            src="images/gameResult.png"
+            alt="comment"
+            className={classes.gameResultComment}
+          />
+          <img
+            className={`${classes.bottomArrow} blinkImg`}
+            src="images/triangleBottomArrow.png"
+            alt="arrow"
+          />
+          <Typography sx={typoStyles} variant={"body1"} className="content1">
+            축하합니다!
+          </Typography>
+          <Typography sx={typoStyles} variant={"body1"} className="content2">
+            당신의 기록은 <span className="gameResultScore">{score}점</span>{" "}
+            이고,
+          </Typography>
+          <Typography sx={typoStyles} variant={"body1"} className="content3">
+            최종 순위는 <span className="gameResultRank">{rank}등</span> 입니다!
+          </Typography>
+        </div>
+
+        <div className="resultBtnWrapper">
           <button onClick={gameResultHandler}>공유하기</button>
           <button onClick={gameResultHandler}>홈으로</button>
           <button onClick={gameResultHandler}>다시하기</button>
