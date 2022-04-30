@@ -72,7 +72,7 @@ const VillagerDetail = () => {
         </Wrapper>
       </Navigator>
       <Content>
-        <img src={villager.image_photo} alt="주민사진" />
+        <img src={villager.image_photo} alt="주민사진" style={{ borderRadius: "50%" }} />
         <div>상세페이지 디테일입력</div>
       </Content>
     </Container>
