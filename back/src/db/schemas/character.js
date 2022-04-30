@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import fs from "fs";
 import path from "path";
 // json 임포트 불가: 아마 babel을 사용하지 않아서 그런 것 같습니다.
@@ -113,6 +115,7 @@ const MATCH_SCHEMES = {
   tier: MATCH_EXACT,
   hobby: MATCH_SUBSTRING,
   personality: MATCH_SUBSTRING,
+  species: MATCH_SUBSTRING,
   colors: MATCH_INCLUDESUBSTRING,
   styles: MATCH_INCLUDESUBSTRING,
   "*": MATCH_EXACT,
@@ -121,6 +124,7 @@ const MATCH_SCHEMES = {
 const SEARCH_PRIORITIES = {
   id: 90,
   birthday: 80,
+  species: 75,
   birthday_month: 70,
   tier: 60,
   personality: 50,
@@ -146,6 +150,7 @@ const emptyArrays = (len) => Array.from(Array(len), () => []);
  *    "tier": { [tier]: [ char ] },
  *    "hobby": { [hobby]: [ char ] },
  *    "personality": { [personality]: [ char ] },
+ *    "species": { [species]: [ char ] },
  *    "colors": { [color]: [ char ] },
  *    "styles": { [style]: [ char ] },
  * }
@@ -166,6 +171,7 @@ const characters = {
     ALL_PERSONALITIES,
     emptyArrays(ALL_PERSONALITIES.length)
   ),
+  species: {},
   colors: _.object(ALL_COLORS, emptyArrays(ALL_COLORS.length)),
   styles: _.object(ALL_STYLES, emptyArrays(ALL_STYLES.length)),
 };
@@ -190,9 +196,10 @@ for (const char of characters.ALL) {
     birthday,
     birthday_month,
     tier,
-    colors,
     hobby,
     personality,
+    species,
+    colors,
     styles,
   } = char;
   let birthday_month_str = birthday_month.toString();
@@ -226,6 +233,12 @@ for (const char of characters.ALL) {
 
   characters.personality[personality].push(char);
   characters.hobby[hobby].push(char);
+
+  // species는 너무 많아서 엔트리를 미리 안만들었습니다.
+  if (!(species in characters.species)) {
+    characters.species[species] = [];
+  }
+  characters.species[species].push(char);
 
   // color, style은 원래 배열이기 때문에 까먹지 말고 한바퀴 더 돌립니다.
   for (const k of colors) {

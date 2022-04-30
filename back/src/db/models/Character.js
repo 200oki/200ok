@@ -39,6 +39,7 @@ class Character {
    *  - `tier`
    *  - `hobby`
    *  - `personality`
+   *  - `species`
    *  - `colors`
    *  - `styles`
    *
@@ -92,6 +93,7 @@ class Character {
    *  - `tier`
    *  - `hobby`
    *  - `personality`
+   *  - `species`
    *  - `colors`
    *  - `styles`
    *
@@ -189,6 +191,7 @@ class Character {
     return pool.filter((char) => {
       switch (scheme) {
         case constants.MATCH_SUBSTRING:
+          return char[field]?.toLowerCase().includes(value);
         case constants.MATCH_INCLUDEEXACT:
           return char[field]?.includes(value);
         case constants.MATCH_INCLUDESUBSTRING:
