@@ -2,6 +2,7 @@ import React, { useContext, useRef, useEffect, useState } from "react";
 import * as Api from "../../api";
 import { useNavigate } from "react-router-dom";
 import styled from "../../css/match.module.css";
+import MatchResultCompat from "./MatchResultCompat";
 import MatchResultRank from "./MatchResultRank";
 import MatchResultComment from "./MatchResultComment";
 import BackButton from "../common/BackButton";
@@ -40,7 +41,9 @@ function MatchResult() {
 
   const getChar = async () => {
     try {
-      const { data } = await Api.get(`characters?birthday=04-02`);
+      const { data } = await Api.get(
+        `characters/random?size=3&fields=id%2Cname_ko%2Cimage_photo`
+      );
       setSample([...Object.values(data.payload)]);
     } catch (err) {
       console.error(err);
@@ -53,15 +56,21 @@ function MatchResult() {
 
     const PAGE_HEIGHT = window.innerHeight;
 
-    if (e.target.innerText === "랭킹") {
+    if (e.target.innerText === "유형별 궁합") {
       outerDivRef.current.scrollTo({
         top: PAGE_HEIGHT + DIVIDER_HEIGHT,
         left: 0,
         behavior: "smooth",
       });
-    } else if (e.target.innerText === "반응 남기기") {
+    } else if (e.target.innerText === "가장 많은 유형") {
       outerDivRef.current.scrollTo({
         top: PAGE_HEIGHT * 2 + DIVIDER_HEIGHT * 2,
+        left: 0,
+        behavior: "smooth",
+      });
+    } else if (e.target.innerText === "반응 남기기") {
+      outerDivRef.current.scrollTo({
+        top: PAGE_HEIGHT * 3 + DIVIDER_HEIGHT * 3,
         left: 0,
         behavior: "smooth",
       });
@@ -123,9 +132,13 @@ function MatchResult() {
         <div className={styled.btnsWrapper}>
           <button>공유하기</button>
           <button onClick={goToFirstPage}>다시하기</button>
-          <button onClick={goToPosition}>랭킹</button>
+          <button onClick={goToPosition}>유형별 궁합</button>
+          <button onClick={goToPosition}>가장 많은 유형</button>
           <button onClick={goToPosition}>반응 남기기</button>
         </div>
+      </div>
+      <div className={styled.inner}>
+        <MatchResultCompat sample={sample} goToPosition={goToPosition} />
       </div>
       <div className={styled.inner}>
         <MatchResultRank sample={sample} goToPosition={goToPosition} />
