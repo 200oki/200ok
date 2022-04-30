@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import * as Api from "../../api";
-import styled from "../../css/match.module.css";
-import StatBtn from "./StatBtn.js";
 import { Chart, registerables } from "chart.js";
 import { Pie } from 'react-chartjs-2';
 Chart.register(...registerables)
@@ -49,23 +47,11 @@ const GenderChart = () => {
         width={500}
         options= {{
             responsive: false,
-            scales: {
-              yAxes: [
-                {
-                  ticks: {
-                    beginAtZero: true,
-                  },
-                },
-              ],
-            },
-            chartArea: {
-              backgroundColor: 'rgba(0, 0, 0, 0.7)'
-            },
         }}
       />
-      <p className="stats" style={{ marginTop: "30px", }}>
+      <p className="desc">
         {/* 성별은 npc 포함이라 갯수가 더 많음 어떻게 말하지?? */}
-        성별은 npc 포함이라 수가 더 많습니다.
+        * 성별은 npc 포함이라 수가 더 많습니다 *
       </p>
     </div>
   );
