@@ -150,12 +150,19 @@ export const useStyles = makeStyles({
     marginLeft: "10%",
   },
   cardSpace: {
+    position: "relative",
     width: "100%",
-    height: "20%",
+    height: "100%",
+    maxWidth: "100px",
+    minWidth: "100px",
+    maxHeight: "150px",
+    minHeight: "100px",
+    // width: "150px",
+    // height: "150px",
     borderRadius: "25%",
     backgroundColor: "white",
     transition: "transform 250ms",
-    marginTop: "25px",
+    marginTop: "70px",
     boxShadow: "1px 3px 2px 1px rgba(25, 25, 25, .2)",
     "&:hover": {
       transform: "translateY(-0.25em)",
@@ -163,6 +170,9 @@ export const useStyles = makeStyles({
     },
   },
   cardItem: {
+    position: "absolute",
+    top: "50%",
+    transform: "translateY(-50%)",
     height: "100%",
     width: "100%",
     borderRadius: "25%",
@@ -178,10 +188,10 @@ export const useStyles = makeStyles({
   },
   flipCard: {
     display: "inline-block",
-    width: "20%",
-    height: "18%",
+    width: "37%",
   },
   wrapCard: {
+    width: "24%",
     display: "inline-block",
   },
   gameResultImg: {
