@@ -122,8 +122,8 @@ const ContentContainer = styled.div`
 `;
 
 const Card = styled.div`
-  width: 170px;
-  height: 170px;
+  width: 230px;
+  height: 230px;
   border-radius: 25px;
   background-color: white;
   display: flex;
@@ -217,6 +217,7 @@ const OptionWrapper = styled.div`
   justify-content: center;
   position: absolute;
   z-index: 2;
+  top: 15%;
 `;
 const Selector = styled.div`
   display: flex;
@@ -226,7 +227,6 @@ const Selector = styled.div`
 `;
 
 const VillagerList = () => {
-  const [data, setData] = useState([]);
   const options = {
     이름: "name_ko",
     성격: "presonality",
@@ -235,13 +235,16 @@ const VillagerList = () => {
     색깔: "color",
     스타일: "style",
   };
-  const searchVillager = async () => {
-    const result = await Api.get("characters");
-    return result;
+
+  const [data, setData] = useState([]);
+
+  const dataInit = async () => {
+    const { payload } = await Api.get("characters/search?fields=name_ko,image_photo");
+    setData([...payload]);
   };
 
   useEffect(() => {
-    searchVillager();
+    dataInit();
   }, []);
 
   const clickHandler = (e) => {
@@ -300,82 +303,13 @@ const VillagerList = () => {
               </OptionWrapper>
             </Selector>
             <Input placeholder="검색어를 입력해주세요." onChange={inputHandler} value={ipt} />
-            <Button type="submit" onClick={clickHandler}>
-              검색
-            </Button>
+            <div>
+              <Button type="submit" onClick={clickHandler}>
+                검색
+              </Button>
+            </div>
           </SearchForm>
-          <ContentContainer id="content">
-            <Row>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </Row>
-            <Row>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </Row>
-            <Row>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </Row>
-            <Row>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </Row>
-            <Row>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </Row>
-            <Row>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </Row>
-            <Row>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </Row>
-            <Row>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </Row>
-            <Row>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </Row>
-            <Row>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </Row>
-            <Row>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </Row>
-            <Row>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </Row>
-            <Row>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </Row>
-            <Row>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </Row>
-          </ContentContainer>
+          <ContentContainer id="content"></ContentContainer>
           <PrettoSlider onChange={scrollHandler} />
         </ContentWrapper>
       </Content>
