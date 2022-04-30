@@ -368,6 +368,7 @@ let _commentFoldDummy1;
  *          | hobby | 문자열 포함 |
  *          | name_ko | 문자열 포함 |
  *          | personality | 문자열 포함 |
+ *          | species | 문자열 포함 |
  *          | styles | 최대 두가지 속성중 최소 하나가 문자열 포함 |
  *          | tier | 일치 |
  *          이외의 프로퍼티를 쿼리하면 `405 Method Not Allowed` 에러입니다.
