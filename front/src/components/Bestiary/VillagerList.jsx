@@ -252,6 +252,7 @@ const VillagerList = () => {
     색깔: "colors",
     스타일: "styles",
     티어: "tier",
+    동물: "species",
   };
 
   const [villagers, setVillagers] = useState([]);
