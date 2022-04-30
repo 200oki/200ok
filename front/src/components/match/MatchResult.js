@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "../../css/match.module.css";
 import MatchResultRank from "./MatchResultRank";
 import MatchResultComment from "./MatchResultComment";
+import BackButton from "../common/BackButton";
 
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchCommentContext } from "../../context/MatchCommentContext";
@@ -147,6 +148,12 @@ function MatchResult() {
   return (
     <div className={styled.outer} ref={outerDivRef}>
       {/* <ReactPageScroller blockScrollUp> */}
+      <div
+        className="nav-bar"
+        style={{ position: "fixed", top: "0", left: "0", zIndex: "1" }}
+      >
+        <BackButton content={"메인으로"} />
+      </div>
       <div className={styled.inner}>
         <div className={styled.imgWrapper}>
           <img src="/images/Aurora.png" alt={"주민 사진"} />
