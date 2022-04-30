@@ -167,8 +167,20 @@ class CharacterService {
     return toPage.slice(start, end);
   }
 
-  static getCount({villager}) {
-    
+  static async getCount({ villager }) {
+    const count = await Character.getCount({ villager });
+    return count;
+  }
+
+  static async upCount({ villager }) {
+    const up = await Character.upCount({ villager });
+    return up;
+  }
+
+  static async totalCount() {
+    const totalList = await Character.totalCount();
+    const total = totalList[0].total;
+    return total;
   }
 }
 

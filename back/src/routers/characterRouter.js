@@ -458,4 +458,34 @@ let _commentFoldDummy1;
  */
 let _commentFoldDummy2;
 
+router.get("/counts", async (req, res, next) => {
+  const { villager } = req.query;
+  const count = await CharacterService.getCount({ villager });
+  const body = {
+    success: true,
+    payload: count,
+  };
+  return res.status(200).json(body);
+});
+
+router.post("/counts", async (req, res, next) => {
+  const { villager } = req.body;
+  const up = await CharacterService.upCount({ villager });
+  const body = {
+    success: true,
+    payload: up,
+  };
+  return res.status(200).json(body);
+});
+
+router.get("/total", async (req, res, next) => {
+  const total = await CharacterService.totalCount();
+  const data = { total };
+  const body = {
+    success: true,
+    payload: data,
+  };
+  return res.status(200).json(body);
+});
+
 export { router as characterRouter };
