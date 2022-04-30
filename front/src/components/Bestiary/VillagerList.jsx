@@ -337,14 +337,14 @@ const VillagerList = () => {
   return (
     <Container>
       <Navigator>
-        <BackButton content={"메인메뉴"} />
+        <BackButton content={window.location.pathname === "/bestiary" ? "메인메뉴" : "뒤로가기"} />
         <Wrapper>
           <HomeButton />
         </Wrapper>
       </Navigator>
       <Content>
         <ContentWrapper>
-          <div style={{ display: "flex", flexDirection: "row", width: "7  0%", justifyContent: "center" }}>
+          <div style={{ display: "flex", flexDirection: "row", width: "70%", justifyContent: "center" }}>
             <Selector>
               <Select onClick={showOptions}>{option}</Select>
               <OptionWrapper id="options" show={show}>

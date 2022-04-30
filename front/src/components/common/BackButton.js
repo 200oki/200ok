@@ -10,6 +10,8 @@ const BackButton = ({ content }) => {
   const backHome = () => {
     if (pathname === "/match-result") {
       navigator("/explore");
+    } else if (pathname === "/bestiary/list" || pathname === "/bestiary/statistics") {
+      navigator("/bestiary");
     } else {
       navigator(-1);
     }
