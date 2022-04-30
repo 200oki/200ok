@@ -39,14 +39,13 @@ const GenderChart = () => {
                 'rgba(205, 173, 14, 1)',
                 'rgba(54, 162, 235, 1)'
               ],
-              weight: 100,
-              }
-            ]
+            }
+          ],
         }}
         height={500}
         width={500}
         options= {{
-            responsive: false,
+          responsive: false,
         }}
       />
       <p className="desc">
