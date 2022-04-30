@@ -5,6 +5,16 @@ import styled from "styled-components";
 import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 
+const Navigator = styled.div`
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100vw;
+`;
+
 const VillagerDetail = () => {
   const [villager, setVillager] = useState({});
   const { id } = useParams();
@@ -17,10 +27,11 @@ const VillagerDetail = () => {
   }, []);
   return (
     <div>
-      <nav>
-        <button>뒤로</button>
-        <button>홈</button>
-      </nav>
+      <Navigator>
+        <BackButton content={window.location.pathname === "/bestiary" ? "메인메뉴" : "뒤로가기"} />
+
+        <HomeButton />
+      </Navigator>
       <div></div>
     </div>
   );
