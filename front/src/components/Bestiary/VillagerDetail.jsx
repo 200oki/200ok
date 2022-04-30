@@ -64,15 +64,17 @@ const VillagerDetail = () => {
     getVillager();
   }, []);
   return (
-    <div>
+    <Container>
       <Navigator>
         <BackButton content={"뒤로가기"} />
         <Wrapper>
           <HomeButton />
         </Wrapper>
       </Navigator>
-      <div></div>
-    </div>
+      <Content>
+        <div>상세페이지 디테일입력</div>
+      </Content>
+    </Container>
   );
 };
 export default VillagerDetail;
