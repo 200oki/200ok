@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import * as Api from "../../api";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 
