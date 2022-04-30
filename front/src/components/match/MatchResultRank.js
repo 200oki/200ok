@@ -22,7 +22,9 @@ const MatchResultRank = ({ sample, goToPosition }) => {
             <div className={styled.rankCharName}>{s["name_ko"]}</div>
             <div className={styled.rankCharSubTitle}>
               <span className={styled.charSmallSubTitle}>전체 참여자 중</span>{" "}
-              <div>{(Math.random() * 100).toFixed(2)}%</div>
+              <div className={styled.percentTitle}>
+                {(Math.random() * 100).toFixed(2)}%
+              </div>
             </div>
             <button className={styled.goToCharInfoBtn}>도감 보기</button>
           </div>

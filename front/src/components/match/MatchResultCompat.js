@@ -18,7 +18,7 @@ function MatchResultRank({ sample, goToPosition }) {
         {compat.map((s, idx) => (
           <div className={styled.rankCharCard} key={idx} idx={idx}>
             <div className={styled.rankCharTitle}>
-              {idx === 0 ? "Good :)" : "Bad :("}
+              {idx === 0 ? <span>Good :)</span> : <span>Bad :(</span>}
             </div>
             <div className={styled.rankCharImage}>
               <img src={s["image_photo"]} alt="주민사진" />

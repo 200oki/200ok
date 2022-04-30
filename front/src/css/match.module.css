@@ -302,6 +302,10 @@
   font-family: "TmoneyRoundWindRegular";
 }
 
+.percentTitle {
+  color: #f27788;
+}
+
 .rankCharTitleBg {
   width: 200px;
   text-align: center;
