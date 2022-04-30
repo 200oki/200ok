@@ -229,31 +229,23 @@ const Selector = styled.div`
 const VillagerList = () => {
   const options = {
     이름: "name_ko",
-    성격: "presonality",
+    성격: "personality",
     취미: "hobby",
     노래: "song",
     색깔: "color",
     스타일: "style",
   };
 
-  const [data, setData] = useState([]);
-  const [count, setCount] = useState(0);
-
-  const dataInit = async () => {
-    const { payload, total } = await Api.get("characters/search?fields=name_ko,image_photo");
-    setData([...payload]);
-    setCount(total);
-  };
-
   useEffect(() => {
-    dataInit();
+    search();
+    console.log(villagers, count);
   }, []);
 
-  useEffect(() => {}, [data]);
-
-  const clickHandler = (e) => {
-    e.preventDefault();
-  };
+  const [villagers, setVillagers] = useState([]);
+  const [count, setCount] = useState(0);
+  const [show, setShow] = useState(false);
+  const [option, setOption] = useState("검색조건");
+  const [ipt, setIpt] = useState("");
 
   const scrollHandler = (e, val) => {
     const element = document.getElementById("content");
@@ -261,24 +253,28 @@ const VillagerList = () => {
     element.scrollLeft = (maxScrollLeft / 100) * val;
   };
 
-  const [show, setShow] = useState(false);
-  const [option, setOption] = useState("검색조건");
-  const [ipt, setIpt] = useState("");
-
   const showOptions = (e) => {
     e.preventDefault();
     setShow(!show);
   };
+
   const optionHandler = (e) => {
     e.preventDefault();
     setOption(e.target.value);
     setShow(!show);
   };
 
-  const searchHandler = async () => {
-    const queryString = `?${options[option]}=${ipt}`;
-    const { data } = await Api.get(`characters${queryString}`);
-    setData([...data.payload]);
+  const search = async (e) => {
+    e.preventDefault();
+    const queryOption = `&${option === "검색조건" ? "" : options[option]}=${ipt}`;
+    const queryString = `?fields=name_ko,image_photo${queryOption.length > 2 ? queryOption : ""}`;
+    try {
+      const { data } = await Api.get(`characters/search${queryString}`);
+      setVillagers([...data.payload]);
+      setCount(data.total);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const inputHandler = (e) => {
@@ -295,7 +291,7 @@ const VillagerList = () => {
       </Navigator>
       <Content>
         <ContentWrapper>
-          <SearchForm onSubmit={searchHandler}>
+          <SearchForm>
             <Selector>
               <Select onClick={showOptions}>{option}</Select>
               <OptionWrapper id="options" show={show}>
@@ -308,7 +304,7 @@ const VillagerList = () => {
             </Selector>
             <Input placeholder="검색어를 입력해주세요." onChange={inputHandler} value={ipt} />
             <div>
-              <Button type="submit" onClick={clickHandler}>
+              <Button type="submit" onClick={search}>
                 검색
               </Button>
             </div>
