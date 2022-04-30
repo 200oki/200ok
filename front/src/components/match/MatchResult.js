@@ -5,6 +5,7 @@ import styled from "../../css/match.module.css";
 import MatchResultRank from "./MatchResultRank";
 import MatchResultComment from "./MatchResultComment";
 import BackButton from "../common/BackButton";
+import Typewriter from "typewriter-effect";
 
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchCommentContext } from "../../context/MatchCommentContext";
@@ -20,35 +21,32 @@ function MatchResult() {
   const outerDivRef = useRef();
 
   const [sample, setSample] = useState([]);
-  const [isloaded, setLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isCommentLoaded, setIsCommentLoaded] = useState(false);
 
   const fetchCommentData = async () => {
-    try {
-      const { data } = await Api.get(`comments?villager=${v}&location=${l}`);
-      setComment([...Object.values(data.payload)]);
-    } catch (err) {
-      setComment([]);
-      console.error(err);
-    }
-  };
-
-  const getChar = async () => {
-    if (!isloaded) {
+    if (!isCommentLoaded) {
       try {
-        const { data } = await Api.get(`characters?birthday=04-02`);
-        setSample([...Object.values(data.payload)]);
+        const { data } = await Api.get(`comments?villager=${v}&location=${l}`);
+        setComment([...Object.values(data.payload)]);
       } catch (err) {
+        setComment([]);
         console.error(err);
       }
-      setLoaded(true);
+      setIsCommentLoaded(true);
     }
     return () => {};
   };
 
-  useEffect(() => {
-    fetchCommentData();
-    getChar();
-  }, []);
+  const getChar = async () => {
+    try {
+      const { data } = await Api.get(`characters?birthday=04-02`);
+      setSample([...Object.values(data.payload)]);
+    } catch (err) {
+      console.error(err);
+    }
+    return () => {};
+  };
 
   const goToPosition = (e) => {
     e.preventDefault();
@@ -80,6 +78,28 @@ function MatchResult() {
     setNickname("");
     navigator("/match");
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      fetchCommentData();
+      getChar();
+      setIsLoading(false);
+    }, 5000);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className={`${styled.loadingWrapper} ${styled.LoadingTitle}`}>
+        {nickname}님과 찰떡궁합인 주민을 찾고 있어요
+        <Typewriter
+          onInit={(typewriter) => {
+            typewriter.typeString("...:)").pauseFor(1000).start();
+          }}
+          options={{ loop: true, cursor: "", deleteSpeed: 100 }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={styled.outer} ref={outerDivRef}>
