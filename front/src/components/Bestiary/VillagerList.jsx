@@ -122,22 +122,40 @@ const ContentContainer = styled.div`
 `;
 
 const Card = styled.div`
-  width: 230px;
-  height: 230px;
-  border-radius: 25px;
+  width: 170px;
+  height: 170px;
+  border-radius: 25px 25px 0 0;
   background-color: white;
   display: flex;
   justify-content: center;
+  cursor: pointer;
   align-items: center;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  background-size: cover;
+  background-image: url(${(props) => props.src});
 `;
 
-const Row = styled.div`
+const Column = styled.div`
   margin-right: 70px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 `;
+const Name = styled.div`
+  background-color: white;
+  width: 100%;
+  height: 40px;
+  border-radius: 0 0 25px 25px;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "TmoneyRoundWindExtraBold";
+  font-size: 1.24rem;
+  position: relative;
+  top: 50%;
+`;
+
 const PrettoSlider = Styled(Slider)({
   color: "#52af77",
   height: 8,
@@ -265,8 +283,8 @@ const VillagerList = () => {
   };
 
   const search = async () => {
-    const queryOption = `&${option === "검색조건" ? "" : options[option]}=${ipt}`;
-    const queryString = `?fields=name_ko,image_photo${queryOption.length > 2 ? queryOption : ""}`;
+    const queryOption = option === "검색조건" ? "" : `&props=${options[option]}&values=${ipt}`;
+    const queryString = `?fields=name_ko,image_photo${queryOption}`;
     try {
       const { data } = await Api.get(`characters/search${queryString}`);
       setVillagers([...data.payload]);
@@ -283,6 +301,23 @@ const VillagerList = () => {
   useEffect(() => {
     search();
   }, []);
+
+  useEffect(() => {});
+
+  const cardPerColumn = 3;
+  const columns = [];
+
+  for (let i = 0; i < parseInt(count / 3); i++) {
+    columns.push(
+      villagers.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
+        return (
+          <Card key={idx} src={villager.image_photo}>
+            <Name>{villager.name_ko}</Name>
+          </Card>
+        );
+      })
+    );
+  }
 
   return (
     <Container>
@@ -312,7 +347,11 @@ const VillagerList = () => {
               </Button>
             </div>
           </SearchForm>
-          <ContentContainer id="content"></ContentContainer>
+          <ContentContainer id="content">
+            {columns.map((column, idx) => {
+              return <Column key={idx}>{column}</Column>;
+            })}
+          </ContentContainer>
           <PrettoSlider onChange={scrollHandler} />
         </ContentWrapper>
       </Content>
