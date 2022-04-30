@@ -115,7 +115,7 @@ const ContentContainer = styled.div`
   justify-content: flex-start;
   align-items: space-around;
   overflow: scroll;
-  overflow: auto;
+  overflow-x: hidden;
   white-space: nowrap;
   &::-webkit-scrollbar {
     display: none;
