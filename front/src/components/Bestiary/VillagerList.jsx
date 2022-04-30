@@ -236,21 +236,22 @@ const VillagerList = () => {
     스타일: "style",
   };
 
-  useEffect(() => {
-    search();
-    console.log(villagers, count);
-  }, []);
-
   const [villagers, setVillagers] = useState([]);
   const [count, setCount] = useState(0);
   const [show, setShow] = useState(false);
   const [option, setOption] = useState("검색조건");
   const [ipt, setIpt] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const scrollHandler = (e, val) => {
     const element = document.getElementById("content");
     const maxScrollLeft = element.scrollWidth - element.clientWidth;
     element.scrollLeft = (maxScrollLeft / 100) * val;
+  };
+
+  const clickHandler = (e) => {
+    e.preventDefault();
+    search();
   };
 
   const showOptions = (e) => {
@@ -264,14 +265,14 @@ const VillagerList = () => {
     setShow(!show);
   };
 
-  const search = async (e) => {
-    e.preventDefault();
+  const search = async () => {
     const queryOption = `&${option === "검색조건" ? "" : options[option]}=${ipt}`;
     const queryString = `?fields=name_ko,image_photo${queryOption.length > 2 ? queryOption : ""}`;
     try {
       const { data } = await Api.get(`characters/search${queryString}`);
       setVillagers([...data.payload]);
       setCount(data.total);
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -280,6 +281,10 @@ const VillagerList = () => {
   const inputHandler = (e) => {
     setIpt(e.target.value);
   };
+
+  useEffect(() => {
+    search();
+  }, []);
 
   return (
     <Container>
@@ -304,7 +309,7 @@ const VillagerList = () => {
             </Selector>
             <Input placeholder="검색어를 입력해주세요." onChange={inputHandler} value={ipt} />
             <div>
-              <Button type="submit" onClick={search}>
+              <Button type="submit" onClick={clickHandler}>
                 검색
               </Button>
             </div>
