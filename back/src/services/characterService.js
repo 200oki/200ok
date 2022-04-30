@@ -167,8 +167,9 @@ class CharacterService {
     return toPage.slice(start, end);
   }
 
-  static getCount({villager}) {
-    
+  static getCount({ villager }) {
+    const count = Character.getCount({ villager });
+    return count;
   }
 }
 

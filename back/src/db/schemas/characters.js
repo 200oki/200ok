@@ -13,6 +13,6 @@ const characterSchema = new Schema({
   },
 });
 
-const CharacterModel = model("Comment", characterSchema);
+const CharacterModel = model("Characters", characterSchema);
 
 export { CharacterModel };
