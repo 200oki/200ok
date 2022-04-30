@@ -195,7 +195,7 @@ const Select = styled.button`
   }
 `;
 const Option = styled.button`
-  width: 12rem;
+  width: 9rem;
   height: 3rem;
   border: none;
   border-right: 1px solid #a5e4ff;
@@ -217,7 +217,7 @@ const OptionWrapper = styled.div`
   justify-content: center;
   position: absolute;
   z-index: 2;
-  top: 15%;
+  top: 15.6%;
 `;
 const Selector = styled.div`
   display: flex;
@@ -248,6 +248,8 @@ const VillagerList = () => {
   useEffect(() => {
     dataInit();
   }, []);
+
+  useEffect(() => {}, [data]);
 
   const clickHandler = (e) => {
     e.preventDefault();
