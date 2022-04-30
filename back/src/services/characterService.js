@@ -166,6 +166,10 @@ class CharacterService {
 
     return toPage.slice(start, end);
   }
+
+  static getCount({villager}) {
+    
+  }
 }
 
 export { CharacterService };
