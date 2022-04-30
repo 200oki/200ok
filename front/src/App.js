@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Main from "./components/Main";
 import InputNickname from "./components/common/InputNickname";
 import Explore from "./components/explore/Explore";
+import MatchIntro from "./components/match/MatchIntro";
 import MatchTest from "./components/match/MatchTest";
 import MatchResult from "./components/match/MatchResult";
 import Today from "./components/Today/Today";
@@ -34,6 +35,7 @@ function App() {
           <Route path="/game-hof" element={<GameHOF />} />
           <Route path="/today" element={<Today />} />
           <Route path="/explore" element={<Explore />} />
+          <Route path="/match-intro" element={<MatchIntro />} />
           <Route path="/match" element={<InputNickname />} />
           <Route path="/match-test" element={<MatchTest />} />
           <Route path="/match-result" element={<MatchResult />} />

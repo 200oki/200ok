@@ -1,16 +1,22 @@
 .Wrapper,
-.inner {
+.inner,
+.loadingWrapper {
   width: 100%;
   height: 100vh;
   position: relative;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.Wrapper,
+.inner {
+  flex-direction: column;
+}
+
 .Wrapper::before,
-.inner::before {
+.inner::before,
+.loadingWrapper::before {
   content: "";
   position: absolute;
   top: 0;
@@ -29,6 +35,11 @@
 
 .outer::-webkit-scrollbar {
   display: none;
+}
+
+.LoadingTitle {
+  font-size: 2rem;
+  font-family: "TmoneyRoundWindExtraBold";
 }
 
 .divider {
@@ -387,7 +398,7 @@
 
 .testTitle {
   font-family: "TmoneyRoundWindExtraBold";
-  font-size: 2em;
+  font-size: 2rem;
   margin-bottom: 30px;
 }
 
