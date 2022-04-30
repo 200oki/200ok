@@ -24,6 +24,7 @@
   height: fit-content;
   text-align: center;
   font-size: 50px;
+  margin: 150px;
   font-family: "TmoneyRoundWindExtraBold";
   animation: blink-effect 1s step-end infinite;
 }
@@ -36,7 +37,6 @@
   max-width: 1600px;
   width: 100%;
   gap: 30px;
-  margin: 0 auto;
   z-index: 1;
 }
 
