@@ -42,6 +42,8 @@ export const statList = [
       '패션',
     ],
     counts: [64, 65, 66, 64, 66, 66,],
+    female: [32, 16, 12, 34, 27, 66],
+    male: [32, 49, 54, 30, 39, 0]
   },
   {
     groupName: "style",
