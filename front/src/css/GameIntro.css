@@ -16,7 +16,7 @@
     vertical-align: middle;
     top: 61%;
 }
-.btnWrapper > button {
+.btnWrapper > .introBtn {
     position: absolute;
     top: 79%;
     font-size: 15px;
@@ -30,7 +30,7 @@
     color: #7e725c;
     transition: transform 250ms;
 }
-.btnWrapper > button:hover{
+.btnWrapper > .introBtn:hover{
     transform: translateY(-0.25em);
     cursor: pointer;
 }
