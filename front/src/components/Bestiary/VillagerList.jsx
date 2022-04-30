@@ -249,9 +249,9 @@ const VillagerList = () => {
     이름: "name_ko",
     성격: "personality",
     취미: "hobby",
-    노래: "song",
-    색깔: "color",
-    스타일: "style",
+    색깔: "colors",
+    스타일: "styles",
+    티어: "tier",
   };
 
   const [villagers, setVillagers] = useState([]);
@@ -287,7 +287,7 @@ const VillagerList = () => {
     const queryString = `?fields=name_ko,image_photo${queryOption}`;
     try {
       const { data } = await Api.get(`characters/search${queryString}`);
-      setVillagers([...data.payload]);
+      setVillagers(data.payload);
       setCount(data.total);
     } catch (error) {
       console.error(error);
@@ -302,12 +302,10 @@ const VillagerList = () => {
     search();
   }, []);
 
-  useEffect(() => {});
-
   const cardPerColumn = 3;
   const columns = [];
 
-  for (let i = 0; i < parseInt(count / 3); i++) {
+  for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
     columns.push(
       villagers.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
         return (
@@ -318,7 +316,18 @@ const VillagerList = () => {
       })
     );
   }
-
+  const restCards = count % cardPerColumn;
+  if (restCards > 0) {
+    columns.push(
+      villagers.slice(-restCards).map((villager, idx) => {
+        return (
+          <Card key={idx} src={villager.image_photo}>
+            <Name>{villager.name_ko}</Name>
+          </Card>
+        );
+      })
+    );
+  }
   return (
     <Container>
       <Navigator>
