@@ -15,6 +15,7 @@ import Bestiary from "./components/Bestiary/Bestiary";
 import GameResult from "./components/game/GameResult";
 import VillagerList from "./components/Bestiary/VillagerList";
 import Statistics from "./components/Bestiary/Statistics";
+import VillagerDetail from "./components/Bestiary/VillagerDetail"
 
 const GlobalFont = createGlobalStyle`
   font-family: "TmoneyRoundWindExtraBold"
