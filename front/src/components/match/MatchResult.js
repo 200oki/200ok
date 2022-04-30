@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "../../css/match.module.css";
 import MatchResultRank from "./MatchResultRank";
 import MatchResultComment from "./MatchResultComment";
+import BackButton from "../common/BackButton";
+import Typewriter from "typewriter-effect";
 
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchCommentContext } from "../../context/MatchCommentContext";
@@ -19,86 +21,31 @@ function MatchResult() {
   const outerDivRef = useRef();
 
   const [sample, setSample] = useState([]);
-  const [isloaded, setLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isCommentLoaded, setIsCommentLoaded] = useState(false);
 
   const fetchCommentData = async () => {
-    try {
-      const { data } = await Api.get(`comments?villager=${v}&location=${l}`);
-      setComment([...Object.values(data.payload)]);
-    } catch (err) {
-      setComment([]);
-      console.error(err);
-    }
-  };
-
-  const getChar = async () => {
-    if (!isloaded) {
+    if (!isCommentLoaded) {
       try {
-        const { data } = await Api.get(`characters?birthday=04-02`);
-        setSample([...Object.values(data.payload)]);
+        const { data } = await Api.get(`comments?villager=${v}&location=${l}`);
+        setComment([...Object.values(data.payload)]);
       } catch (err) {
+        setComment([]);
         console.error(err);
       }
-      setLoaded(true);
+      setIsCommentLoaded(true);
     }
     return () => {};
   };
 
-  useEffect(() => {
-    fetchCommentData();
-    getChar();
-  }, []);
-
-  const wheelHandler = (e) => {
-    e.preventDefault();
-
-    const { deltaY } = e;
-    const { scrollTop } = outerDivRef.current; // 스크롤 위쪽 끝부분 위치
-    const PAGE_HEIGHT = window.innerHeight;
-
-    if (deltaY > 0) {
-      // 스크롤 내릴 때
-      if (scrollTop >= 0 && scrollTop < PAGE_HEIGHT) {
-        outerDivRef.current.scrollTo({
-          top: PAGE_HEIGHT + DIVIDER_HEIGHT,
-          left: 0,
-          behavior: "smooth",
-        });
-      } else if (scrollTop >= PAGE_HEIGHT && scrollTop < PAGE_HEIGHT * 2) {
-        outerDivRef.current.scrollTo({
-          top: PAGE_HEIGHT * 2 + DIVIDER_HEIGHT * 2,
-          left: 0,
-          behavior: "smooth",
-        });
-      } else {
-        outerDivRef.current.scrollTo({
-          top: PAGE_HEIGHT * 2 + DIVIDER_HEIGHT * 2,
-          left: 0,
-          behavior: "smooth",
-        });
-      }
-    } else {
-      // 스크롤 올릴 때
-      if (scrollTop >= 0 && scrollTop < PAGE_HEIGHT) {
-        outerDivRef.current.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth",
-        });
-      } else if (scrollTop >= PAGE_HEIGHT && scrollTop < PAGE_HEIGHT * 2) {
-        outerDivRef.current.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth",
-        });
-      } else {
-        outerDivRef.current.scrollTo({
-          top: PAGE_HEIGHT + DIVIDER_HEIGHT,
-          left: 0,
-          behavior: "smooth",
-        });
-      }
+  const getChar = async () => {
+    try {
+      const { data } = await Api.get(`characters?birthday=04-02`);
+      setSample([...Object.values(data.payload)]);
+    } catch (err) {
+      console.error(err);
     }
+    return () => {};
   };
 
   const goToPosition = (e) => {
@@ -127,26 +74,41 @@ function MatchResult() {
     }
   };
 
-  // useEffect(() => {
-  //   const outerDivRefCurrent = outerDivRef.current;
-
-  // if (outerDivRef && outerDivRefCurrent) {
-  //   outerDivRefCurrent.addEventListener("wheel", wheelHandler);
-  // }
-
-  //   return () => {
-  //     outerDivRefCurrent.removeEventListener("wheel", wheelHandler);
-  //   };
-  // }, []);
-
   const goToFirstPage = () => {
     setNickname("");
     navigator("/match");
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      fetchCommentData();
+      getChar();
+      setIsLoading(false);
+    }, 5000);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className={`${styled.loadingWrapper} ${styled.LoadingTitle}`}>
+        {nickname}님과 찰떡궁합인 주민을 찾고 있어요
+        <Typewriter
+          onInit={(typewriter) => {
+            typewriter.typeString("...:)").pauseFor(1000).start();
+          }}
+          options={{ loop: true, cursor: "", deleteSpeed: 100 }}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className={styled.outer} ref={outerDivRef}>
-      {/* <ReactPageScroller blockScrollUp> */}
+      <div
+        className="nav-bar"
+        style={{ position: "fixed", top: "0", left: "0", zIndex: "1" }}
+      >
+        <BackButton content={"메인으로"} />
+      </div>
       <div className={styled.inner}>
         <div className={styled.imgWrapper}>
           <img src="/images/Aurora.png" alt={"주민 사진"} />
@@ -171,7 +133,6 @@ function MatchResult() {
       <div className={styled.inner}>
         <MatchResultComment goToPosition={goToPosition} />
       </div>
-      {/* </ReactPageScroller> */}
     </div>
   );
 }
