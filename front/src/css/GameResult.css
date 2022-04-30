@@ -47,11 +47,11 @@
 }
 
 .resultBtnWrapper {
+    position: absolute;
     width: 100%;
-    margin-top: 70%;
-    display: flex;
-    justify-content: space-between;
-
+    top: 75%;
+    left: 70%;
+    transform:translate(-50%, -50%);
 }
 
 .resultBtnWrapper > button {
