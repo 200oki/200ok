@@ -11,7 +11,7 @@ const Stat = () => {
   return (
     <DescContext.Provider value={{ isDesc, setIsDesc }}>
       <div className="bgImg">
-        {isDesc ? <></> : <p className="desc">버튼을 클릭해주세요!</p>}
+        {isDesc ? <></> : <p className="clickBtn">버튼을 클릭해주세요!</p>}
         <StatBtn />
         <Outlet />
       </div>

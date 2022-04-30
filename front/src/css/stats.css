@@ -20,13 +20,21 @@
   z-index: -1;
 }
 
-.desc {
+.clickBtn {
   height: fit-content;
   text-align: center;
   font-size: 50px;
   margin: 150px;
   font-family: "TmoneyRoundWindExtraBold";
   animation: blink-effect 1s step-end infinite;
+}
+
+.desc {
+  height: fit-content;
+  text-align: center;
+  font-size: 20px;
+  margin: 20px;
+  font-family: "TmoneyRoundWindExtraBold";
 }
 
 .stats {
