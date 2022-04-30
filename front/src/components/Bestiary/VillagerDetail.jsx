@@ -14,6 +14,11 @@ const Navigator = styled.div`
   justify-content: space-between;
   width: 100vw;
 `;
+const Wrapper = styled.div`
+  position: relative;
+  top: 30px;
+  right: 50px;
+`;
 
 const VillagerDetail = () => {
   const [villager, setVillager] = useState({});
@@ -29,8 +34,9 @@ const VillagerDetail = () => {
     <div>
       <Navigator>
         <BackButton content={"뒤로가기"} />
-
-        <HomeButton />
+        <Wrapper>
+          <HomeButton />
+        </Wrapper>
       </Navigator>
       <div></div>
     </div>
