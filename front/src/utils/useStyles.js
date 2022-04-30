@@ -144,14 +144,14 @@ export const useStyles = makeStyles({
     height: "10px",
   },
   cardRoot: {
-    width: "1800px",
+    width: "100%",
     height: "100%",
     margin: "0 auto",
     marginLeft: "10%",
   },
   cardSpace: {
-    width: "245px",
-    height: "200px",
+    width: "100%",
+    height: "20%",
     borderRadius: "25%",
     backgroundColor: "white",
     transition: "transform 250ms",
@@ -178,24 +178,24 @@ export const useStyles = makeStyles({
   },
   flipCard: {
     display: "inline-block",
-    width: "15%",
+    width: "20%",
     height: "18%",
-    padding: "30px",
   },
   wrapCard: {
     display: "inline-block",
   },
   gameResultImg: {
-    top: "100px",
-    height: "400px",
+    top: "10%",
+    height: "200px",
     position: "relative",
   },
   bottomArrow: {
     width: "80px",
     height: "80px",
     position: "absolute",
-    top: "620px",
-    right: "48%",
+    top: "63%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
   },
   topBtn: {
     bottom: "30px",
@@ -204,8 +204,21 @@ export const useStyles = makeStyles({
     margin: "auto !important",
   },
   gameIntroImg: {
-    top: "60px",
-    height: "500px",
-    position: "relative",
+    marginTop: "80px",
+    height: "50%",
+  },
+  introBottomArrow: {
+    width: "80px",
+    height: "80px",
+    position: "absolute",
+    top: "58%",
+    left: "46%",
+    right: "50%",
+  },
+  gameResultComment: {
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%, -50%)",
   },
 });
