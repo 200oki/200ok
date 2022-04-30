@@ -241,7 +241,6 @@ const VillagerList = () => {
   const [show, setShow] = useState(false);
   const [option, setOption] = useState("검색조건");
   const [ipt, setIpt] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
 
   const scrollHandler = (e, val) => {
     const element = document.getElementById("content");
@@ -272,7 +271,6 @@ const VillagerList = () => {
       const { data } = await Api.get(`characters/search${queryString}`);
       setVillagers([...data.payload]);
       setCount(data.total);
-      setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
