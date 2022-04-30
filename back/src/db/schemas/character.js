@@ -113,6 +113,7 @@ const MATCH_SCHEMES = {
   tier: MATCH_EXACT,
   hobby: MATCH_SUBSTRING,
   personality: MATCH_SUBSTRING,
+  species: MATCH_SUBSTRING,
   colors: MATCH_INCLUDESUBSTRING,
   styles: MATCH_INCLUDESUBSTRING,
   "*": MATCH_EXACT,
@@ -121,6 +122,7 @@ const MATCH_SCHEMES = {
 const SEARCH_PRIORITIES = {
   id: 90,
   birthday: 80,
+  species: 75,
   birthday_month: 70,
   tier: 60,
   personality: 50,
@@ -146,6 +148,7 @@ const emptyArrays = (len) => Array.from(Array(len), () => []);
  *    "tier": { [tier]: [ char ] },
  *    "hobby": { [hobby]: [ char ] },
  *    "personality": { [personality]: [ char ] },
+ *    "species": { [species]: [ char ] },
  *    "colors": { [color]: [ char ] },
  *    "styles": { [style]: [ char ] },
  * }
@@ -166,6 +169,7 @@ const characters = {
     ALL_PERSONALITIES,
     emptyArrays(ALL_PERSONALITIES.length)
   ),
+  species: {},
   colors: _.object(ALL_COLORS, emptyArrays(ALL_COLORS.length)),
   styles: _.object(ALL_STYLES, emptyArrays(ALL_STYLES.length)),
 };
