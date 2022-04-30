@@ -5,6 +5,7 @@ import { Slider } from "@mui/material";
 import { styled as Styled } from "@mui/material/styles";
 import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
+import { useNavigate } from "react-router-dom";
 
 const Navigator = styled.div`
   position: fixed;
@@ -245,6 +246,7 @@ const Selector = styled.div`
 `;
 
 const VillagerList = () => {
+  const navigate = useNavigate();
   const options = {
     이름: "name_ko",
     성격: "personality",
@@ -285,7 +287,7 @@ const VillagerList = () => {
 
   const search = async () => {
     const queryOption = option === "검색조건" ? "" : `&props=${options[option]}&values=${ipt}`;
-    const queryString = `?fields=name_ko,image_photo${queryOption}`;
+    const queryString = `?fields=name_ko,image_photo,id${queryOption}`;
     try {
       const { data } = await Api.get(`characters/search${queryString}`);
       setVillagers(data.payload);
@@ -316,7 +318,7 @@ const VillagerList = () => {
     columns.push(
       villagers.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
         return (
-          <Card key={idx} src={villager.image_photo}>
+          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
             <Name>{villager.name_ko}</Name>
           </Card>
         );
@@ -328,7 +330,7 @@ const VillagerList = () => {
     columns.push(
       villagers.slice(-restCards).map((villager, idx) => {
         return (
-          <Card key={idx} src={villager.image_photo}>
+          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
             <Name>{villager.name_ko}</Name>
           </Card>
         );
