@@ -2,12 +2,18 @@ import React, { useContext, useRef, useEffect, useState } from "react";
 import * as Api from "../../api";
 import { useNavigate } from "react-router-dom";
 import styled from "../../css/match.module.css";
+import MatchResultCompat from "./MatchResultCompat";
+import MatchResultRank from "./MatchResultRank";
 import MatchResultComment from "./MatchResultComment";
+import BackButton from "../common/BackButton";
+import Typewriter from "typewriter-effect";
 
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchCommentContext } from "../../context/MatchCommentContext";
 
 const DIVIDER_HEIGHT = 5;
+const v = "아그네스";
+const l = "recommendation";
 
 function MatchResult() {
   const navigator = useNavigate();
@@ -16,86 +22,29 @@ function MatchResult() {
   const outerDivRef = useRef();
 
   const [sample, setSample] = useState([]);
-  const [isloaded, setLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchCommentData = async () => {
     try {
-      const { data } = await Api.get(`comments/아그네스`, "recommendation");
-      setComment(data.comments);
+      const { data } = await Api.get(`comments?villager=${v}&location=${l}`);
+      setComment([...Object.values(data.payload)]);
     } catch (err) {
       setComment([]);
       console.error(err);
     }
-  };
-
-  const getChar = async () => {
-    if (!isloaded) {
-      try {
-        const { data } = await Api.get(`characters?birthday=04-02`);
-        setSample([...Object.values(data.payload)]);
-      } catch (err) {
-        console.error(err);
-      }
-      setLoaded(true);
-    }
     return () => {};
   };
 
-  useEffect(() => {
-    fetchCommentData();
-    getChar();
-  }, []);
-
-  const wheelHandler = (e) => {
-    e.preventDefault();
-
-    const { deltaY } = e;
-    const { scrollTop } = outerDivRef.current; // 스크롤 위쪽 끝부분 위치
-    const PAGE_HEIGHT = window.innerHeight;
-
-    if (deltaY > 0) {
-      // 스크롤 내릴 때
-      if (scrollTop >= 0 && scrollTop < PAGE_HEIGHT) {
-        outerDivRef.current.scrollTo({
-          top: PAGE_HEIGHT + DIVIDER_HEIGHT,
-          left: 0,
-          behavior: "smooth",
-        });
-      } else if (scrollTop >= PAGE_HEIGHT && scrollTop < PAGE_HEIGHT * 2) {
-        outerDivRef.current.scrollTo({
-          top: PAGE_HEIGHT * 2 + DIVIDER_HEIGHT * 2,
-          left: 0,
-          behavior: "smooth",
-        });
-      } else {
-        outerDivRef.current.scrollTo({
-          top: PAGE_HEIGHT * 2 + DIVIDER_HEIGHT * 2,
-          left: 0,
-          behavior: "smooth",
-        });
-      }
-    } else {
-      // 스크롤 올릴 때
-      if (scrollTop >= 0 && scrollTop < PAGE_HEIGHT) {
-        outerDivRef.current.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth",
-        });
-      } else if (scrollTop >= PAGE_HEIGHT && scrollTop < PAGE_HEIGHT * 2) {
-        outerDivRef.current.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth",
-        });
-      } else {
-        outerDivRef.current.scrollTo({
-          top: PAGE_HEIGHT + DIVIDER_HEIGHT,
-          left: 0,
-          behavior: "smooth",
-        });
-      }
+  const getChar = async () => {
+    try {
+      const { data } = await Api.get(
+        `characters/random?size=3&fields=id%2Cname_ko%2Cimage_photo`
+      );
+      setSample([...Object.values(data.payload)]);
+    } catch (err) {
+      console.error(err);
     }
+    return () => {};
   };
 
   const goToPosition = (e) => {
@@ -103,15 +52,27 @@ function MatchResult() {
 
     const PAGE_HEIGHT = window.innerHeight;
 
-    if (e.target.innerText === "랭킹") {
+    if (e.target.innerText === "유형별 궁합") {
       outerDivRef.current.scrollTo({
         top: PAGE_HEIGHT + DIVIDER_HEIGHT,
         left: 0,
         behavior: "smooth",
       });
-    } else {
+    } else if (e.target.innerText === "가장 많은 유형") {
       outerDivRef.current.scrollTo({
         top: PAGE_HEIGHT * 2 + DIVIDER_HEIGHT * 2,
+        left: 0,
+        behavior: "smooth",
+      });
+    } else if (e.target.innerText === "반응 남기기") {
+      outerDivRef.current.scrollTo({
+        top: PAGE_HEIGHT * 3 + DIVIDER_HEIGHT * 3,
+        left: 0,
+        behavior: "smooth",
+      });
+    } else {
+      outerDivRef.current.scrollTo({
+        top: 0,
         left: 0,
         behavior: "smooth",
       });
@@ -123,8 +84,36 @@ function MatchResult() {
     navigator("/match");
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      fetchCommentData();
+      getChar();
+      setIsLoading(false);
+    }, 5000);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className={`${styled.loadingWrapper} ${styled.LoadingTitle}`}>
+        {nickname}님과 찰떡궁합인 주민을 찾고 있어요
+        <Typewriter
+          onInit={(typewriter) => {
+            typewriter.typeString("...:)").pauseFor(1000).start();
+          }}
+          options={{ loop: true, cursor: "", deleteSpeed: 100 }}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className={styled.outer} ref={outerDivRef}>
+      <div
+        className="nav-bar"
+        style={{ position: "fixed", top: "0", left: "0", zIndex: "1" }}
+      >
+        <BackButton content={"메인으로"} />
+      </div>
       <div className={styled.inner}>
         <div className={styled.imgWrapper}>
           <img src="/images/Aurora.png" alt={"주민 사진"} />
@@ -139,15 +128,19 @@ function MatchResult() {
         <div className={styled.btnsWrapper}>
           <button>공유하기</button>
           <button onClick={goToFirstPage}>다시하기</button>
-          <button onClick={goToPosition}>랭킹</button>
+          <button onClick={goToPosition}>유형별 궁합</button>
+          <button onClick={goToPosition}>가장 많은 유형</button>
           <button onClick={goToPosition}>반응 남기기</button>
         </div>
       </div>
-      <div className={styled.divider}></div>
-      <div className={styled.inner}>랭킹 영역</div>
-      <div className={styled.divider}></div>
       <div className={styled.inner}>
-        <MatchResultComment />
+        <MatchResultCompat sample={sample} goToPosition={goToPosition} />
+      </div>
+      <div className={styled.inner}>
+        <MatchResultRank sample={sample} goToPosition={goToPosition} />
+      </div>
+      <div className={styled.inner}>
+        <MatchResultComment goToPosition={goToPosition} />
       </div>
     </div>
   );
