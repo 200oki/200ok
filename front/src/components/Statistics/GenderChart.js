@@ -25,11 +25,11 @@ const SpeciesChart = () => {
   return (
     <Pie className="graphBack"
       data={{
-        labels: dataList[2],
+        labels: dataList[1],
           datasets: [
           {
             label: '# Species',
-            data: dataList[3],
+            data: dataList[2],
             backgroundColor: [
               'rgba(242, 226, 5, 0.3)',
               'rgba(5, 151, 242, 0.3)',
