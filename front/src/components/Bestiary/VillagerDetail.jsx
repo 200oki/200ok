@@ -74,8 +74,6 @@ const DetailWrapper = styled.div`
   justify-content: space-around;
 `;
 
-const 
-
 const VillagerDetail = () => {
   const [villager, setVillager] = useState({});
   const { id } = useParams();
@@ -95,6 +93,7 @@ const VillagerDetail = () => {
         </Wrapper>
       </Navigator>
       <Content>
+        <SpeechBubble />
         <img src={villager.image_photo} alt="주민사진" style={{ borderRadius: "50%" }} />
         <DetailWrapper>
           <Detail color="white" role="payload">
