@@ -12,7 +12,6 @@ const SpeciesChart = () => {
     try {
       const { data } = await Api.get('stats?groupName=species');
       setDataList([...Object.values(data.payload)]);
-      console.log(data);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
