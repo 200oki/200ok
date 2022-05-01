@@ -57,11 +57,11 @@ const StyledDiv_4 = styled.div`
   z-index: -1;
 `;
 
-export function SpeechBubble() {
+export function SpeechBubble({ payload }) {
   return (
     <>
       <div>
-        <StyledDiv>!</StyledDiv>
+        <StyledDiv>{payload}</StyledDiv>
 
         <StyledDiv_2 />
       </div>
