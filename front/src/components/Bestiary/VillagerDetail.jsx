@@ -93,7 +93,7 @@ const VillagerDetail = () => {
         </Wrapper>
       </Navigator>
       <Content>
-        <SpeechBubble />
+        <SpeechBubble payload={`안녕! 나는 ${villager.name_ko}야!`} />
         <img src={villager.image_photo} alt="주민사진" style={{ borderRadius: "50%" }} />
         <DetailWrapper>
           <Detail color="white" role="payload">
