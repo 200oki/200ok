@@ -57,7 +57,7 @@ const PersonalityChart = () => {
       height={500}
       width={1200}
       options= {{
-        responsive: false,
+        responsive: false, // 크기 자동 조절 X
         plugins: {
           legend: false // Hide legend
         },
