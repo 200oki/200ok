@@ -1,6 +1,7 @@
 import { useStyles } from "../../utils/useStyles";
 import "../../css/GameIntro.css";
 import { useNavigate } from "react-router-dom";
+import styled from "../../css/match.module.css";
 
 const GameResult = () => {
   const classes = useStyles();
@@ -9,9 +10,14 @@ const GameResult = () => {
   const handleClick = () => {
     navigator("/match-test");
   };
+
   return (
     <div className="gameResultRoot">
-      <img src="images/kk.png" alt="raccoon" className={"gameIntroImg"} />
+      <img
+        src="images/kk.png"
+        alt="kk"
+        className={`gameIntroImg ${styled.fadeInImg}`}
+      />
       <div className="contentRoot">
         <div className={"gameIntroComment"}>
           <img src="images/kk_rm.png" alt="comment" />
@@ -21,7 +27,6 @@ const GameResult = () => {
             alt="arrow"
           />
         </div>
-
         <div className="btnWrapper">
           <button onClick={handleClick}>게임 시작</button>
         </div>

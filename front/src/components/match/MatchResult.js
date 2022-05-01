@@ -23,18 +23,14 @@ function MatchResult() {
 
   const [sample, setSample] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isCommentLoaded, setIsCommentLoaded] = useState(false);
 
   const fetchCommentData = async () => {
-    if (!isCommentLoaded) {
-      try {
-        const { data } = await Api.get(`comments?villager=${v}&location=${l}`);
-        setComment([...Object.values(data.payload)]);
-      } catch (err) {
-        setComment([]);
-        console.error(err);
-      }
-      setIsCommentLoaded(true);
+    try {
+      const { data } = await Api.get(`comments?villager=${v}&location=${l}`);
+      setComment([...Object.values(data.payload)]);
+    } catch (err) {
+      setComment([]);
+      console.error(err);
     }
     return () => {};
   };

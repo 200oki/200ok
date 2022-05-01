@@ -43,7 +43,7 @@ const SelectColor = ({ nextSlide }) => {
                 <div key={`input${i}`} className={styled.colorRadioBtn}>
                   <input
                     type="radio"
-                    value={i}
+                    value={colors[i]}
                     id={`color${i}`}
                     name="color"
                     onChange={handleColorChange}
@@ -59,7 +59,7 @@ const SelectColor = ({ nextSlide }) => {
                 <div key={`input${i + 7}`} className={styled.colorRadioBtn}>
                   <input
                     type="radio"
-                    value={i + 7}
+                    value={colors[i + 7]}
                     id={`color${i + 7}`}
                     name="color"
                     onChange={handleColorChange}

@@ -43,7 +43,7 @@ const SelectHobbyStyle = ({ array, nextSlide }) => {
                 <div key={`input${i}`} className={styled.hobbyStyleRadioBtn}>
                   <input
                     type="radio"
-                    value={i}
+                    value={array[i + 1]}
                     id={array[0] === "취미" ? `hobby${i}` : `style${i}`}
                     name={array[0]}
                     onChange={handleHobbyStyleChange}

@@ -9,7 +9,7 @@ const MatchResultRank = ({ sample, goToPosition }) => {
 
   return (
     <>
-      <div className={`${styled.rankCharTitle} ${styled.rankCharTitleBg}`}>
+      <div className={`${styled.rankCharTitle} ${styled.rankCharTitleBg2}`}>
         가장 많은 유형
       </div>
       <div className={styled.rankCharWrapper}>

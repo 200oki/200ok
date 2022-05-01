@@ -4,6 +4,7 @@ import StyledItem from "../common/StyledItem";
 import { menuList } from "../../utils/util";
 import HomeButton from "../common/HomeButton";
 import { useNavigate } from "react-router-dom";
+import styled from "../../css/team.module.css";
 import "../../css/explore.css";
 
 const Explore = () => {
@@ -24,10 +25,17 @@ const Explore = () => {
       case "주민퀴즈":
         return navigator("/game");
         break;
+      default:
+        return navigator("/team-introduction");
+        break;
     }
   };
+
   return (
     <div className={"root"}>
+      <button className={styled.teamPageBtn} onClick={handleClick}>
+        <img src="images/ham.png" />
+      </button>
       {menuList.map((item, idx) => {
         return (
           <StyledItem
