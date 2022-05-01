@@ -140,7 +140,7 @@ export const useStyles = makeStyles({
     backgroundColor: "green",
     borderRadius: "25px",
     zIndex: 999,
-    width: "25%",
+    width: "100%",
     height: "10px",
   },
   cardRoot: {
