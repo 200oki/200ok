@@ -52,6 +52,10 @@ const StyleChart = () => {
       height={500}
       width={500}
       options= {{
+        title: {
+          display: true,
+          text: '스타일 분포'
+        },
         responsive: false,
       }}
     />
