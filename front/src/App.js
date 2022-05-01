@@ -24,7 +24,6 @@ import PersonalityChart from "./components/Statistics/PersonalityChart";
 import HobbyChart from "./components/Statistics/HobbyChart";
 import StyleChart from "./components/Statistics/StyleChart";
 import VillagerList from "./components/Bestiary/VillagerList";
-import Statistics from "./components/Bestiary/Statistics";
 import VillagerDetail from "./components/Bestiary/VillagerDetail"
 
 const GlobalFont = createGlobalStyle`
@@ -63,7 +62,6 @@ function App() {
           <Route path="/matchResult" element={<MatchResult />} />
           <Route path="/bestiary" element={<Bestiary />} />
           <Route path="/bestiary/list" element={<VillagerList />} />
-          <Route path="/bestiary/statistics" element={<Statistics />} />
           <Route path="/detail/:id" element={<VillagerDetail />} />
         </Routes>
       </Router>
