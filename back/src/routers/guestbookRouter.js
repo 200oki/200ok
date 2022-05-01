@@ -186,7 +186,6 @@ guestbookRouter.get(
   async (req, res, next) => {
     const id = req.query.userId;
     const userGuestbook = await GuestbookService.getGuestbook({ id });
-    console.log(userGuestbook)
     if (userGuestbook === null) {
       const body = {
         success: false,
