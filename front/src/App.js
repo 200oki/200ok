@@ -50,7 +50,6 @@ function App() {
           <Route path="/match" element={<InputNickname />} />
           <Route path="/match-test" element={<MatchTest />} />
           <Route path="/match-result" element={<MatchResult />} />
-          <Route path="/bestiary" element={<Bestiary />}></Route>
           <Route path="/game" element={<InputNickname />} />
           <Route path="/matchResult" element={<MatchResult />} />
           <Route path="/stats" element={<Stat />}>
