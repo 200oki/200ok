@@ -1,24 +1,32 @@
-import { ArrowLeft } from "@mui/icons-material";
-import { Typography } from "@mui/material";
-import React from "react";
-import { useStyles } from "../../utils/useStyles";
+import "../../css/backButton.css";
+import React, { useContext } from "react";
+import usePathParams from "../../utils/usePathParams";
 import { useNavigate } from "react-router-dom";
 
-const BackButton = () => {
-  const classes = useStyles();
+import { NicknameContext } from "../../context/NicknameContext";
+
+const BackButton = ({ content }) => {
+  const { setNickname } = useContext(NicknameContext);
   const navigator = useNavigate();
+  const pathname = usePathParams();
 
   const backHome = () => {
-    if (window.location.pathname === "/game-start") {
+    if (pathname === "/match-result" || "/match") {
+      setNickname("");
       navigator("/explore");
+    } else if (pathname === "/bestiary/list" || pathname === "/bestiary/statistics") {
+      navigator("/bestiary");
+    } else if (pathname === "/bestiary") {
+      navigator("/explore");
+    } else {
+      navigator(-1);
     }
   };
 
   return (
-    <Typography className={classes.quizName} onClick={backHome}>
-      <ArrowLeft className={classes.leftArrow} />
-      메인메뉴
-    </Typography>
+    <div className="leftArrow" onClick={backHome}>
+      {content}
+    </div>
   );
 };
 
