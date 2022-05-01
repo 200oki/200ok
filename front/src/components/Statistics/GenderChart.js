@@ -1,43 +1,63 @@
 import React, { useState, useEffect } from "react";
 import * as Api from "../../api";
-import { PieChart } from 'react-minimal-pie-chart';
+import { Chart, registerables } from "chart.js";
+import { Pie } from 'react-chartjs-2';
+Chart.register(...registerables)
 
-const GenderChart = () => {
+const SpeciesChart = () => {
   const [dataList, setDataList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   
   async function getDataList() {
     try {
       const { data } = await Api.get('stats', '?groupName=gender');
-      console.log([...Object.values(data)]);
-      return data.payload;
+      setDataList([...Object.values(data.payload)]);
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
   }
 
   useEffect(() => {
-    getDataList().then((dataList) => {
-      setDataList([...Object.values(dataList)]);
-      console.log(dataList[1][0]);
-      setIsLoading(false);
-    });
+    getDataList();
   }, []);
 
   return (
-    <div>
-      <PieChart className="graphBack"
-        data={dataList[1]}
-        label={({ dataEntry }) => dataEntry.value}
-        animate
-      />
-      <p className="desc">
-        {/* 성별은 npc 포함이라 갯수가 더 많음 어떻게 말하지?? */}
-        * 성별은 npc 포함이라 수가 더 많습니다 *
-      </p>
-    </div>
+    <Pie className="graphBack"
+      data={{
+        labels: dataList[2],
+          datasets: [
+          {
+            label: '# Species',
+            data: dataList[3],
+            backgroundColor: [
+              'rgba(242, 226, 5, 0.3)',
+              'rgba(5, 151, 242, 0.3)',
+            ],
+            borderColor: [
+              'rgba(242, 226, 5, 1)',
+              'rgba(5, 151, 242, 1)',
+            ],
+            borderWidth: 1
+            }
+          ]
+      }}
+      height={500}
+      width={500}
+      options= {{
+          responsive: false,
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+              },
+            ],
+          },
+      }}
+    />
   );
-  
 }
 
-export default GenderChart;
+export default SpeciesChart;
