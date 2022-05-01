@@ -46,18 +46,10 @@ const SpeciesChart = () => {
       width={500}
       options= {{
           responsive: false,
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                },
-              },
-            ],
-          },
       }}
     />
   );
 }
+
 
 export default SpeciesChart;
