@@ -15,6 +15,12 @@ import GameResult from "./components/game/GameResult";
 import Game from "./components/game/Game";
 import GameHOF from "./components/game/GameHOF";
 import GameIntro from "./components/game/GameIntro";
+import Stat from "./components/Statistics/Stat";
+import GenderChart from "./components/Statistics/GenderChart";
+import SpeciesChart from "./components/Statistics/SpeciesChart";
+import PersonalityChart from "./components/Statistics/PersonalityChart";
+import HobbyChart from "./components/Statistics/HobbyChart";
+import StyleChart from "./components/Statistics/StyleChart";
 
 const GlobalFont = createGlobalStyle`
   font-family: "TmoneyRoundWindExtraBold"
@@ -38,6 +44,15 @@ function App() {
           <Route path="/match-test" element={<MatchTest />} />
           <Route path="/match-result" element={<MatchResult />} />
           <Route path="/bestiary" element={<Bestiary />}></Route>
+          <Route path="/game" element={<InputNickname />} />
+          <Route path="/matchResult" element={<MatchResult />} />
+          <Route path="/stats" element={<Stat />}>
+            <Route path="gender" element={<GenderChart />} />
+            <Route path="species" element={<SpeciesChart />} />
+            <Route path="personality" element={<PersonalityChart />} />
+            <Route path="hobby" element={<HobbyChart />} />
+            <Route path="style" element={<StyleChart />} />
+          </Route>
         </Routes>
       </Router>
     </div>

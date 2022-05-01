@@ -5,6 +5,14 @@ export const menuList = [
   "주민퀴즈",
 ];
 
+export const statList = [
+  "성별 분포",
+  "종 분포",
+  "성격 분포",
+  "취미 분포",
+  "스타일 분포",
+];
+
 export const testData = [
   {
     tier: 1,

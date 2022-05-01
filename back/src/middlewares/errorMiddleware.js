@@ -1,38 +1,11 @@
-import { RequestError } from "../utils/errors";
-import * as status from "../utils/status";
-import { Logger, UNIFIED_LOG } from "../utils/logging";
-
-const logger = new Logger({
-  name: "errorMiddleware",
-  // tee: [
-  //     UNIFIED_LOG,
-  //     Logger.generateLogPath("error.log"),
-  //     Logger.generateLogPath("router.log"),
-  //     Logger.generateLogPath("service.log"),
-  //     ...[
-  //         "award",
-  //         "career",
-  //         "certificate",
-  //         "education",
-  //         "project",
-  //         "techstack",
-  //     ]
-  //         .map((mvp) => {
-  //             return [
-  //                 Logger.generateLogPath(`${mvp}.log`),
-  //                 Logger.generateLogPath(`${mvp}service.log`),
-  //                 Logger.generateLogPath(`${mvp}router.log`),
-  //             ];
-  //         })
-  //         .flat(),
-  // ],
-  tee_ignore_level: true,
-  // debug_override: Math.max(1, Number(process.env.DEBUG ?? 0)),
-});
+import { logger } from "../utils/winstonLogger.js";
+import { RequestError } from "../utils/errors.js";
+import * as status from "../utils/status.js";
 
 function errorMiddleware(error, req, res, next) {
   // console.log("\x1b[33m%s\x1b[0m", error);
-  logger.log({ __level__: 1 }, error);
+  // logger.log({ __level__: 1 }, error);
+  logger.error(error);
 
   // res.status(400).send(error.message);
   if (error instanceof RequestError) {
