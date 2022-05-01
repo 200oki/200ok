@@ -1,9 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledDiv = styled.div`
-  height: 250px;
-  width: 40%;
+const Wrapper = styled.div`
+  height: 8rem;
+`;
+
+const Bubble = styled.div`
+  height: 8rem;
+  width: 100%;
   min-width: 200px;
   background: ivory;
   display: flex;
@@ -15,7 +19,7 @@ const StyledDiv = styled.div`
   align-items: center;
 `;
 
-const StyledDiv_2 = styled.div`
+const Pointer = styled.div`
   height: 40px;
   width: 40px;
   background: ivory;
@@ -26,8 +30,8 @@ const StyledDiv_2 = styled.div`
   left: calc(0.5vw - 50px);
 `;
 
-const StyledDiv_3 = styled.div`
-  height: 250px;
+const BubbleShadow = styled.div`
+  height: 8rem;
   width: 40%;
   min-width: 200px;
   background: ivory;
@@ -43,7 +47,7 @@ const StyledDiv_3 = styled.div`
   z-index: -1;
 `;
 
-const StyledDiv_4 = styled.div`
+const PointerShadow = styled.div`
   height: 40px;
   width: 40px;
   background: ivory;
@@ -61,18 +65,20 @@ const StyledDiv_4 = styled.div`
 
 export function SpeechBubble({ payload }) {
   return (
-    <>
+    <Wrapper>
       <div>
-        <StyledDiv>{payload}</StyledDiv>
-
-        <StyledDiv_2 />
+        <Bubble>
+          <span>안녕! 나는 </span>
+          <span style={{ color: "#3881BC", fontSize: "1.5rem" }}>{payload}</span>
+          <span>야!</span>
+        </Bubble>
+        <Pointer />
       </div>
-
       <div>
-        <StyledDiv_3 />
-        <StyledDiv_4 />
+        <BubbleShadow />
+        <PointerShadow />
       </div>
-    </>
+    </Wrapper>
   );
 }
 export default SpeechBubble;
