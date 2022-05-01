@@ -1,0 +1,85 @@
+.gameResultRoot{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    z-index: 1;
+}
+
+.gameResultRoot::after{
+    top:0;
+    left: 0;
+    content: "";
+    position: absolute;
+    background-image: url("/public/images/leafBgImg.jpg");
+    overflow: hidden;
+    opacity: 0.4;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+
+}
+.contentRoot{
+    display: table-cell;
+    table-layout: fixed;
+    width: 700px;
+}
+
+.content1, .content2, .content3{
+    position: absolute;
+    top:50%;
+    left:50%;
+    text-align: center;
+    color: #837156;
+    vertical-align: middle;
+    transform: translate(-50%, -50%);
+}
+.content1 {
+    top: 48%;
+}
+.content2 {
+    top: 53%;
+}
+.content3 {
+    top: 58%;
+}
+
+.resultBtnWrapper {
+    position: absolute;
+    width: 100%;
+    top: 75%;
+    left: 70%;
+    transform:translate(-50%, -50%);
+}
+
+.resultBtnWrapper > button {
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 10%;
+    background: #fff5d0;
+    border-radius: 50px;
+    width: 150px;
+    height: 40px;
+    border: none;
+    box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.15);
+    color: #7e725c;
+    transition: transform 250ms;
+    font-family: "TmoneyRoundWindExtraBold";
+}
+.resultBtnWrapper > button:hover{
+    transform: translateY(-0.25em);
+    cursor: pointer;
+}
+.gameResultScore, .gameResultRank{
+    color: #1ac8b9;
+}
+.blinkImg{
+    animation: blink 0.8s step-end infinite;
+}
+@keyframes blink {
+    50%{
+        opacity: 0;
+    }
+}
