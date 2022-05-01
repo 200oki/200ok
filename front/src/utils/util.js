@@ -5,6 +5,12 @@ export const menuList = [
   "주민퀴즈",
 ];
 
+export const BtnText = {
+  HOME: "홈으로",
+  RETRY: "다시하기",
+  SHARE: "공유하기",
+};
+
 export const testData = [
   {
     tier: 1,
