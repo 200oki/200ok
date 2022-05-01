@@ -1,10 +1,6 @@
 export const statList = [
   {
     groupName: "gender",
-    data: [
-      { title: '여성', value: 208 },
-      { title: '남성', value: 244 },
-    ],
     colName: [
       '여성',
       '남성',
