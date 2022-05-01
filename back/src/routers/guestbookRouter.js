@@ -205,4 +205,80 @@ guestbookRouter.get(
   }
 );
 
+/**
+ * @swagger
+ * /guestbooks/userId/{id}:
+ *   get:
+ *    summary: 방명록 조회 API
+ *    description: 방명록 조회할 때 사용하는 API 입니다.
+ *    tags: [Guestbooks]
+ *    parameters:
+ *      - in: query
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: 방명록 글을 반환합니다.
+ *    responses:
+ *      200:
+ *        description: 방명록 조회
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                success:
+ *                  type: string
+ *                  example: true
+ *                payload:
+ *                  type: object
+ *                  properties:
+ *                    id:
+ *                      type: number
+ *                      description: id
+ *                      example: id
+ *                    content:
+ *                      type: string
+ *                      description: 방명록 내용
+ *                      example: 안녕
+ *                    
+ *      400:
+ *        description: 방명록 조회 오류
+ *        content:
+ *         application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                success:
+ *                  type: string
+ *                  example: false
+ *                error:
+ *                  type: object
+ *                  properties:
+ *                    code:
+ *                      type: integer
+ *                      description: http status
+ *                      example: 400
+ *                    message:
+ *                      type: string
+ *                      description: 오류 내용
+ *                      example: id가 존재하지 않습니다.
+ *                    detail:
+ *                      type: string
+ *                      description: id가 존재하지 않습니다.
+ *                          
+*/
+guestbookRouter.get(
+  "/guestbooks",
+  async (req, res, next) => {
+    const userGuestbook = await GuestbookService.getGuestbookList();
+    const body = {
+      success: true,
+      payload: userGuestbook,
+    }
+
+    return res.status(status.STATUS_200_OK).json(body);
+  }
+);
+
 export { guestbookRouter };
