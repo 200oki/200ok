@@ -1,3 +1,4 @@
+// 아직 작성중입니다!!
 // import React, { useState, useEffect } from "react";
 // import * as Api from "../../api";
 // import { ResponsiveBar } from '@nivo/bar'
