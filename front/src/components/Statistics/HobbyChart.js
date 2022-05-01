@@ -60,7 +60,6 @@ const HobbyChart = () => {
         'male',
       ]}
       indexBy="hobby"
-      // margin={{ top: 0, right: 300, bottom: 0, left: 300 }}
       margin={{ top: 10, right: 300, bottom: 40, left: 300 }}
       padding={0.3}
       valueScale={{ type: 'linear' }}
