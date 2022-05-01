@@ -11,6 +11,7 @@ import MatchIntro from "./components/match/MatchIntro";
 import MatchTest from "./components/match/MatchTest";
 import MatchResult from "./components/match/MatchResult";
 import Today from "./components/Today/Today";
+import Calendar from "./components/Today/Calendar";
 import Bestiary from "./components/Bestiary/Bestiary";
 import GameResult from "./components/game/GameResult";
 import Game from "./components/game/Game";
@@ -22,6 +23,9 @@ import SpeciesChart from "./components/Statistics/SpeciesChart";
 import PersonalityChart from "./components/Statistics/PersonalityChart";
 import HobbyChart from "./components/Statistics/HobbyChart";
 import StyleChart from "./components/Statistics/StyleChart";
+import VillagerList from "./components/Bestiary/VillagerList";
+import Statistics from "./components/Bestiary/Statistics";
+import VillagerDetail from "./components/Bestiary/VillagerDetail"
 
 const GlobalFont = createGlobalStyle`
   font-family: "TmoneyRoundWindExtraBold"
@@ -40,6 +44,7 @@ function App() {
           <Route path="/game-result" element={<GameResult />} />
           <Route path="/game-hof" element={<GameHOF />} />
           <Route path="/today" element={<Today />} />
+          <Route path="/calendar" element={<Calendar />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/match-intro" element={<MatchIntro />} />
           <Route path="/match" element={<InputNickname />} />
@@ -55,6 +60,12 @@ function App() {
             <Route path="hobby" element={<HobbyChart />} />
             <Route path="style" element={<StyleChart />} />
           </Route>
+          <Route path="/game" element={<InputNickname />} />
+          <Route path="/matchResult" element={<MatchResult />} />
+          <Route path="/bestiary" element={<Bestiary />} />
+          <Route path="/bestiary/list" element={<VillagerList />} />
+          <Route path="/bestiary/statistics" element={<Statistics />} />
+          <Route path="/detail/:id" element={<VillagerDetail />} />
         </Routes>
       </Router>
     </div>

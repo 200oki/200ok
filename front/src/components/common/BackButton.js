@@ -14,6 +14,10 @@ const BackButton = ({ content }) => {
     if (pathname === "/match-result" || "/match") {
       setNickname("");
       navigator("/explore");
+    } else if (pathname === "/bestiary/list" || pathname === "/bestiary/statistics") {
+      navigator("/bestiary");
+    } else if (pathname === "/bestiary") {
+      navigator("/explore");
     } else {
       navigator(-1);
     }
