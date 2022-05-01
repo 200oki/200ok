@@ -264,7 +264,6 @@ class Character {
         },
       },
     ]);
-    console.log(total);
     return total;
   }
 }
