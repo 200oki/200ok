@@ -6,12 +6,13 @@ const StyledDiv = styled.div`
   width: 40%;
   min-width: 200px;
   background: ivory;
-  display: block;
+  display: flex;
   margin: 50px auto 0px;
   border-radius: 20px;
   font-size: 1.24rem;
-  text-align: center;
   font-family: "TmoneyRoundWindExtraBold";
+  justify-content: center;
+  align-items: center;
 `;
 
 const StyledDiv_2 = styled.div`
