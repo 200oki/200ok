@@ -39,7 +39,6 @@
 
 .LoadingTitle {
   font-size: 2rem;
-  font-family: "TmoneyRoundWindExtraBold";
 }
 
 .divider {
@@ -52,7 +51,6 @@
   height: fit-content;
   text-align: center;
   font-size: 30px;
-  font-family: "TmoneyRoundWindExtraBold";
 }
 
 .inputForm {
@@ -116,7 +114,6 @@
   border-radius: 10px;
   width: 60px;
   height: 50px;
-  font-family: "TmoneyRoundWindExtraBold";
   font-size: 16px;
   transition: all 0.3s ease-in-out;
 }
@@ -154,13 +151,12 @@
 }
 
 .commentWrapper {
-  font-family: "TmoneyRoundWindRegular";
+  font-family: "TmoneyRoundWindRegular" !important;
   height: fit-content;
   padding: 10px;
 }
 
 .writer {
-  font-family: "TmoneyRoundWindExtraBold";
   font-weight: 300;
   font-size: 18px;
   margin-right: 10px;
@@ -185,7 +181,6 @@
   border-radius: 30px;
   background: #a5e4ff;
   transition: all 0.5s;
-  font-family: "TmoneyRoundWindExtraBold";
   font-size: 15px;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 }
@@ -221,7 +216,6 @@
 .textWrapper {
   font-size: 20px;
   text-align: center;
-  font-family: "TmoneyRoundWindExtraBold";
 }
 .textWrapper > div {
   line-height: 1.8rem;
@@ -251,7 +245,6 @@
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.15);
   color: #7e725c;
   transition: transform 250ms;
-  font-family: "TmoneyRoundWindExtraBold";
 }
 
 .btnsWrapper > button:hover,
@@ -277,7 +270,6 @@
 
 .rankCharTitle,
 .rankCharName {
-  font-family: "TmoneyRoundWindExtraBold";
   margin-top: 10px;
   margin-bottom: 20px;
 }
@@ -286,12 +278,11 @@
   text-align: center;
   margin-bottom: 20px;
   font-size: 18px;
-  font-family: "TmoneyRoundWindExtraBold";
 }
 
 .charSmallSubTitle {
   font-size: 15px;
-  font-family: "TmoneyRoundWindRegular";
+  font-family: "TmoneyRoundWindRegular" !important;
 }
 
 .percentTitle {
@@ -415,7 +406,6 @@
 }
 
 .testTitle {
-  font-family: "TmoneyRoundWindExtraBold";
   font-size: 2rem;
   margin-bottom: 30px;
 }
@@ -432,7 +422,7 @@
 .personRadioBtn label,
 .hobbyStyleRadioBtn label,
 .colorRadioBtn label {
-  font-family: "TmoneyRoundWindRegular";
+  font-family: "TmoneyRoundWindRegular" !important;
   font-size: 18px;
   display: block;
   border-radius: 50px;
