@@ -25,10 +25,10 @@ import HobbyChart from "./components/Statistics/HobbyChart";
 import StyleChart from "./components/Statistics/StyleChart";
 import VillagerList from "./components/Bestiary/VillagerList";
 import Statistics from "./components/Bestiary/Statistics";
-import VillagerDetail from "./components/Bestiary/VillagerDetail"
+import VillagerDetail from "./components/Bestiary/VillagerDetail";
 
 const GlobalFont = createGlobalStyle`
-  font-family: "TmoneyRoundWindExtraBold"
+  * { font-family: "TmoneyRoundWindExtraBold" }
 `;
 
 function App() {
