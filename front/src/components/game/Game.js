@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Box, Modal, Typography } from "@mui/material";
-import { ArrowLeft } from "@mui/icons-material";
 import { useStyles } from "../../utils/useStyles";
 import { useNavigate } from "react-router-dom";
-import { testData } from "../../utils/util";
 import GameItem from "./GameItem";
 import BackButton from "../common/BackButton";
+import { GameContext } from "../../context/GameContext";
 
 const Game = () => {
   const [isClicked, setIsClicked] = useState(false);
+  const { score, setScore } = useContext(GameContext);
+
   const classes = useStyles();
   const navigator = useNavigate();
 

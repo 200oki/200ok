@@ -30,14 +30,12 @@ const StyledItem = ({ type, content, className, ...other }) => {
   return (
     <React.Fragment>
       {type === "button" ? (
-        <React.Fragment>
-          <button
-            className={`${classes.ivoryItem} ${className}`}
-            onClick={handleOnClick !== undefined ? handleOnClick : handleOpen}
-          >
-            {content}
-          </button>
-        </React.Fragment>
+        <button
+          className={`${classes.ivoryItem} ${className}`}
+          onClick={handleOnClick !== undefined ? handleOnClick : handleOpen}
+        >
+          {content}
+        </button>
       ) : (
         <Typography
           sx={typoStyles}

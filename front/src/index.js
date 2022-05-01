@@ -4,6 +4,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./css/index.css";
 
+import { GameProvider } from "./context/GameContext";
 import { NicknameProvider } from "./context/NicknameContext";
 import { MatchCommentProvider } from "./context/MatchCommentContext";
 
@@ -12,7 +13,9 @@ root.render(
   <React.StrictMode>
     <NicknameProvider>
       <MatchCommentProvider>
-        <App />
+        <GameProvider>
+          <App />
+        </GameProvider>
       </MatchCommentProvider>
     </NicknameProvider>
   </React.StrictMode>

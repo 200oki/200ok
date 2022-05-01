@@ -1,9 +1,11 @@
 import React, { useState, useContext } from "react";
 import styled from "../../css/match.module.css";
+import { useNavigate } from "react-router-dom";
 
 import { NicknameContext } from "../../context/NicknameContext";
 
 const SelectHobbyStyle = ({ array, nextSlide }) => {
+  const navigator = useNavigate();
   const { nickname } = useContext(NicknameContext);
 
   const [hobby, setHobby] = useState(null);
@@ -15,6 +17,10 @@ const SelectHobbyStyle = ({ array, nextSlide }) => {
     } else {
       setStyle(e.target.value);
     }
+  };
+
+  const handleTestSubmit = async (e) => {
+    navigator("/match-result");
   };
 
   return (
@@ -37,7 +43,7 @@ const SelectHobbyStyle = ({ array, nextSlide }) => {
                 <div key={`input${i}`} className={styled.hobbyStyleRadioBtn}>
                   <input
                     type="radio"
-                    value={i}
+                    value={array[i + 1]}
                     id={array[0] === "취미" ? `hobby${i}` : `style${i}`}
                     name={array[0]}
                     onChange={handleHobbyStyleChange}
@@ -62,7 +68,7 @@ const SelectHobbyStyle = ({ array, nextSlide }) => {
       ) : (
         <button
           className={style !== null ? styled.btnActive : styled.btnHidden}
-          onClick={nextSlide}
+          onClick={handleTestSubmit}
         >
           다음
         </button>

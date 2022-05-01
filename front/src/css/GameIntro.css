@@ -1,24 +1,39 @@
-.gameIntroCommentImg{
-    top: 400px;
-    left: 530px;
-    height: 350px;
+.gameIntroRoot{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+.gameIntroRoot::after{
+    top:0;
+    left: 0;
+    content: "";
     position: absolute;
-    text-align: center;
-    vertical-align: middle;
+    background-image: url("/public/images/leafBgImg.jpg");
+    overflow: hidden;
+    opacity: 0.4;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+
+.gameIntroImg{
+    top: 10%;
+    height: 300px;
+    position:relative;
 }
 
 .gameIntroComment{
     position: absolute;
-    left: 50px;
-    right: 50px;
     text-align: center;
     color: #837156;
-    vertical-align: middle;
-    top: 570px;
+    top: 42%;
 }
+
 .btnWrapper > button {
-    position: absolute;
-    top: 750px;
     font-size: 15px;
     font-weight: bold;
     background: #adefff;
@@ -29,9 +44,15 @@
     box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.15);
     color: #7e725c;
     transition: transform 250ms;
-    font-family: "TmoneyRoundWindExtraBold";
 }
 .btnWrapper > button:hover{
     transform: translateY(-0.25em);
     cursor: pointer;
+}
+
+.btnWrapper {
+    position: absolute;
+    top: 80%;
+    left: 46%;
+
 }

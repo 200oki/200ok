@@ -1,0 +1,28 @@
+.rankList{
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+}
+.rankList:nth-child(3),
+.rankList:nth-child(4){
+    margin-top: 50px;
+}
+.rankWrap{
+    margin-top: 50px;
+}
+/*.gameIntroComment{*/
+/*    position: absolute;*/
+/*    top:80%;*/
+/*}*/
+
+.imageWrap{
+    width: 500px;
+    text-align: center;
+}
+.imageWrap > img{
+    width: 20%;
+}
+.title{
+
+
+}
