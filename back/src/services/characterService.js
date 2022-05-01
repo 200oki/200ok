@@ -169,7 +169,18 @@ class CharacterService {
 
   static async getCount({ villager }) {
     const count = await Character.getCount({ villager });
-    return count;
+    const totalList = await Character.totalCount();
+    const total = totalList[0].total;
+    count[0]["total"] = total;
+    const avg = ((count[0].count / count[0].total) * 100).toFixed(2);
+    count[0]["avg"] = avg;
+    const body = {
+      success: true,
+      payload: {
+        count: count[0],
+      },
+    };
+    return body;
   }
 
   static async upCount({ villager }) {

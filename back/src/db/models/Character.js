@@ -232,10 +232,18 @@ class Character {
   }
 
   static async getCount({ villager }) {
-    const count = await CharacterModel.findOne(
-      { name_ko: villager },
-      { _id: 0 }
-    ).lean();
+    const count = await CharacterModel.aggregate([
+      {
+        $match: {
+          name_ko: villager,
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+        },
+      },
+    ]);
     return count;
   }
 
@@ -256,6 +264,7 @@ class Character {
         },
       },
     ]);
+    console.log(total);
     return total;
   }
 }
