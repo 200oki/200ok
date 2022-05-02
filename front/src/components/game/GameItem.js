@@ -30,42 +30,27 @@ const GameItem = ({ tier }) => {
 
   useEffect(() => {
     getCards().then((data) => {
-      setCards(data);
       let arr = [];
       [...data].map((item, idx) => {
         arr.push(data[idx].name_ko);
         arr.push(data[idx].image_photo);
       });
       setValue(shuffle(arr));
-      console.log("random", arr);
-      console.log("data", data);
     });
   }, []);
 
-  useEffect(() => {
-    if (timer >= 100) {
-      return () => clearTimeout(tick);
-    }
+  const time = () => {
     const tick = setTimeout(() => {
       setTimer(timer + 1.67);
     }, 1000);
-  }, [timer]);
+  };
 
   useEffect(() => {
-    if (isTwoFlipped >= 2) {
-      //card 뒤집혀있으면 클릭되면 클래스 달아서
-      [...document.querySelectorAll(".react-card-front")].map(
-        (x) =>
-          (x.style =
-            "backface-visibility: hidden; height: 100%; left: 0px; position: relative; top: 0px; transform: rotateY(0deg); transform-style: preserve-3d; transition: all 0.6s ease 0s; width: 100%; z-index: 2;")
-      );
-      [...document.querySelectorAll(".react-card-back")].map(
-        (x) =>
-          (x.style =
-            "backface-visibility: hidden; height: 100%; left: 0px; position: absolute; top: 0px; transform: rotateY(-180deg); transform-style: preserve-3d; transition: all 0.6s ease 0s; width: 100%; z-index: 2;")
-      );
+    if (timer >= 100) {
+      return () => clearTimeout(time);
     }
-  }, [isTwoFlipped]);
+    time();
+  }, [timer]);
 
   return (
     <React.Fragment>
