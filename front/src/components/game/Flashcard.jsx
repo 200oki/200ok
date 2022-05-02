@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const FlashCard = ({ flashcard, handleChoice, classCorrect }) => {
+const FlashCard = ({ flashcard, handleChoice }) => {
   const [flip, setFlip] = useState(false);
   const [height, setHeight] = useState("initial");
 
@@ -13,10 +13,12 @@ const FlashCard = ({ flashcard, handleChoice, classCorrect }) => {
   };
 
   useEffect(setMaxHeight, [flashcard]);
+
   useEffect(() => {
     window.addEventListener("resize", setMaxHeight);
     return () => window.removeEventListener("resize", setMaxHeight);
   }, []);
+
   const handleClick = (e) => {
     setFlip((v) => !v);
     if (e.target.nextSibling && e.target.className !== "card flip") {
@@ -42,7 +44,7 @@ const FlashCard = ({ flashcard, handleChoice, classCorrect }) => {
     <div
       style={{ height: height }}
       onClick={handleClick}
-      className={`card ${classCorrect ? classCorrect : ""} ${
+      className={`card ${flashcard.matched ? "correct" : ""} ${
         flip ? "flip" : ""
       }`}
     >
@@ -50,10 +52,10 @@ const FlashCard = ({ flashcard, handleChoice, classCorrect }) => {
         <img src="images/cardFront.png" alt="leaf" className="frontLeaf" />
       </div>
       <div className="back" ref={backEl}>
-        {flashcard.startsWith("http") ? (
-          <img src={flashcard} alt="characters" className="characterImg" />
+        {flashcard.data.startsWith("http") ? (
+          <img src={flashcard.data} alt="characters" className="characterImg" />
         ) : (
-          <p>{flashcard}</p>
+          <p>{flashcard.data}</p>
         )}
       </div>
     </div>
