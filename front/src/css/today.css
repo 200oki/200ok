@@ -162,6 +162,15 @@ div.comment {
   box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
   background-color: #fff9e4;
   font-family: TmoneyRoundWindExtraBold;
+  animation: twinkling 0.8s alternate ease-in-out infinite;
+}
+@keyframes twinkling {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
 }
 .btn-comment:hover {
   background-color: #cdcdcd !important;
