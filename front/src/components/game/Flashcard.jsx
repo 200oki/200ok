@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const FlashCard = ({ flashcard, handleChoice }) => {
+const FlashCard = ({ flashcard, handleChoice, classCorrect }) => {
   const [flip, setFlip] = useState(false);
   const [height, setHeight] = useState("initial");
 
@@ -42,7 +42,9 @@ const FlashCard = ({ flashcard, handleChoice }) => {
     <div
       style={{ height: height }}
       onClick={handleClick}
-      className={`card ${flip ? "flip" : ""}`}
+      className={`card ${classCorrect ? classCorrect : ""} ${
+        flip ? "flip" : ""
+      }`}
     >
       <div className="front" ref={frontEl}>
         <img src="images/cardFront.png" alt="leaf" className="frontLeaf" />
