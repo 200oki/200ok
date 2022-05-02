@@ -48,8 +48,8 @@ class CharacterCategoricalComparison {
     top ||= 0;
     bottom ||= 0;
     const doArray = !top && !bottom;
-    const doMinHeap = !!top;
-    const doMaxHeap = !!bottom;
+    const doMinheap = !!top;
+    const doMaxheap = !!bottom;
 
     let result = doArray ? Array(pool.length) : Array(top + bottom);
     let minheap = new Heap((a, b) => a.distance - b.distance);
@@ -72,8 +72,8 @@ class CharacterCategoricalComparison {
         result[idx] = charinfo;
       } else {
         switch (true) {
-          case doMinHeap:
-          case doMaxHeap:
+          case doMinheap:
+          case doMaxheap:
         }
       }
     });
