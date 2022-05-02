@@ -16,21 +16,23 @@ const Navigator = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100vw;
-`;
-
-const Container = styled.div`
+  `;
+  
+  const Container = styled.div`
   position: relative;
 &::before {
   background-image: url("/images/guestbookBg.jpg");
   content: " ";
   display: block;
   position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   left: 0;
   top: 0;
   width: 100vw;
   height: 100vh;
-  opacity: 0.5;
-  background-position: 50% 0;
+  opacity: 0.8;
   z-index: -;
 `;
 
