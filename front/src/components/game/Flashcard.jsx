@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const FlashCard = ({ flashcard }) => {
+const FlashCard = ({ flashcard, handleChoice }) => {
   const [flip, setFlip] = useState(false);
   const [height, setHeight] = useState("initial");
 
@@ -17,8 +17,25 @@ const FlashCard = ({ flashcard }) => {
     window.addEventListener("resize", setMaxHeight);
     return () => window.removeEventListener("resize", setMaxHeight);
   }, []);
-  const handleClick = () => {
+  const handleClick = (e) => {
     setFlip((v) => !v);
+    if (e.target.nextSibling && e.target.className !== "card flip") {
+      if (e.target.nextSibling.querySelector(".characterImg")) {
+        // front card div선택 시 back img src 가져오기
+        handleChoice(e.target.nextSibling.querySelector(".characterImg").src);
+      } else {
+        //front card div선택 시 back 텍스트 선택
+        handleChoice(e.target.nextSibling.innerText);
+      }
+    } else if (e.target.className === "frontLeaf") {
+      if (e.target.parentElement.nextSibling.innerText) {
+        handleChoice(e.target.parentElement.nextSibling.innerText);
+      } else {
+        handleChoice(
+          e.target.parentElement.nextSibling.querySelector(".characterImg").src
+        );
+      }
+    }
   };
 
   return (
@@ -28,11 +45,11 @@ const FlashCard = ({ flashcard }) => {
       className={`card ${flip ? "flip" : ""}`}
     >
       <div className="front" ref={frontEl}>
-        <img src="images/cardFront.png" alt="leaf" />
+        <img src="images/cardFront.png" alt="leaf" className="frontLeaf" />
       </div>
       <div className="back" ref={backEl}>
         {flashcard.startsWith("http") ? (
-          <img src={flashcard} alt="characters" />
+          <img src={flashcard} alt="characters" className="characterImg" />
         ) : (
           <p>{flashcard}</p>
         )}
