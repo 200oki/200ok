@@ -3,8 +3,8 @@ import React, { useState, createContext, useMemo } from "react";
 const GameAnswerContext = createContext();
 
 const GameAnswerProvider = ({ children }) => {
-  const [score, setScore] = useState(0);
-  const store = useMemo(() => ({ score, setScore }), [score, setScore]);
+  const [answer, setAnswer] = useState(0);
+  const store = useMemo(() => ({ answer, setAnswer }), [answer, setAnswer]);
 
   return (
     <GameAnswerContext.Provider value={store}>
