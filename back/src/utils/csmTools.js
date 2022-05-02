@@ -95,7 +95,7 @@ class CharacterCategoricalComparison {
    * @arg {number[]} vector
    * @return {number}
    */
-  static vecMul(vector) {
+  static vecMag(vector) {
     return Math.sqrt(vector.reduce((p, c) => p + c ** 2));
   }
 }
