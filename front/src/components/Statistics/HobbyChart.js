@@ -23,8 +23,6 @@ const HobbyChart = () => {
   //   getDataList();
   // }, []);
 
-
-
 	const data = [
     { name: '교육', 여성: 32, 남성: 32, z: 122 },
     { name: '놀이', 여성: 16, 남성: 49, z: 73 },
