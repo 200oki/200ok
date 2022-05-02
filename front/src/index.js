@@ -8,6 +8,7 @@ import { GameProvider } from "./context/GameContext";
 import { NicknameProvider } from "./context/NicknameContext";
 import { MatchElementProvider } from "./context/MatchElementContext";
 import { MatchCommentProvider } from "./context/MatchCommentContext";
+import { GameAnswerProvider } from "./context/GameAnswerContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,9 +16,11 @@ root.render(
     <NicknameProvider>
       <MatchElementProvider>
         <MatchCommentProvider>
-          <GameProvider>
-            <App />
-          </GameProvider>
+          <GameAnswerProvider>
+            <GameProvider>
+              <App />
+            </GameProvider>
+          </GameAnswerProvider>
         </MatchCommentProvider>
       </MatchElementProvider>
     </NicknameProvider>
