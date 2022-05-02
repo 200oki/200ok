@@ -70,7 +70,12 @@ function MatchResultComment({ goToPosition }) {
                   "YYYY-MM-DD HH:mm:ss"
                 )}
               </span>
-              <div className={styled.commentContent}>{item.comment}</div>
+              <div
+                className={styled.commentContent}
+                style={{ fontFamily: "TmoneyRoundWindRegular" }}
+              >
+                {item.comment}
+              </div>
             </div>
           ))}
         </div>

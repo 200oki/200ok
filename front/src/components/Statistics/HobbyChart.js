@@ -9,7 +9,7 @@
   
 //   async function getDataList() {
 //     try {
-//       const { data } = await Api.get('stats', '?groupName=gender');
+//       const { data } = await Api.get('stats?groupName=gender');
 //       setDataList([...Object.values(data.payload)]);
 //       setIsLoading(false);
 //     } catch (error) {

@@ -10,7 +10,7 @@ const StyleChart = () => {
   
   async function getDataList() {
     try {
-      const { data } = await Api.get('stats', '?groupName=style');
+      const { data } = await Api.get('stats?groupName=style');
       setDataList([...Object.values(data.payload)]);
       setIsLoading(false);
     } catch (error) {

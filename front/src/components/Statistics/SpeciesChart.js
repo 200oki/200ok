@@ -10,7 +10,7 @@ const SpeciesChart = () => {
   
   async function getDataList() {
     try {
-      const { data } = await Api.get('stats', '?groupName=species');
+      const { data } = await Api.get('stats?groupName=species');
       setDataList([...Object.values(data.payload)]);
       setIsLoading(false);
     } catch (error) {
@@ -43,16 +43,7 @@ const SpeciesChart = () => {
       height={500}
       width={1200}
       options= {{
-          responsive: false,
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                },
-              },
-            ],
-          },
+        responsive: false,
       }}
     />
   );
