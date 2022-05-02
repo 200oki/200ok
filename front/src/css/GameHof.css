@@ -1,28 +1,64 @@
-.rankList{
-    display: flex;
-    justify-content: space-between;
-    width: 500px;
+.rankList {
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
 }
+
 .rankList:nth-child(3),
-.rankList:nth-child(4){
-    margin-top: 50px;
+.rankList:nth-child(4) {
+  margin-top: 50px;
 }
-.rankWrap{
-    margin-top: 50px;
+
+.rankWrap {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
 /*.gameIntroComment{*/
 /*    position: absolute;*/
 /*    top:80%;*/
 /*}*/
 
-.imageWrap{
-    width: 500px;
-    text-align: center;
+.imageWrap {
+  width: 500px;
+  text-align: center;
+  margin-bottom: 30px;
 }
-.imageWrap > img{
-    width: 20%;
+
+.imageWrap > img {
+  width: 20%;
 }
-.title{
 
+.hofTitle {
+  font-size: 2rem;
+}
 
+.txt-shine {
+  padding: 12px 30px;
+  color: #ffffff;
+  background: linear-gradient(to right, #251904 0, white 10%, #251904 20%);
+  background-position: 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s infinite linear;
+  animation-fill-mode: forwards;
+  -webkit-text-size-adjust: none;
+  text-decoration: none;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0;
+  }
+
+  60% {
+    background-position: 350px;
+  }
+
+  100% {
+    background-position: 350px;
+  }
 }
