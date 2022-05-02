@@ -41,7 +41,14 @@ class CharacterCategoricalComparison {
    * 따라서 힙으로 적당히 정렬해놓은 결과를 배열로 바꾸는 건 좋은 방법일 것이라고
    * 생각됩니다.
    */
-  automagic(pool, { top = null, bottom = null }) {}
+  automagic(pool, { top = null, bottom = null }) {
+    // top이나 bottom이 있으면 힙으로 n개 배열에서 가장 작은/큰 k개 값을 찾는데,
+    // k가 너무 크면 push 코스트가 올라갑니다.
+    // 그래서 top 또는 bottom이 너무 크면 힙 전략을 포기합니다.
+    const doMinheap = top && top < pool.length / 2;
+    const doMaxheap = bottom && bottom < pool.length / 2;
+    const doArray = (!top && !bottom) || !doMinheap || !doMaxheap;
+  }
 
   /** 현재 레퍼런스와 다른 캐릭터 한 명을 비교한 거리를 반환합니다.
    *
