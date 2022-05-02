@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useStyles } from "../../utils/useStyles";
 import "../../css/quiz.css";
 import * as Api from "../../api";
 import { shuffle } from "../../utils/shuffle";
 import FlashcardList from "./FlashcardList";
+import { GameAnswerContext } from "../../context/GameAnswerContext";
 
 const GameItem = ({ tier }) => {
+  const [isTwoFlipped, setIsTwoFlipped] = useState(0);
   const [timer, setTimer] = useState(0);
+  const [cards, setCards] = useState([]);
   const [value, setValue] = useState([]);
   const classes = useStyles();
+  const { answer, setAnswer } = useContext(GameAnswerContext);
 
   const getCards = async () => {
     try {
@@ -19,6 +23,7 @@ const GameItem = ({ tier }) => {
         url = `characters/random?size=16&tiers=${tier}&fields=name_ko,image_photo`;
       }
       const { data } = await Api.get(url);
+      await setAnswer([...data.payload]);
 
       return data.payload;
     } catch (e) {
