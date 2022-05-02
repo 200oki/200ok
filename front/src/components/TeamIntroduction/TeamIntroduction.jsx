@@ -8,8 +8,8 @@ const TeamIntroduction = () => {
     {
       position: "Back End",
       name: "신광천",
-      image: "",
-      character: "",
+      image: "https://acnhcdn.com/latest/NpcBromide/NpcNmlPgn01.png",
+      character: "펭수",
       introduction: "따봉광천",
     },
     {
