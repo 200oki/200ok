@@ -81,5 +81,14 @@ class CharacterCategoricalComparison {
   }
 
   /** 중복값이 없으면 1, 전부 중복이면 0, 일부 중복이면 0.5입니다. */
-  compareStyles(others) {}
+  compareStyles(others) {
+    let intersect = 0;
+    others = new Set(others);
+    for (const item of this.styles) {
+      if (others.has(item)) {
+        intersect++;
+      }
+    }
+    return 1 - intersect / Math.max(this.styles, others);
+  }
 }
