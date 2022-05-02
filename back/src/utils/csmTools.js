@@ -23,6 +23,28 @@ class CharacterCategoricalComparison {
     this.styles = new Set(styles);
   }
 
+  /** 현재 레퍼런스와 다른 캐릭터 한 명을 비교한 거리를 반환합니다.
+   *
+   * @arg {{
+   *  birthday_yday: number,
+   *  hobby: string,
+   *  personality: string,
+   *  colors: string[],
+   *  styles: string[],
+   * }} otherCharData - 캐릭터 데이터에 있는 포맷 그대로 주면 됩니다.
+   * @return {number} distance - 레퍼런스(사용자)와 비교 캐릭터와의
+   *  5차원 공간상의 거리로, 최소 0, 최대 `sqrt(5)`입니다.
+   */
+  automagic({ birthday_yday, hobby, personality, colors, styles }) {
+    return this.vecMag([
+      this.compareBirthday(birthday_yday),
+      this.compareHobby(hobby),
+      this.comparePersonality(personality),
+      this.compareColors(colors),
+      this.compareStyles(styles),
+    ]);
+  }
+
   /** `mm-dd` 문자열을 2020년(윤년) 기준 `yday` 포맷으로 바꿉니다.
    *
    * @arg {string} birthday - `mm-dd` 형식이어야 합니다.
