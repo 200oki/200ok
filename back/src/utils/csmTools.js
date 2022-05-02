@@ -23,7 +23,9 @@ def compare_yday(a: str, b: str):
 */
 
 class CharacterCategoricalComparison {
-  ONEDAY = 1000 * 60 * 60 * 24;
+  refYear = 2020;
+  oneDay = 1000 * 60 * 60 * 24;
+  dayMod = 183;
 
   /**
    * @arg {{
@@ -50,7 +52,10 @@ class CharacterCategoricalComparison {
    */
   toYday(birthday) {
     let [m, d] = birthday.split("-");
-    return (new Date(2020, m - 1, d) - new Date(2019, 11, 31)) / this.ONEDAY;
+    return (
+      (new Date(refYear, m - 1, d) - new Date(refYear - 1, 11, 31)) /
+      this.oneDay
+    );
   }
 
   /** 단순 비교로 같으면 0, 다르면 1입니다. */
