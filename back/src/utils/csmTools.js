@@ -23,6 +23,26 @@ class CharacterCategoricalComparison {
     this.styles = new Set(styles);
   }
 
+  /** 레퍼런스와 `pool` 안의 모든 캐릭터와의 거리를 반환합니다.
+   *
+   * @arg {any[]} pool - 캐릭터들의 데이터입니다.
+   * @arg {{top: number?, bottom: number?}} options -
+   *    포맷 옵션. `top`은 가장 유사한 n명,
+   *    `bottom`은 가장 덜 유사한 n명을 배열로 합쳐 반환합니다.
+   *    순서는 더 유사한 캐릭터가 항상 앞에 오게 됩니다.
+   *    옵션이 전부 nullish이면 전체 배열이 반환됩니다.
+   * @return {any[]} result - 거리 순으로 오름차순 정렬된 캐릭터들의
+   *    배열을 반환합니다. 배열의 길이는 `option` 값에 따라 달라질 수 있습니다.
+   *
+   * ## 노트
+   * node 엔진인 V8은 [`timsort`를 사용하며](https://github.com/v8/v8/blob/78f2610345fdd14ca401d920c140f8f461b631d1/third_party/v8/builtins/array-sort.tq#L5)
+   * `timsort`의 best case는 배열이 이미 정렬되어 있는 경우(O(n))입니다.
+   *
+   * 따라서 힙으로 적당히 정렬해놓은 결과를 배열로 바꾸는 건 좋은 방법일 것이라고
+   * 생각됩니다.
+   */
+  automagic(pool, { top = null, bottom = null }) {}
+
   /** 현재 레퍼런스와 다른 캐릭터 한 명을 비교한 거리를 반환합니다.
    *
    * @arg {{
