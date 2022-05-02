@@ -1,9 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Box, Modal, Typography } from "@mui/material";
 import { useStyles } from "../../utils/useStyles";
-import { useNavigate } from "react-router-dom";
 import GameItem from "./GameItem";
-import BackButton from "../common/BackButton";
 import { GameContext } from "../../context/GameContext";
 
 const Game = () => {
@@ -11,7 +9,6 @@ const Game = () => {
   const { score, setScore } = useContext(GameContext);
 
   const classes = useStyles();
-  const navigator = useNavigate();
 
   const handleClick = () => {
     setIsClicked((v) => !v);
@@ -27,12 +24,12 @@ const Game = () => {
     boxShadow: 24,
     fontFamily: "TmoneyRoundWindExtraBold !important",
     p: 4,
+    outline: "none",
   };
 
   return (
     <div className={classes.quizRoot}>
       <div className={classes.quizContent}>
-        <BackButton content="뒤로가기" />
         <div className={classes.view} onClick={handleClick}>
           ?
         </div>
