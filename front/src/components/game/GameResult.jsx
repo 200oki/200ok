@@ -5,6 +5,7 @@ import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import HomeButton from "../common/HomeButton";
+import { BtnText } from "../../utils/util";
 
 const GameResult = () => {
   const [score, setScore] = useState(0);
@@ -19,10 +20,10 @@ const GameResult = () => {
   };
   const gameResultHandler = (e) => {
     e.preventDefault();
-    if (e.target.innerText === "홈으로") {
+    if (e.target.innerText === BtnText.HOME) {
       navigator("/");
-    } else if (e.target.innerText === "공유하기") {
-    } else if (e.target.innerText === "다시하기") {
+    } else if (e.target.innerText === BtnText.SHARE) {
+    } else if (e.target.innerText === BtnText.RETRY) {
       navigator("/game");
     } else {
       navigator("/game-hof");

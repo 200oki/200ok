@@ -14,6 +14,12 @@ export const statList = [
   "스타일 분포",
 ];
 
+export const BtnText = {
+  HOME: "홈으로",
+  RETRY: "다시하기",
+  SHARE: "공유하기",
+};
+
 export const testData = [
   {
     tier: 1,

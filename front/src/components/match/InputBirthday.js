@@ -6,9 +6,11 @@ import Select from "@mui/material/Select";
 import { useStyles } from "../../utils/useStyles";
 
 import { NicknameContext } from "../../context/NicknameContext";
+import { MatchElementContext } from "../../context/MatchElementContext";
 
 function InputBirthday({ nextSlide }) {
   const { nickname } = useContext(NicknameContext);
+  const { matchElem, setMatchElem } = useContext(MatchElementContext);
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
 
@@ -103,7 +105,10 @@ function InputBirthday({ nextSlide }) {
 
       <button
         className={month && day ? styled.btnActive : styled.btnHidden}
-        onClick={nextSlide}
+        onClick={() => {
+          setMatchElem([...matchElem, month, day]);
+          nextSlide();
+        }}
       >
         다음
       </button>

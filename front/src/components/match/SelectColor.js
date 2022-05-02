@@ -2,9 +2,11 @@ import React, { useState, useContext } from "react";
 import styled from "../../css/match.module.css";
 
 import { NicknameContext } from "../../context/NicknameContext";
+import { MatchElementContext } from "../../context/MatchElementContext";
 
 const SelectColor = ({ nextSlide }) => {
   const { nickname } = useContext(NicknameContext);
+  const { matchElem, setMatchElem } = useContext(MatchElementContext);
 
   const [color, setColor] = useState(null);
 
@@ -72,7 +74,10 @@ const SelectColor = ({ nextSlide }) => {
       </form>
       <button
         className={color !== null ? styled.btnActive : styled.btnHidden}
-        onClick={nextSlide}
+        onClick={() => {
+          setMatchElem([...matchElem, color]);
+          nextSlide();
+        }}
       >
         다음
       </button>

@@ -108,7 +108,7 @@ export const useStyles = makeStyles({
     textAlign: "center",
     width: "100%",
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "right",
     height: "fit-content",
   },
   view: {
@@ -140,7 +140,7 @@ export const useStyles = makeStyles({
     backgroundColor: "green",
     borderRadius: "25px",
     zIndex: 999,
-    width: "25%",
+    width: "100%",
     height: "10px",
   },
   cardRoot: {
