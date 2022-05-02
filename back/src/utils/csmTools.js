@@ -35,7 +35,7 @@ class CharacterCategoricalComparison {
    * @return {number} distance - 레퍼런스(사용자)와 비교 캐릭터와의
    *  5차원 공간상의 거리로, 최소 0, 최대 `sqrt(5)`입니다.
    */
-  automagic({ birthday_yday, hobby, personality, colors, styles }) {
+  oneBatch({ birthday_yday, hobby, personality, colors, styles }) {
     return this.vecMag([
       this.compareBirthday(birthday_yday),
       this.compareHobby(hobby),
