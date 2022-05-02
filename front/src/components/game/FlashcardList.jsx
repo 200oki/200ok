@@ -4,27 +4,37 @@ import "../../css/flipcard.css";
 const FlashcardList = ({ flashcard }) => {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
-  const [classCorrect, setClassCorrect] = useState("");
-
+  const [flashCards, setFlashCards] = useState([]);
   const handleChoice = (elem) => {
     choiceOne ? setChoiceTwo(elem) : setChoiceOne(elem);
   };
 
   useEffect(() => {
+    setCards();
+  }, [flashcard]);
+
+  const setCards = () => {
+    const addExtended = flashcard.map((data) => ({
+      data,
+      matched: false,
+    }));
+    setFlashCards(addExtended);
+  };
+
+  useEffect(() => {
     console.log("one", choiceOne, "two", choiceTwo);
-    if (choiceOne && choiceTwo) {
-      setClassCorrect("correct");
+    if (choiceOne && choiceTwo && choiceOne !== choiceTwo) {
+      //정답 비교 하기
     }
   }, [choiceOne, choiceTwo]);
 
   return (
     <div className="card-grid">
-      {flashcard.map((flashcard, idx) => {
+      {flashCards.map((flashCard, idx) => {
         return (
           <FlashCard
             handleChoice={handleChoice}
-            classCorrect={classCorrect}
-            flashcard={flashcard}
+            flashcard={flashCard}
             key={idx}
           />
         );
