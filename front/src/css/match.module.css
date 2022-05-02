@@ -83,6 +83,7 @@
   height: 50px;
   border-radius: 50px;
   margin: 0 0 30px 0;
+  box-shadow: 5px 5px 4px -1px rgba(119, 119, 119, 0.75);
 }
 
 .commentBack {
