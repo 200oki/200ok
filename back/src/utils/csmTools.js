@@ -1,3 +1,4 @@
+/** 대상 캐릭터를 Categorical Similarity Measure로 비교하는 툴킷입니다. */
 class CharacterCategoricalComparison {
   refYear = 2020;
   /* 밀리초 단위 하루입니다. */
@@ -87,5 +88,14 @@ class CharacterCategoricalComparison {
       }
     }
     return 1 - intersect / Math.max(this.styles, others);
+  }
+
+  /** n차원 벡터의 크기를 구합니다.
+   *
+   * @arg {number[]} vector
+   * @return {number}
+   */
+  static vecMul(vector) {
+    return Math.sqrt(vector.reduce((p, c) => p + c ** 2));
   }
 }
