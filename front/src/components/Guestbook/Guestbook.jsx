@@ -7,6 +7,7 @@ import BackButton from "../common/BackButton";
 import PostButton from "../common/PostButton";
 import { useNavigate } from "react-router-dom";
 import AddGuestbookModal from "./AddGuestbookModal";
+import { guestbookImgList } from "../../utils/util";
 
 const Navigator = styled.div`
   position: fixed;
@@ -17,7 +18,7 @@ const Navigator = styled.div`
   justify-content: space-between;
   width: 100vw;
 `;
-  
+
 const Container = styled.div`
   position: relative;
 &::before {
@@ -106,21 +107,6 @@ const Column = styled.div`
   justify-content: space-around;
 `;
 
-const Name = styled.div`
-  background-color: white;
-  width: 100%;
-  height: 40px;
-  border-radius: 0 0 25px 25px;
-  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "TmoneyRoundWindExtraBold";
-  font-size: 1.24rem;
-  position: relative;
-  top: 50%;
-`;
-
 const PrettoSlider = Styled(Slider)({
   color: "#52af77",
   height: 8,
@@ -162,7 +148,8 @@ const PrettoSlider = Styled(Slider)({
 
 const Guestbook = () => {
   const navigate = useNavigate();
-  const [modal, setModal] = useState(false);
+
+  const [modal, setModal] = useState(false); // 읽기 모달
   const [guestbook, setGuestbook] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [count, setCount] = useState(0);
@@ -188,38 +175,44 @@ const Guestbook = () => {
     element.scrollLeft = (maxScrollLeft / 100) * val;
   };
 
-  const cardPerColumn = 3;
+  // 클릭하면 모달 post가 뜰 것
+  // 아직 모달을 만들지 못해 post로 해둠!
+  const postGuestbook = () => {
+    setModal(!modal); 
+    navigate('/guestbook/post');
+  }
+
+  const cardPerColumn = 2;
   const columns = [];
 
   for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
     columns.push(
       guestbook.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((guestbook, idx) => {
-        return (
-          <Card key={idx} src={guestbook.image_photo} onClick={() => navigate(`/guestbook/${guestbook.id}`)}>
-            <Name>{guestbook.name_ko}</Name>
-          </Card>
+        return ( // 의문 맥스... 지운님 살려줘요...
+          <Card key={idx} src={guestbookImgList[idx%4].img} onClick={() => navigate(`/guestbook/${guestbook.id}`)} /> // 여기도 navigate가 아니라 modal 뜨도록!
         );
       })
     );
   }
+
   const restCards = count % cardPerColumn;
+
   if (restCards > 0) {
     columns.push(
       guestbook.slice(-restCards).map((guestbook, idx) => {
         return (
-          <Card key={idx} src={guestbook.image_photo} onClick={() => navigate(`/guestbook/${guestbook.id}`)}>
-            <Name>{guestbook.name_ko}</Name>
-          </Card>
+          <Card key={idx} src={guestbookImgList[idx%4].img} onClick={() => navigate(`/guestbook/${guestbook.id}`)} />
         );
       })
     );
   }
+
   return (
     <Container>
       <Navigator>
-        <BackButton content={window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기"} />
+        <BackButton content={ window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기" } />
         <Wrapper>
-          <PostButton onClick={() => { setModal(!modal); navigate('/guestbook/post'); }} />
+          <PostButton onClick={postGuestbook} />
         </Wrapper>
       </Navigator>
       <Content>
