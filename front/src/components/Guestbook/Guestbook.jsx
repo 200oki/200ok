@@ -4,9 +4,9 @@ import * as Api from "../../api";
 import { Slider } from "@mui/material";
 import { styled as Styled } from "@mui/material/styles";
 import BackButton from "../common/BackButton";
-import HomeButton from "../common/HomeButton";
+import PostButton from "../common/PostButton";
 import { useNavigate } from "react-router-dom";
-import AddGuestbookModal from "./AddGuestbookModal"
+import AddGuestbookModal from "./AddGuestbookModal";
 
 const Navigator = styled.div`
   position: fixed;
@@ -162,7 +162,7 @@ const PrettoSlider = Styled(Slider)({
 
 const Guestbook = () => {
   const navigate = useNavigate();
-
+  const [modal, setModal] = useState(false);
   const [guestbook, setGuestbook] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [count, setCount] = useState(0);
@@ -219,7 +219,7 @@ const Guestbook = () => {
       <Navigator>
         <BackButton content={window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기"} />
         <Wrapper>
-          <HomeButton />
+          <PostButton onClick={setModal(!modal)} />
         </Wrapper>
       </Navigator>
       <Content>
