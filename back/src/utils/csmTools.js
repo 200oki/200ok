@@ -1,3 +1,5 @@
+import Heap from "heap";
+
 /** 대상 캐릭터를 Categorical Similarity Measure로 비교하는 툴킷입니다. */
 class CharacterCategoricalComparison {
   static refYear = 2020;
@@ -45,9 +47,29 @@ class CharacterCategoricalComparison {
     // top이나 bottom이 있으면 힙으로 n개 배열에서 가장 작은/큰 k개 값을 찾는데,
     // k가 너무 크면 push 코스트가 올라갑니다.
     // 그래서 top 또는 bottom이 너무 크면 힙 전략을 포기합니다.
+    top ||= 0;
+    bottom ||= 0;
     const doMinheap = top && top < pool.length / 2;
     const doMaxheap = bottom && bottom < pool.length / 2;
     const doArray = (!top && !bottom) || !doMinheap || !doMaxheap;
+
+    let result = top && bottom ? Array(pool.length) : Array(top + bottom);
+    let minheap = new Heap((a, b) => a.distance - b.distance);
+    let maxheap = new Heap((a, b) => b.distance - a.distance);
+
+    pool.forEach((char, idx) => {
+      if (char.special) {
+        return;
+      }
+      let charinfo = {
+        character: {
+          id: char.id,
+          name_ko: char.name_ko,
+          image_photo: char.image_photo,
+        },
+        distance: this.oneBatch(char),
+      };
+    });
   }
 
   /** 현재 레퍼런스와 다른 캐릭터 한 명을 비교한 거리를 반환합니다.
