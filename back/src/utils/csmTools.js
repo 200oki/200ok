@@ -23,7 +23,7 @@ def compare_yday(a: str, b: str):
 */
 
 class CharacterCategoricalComparison {
-  ONEDAY = 1000 * 60 * 60 * 24
+  ONEDAY = 1000 * 60 * 60 * 24;
 
   /**
    * @arg {{
@@ -36,11 +36,11 @@ class CharacterCategoricalComparison {
    */
   constructor({ birthday, hobby, personality, colors, styles }) {
     // Object.assign(this, arguments[0]);
-    this.birthday = this.toYday(birthday)
-    this.hobby = hobby
-    this.personality = personality
-    this.colors = Set(colors)
-    this.styles = Set(styles)
+    this.birthday = this.toYday(birthday);
+    this.hobby = hobby;
+    this.personality = personality;
+    this.colors = new Set(colors);
+    this.styles = new Set(styles);
   }
 
   /** `mm-dd` 문자열을 2020년(윤년) 기준 `yday` 포맷으로 바꿉니다.
@@ -48,11 +48,10 @@ class CharacterCategoricalComparison {
    * @arg {string} birthday - `mm-dd` 형식이어야 합니다.
    * @return {number} yday - day of year ex: `"02-29"` -> `60`
    */
-   toYday(birthday) {
-     let [m, d] = birthday.split('-')
-    return (new Date(2020, m - 1, d) - new Date(2019, 11, 31)) / this.ONEDAY
+  toYday(birthday) {
+    let [m, d] = birthday.split("-");
+    return (new Date(2020, m - 1, d) - new Date(2019, 11, 31)) / this.ONEDAY;
   }
-
 
   /** 단순 비교로 같으면 0, 다르면 1입니다. */
   compareHobby(other) {
@@ -67,9 +66,13 @@ class CharacterCategoricalComparison {
   /** 중복값이 없으면 1, 전부 중복이면 0, 일부 중복이면 0.5입니다. */
   compareColors(others) {
     let intersect = 0;
+    others = new Set(others);
     for (const item of this.colors) {
-      if ()
+      if (others.has(item)) {
+        intersect++;
+      }
     }
+    return 1 - intersect / Math.max(this.colors, others);
   }
 
   /** 중복값이 없으면 1, 전부 중복이면 0, 일부 중복이면 0.5입니다. */
