@@ -28,7 +28,7 @@ const FlashCard = ({ flashcard }) => {
       className={`card ${flip ? "flip" : ""}`}
     >
       <div className="front" ref={frontEl}>
-        <img src="images/leafBgImg.jpg" alt="leaf" />
+        <img src="images/cardFront.png" alt="leaf" />
       </div>
       <div className="back" ref={backEl}>
         {flashcard.startsWith("http") ? (
