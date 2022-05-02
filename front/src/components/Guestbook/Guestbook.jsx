@@ -30,7 +30,7 @@ const Container = styled.div`
   height: 100vh;
   opacity: 0.5;
   background-position: 50% 0;
-  z-index: -;
+  z-index: -100;
 `;
 
 const pop = keyframes`
@@ -156,13 +156,6 @@ const PrettoSlider = Styled(Slider)({
     },
   },
 });
-
-const Selector = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
 
 const Guestbook = () => {
   const navigate = useNavigate();
