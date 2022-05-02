@@ -42,7 +42,12 @@ class CharacterCategoricalComparison {
   }
 
   /** 단순 비교로 같으면 0, 다르면 1입니다. */
-  compareBirthday(other) {
-    return this.birthday === other ? 0 : 1;
+  compareHobby(other) {
+    return this.hobby === other ? 0 : 1;
+  }
+
+  /** 단순 비교로 같으면 0, 다르면 1입니다. */
+  comparePersonality(other) {
+    return this.personality === other ? 0 : 1;
   }
 }
