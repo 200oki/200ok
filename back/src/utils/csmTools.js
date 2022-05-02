@@ -23,7 +23,7 @@ def compare_yday(a: str, b: str):
 */
 
 class CharacterCategoricalComparison {
-  // compareBirthday;
+  ONEDAY = 1000 * 60 * 60 * 24
 
   /**
    * @arg {{
@@ -36,12 +36,23 @@ class CharacterCategoricalComparison {
    */
   constructor({ birthday, hobby, personality, colors, styles }) {
     // Object.assign(this, arguments[0]);
-    this.birthday = birthday
+    this.birthday = this.toYday(birthday)
     this.hobby = hobby
     this.personality = personality
     this.colors = Set(colors)
     this.styles = Set(styles)
   }
+
+  /** `mm-dd` 문자열을 2020년(윤년) 기준 `yday` 포맷으로 바꿉니다.
+   *
+   * @arg {string} birthday - `mm-dd` 형식이어야 합니다.
+   * @return {number} yday - day of year ex: `"02-29"` -> `60`
+   */
+   toYday(birthday) {
+     let [m, d] = birthday.split('-')
+    return (new Date(2020, m - 1, d) - new Date(2019, 11, 31)) / this.ONEDAY
+  }
+
 
   /** 단순 비교로 같으면 0, 다르면 1입니다. */
   compareHobby(other) {
