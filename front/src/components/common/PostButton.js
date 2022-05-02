@@ -21,7 +21,7 @@ const HomeButton = ({ Icon, className, ...other }) => {
   return (
     <Fab
       sx={styles}
-      aria-label="home"
+      aria-label="post"
       className={className}
       onClick={handleOnclick === undefined ? goPost : handleOnclick}
     >
