@@ -78,17 +78,36 @@ const DetailWrapper = styled.div`
 
 const VillagerDetail = () => {
   const [villager, setVillager] = useState({});
+  const [keys, setKeys] = useState([]);
   const { id } = useParams();
   const getVillager = async () => {
     const { data } = await Api.get(`characters/${id}`);
     setVillager(data.payload);
   };
   useEffect(() => {
-    getVillager();
+    getVillager().then(() => {
+      console.log(keys);
+    });
+    if (villager.special) {
+      setKeys(["gender", "birthday"]);
+    } else {
+      setKeys(["gender", "birthday", "species", "hobby", "personality", "colors", "styles", "tier", "rank", "favorite_song"]);
+    }
   }, []);
 
-  if (villager.special) {
-  }
+  const options = {
+    name_ko: "이름",
+    gender: "성별",
+    species: "동물",
+    birthday: "생일",
+    hobby: "취미",
+    personality: "성격",
+    colors: "좋아하는 색",
+    styles: "선호 스타일",
+    tier: "티어",
+    rank: "티어 내 순위",
+    favorite_song: "좋아하는 노래",
+  };
 
   return (
     <Container>
@@ -103,14 +122,16 @@ const VillagerDetail = () => {
           <SpeechBubble payload={villager.name_ko} />
           <img src={villager.image_photo} alt="주민사진" style={{ borderRadius: "50%", boxShadow: "1px 2px 2px 0px rgba(0, 0, 0, 0.2)", marginTop: "20px" }} />
         </div>
-        {/* <DetailWrapper>
-          <Detail color="green" role="label" style={{ position: "relative", left: "30px" }}>
-            속성
-          </Detail>
-          <Detail color="white" role="payload">
-            값
-          </Detail>
-        </DetailWrapper> */}
+        {keys.map((v) => (
+          <DetailWrapper key={v}>
+            <Detail color="green" role="label" style={{ position: "relative", left: "30px" }}>
+              {options[v]}
+            </Detail>
+            <Detail color="white" role="payload">
+              {villager[v] === "Male" ? "남" : villager[v] === "Female" ? "여" : villager[v]}
+            </Detail>
+          </DetailWrapper>
+        ))}
       </Content>
     </Container>
   );
