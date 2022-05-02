@@ -2,8 +2,10 @@ import React from "react";
 import mstyled from "../../css/match.module.css";
 import TeamCard from "../TeamIntroduction/TeamCard";
 import BackButton from "../common/BackButton";
+import { useStyles } from "../../utils/useStyles";
 
 const TeamIntroduction = () => {
+  const classes = useStyles();
   const teamInfo = [
     {
       position: "Back End",
@@ -51,10 +53,7 @@ const TeamIntroduction = () => {
 
   return (
     <div className={mstyled.Wrapper}>
-      <div
-        className="nav-bar"
-        style={{ position: "fixed", top: "0", left: "0", zIndex: "1" }}
-      >
+      <div className={classes.navBar}>
         <BackButton content={"메인으로"} destination="explore" />
       </div>
       <div className="container2">
