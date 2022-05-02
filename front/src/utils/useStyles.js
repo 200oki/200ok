@@ -57,6 +57,7 @@ export const useStyles = makeStyles({
   menuItem: {
     width: "320px",
   },
+  navBar: { position: "fixed", top: "0", left: "0", zIndex: "1" },
   quizRoot: {
     height: "100%",
     justifyContent: "center",
