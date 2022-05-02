@@ -24,6 +24,7 @@ def compare_yday(a: str, b: str):
 
 class CharacterCategoricalComparison {
   refYear = 2020;
+  /* 밀리초 단위 하루입니다. */
   oneDay = 1000 * 60 * 60 * 24;
   dayMod = 183;
 
@@ -49,11 +50,16 @@ class CharacterCategoricalComparison {
    *
    * @arg {string} birthday - `mm-dd` 형식이어야 합니다.
    * @return {number} yday - day of year ex: `"02-29"` -> `60`
+   *
+   * 2020년으로 바꾸는 이유는 윤년이기 때문입니다.
+   * 사용자 중에 생일이 윤년인 사람이 2월 29일을 입력했는데 윤년이 아닌 해를
+   * 기준으로 하다 보면 계산이 꼬입니다.
    */
   toYday(birthday) {
     let [m, d] = birthday.split("-");
+    m--;
     return (
-      (new Date(refYear, m - 1, d) - new Date(refYear - 1, 11, 31)) /
+      (Date.UTC(this.refYear, m, d) - Date.UTC(this.refYear, 0, 0)) /
       this.oneDay
     );
   }
