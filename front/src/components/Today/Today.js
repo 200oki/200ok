@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import * as Api from "../../api";
 import "../../css/today.css";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CelebrationBtn from "./CelebrationBtn";
 import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 
 function Today() {
+  const navigate = useNavigate()
+
   const today = new Date();
   const month = today.getMonth() >= 9 ? String(today.getMonth() + 1) : '0' + String(today.getMonth() + 1);
   const day = today.getDate() >= 10 ? String(today.getDate()) : '0' + String(today.getDate());
@@ -30,6 +34,12 @@ function Today() {
   useEffect(() => {
     getTodayCharacter();
   }, []);
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    navigate("/calendar")
+  }
+
   const villagers = todayCharacter.map((villager) => (villager ? villager.name_ko : null));
 
   const villagerPhrase = `오늘은 생일인 주민이 없어요 :(`;
@@ -39,9 +49,9 @@ function Today() {
   }
   return (
     <div className="today">
-      <div className="nav-bar" style={{ position: "fixed", top: "0", zIndex: "1" }}>
-        <BackButton />
-        <HomeButton />
+      <div className="nav-bar" style={{ position: "fixed", top: "0", zIndex: "1", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100vw" }}>
+        <BackButton content={"메인메뉴"} />
+        <HomeButton Icon={CalendarMonthIcon} className="today-calendar" onClick={handleClick} />
       </div>
       <div className="today-content">
         {villagers.length > 0

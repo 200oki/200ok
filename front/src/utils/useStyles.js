@@ -225,6 +225,14 @@ export const useStyles = makeStyles({
     left: "46%",
     right: "50%",
   },
+  introBottomArrow2: {
+    width: "80px",
+    height: "80px",
+    position: "absolute",
+    top: "60%",
+    left: "44%",
+    right: "50%",
+  },
   gameResultComment: {
     position: "absolute",
     left: "50%",

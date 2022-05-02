@@ -39,7 +39,6 @@
 
 .LoadingTitle {
   font-size: 2rem;
-  font-family: "TmoneyRoundWindExtraBold";
 }
 
 .divider {
@@ -52,7 +51,6 @@
   height: fit-content;
   text-align: center;
   font-size: 30px;
-  font-family: "TmoneyRoundWindExtraBold";
 }
 
 .inputForm {
@@ -116,7 +114,6 @@
   border-radius: 10px;
   width: 60px;
   height: 50px;
-  font-family: "TmoneyRoundWindExtraBold";
   font-size: 16px;
   transition: all 0.3s ease-in-out;
 }
@@ -136,14 +133,6 @@
   border-radius: 10px;
 }
 
-/* .commentArea:focus {
-  background-color: red;
-} */
-/* 
-.commentArea > div {
-  width: 100% !important;
-} */
-
 .commentArea::-webkit-scrollbar {
   width: 21px;
 }
@@ -162,13 +151,12 @@
 }
 
 .commentWrapper {
-  font-family: "TmoneyRoundWindRegular";
+  font-family: "TmoneyRoundWindRegular" !important;
   height: fit-content;
   padding: 10px;
 }
 
 .writer {
-  font-family: "TmoneyRoundWindExtraBold";
   font-weight: 300;
   font-size: 18px;
   margin-right: 10px;
@@ -193,7 +181,6 @@
   border-radius: 30px;
   background: #a5e4ff;
   transition: all 0.5s;
-  font-family: "TmoneyRoundWindExtraBold";
   font-size: 15px;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 }
@@ -229,7 +216,6 @@
 .textWrapper {
   font-size: 20px;
   text-align: center;
-  font-family: "TmoneyRoundWindExtraBold";
 }
 .textWrapper > div {
   line-height: 1.8rem;
@@ -259,7 +245,6 @@
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.15);
   color: #7e725c;
   transition: transform 250ms;
-  font-family: "TmoneyRoundWindExtraBold";
 }
 
 .btnsWrapper > button:hover,
@@ -285,19 +270,42 @@
 
 .rankCharTitle,
 .rankCharName {
-  font-family: "TmoneyRoundWindExtraBold";
   margin-top: 10px;
   margin-bottom: 20px;
 }
 
-.rankCharTitleBg {
+.rankCharSubTitle {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.charSmallSubTitle {
+  font-size: 15px;
+  font-family: "TmoneyRoundWindRegular" !important;
+}
+
+.percentTitle {
+  color: #f27788;
+}
+
+.rankCharTitleBg,
+.rankCharTitleBg2 {
   width: 200px;
   text-align: center;
   padding: 10px;
   border-radius: 80px;
   color: #fff;
+}
+
+.rankCharTitleBg {
   background-color: rgba(21, 203, 188, 0.7);
   box-shadow: 0 3px rgba(21, 158, 147, 0.8);
+}
+
+.rankCharTitleBg2 {
+  background-color: rgba(252, 192, 199, 0.9);
+  box-shadow: 0 3px rgba(242, 120, 136, 0.8);
 }
 
 .rankCharTitle {
@@ -311,6 +319,7 @@
 
 .rankCharImage > img {
   border-radius: 50%;
+  box-shadow: 4px 3px 4px 0px rgba(0, 0, 0, 0.3);
 }
 
 .slider {
@@ -397,7 +406,6 @@
 }
 
 .testTitle {
-  font-family: "TmoneyRoundWindExtraBold";
   font-size: 2rem;
   margin-bottom: 30px;
 }
@@ -414,7 +422,7 @@
 .personRadioBtn label,
 .hobbyStyleRadioBtn label,
 .colorRadioBtn label {
-  font-family: "TmoneyRoundWindRegular";
+  font-family: "TmoneyRoundWindRegular" !important;
   font-size: 18px;
   display: block;
   border-radius: 50px;
@@ -462,4 +470,17 @@
   background: #66d267;
   /* background: #a9fbca; */
   color: white;
+}
+
+.fadeInImg {
+  animation: fadein 3s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

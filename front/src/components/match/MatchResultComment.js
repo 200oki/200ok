@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import moment from "moment";
 import "moment/locale/ko";
 import * as Api from "../../api";
@@ -33,8 +33,8 @@ function MatchResultComment({ goToPosition }) {
         nickname: nickname,
         location: "recommendation",
       });
-      setComment((cur) => {
-        const newComment = [...cur];
+      setComment((current) => {
+        const newComment = [...current];
         newComment.unshift(response.data.payload);
         return newComment;
       });
@@ -60,19 +60,31 @@ function MatchResultComment({ goToPosition }) {
           등록
         </button>
       </form>
-      <div className={styled.commentArea}>
-        {comment.map((item) => (
-          <div className={styled.commentWrapper} key={comment.indexOf(item)}>
-            <span className={styled.writer}>{item.nickname}</span>
-            <span className={styled.commentDate}>
-              {moment(moment.utc(item.createdAt).toDate()).format(
-                "YYYY-MM-DD HH:mm:ss"
-              )}
-            </span>
-            <div className={styled.commentContent}>{item.comment}</div>
-          </div>
-        ))}
-      </div>
+      {comment.length > 0 ? (
+        <div className={styled.commentArea}>
+          {comment.map((item) => (
+            <div className={styled.commentWrapper} key={comment.indexOf(item)}>
+              <span className={styled.writer}>{item.nickname}</span>
+              <span className={styled.commentDate}>
+                {moment(moment.utc(item.createdAt).toDate()).format(
+                  "YYYY-MM-DD HH:mm:ss"
+                )}
+              </span>
+              <div
+                className={styled.commentContent}
+                style={{ fontFamily: "TmoneyRoundWindRegular" }}
+              >
+                {item.comment}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className={styled.commentArea} style={{ textAlign: "center" }}>
+          <span className={styled.writer}>아직 남겨진 댓글이 없어요 :(</span>
+        </div>
+      )}
+
       <HomeButton
         Icon={ArrowUpwardIcon}
         className={classes.topBtn}
