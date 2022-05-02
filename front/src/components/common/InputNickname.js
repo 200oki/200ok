@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Typewriter from "typewriter-effect";
 import styled from "../../css/match.module.css";
 import { useNavigate } from "react-router-dom";
+import { useStyles } from "../../utils/useStyles";
 import "../../css/typingFont.css";
 import usePathParams from "../../utils/usePathParams";
 import BackButton from "./BackButton";
@@ -12,6 +13,7 @@ function InputNickname() {
   const { nickname, setNickname } = useContext(NicknameContext);
   const navigator = useNavigate();
   const pathname = usePathParams();
+  const classes = useStyles();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,10 +34,7 @@ function InputNickname() {
 
   return (
     <div className={styled.Wrapper}>
-      <div
-        className="nav-bar"
-        style={{ position: "fixed", top: "0", left: "0", zIndex: "1" }}
-      >
+      <div className={classes.navBar}>
         <BackButton content={"메인으로"} destination="explore" />
       </div>
       <Typewriter
