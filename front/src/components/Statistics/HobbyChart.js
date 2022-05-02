@@ -1,11 +1,6 @@
 // import React from 'react';
 // import { ResponsiveBar } from '@nivo/bar'
 
-// // make sure parent container have a defined height when using
-// // responsive component, otherwise height will be 0 and
-// // no chart will be rendered.
-// // website examples showcase many properties,
-// // you'll often use just a few of them.
 // const HobbyChart = () => {
 //   const data = [
 //     {
@@ -51,6 +46,7 @@
 //       "maleColor": "hsl(154, 70%, 50%)",
 //     },
 //   ];
+  
 //   return (
 //     <div style={{ width: '1200px', height: '500px' }}>
 //     <ResponsiveBar
@@ -139,41 +135,115 @@
 
 // export default HobbyChart;
 
-import React from 'react';
-import ShowcaseButton from '../showcase-components/showcase-button';
-import {
-  XYPlot,
-  XAxis,
-  YAxis,
-  VerticalGridLines,
-  HorizontalGridLines,
-  VerticalBarSeries,
-  VerticalBarSeriesCanvas
-} from 'index';
+import React, { useState, useEffect } from "react";
+import * as Api from "../../api";
+import { Chart, registerables } from "chart.js";
+import { Pie } from 'react-chartjs-2';
+Chart.register(...registerables)
 
-export default class HobbyC extends React.Component {
-  state = {
-    useCanvas: false
-  };
-  render() {
-    const {useCanvas} = this.state;
-    const BarSeries = useCanvas ? VerticalBarSeriesCanvas : VerticalBarSeries;
-    const content = useCanvas ? 'TOGGLE TO SVG' : 'TOGGLE TO CANVAS';
-    return (
-      <div>
-        <ShowcaseButton
-          onClick={() => this.setState({useCanvas: !useCanvas})}
-          buttonContent={content}
-        />
-        <XYPlot width={300} height={300} stackBy="y">
-          <VerticalGridLines />
-          <HorizontalGridLines />
-          <XAxis />
-          <YAxis />
-          <BarSeries data={[{x: 2, y: 10}, {x: 4, y: 5}, {x: 5, y: 15}]} />
-          <BarSeries data={[{x: 2, y: 12}, {x: 4, y: 2}, {x: 5, y: 11}]} />
-        </XYPlot>
-      </div>
-    );
+const HobbyChart = () => {
+  const [dataList, setDataList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  async function getDataList() {
+    try {
+      const { data } = await Api.get('stats', '?groupName=style');
+      setDataList([...Object.values(data.payload)]);
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
   }
+
+  useEffect(() => {
+    getDataList();
+  }, []);
+
+  return (
+    <Pie className="graphBack"
+      data={{
+        labels: dataList[1],
+          datasets: [
+          {
+            data: dataList[2],
+            backgroundColor: [
+              'rgba(242, 34, 110, 0.2)',
+              'rgba(242, 135, 5, 0.3)',
+              'rgba(242, 226, 5, 0.3)',
+              'rgba(3, 166, 60, 0.3)',
+              'rgba(5, 151, 242, 0.3)',
+              'rgba(134, 5, 240, 0.15)',
+            ],
+            borderColor: [
+              'rgba(242, 34, 110, 1)',
+              'rgba(242, 135, 5, 1)',
+              'rgba(242, 226, 5, 1)',
+              'rgba(3, 166, 60, 1)',
+              'rgba(5, 151, 242, 1)',
+              'rgba(134, 5, 240, 1)',
+            ],
+            borderWidth: 1,
+          },
+          {
+            data: dataList[2],
+            backgroundColor: [
+              'rgba(242, 34, 110, 0.2)',
+              'rgba(242, 135, 5, 0.3)',
+              'rgba(242, 226, 5, 0.3)',
+              'rgba(3, 166, 60, 0.3)',
+              'rgba(5, 151, 242, 0.3)',
+              'rgba(134, 5, 240, 0.15)',
+            ],
+            borderColor: [
+              'rgba(242, 34, 110, 1)',
+              'rgba(242, 135, 5, 1)',
+              'rgba(242, 226, 5, 1)',
+              'rgba(3, 166, 60, 1)',
+              'rgba(5, 151, 242, 1)',
+              'rgba(134, 5, 240, 1)',
+            ],
+            borderWidth: 1,
+          }
+          ]
+      }}
+      height={500}
+      width={500}
+      options= {{
+        responsive: false,
+        tooltips: {
+          enabled: true
+        },
+        scales: {
+          xAxes: [{
+            ticks: {
+              beginAtZero:true,
+              fontFamily: "'Open Sans Bold', sans-serif",
+              fontSize:11
+            },
+            scaleLabel:{
+              display:false
+            },
+            gridLines: {
+            }, 
+            stacked: true
+          }],
+          yAxes: [{
+            gridLines: {
+              display:false,
+              color: "#fff",
+              zeroLineColor: "#fff",
+              zeroLineWidth: 0
+            },
+            ticks: {
+              fontFamily: "'Open Sans Bold', sans-serif",
+              fontSize:11
+            },
+            stacked: true
+          }]
+        },
+      }}
+    />
+  );
 }
+
+export default HobbyChart;
