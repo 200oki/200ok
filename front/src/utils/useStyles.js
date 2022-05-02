@@ -108,7 +108,7 @@ export const useStyles = makeStyles({
     textAlign: "center",
     width: "100%",
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "right",
     height: "fit-content",
   },
   view: {
