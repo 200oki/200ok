@@ -176,9 +176,7 @@ class CharacterService {
     count[0]["avg"] = avg;
     const body = {
       success: true,
-      payload: {
-        count: count[0],
-      },
+      payload: count[0],
     };
     return body;
   }
