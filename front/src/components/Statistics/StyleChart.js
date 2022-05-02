@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as Api from "../../api";
 import { Chart, registerables } from "chart.js";
-import { Bar } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 Chart.register(...registerables)
 
 const StyleChart = () => {
@@ -23,7 +23,7 @@ const StyleChart = () => {
   }, []);
 
   return (
-    <Bar className="graphBack"
+    <Pie className="graphBack"
       data={{
         labels: dataList[1],
           datasets: [
