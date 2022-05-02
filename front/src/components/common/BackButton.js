@@ -9,9 +9,13 @@ const BackButton = ({ content, destination }) => {
 
   const backHome = () => {
     console.log(destination);
-    destination.startsWith("/")
-      ? navigator(destination)
-      : navigator(`/${destination}`);
+    if (destination) {
+      destination.startsWith("/")
+        ? navigator(destination)
+        : navigator(`/${destination}`);
+    } else {
+      navigator(-1);
+    }
   };
 
   return (
