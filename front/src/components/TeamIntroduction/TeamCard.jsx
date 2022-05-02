@@ -41,7 +41,7 @@ const TeamList = ({ teamInfo, card, idx }) => {
         {idx < 3 ? (
           <div
             className={styled.teamPositionTitleBg}
-            style={{ backgroundColor: "#91ed92" }}
+            style={{ backgroundColor: "#91ed92", boxShadow: "0 3px #66d267" }}
           >
             <span
               className={styled.teamPositionTitle}
@@ -53,7 +53,7 @@ const TeamList = ({ teamInfo, card, idx }) => {
         ) : (
           <div
             className={styled.teamPositionTitleBg}
-            style={{ backgroundColor: "#ffe269" }}
+            style={{ backgroundColor: "#ffe269", boxShadow: "0 3px #ffce00" }}
           >
             <span className={styled.teamPositionTitle}>{card.position}</span>
           </div>
