@@ -34,26 +34,24 @@ class CharacterCategoricalComparison {
    *    순서는 더 유사한 캐릭터가 항상 앞에 오게 됩니다.
    *    옵션이 전부 거짓 비스무리하면 전체 배열이 반환됩니다.
    * @return {any[]} result - 거리 순으로 오름차순 정렬된 캐릭터들의
-   *    배열을 반환합니다. 배열의 길이는 `option` 값에 따라 달라질 수 있습니다.
+   *    배열을 반환합니다. 배열의 길이는 `options` 값에 따라 달라질 수 있습니다.
    *
    * ## 노트
-   * node 엔진인 V8은 [`timsort`를 사용하며](https://github.com/v8/v8/blob/78f2610345fdd14ca401d920c140f8f461b631d1/third_party/v8/builtins/array-sort.tq#L5)
+   * node 엔진인 V8은 `timsort`를 사용하며,
    * `timsort`의 best case는 배열이 이미 정렬되어 있는 경우(O(n))입니다.
-   *
-   * 따라서 힙으로 적당히 정렬해놓은 결과를 배열로 바꾸는 건 좋은 방법일 것이라고
-   * 생각됩니다.
    */
   automagic(pool, { top = null, bottom = null }) {
-    // top이나 bottom이 있으면 힙으로 n개 배열에서 가장 작은/큰 k개 값을 찾는데,
-    // k가 너무 크면 push 코스트가 올라갑니다.
-    // 그래서 top 또는 bottom이 너무 크면 힙 전략을 포기합니다.
+    // top이나 bottom이 있으면 힙으로 n개 배열에서 가장 작은/큰 k개 값을 찾습니다.
+    // timsort의 최악 성능은 O(nlogn)
+    // 힙에 n번 푸시하면 역시 O(nlogn) 이지만 힙 크기를 k로 유지하면
+    // O(nlogk)로 줄일 수 있습니다.
     top ||= 0;
     bottom ||= 0;
-    const doMinheap = top && top < pool.length / 2;
-    const doMaxheap = bottom && bottom < pool.length / 2;
-    const doArray = (!top && !bottom) || !doMinheap || !doMaxheap;
+    const doArray = !top && !bottom;
+    const doMinHeap = !!top;
+    const doMaxHeap = !!bottom;
 
-    let result = top && bottom ? Array(pool.length) : Array(top + bottom);
+    let result = doArray ? Array(pool.length) : Array(top + bottom);
     let minheap = new Heap((a, b) => a.distance - b.distance);
     let maxheap = new Heap((a, b) => b.distance - a.distance);
 
@@ -69,6 +67,15 @@ class CharacterCategoricalComparison {
         },
         distance: this.oneBatch(char),
       };
+
+      if (doArray) {
+        result[idx] = charinfo;
+      } else {
+        switch (true) {
+          case doMinHeap:
+          case doMaxHeap:
+        }
+      }
     });
   }
 
