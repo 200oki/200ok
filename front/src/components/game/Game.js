@@ -22,7 +22,6 @@ const Game = () => {
     bgcolor: "background.paper",
     border: "2px solid #fff",
     boxShadow: 24,
-    fontFamily: "TmoneyRoundWindExtraBold !important",
     p: 4,
     outline: "none",
   };
