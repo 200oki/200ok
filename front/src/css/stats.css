@@ -15,7 +15,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("../../public/images/leafBgImg.jpg");
+  background: url("../../public/images/leafBgImg.png");
   opacity: 0.4;
   z-index: -1;
 }
@@ -25,7 +25,7 @@
   position: relative;
 }
 .stat::before {
-  background-image: url("/public/images/leafBgImg.jpg");
+  background-image: url("/public/images/leafBgImg.png");
   content: " ";
   display: block;
   position: absolute;

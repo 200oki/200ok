@@ -17,7 +17,7 @@ const Navigator = styled.div`
 const Container = styled.div`
   position: relative;
 &::before {
-  background-image: url("/images/leafBgImg.jpg");
+  background-image: url("/images/leafBgImg.png");
   content: " ";
   display: block;
   position: absolute;
@@ -68,7 +68,7 @@ const Bestiary = () => {
   return (
     <Container>
       <Navigator>
-        <BackButton content={"메인메뉴"} />
+        <BackButton content={"메인메뉴"} destination={"explore"} />
         <Wrapper>
           <HomeButton />
         </Wrapper>

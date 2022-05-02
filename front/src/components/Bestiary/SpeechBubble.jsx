@@ -1,10 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-const Wrapper = styled.div`
-  height: 8rem;
-`;
-
 const Bubble = styled.div`
   height: 8rem;
   width: 100%;
@@ -17,6 +13,7 @@ const Bubble = styled.div`
   font-family: "TmoneyRoundWindExtraBold";
   justify-content: center;
   align-items: center;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 `;
 
 const Pointer = styled.div`
@@ -27,58 +24,19 @@ const Pointer = styled.div`
   transform: rotate(45deg);
   border-radius: 0px 0px 12px;
   position: relative;
-  left: calc(0.5vw - 50px);
+  left: 0.5vw;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 `;
 
-const BubbleShadow = styled.div`
-  height: 8rem;
-  width: 40%;
-  min-width: 200px;
-  background: ivory;
-  display: block;
-  margin: 50px auto 0px;
-  border-radius: 20px;
-  font-size: 200px;
-  text-align: center;
-  background: gray;
-  filter: blur(20px);
-  position: relative;
-  top: -315px;
-  z-index: -1;
-`;
-
-const PointerShadow = styled.div`
-  height: 40px;
-  width: 40px;
-  background: ivory;
-  margin: -22px auto 0px;
-  transform: rotate(45deg);
-  border-radius: 0px 0px 12px;
-  position: relative;
-  left: calc(0.5vw - 50px);
-  background: gray;
-  filter: blur(20px);
-  position: relative;
-  top: -315px;
-  z-index: -1;
-`;
-
-export function SpeechBubble({ payload }) {
+const SpeechBubble = ({ payload }) => {
   return (
-    <Wrapper>
-      <div>
-        <Bubble>
-          <span>안녕! 나는 </span>
-          <span style={{ color: "#3881BC", fontSize: "1.5rem" }}>{payload}</span>
-          <span>야!</span>
-        </Bubble>
-        <Pointer />
-      </div>
-      <div>
-        <BubbleShadow />
-        <PointerShadow />
-      </div>
-    </Wrapper>
+    <>
+      <Bubble>
+        안녕! 나는
+        <span style={{ color: "#3881BC", fontSize: "1.5rem", marginLeft: "0.2em" }}>{payload}</span>!
+      </Bubble>
+      <Pointer />
+    </>
   );
-}
+};
 export default SpeechBubble;

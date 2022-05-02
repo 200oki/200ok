@@ -3,7 +3,7 @@
   position: relative;
 }
 .today::before {
-  background-image: url("/public/images/leafBgImg.jpg");
+  background-image: url("/public/images/leafBgImg.png");
   content: " ";
   display: block;
   position: absolute;
@@ -97,6 +97,7 @@
 .menu {
   margin-top: 5px;
   margin-bottom: -50px;
+  margin-right: -100vw;
   z-index: 100;
 }
 

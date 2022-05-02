@@ -14,7 +14,7 @@ const Stat = () => {
     <DescContext.Provider value={{ isDesc, setIsDesc }}>
       <div className="stat">
         <div className="nav-bar" style={{ position: "fixed", top: "0", zIndex: "1", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100vw" }}>
-          <BackButton content={"메인메뉴"} />
+          <BackButton content={"뒤로가기"} destination={"bestiary"} />
           <HomeButton className="homeBtn" />
         </div>
         <div className="stat-content">
