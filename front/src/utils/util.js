@@ -13,6 +13,13 @@ export const statList = [
   "스타일 분포",
 ];
 
+export const guestbookImgList = [
+  { id: 0, img: "https://acnhcdn.com/latest/FtrIcon/ShellDriftTakara.png"},
+  { id: 1, img: "https://acnhcdn.com/latest/FtrIcon/ShellDriftHora.png"},
+  { id: 2, img: "https://acnhcdn.com/latest/FtrIcon/ShellDriftSango.png"},
+  { id: 3, img: "https://acnhcdn.com/latest/FtrIcon/Coconut.png"},
+];
+
 export const testData = [
   {
     tier: 1,
