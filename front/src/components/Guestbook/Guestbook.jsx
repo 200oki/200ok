@@ -219,7 +219,7 @@ const Guestbook = () => {
       <Navigator>
         <BackButton content={window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기"} />
         <Wrapper>
-          <PostButton onClick={() => setModal(!modal)} />
+          <PostButton onClick={() => { setModal(!modal); navigate('/guestbook/post'); }} />
         </Wrapper>
       </Navigator>
       <Content>
