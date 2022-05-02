@@ -6,6 +6,7 @@
     "@storybook/react": "^6.4.22",
     "chart.js": "^3.7.1",
     "react-chartjs-2": "^4.1.0",
-    "react-minimal-pie-chart": "^8.3.0"
+    "react-minimal-pie-chart": "^8.3.0",
+    "recharts": "^2.1.9"
   }
 }
