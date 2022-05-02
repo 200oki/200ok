@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const FlashCard = ({ flashcard, handleChoice }) => {
+const FlashCard = ({ flashcard, handleChoice, isTwoSelected }) => {
   const [flip, setFlip] = useState(false);
   const [height, setHeight] = useState("initial");
 
@@ -16,6 +16,15 @@ const FlashCard = ({ flashcard, handleChoice }) => {
 
   useEffect(() => {
     window.addEventListener("resize", setMaxHeight);
+    console.log("isTwo", isTwoSelected);
+    if (isTwoSelected) {
+      console.log("two");
+      console.log(
+        document
+          .querySelectorAll(".container > .flip")
+          .forEach((card) => card.classList.remove("flip"))
+      );
+    }
     return () => window.removeEventListener("resize", setMaxHeight);
   }, []);
 
