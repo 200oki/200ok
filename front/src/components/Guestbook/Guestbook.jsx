@@ -16,9 +16,9 @@ const Navigator = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100vw;
-  `;
+`;
   
-  const Container = styled.div`
+const Container = styled.div`
   position: relative;
 &::before {
   background-image: url("/images/guestbookBg.jpg");
@@ -33,7 +33,7 @@ const Navigator = styled.div`
   width: 100vw;
   height: 100vh;
   opacity: 0.8;
-  z-index: -;
+  z-index: -1;
 `;
 
 const pop = keyframes`
