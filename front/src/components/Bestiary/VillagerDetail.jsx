@@ -56,16 +56,16 @@ const Content = styled.div`
 
 const Detail = styled.div`
   background-color: ${(props) => props.color};
-  width: ${(props) => (props.role === "label" ? "5rem" : "10rem")};
+  width: ${(props) => (props.role === "label" ? "10rem" : "20rem")};
   height: 40px;
   border-radius: 20px;
-  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "TmoneyRoundWindExtraBold";
   font-size: 1.24rem;
   margin: 0;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 `;
 
 const DetailWrapper = styled.div`
@@ -76,23 +76,34 @@ const DetailWrapper = styled.div`
   align-items: center;
 `;
 
+const Column = styled.div`
+  height: 30vh;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`;
+
 const VillagerDetail = () => {
-  const [villager, setVillager] = useState({});
+  const [villager, setVillager] = useState(undefined);
   const [keys, setKeys] = useState([]);
   const { id } = useParams();
   const getVillager = async () => {
-    const { data } = await Api.get(`characters/${id}`);
-    setVillager(data.payload);
+    try {
+      const { data } = await Api.get(`characters/${id}`);
+      setVillager(data.payload);
+      if (villager?.special) {
+        setKeys(["gender", "birthday"]);
+      } else {
+        setKeys(["gender", "species", "hobby", "personality", "colors", "birthday", "styles", "tier", "rank", "favorite_song"]);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
   useEffect(() => {
-    getVillager().then(() => {
-      console.log(keys);
-    });
-    if (villager.special) {
-      setKeys(["gender", "birthday"]);
-    } else {
-      setKeys(["gender", "birthday", "species", "hobby", "personality", "colors", "styles", "tier", "rank", "favorite_song"]);
-    }
+    getVillager();
   }, []);
 
   const options = {
@@ -119,19 +130,51 @@ const VillagerDetail = () => {
       </Navigator>
       <Content>
         <div style={{ height: "auto" }}>
-          <SpeechBubble payload={villager.name_ko} />
-          <img src={villager.image_photo} alt="주민사진" style={{ borderRadius: "50%", boxShadow: "1px 2px 2px 0px rgba(0, 0, 0, 0.2)", marginTop: "20px" }} />
+          <SpeechBubble payload={villager?.name_ko} />
+          <img src={villager?.image_photo} alt="주민사진" style={{ borderRadius: "50%", boxShadow: "1px 2px 2px 0px rgba(0, 0, 0, 0.2)", marginTop: "20px" }} />
         </div>
-        {keys.map((v) => (
-          <DetailWrapper key={v}>
-            <Detail color="green" role="label" style={{ position: "relative", left: "30px" }}>
-              {options[v]}
-            </Detail>
-            <Detail color="white" role="payload">
-              {villager[v] === "Male" ? "남" : villager[v] === "Female" ? "여" : villager[v]}
-            </Detail>
-          </DetailWrapper>
-        ))}
+        <div style={{ display: "flex", flexDirection: "row", alignItems: "space-around" }}>
+          <Column>
+            {keys.slice(0, parseInt(keys.length / 2)).map((v) => (
+              <DetailWrapper key={v}>
+                <Detail color="green" role="label">
+                  {options[v]}
+                </Detail>
+                <Detail color="white" role="payload" style={{ zIndex: "-1", position: "relative", left: "-40px" }}>
+                  {villager[v] === undefined
+                    ? null
+                    : villager[v] === "Male"
+                    ? "남"
+                    : villager[v] === "Female"
+                    ? "여"
+                    : villager[v].constructor === Array
+                    ? villager[v].join(" ")
+                    : villager[v]}
+                </Detail>
+              </DetailWrapper>
+            ))}
+          </Column>
+          <Column>
+            {keys.slice(parseInt(keys.length / 2)).map((v) => (
+              <DetailWrapper key={v}>
+                <Detail color="green" role="label" style={{ position: "relative", left: "40px" }}>
+                  {options[v]}
+                </Detail>
+                <Detail color="white" role="payload">
+                  {villager[v] === undefined
+                    ? null
+                    : villager[v] === "Male"
+                    ? "남"
+                    : villager[v] === "Female"
+                    ? "여"
+                    : villager[v].constructor === Array
+                    ? villager[v].join(" ")
+                    : villager[v]}
+                </Detail>
+              </DetailWrapper>
+            ))}
+          </Column>
+        </div>
       </Content>
     </Container>
   );
