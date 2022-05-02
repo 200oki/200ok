@@ -3,11 +3,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   height: 100vh;
   z-index: 1;
 }
 
-.guestbookPostBg::after{
+.guestbookPostBg::before{
   position: absolute;
   content: "";
   height: 100%;
