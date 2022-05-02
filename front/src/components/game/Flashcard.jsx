@@ -14,6 +14,11 @@ const FlashCard = ({ flashcard, handleChoice, isTwoSelected }) => {
 
   useEffect(setMaxHeight, [flashcard]);
 
+  //컨텍스트에서 isTwo 만들고 참조해보기
+  // useEffect(()=>{
+  //   setFlip(v=>!v)
+  // },[isTwo])
+
   useEffect(() => {
     window.addEventListener("resize", setMaxHeight);
     console.log("isTwo", isTwoSelected);
