@@ -231,10 +231,40 @@ class Character {
     }
   }
 
-  static getCount({ villager }) {
-    const count = CharacterModel.find({ villager }).lean();
-    console.log(count);
+  static async getCount({ villager }) {
+    const count = await CharacterModel.aggregate([
+      {
+        $match: {
+          name_ko: villager,
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+        },
+      },
+    ]);
     return count;
+  }
+
+  static async upCount({ villager }) {
+    const up = await CharacterModel.findOneAndUpdate(
+      { name_ko: villager },
+      { $inc: { count: 1 } }
+    );
+    return up;
+  }
+
+  static async totalCount() {
+    const total = await CharacterModel.aggregate([
+      {
+        $group: {
+          _id: null,
+          total: { $sum: "$count" },
+        },
+      },
+    ]);
+    return total;
   }
 }
 

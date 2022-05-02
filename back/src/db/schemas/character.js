@@ -259,20 +259,20 @@ const characterNames = Object.fromEntries(
 //   cyrus: "리포",
 // };
 
-if (process.env.NODE_ENV === "dev") {
-  console.log(
-    _(characters).mapObject((v, k) => {
-      if (k === "ALL") {
-        return v.length;
-      } else if (["id", "name_ko", "birthday"].includes(k)) {
-        return _(v).keys().length;
-      }
-      return _(v).mapObject((v, k) => {
-        return v.length;
-      });
-    })
-  );
-}
+// if (process.env.NODE_ENV === "dev") {
+//   console.log(
+//     _(characters).mapObject((v, k) => {
+//       if (k === "ALL") {
+//         return v.length;
+//       } else if (["id", "name_ko", "birthday"].includes(k)) {
+//         return _(v).keys().length;
+//       }
+//       return _(v).mapObject((v, k) => {
+//         return v.length;
+//       });
+//     })
+//   );
+// }
 
 export {
   characters,

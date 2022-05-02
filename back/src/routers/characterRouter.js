@@ -6,6 +6,33 @@ import { RequestError } from "../utils/errors.js";
 
 const router = Router();
 
+router.get("/characters/counts", async (req, res, next) => {
+  const { villager } = req.query;
+  const count = await CharacterService.getCount({ villager });
+
+  return res.status(200).json(count);
+});
+
+router.post("/characters/counts", async (req, res, next) => {
+  const { villager } = req.body;
+  const up = await CharacterService.upCount({ villager });
+  const body = {
+    success: true,
+    payload: up,
+  };
+  return res.status(200).json(body);
+});
+
+router.get("/characters/total", async (req, res, next) => {
+  const total = await CharacterService.totalCount();
+  const data = { total };
+  const body = {
+    success: true,
+    payload: data,
+  };
+  return res.status(200).json(body);
+});
+
 /** ","로 구분된 쿼리 스트링을 처리해 배열로 바꿔줍니다.
  *
  * @arg {string?} queryStr - 생 쿼리 문자열입니다.
