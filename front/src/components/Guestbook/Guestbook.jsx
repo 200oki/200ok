@@ -171,7 +171,7 @@ const Guestbook = () => {
     try {
       const { data } = await Api.get('guestbooks', '');
       setGuestbook([...Object.values(data.payload)]);
-      console.log(data.payload);
+      console.log(data.payload); // 백엔드에서 데이터 잘 오는지 확인
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -219,7 +219,7 @@ const Guestbook = () => {
       <Navigator>
         <BackButton content={window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기"} />
         <Wrapper>
-          <PostButton onClick={setModal(!modal)} />
+          <PostButton onClick={() => setModal(!modal)} />
         </Wrapper>
       </Navigator>
       <Content>
