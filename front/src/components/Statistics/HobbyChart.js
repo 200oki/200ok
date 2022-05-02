@@ -54,6 +54,9 @@ const HobbyChart = () => {
       width={1200}
       options={{
         responsive: false,
+        plugins: {
+          legend: false // Hide legend
+        },
       }}
     />
   );
