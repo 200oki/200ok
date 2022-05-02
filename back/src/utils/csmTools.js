@@ -25,7 +25,7 @@ def compare_yday(a: str, b: str):
   return result / DAYMOD
 */
 
-const CharacterCategoricalComparison = class {
+class CharacterCategoricalComparison {
   // compareBirthday;
 
   /**
@@ -50,4 +50,4 @@ const CharacterCategoricalComparison = class {
   comparePersonality(other) {
     return this.personality === other ? 0 : 1;
   }
-};
+}
