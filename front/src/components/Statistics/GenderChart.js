@@ -7,10 +7,10 @@ Chart.register(...registerables)
 const SpeciesChart = () => {
   const [dataList, setDataList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   async function getDataList() {
     try {
-      const { data } = await Api.get('stats', '?groupName=gender');
+      const { data } = await Api.get('stats?groupName=gender');
       setDataList([...Object.values(data.payload)]);
       setIsLoading(false);
     } catch (error) {
@@ -26,7 +26,7 @@ const SpeciesChart = () => {
     <Pie className="graphBack"
       data={{
         labels: dataList[1],
-          datasets: [
+        datasets: [
           {
             label: '# Species',
             data: dataList[2],
@@ -39,13 +39,13 @@ const SpeciesChart = () => {
               'rgba(5, 151, 242, 1)',
             ],
             borderWidth: 1
-            }
-          ]
+          }
+        ]
       }}
       height={500}
       width={500}
-      options= {{
-          responsive: false,
+      options={{
+        responsive: false,
       }}
     />
   );

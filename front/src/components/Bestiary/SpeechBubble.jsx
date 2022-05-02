@@ -24,7 +24,7 @@ const Pointer = styled.div`
   transform: rotate(45deg);
   border-radius: 0px 0px 12px;
   position: relative;
-  left: calc(0.5vw - 50px);
+  left: 0.5vw;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 `;
 

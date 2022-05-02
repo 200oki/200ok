@@ -16,7 +16,7 @@ const Navigator = styled.div`
 const Container = styled.div`
   position: relative;
 &::before {
-  background-image: url("/images/leafBgImg.jpg");
+  background-image: url("/images/leafBgImg.png");
   content: " ";
   display: block;
   position: absolute;

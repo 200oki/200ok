@@ -5,7 +5,8 @@ function TodayCharacterImg({ todayCharacter }) {
                 todayCharacter.map((villager, index) => (
                     <img src={villager.image_photo} key={index} style={{
                         borderRadius: "50%",
-                        display: "block"
+                        display: "block",
+                        boxShadow: "1px 2px 2px 0px rgba(0, 0, 0, 0.2)"
                     }} />
                 ))
             }

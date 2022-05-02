@@ -24,7 +24,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   position: relative;
 &::before {
-  background-image: url("/images/leafBgImg.jpg");
+  background-image: url("/images/leafBgImg.png");
   content: " ";
   display: block;
   position: absolute;
@@ -65,13 +65,15 @@ const Detail = styled.div`
   align-items: center;
   font-family: "TmoneyRoundWindExtraBold";
   font-size: 1.24rem;
+  margin: 0;
 `;
 
 const DetailWrapper = styled.div`
-  width: 70vw;
+  width: auto;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
 `;
 
 const VillagerDetail = () => {
@@ -84,6 +86,10 @@ const VillagerDetail = () => {
   useEffect(() => {
     getVillager();
   }, []);
+
+  if (villager.special) {
+  }
+
   return (
     <Container>
       <Navigator>
@@ -93,28 +99,18 @@ const VillagerDetail = () => {
         </Wrapper>
       </Navigator>
       <Content>
-        <SpeechBubble payload={villager.name_ko} />
-        <img src={villager.image_photo} alt="주민사진" style={{ borderRadius: "50%" }} />
-        <DetailWrapper>
-          <Detail color="white" role="payload">
-            <Detail color="green" role="label" style={{ position: "relative", left: "-50%" }}></Detail>
+        <div style={{ height: "auto" }}>
+          <SpeechBubble payload={villager.name_ko} />
+          <img src={villager.image_photo} alt="주민사진" style={{ borderRadius: "50%", boxShadow: "1px 2px 2px 0px rgba(0, 0, 0, 0.2)", marginTop: "20px" }} />
+        </div>
+        {/* <DetailWrapper>
+          <Detail color="green" role="label" style={{ position: "relative", left: "30px" }}>
+            속성
           </Detail>
           <Detail color="white" role="payload">
-            <Detail color="green" role="label" style={{ position: "relative", left: "-50%" }}></Detail>
+            값
           </Detail>
-          <Detail color="white" role="payload">
-            <Detail color="green" role="label" style={{ position: "relative", left: "-50%" }}></Detail>
-          </Detail>
-          <Detail color="white" role="payload">
-            <Detail color="green" role="label" style={{ position: "relative", left: "-50%" }}></Detail>
-          </Detail>
-          <Detail color="white" role="payload">
-            <Detail color="green" role="label" style={{ position: "relative", left: "-50%" }}></Detail>
-          </Detail>
-          <Detail color="white" role="payload">
-            <Detail color="green" role="label" style={{ position: "relative", left: "-50%" }}></Detail>
-          </Detail>
-        </DetailWrapper>
+        </DetailWrapper> */}
       </Content>
     </Container>
   );
