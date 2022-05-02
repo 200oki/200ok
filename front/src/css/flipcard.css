@@ -8,8 +8,8 @@
 .container{
     max-width: 900px;
     margin: 70px auto 0;
-    /*margin: 1rem 2rem;*/
 }
+
 .correct{
     pointer-events: none;
 }
@@ -29,10 +29,12 @@
     transform-style: preserve-3d;
     transform: perspective(1000px) rotateY(var(--rotate-y,0)) translateY(var(--translate-y, 0));
 }
+
 .card:hover{
     --translate-y:-2px;
     box-shadow: 0 0 5px 2px rgba(0,0,0,.5);
 }
+
 .card.flip{
     --rotate-y:180deg;
 }
@@ -40,6 +42,7 @@
 .card .front{
     left:0;
 }
+
 .card img{
     width: 100%;
     height: 100%;
@@ -51,6 +54,7 @@
     padding: 1rem;
     backface-visibility: hidden;
 }
+
 .card .back {
     transform: rotateY(180deg);
     font-family: TmoneyRoundWindExtraBold;
