@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const FlashCard = ({ flashcard }) => {
+const FlashCard = ({ flashcard, handleChoice }) => {
   const [flip, setFlip] = useState(false);
   const [height, setHeight] = useState("initial");
 
@@ -22,21 +22,20 @@ const FlashCard = ({ flashcard }) => {
     if (e.target.nextSibling && e.target.className !== "card flip") {
       if (e.target.nextSibling.querySelector(".characterImg")) {
         // front card div선택 시 back img src 가져오기
-        console.log(
-          "img sibling",
-          e.target.nextSibling.querySelector(".characterImg").src
-        );
+        handleChoice(e.target.nextSibling.querySelector(".characterImg").src);
       } else {
         //front card div선택 시 back 텍스트 선택
-        console.log("sibling", e.target.nextSibling.innerText);
+        handleChoice(e.target.nextSibling.innerText);
+      }
+    } else if (e.target.className === "frontLeaf") {
+      if (e.target.parentElement.nextSibling.innerText) {
+        handleChoice(e.target.parentElement.nextSibling.innerText);
+      } else {
+        handleChoice(
+          e.target.parentElement.nextSibling.querySelector(".characterImg").src
+        );
       }
     }
-
-    console.log();
-  };
-
-  const onClickHandler = (e) => {
-    // handleChoice(e.target);
   };
 
   return (
