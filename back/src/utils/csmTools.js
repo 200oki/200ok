@@ -1,27 +1,3 @@
-/*
-# TODAY_YEAR = datetime.date.today().year
-TODAY_YEAR = 2020   # 윤년
-TODAY_LEAP = calendar.isleap(TODAY_YEAR)
-DAYMOD = 183.0 if TODAY_LEAP else 182.5
-
-def compare_set(a: set, b: set):
-  return 1.0 - len(a & b)/max(len(a), len(b))
-
-def to_yday(bdstr: str) -> int:
-  m, d = map(int, bdstr.split('-'))
-  return datetime.date(TODAY_YEAR, m, d).timetuple().tm_yday
-
-def compare_yday(a: str, b: str):
-  a = to_yday(a)
-  b = to_yday(b)
-  delta = abs(a - b)
-  if delta < DAYMOD:
-    result = abs(delta)
-  else:
-    result = DAYMOD*2 - delta
-  return result / DAYMOD
-*/
-
 class CharacterCategoricalComparison {
   refYear = 2020;
   /* 밀리초 단위 하루입니다. */
@@ -62,6 +38,21 @@ class CharacterCategoricalComparison {
       (Date.UTC(this.refYear, m, d) - Date.UTC(this.refYear, 0, 0)) /
       this.oneDay
     );
+  }
+
+  /** 생일 차이는 (차이 일 수 / 183) 입니다. (최소 0, 최대 1)
+   * @arg {number} other - `yday` 포맷으로서 1월 1일 0시부터 지난 날 수입니다.
+   * @return {number} distanceOnDimension
+   */
+  compareBirthday(other) {
+    const delta = Math.abs(this.birthday - other);
+    let result;
+    if (delta < this.dayMod) {
+      result = delta;
+    } else {
+      result = this.dayMod * 2 - delta;
+    }
+    return result / this.dayMod;
   }
 
   /** 단순 비교로 같으면 0, 다르면 1입니다. */
