@@ -109,3 +109,21 @@
   transform: rotateY(180deg);
   font-family: TmoneyRoundWindExtraBold;
 }
+
+.backImg {
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 0.5rem;
+}
+
+.backImg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("/public/images/card_bg.jpg");
+  opacity: 0.4;
+  z-index: -1;
+}
