@@ -4,7 +4,7 @@ import * as Api from "../../api";
 import { Slider } from "@mui/material";
 import { styled as Styled } from "@mui/material/styles";
 import BackButton from "../common/BackButton";
-import HomeButton from "../common/HomeButton";
+import GuestbookAddForm from "./GuestbookAddForm";
 import { useNavigate } from "react-router-dom";
 
 const Navigator = styled.div`
@@ -216,7 +216,7 @@ const Guestbook = () => {
       <Navigator>
         <BackButton content={window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기"} />
         <Wrapper>
-          <HomeButton />
+          <GuestbookAddForm />
         </Wrapper>
       </Navigator>
       <Content>
