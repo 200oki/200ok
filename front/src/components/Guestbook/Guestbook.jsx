@@ -4,8 +4,9 @@ import * as Api from "../../api";
 import { Slider } from "@mui/material";
 import { styled as Styled } from "@mui/material/styles";
 import BackButton from "../common/BackButton";
-import GuestbookAddForm from "./GuestbookAddForm";
+import HomeButton from "../common/HomeButton";
 import { useNavigate } from "react-router-dom";
+import AddGuestbookModal from "./AddGuestbookModal"
 
 const Navigator = styled.div`
   position: fixed;
@@ -30,7 +31,7 @@ const Container = styled.div`
   height: 100vh;
   opacity: 0.5;
   background-position: 50% 0;
-  z-index: -100;
+  z-index: -;
 `;
 
 const pop = keyframes`
@@ -216,7 +217,7 @@ const Guestbook = () => {
       <Navigator>
         <BackButton content={window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기"} />
         <Wrapper>
-          <GuestbookAddForm />
+          <HomeButton />
         </Wrapper>
       </Navigator>
       <Content>
