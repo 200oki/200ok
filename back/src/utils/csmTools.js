@@ -26,19 +26,23 @@ def compare_yday(a: str, b: str):
 */
 
 class CharacterCategoricalComparison {
+  // compareBirthday;
+
+  /**
+   * @arg {{
+   *  birthday: string,
+   *  hobby: string,
+   *  personality: string,
+   *  colors: string[],
+   *  styles: string[],
+   * }} - 사용자 정보 5가지를 입력받습니다.
+   */
   constructor({ birthday, hobby, personality, colors, styles }) {
     Object.assign(this, arguments[0]);
   }
 
-  templateSimple(a, b) {
-    return (b) => {
-      return a === b ? 0 : 1;
-    };
+  /** 단순 비교로 같으면 0, 다르면 1입니다. */
+  compareBirthday(other) {
+    return this.birthday === other ? 0 : 1;
   }
-
-  templateIntersection(a, b) {}
-
-  templateYday() {}
-
-  compareBirthday = compareSimple(birthday);
 }
