@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { NicknameContext } from "../../context/NicknameContext";
 
 const BackButton = ({ content, destination }) => {
-  const { setNickname } = useContext(NicknameContext);
+  const { nickname, setNickname } = useContext(NicknameContext);
   const navigator = useNavigate();
 
   const backHome = () => {
-    console.log(destination);
+    if (nickname) setNickname("");
     if (destination) {
       destination.startsWith("/")
         ? navigator(destination)
