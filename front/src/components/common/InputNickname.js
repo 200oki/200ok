@@ -15,11 +15,7 @@ function InputNickname() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      setNickname(nickname);
-    } catch (err) {
-      console.error(err);
-    }
+    setNickname(nickname);
   };
 
   const handleCheckUri = () => {
