@@ -6,9 +6,7 @@ import { shuffle } from "../../utils/shuffle";
 import FlashcardList from "./FlashcardList";
 
 const GameItem = ({ tier }) => {
-  const [isTwoFlipped, setIsTwoFlipped] = useState(0);
   const [timer, setTimer] = useState(0);
-  const [cards, setCards] = useState([]);
   const [value, setValue] = useState([]);
   const classes = useStyles();
 
