@@ -48,8 +48,6 @@ class CharacterCategoricalComparison {
     top ||= 0;
     bottom ||= 0;
     const doArray = !top && !bottom;
-    const doMinheap = !!top;
-    const doMaxheap = !!bottom;
 
     let result = doArray ? Array(pool.length) : Array(top + bottom);
     let minheap = new Heap((a, b) => a.distance - b.distance);
@@ -71,9 +69,20 @@ class CharacterCategoricalComparison {
       if (doArray) {
         result[idx] = charinfo;
       } else {
-        switch (true) {
-          case doMinheap:
-          case doMaxheap:
+        // 가장 작은 k개는 maxheap으로 재고 가장 큰 k개는 minheap으로 잽니다.
+        if (top) {
+          if (maxheap.size() < top) {
+            maxheap.push(charinfo);
+          } else if (charinfo.distance < maxheap.peek()) {
+            maxheap.replace(charinfo);
+          }
+        }
+        if (bottom) {
+          if (minheap.size() < bottom) {
+            minheap.push(charinfo);
+          } else if (charinfo.distance > minheap.peek()) {
+            minheap.replace(charinfo);
+          }
         }
       }
     });
