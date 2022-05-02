@@ -29,3 +29,22 @@
     transform: scaleX(1);
   }
 }
+
+.teamPositionTitleBg {
+  padding: 5px;
+  border-radius: 20px;
+  margin-bottom: 5px;
+}
+
+.teamPositionTitle {
+  font-size: 18px;
+  color: #7c6839;
+}
+
+.teamSubTitle {
+  color: #67676b;
+}
+
+.subTitle {
+  font-size: 14px;
+}
