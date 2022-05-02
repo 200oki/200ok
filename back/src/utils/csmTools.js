@@ -4,9 +4,6 @@ TODAY_YEAR = 2020   # 윤년
 TODAY_LEAP = calendar.isleap(TODAY_YEAR)
 DAYMOD = 183.0 if TODAY_LEAP else 182.5
 
-def compare_simple(a, b):
-  return 0.0 if a == b else 1.0
-
 def compare_set(a: set, b: set):
   return 1.0 - len(a & b)/max(len(a), len(b))
 
@@ -38,7 +35,12 @@ class CharacterCategoricalComparison {
    * }} kwargs - 사용자 정보 5가지를 입력받습니다.
    */
   constructor({ birthday, hobby, personality, colors, styles }) {
-    Object.assign(this, arguments[0]);
+    // Object.assign(this, arguments[0]);
+    this.birthday = birthday
+    this.hobby = hobby
+    this.personality = personality
+    this.colors = Set(colors)
+    this.styles = Set(styles)
   }
 
   /** 단순 비교로 같으면 0, 다르면 1입니다. */
@@ -50,4 +52,15 @@ class CharacterCategoricalComparison {
   comparePersonality(other) {
     return this.personality === other ? 0 : 1;
   }
+
+  /** 중복값이 없으면 1, 전부 중복이면 0, 일부 중복이면 0.5입니다. */
+  compareColors(others) {
+    let intersect = 0;
+    for (const item of this.colors) {
+      if ()
+    }
+  }
+
+  /** 중복값이 없으면 1, 전부 중복이면 0, 일부 중복이면 0.5입니다. */
+  compareStyles(others) {}
 }
