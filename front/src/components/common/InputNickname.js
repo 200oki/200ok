@@ -32,7 +32,6 @@ function InputNickname() {
 
   const handleChange = (e) => {
     setNickname(e.target.value);
-    console.log(nickname);
   };
 
   return (
