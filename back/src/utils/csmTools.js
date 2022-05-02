@@ -1,9 +1,9 @@
 /** 대상 캐릭터를 Categorical Similarity Measure로 비교하는 툴킷입니다. */
 class CharacterCategoricalComparison {
-  refYear = 2020;
+  static refYear = 2020;
   /* 밀리초 단위 하루입니다. */
-  oneDay = 1000 * 60 * 60 * 24;
-  dayMod = 183;
+  static oneDay = 1000 * 60 * 60 * 24;
+  static dayMod = 183;
 
   /**
    * @arg {{
@@ -43,24 +43,6 @@ class CharacterCategoricalComparison {
       this.compareColors(colors),
       this.compareStyles(styles),
     ]);
-  }
-
-  /** `mm-dd` 문자열을 2020년(윤년) 기준 `yday` 포맷으로 바꿉니다.
-   *
-   * @arg {string} birthday - `mm-dd` 형식이어야 합니다.
-   * @return {number} yday - day of year ex: `"02-29"` -> `60`
-   *
-   * 2020년으로 바꾸는 이유는 윤년이기 때문입니다.
-   * 사용자 중에 생일이 윤년인 사람이 2월 29일을 입력했는데 윤년이 아닌 해를
-   * 기준으로 하다 보면 계산이 꼬입니다.
-   */
-  toYday(birthday) {
-    let [m, d] = birthday.split("-");
-    m--;
-    return (
-      (Date.UTC(this.refYear, m, d) - Date.UTC(this.refYear, 0, 0)) /
-      this.oneDay
-    );
   }
 
   /** 생일 차이는 (차이 일 수 / 183) 입니다. (최소 0, 최대 1)
@@ -110,6 +92,24 @@ class CharacterCategoricalComparison {
       }
     }
     return 1 - intersect / Math.max(this.styles, others);
+  }
+
+  /** `mm-dd` 문자열을 2020년(윤년) 기준 `yday` 포맷으로 바꿉니다.
+   *
+   * @arg {string} birthday - `mm-dd` 형식이어야 합니다.
+   * @return {number} yday - day of year ex: `"02-29"` -> `60`
+   *
+   * 2020년으로 바꾸는 이유는 윤년이기 때문입니다.
+   * 사용자 중에 생일이 윤년인 사람이 2월 29일을 입력했는데 윤년이 아닌 해를
+   * 기준으로 하다 보면 계산이 꼬입니다.
+   */
+  static toYday(birthday) {
+    let [m, d] = birthday.split("-");
+    m--;
+    return (
+      (Date.UTC(this.refYear, m, d) - Date.UTC(this.refYear, 0, 0)) /
+      this.oneDay
+    );
   }
 
   /** n차원 벡터의 크기를 구합니다.
