@@ -16,7 +16,7 @@ const Explore = () => {
       case "오늘의 주인공":
         return navigator("/today");
         break;
-      case "나와 맞는 주민 찾기":
+      case "주민매칭":
         return navigator("/match");
         break;
       case "주민도감":

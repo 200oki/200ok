@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "../../css/match.module.css";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -18,13 +18,37 @@ function InputBirthday({ nextSlide }) {
     fontSize: "15px",
     backgroundColor: "white",
   };
+  const month31 = [1, 3, 5, 7, 8, 10, 12];
+  const month30 = [4, 6, 9, 11];
+  const [dayArr, setDayArr] = useState([]);
 
   const monthArr = Array(12)
     .fill()
     .map((v, i) => i + 1);
-  const dayArr = Array(31)
-    .fill()
-    .map((v, i) => i + 1);
+
+  useEffect(() => {
+    if (month31.includes(month)) {
+      setDayArr(
+        Array(31)
+          .fill()
+          .map((v, i) => i + 1)
+      );
+    } else if (month30.includes(month)) {
+      setDayArr(
+        Array(30)
+          .fill()
+          .map((v, i) => i + 1)
+      );
+    } else if (month === 2) {
+      setDayArr(
+        Array(28)
+          .fill()
+          .map((v, i) => i + 1)
+      );
+    } else {
+      setDayArr([]);
+    }
+  }, [month]);
 
   const handleChangeM = (event) => {
     setMonth(event.target.value);
