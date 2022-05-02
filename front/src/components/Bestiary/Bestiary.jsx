@@ -68,7 +68,7 @@ const Bestiary = () => {
   return (
     <Container>
       <Navigator>
-        <BackButton content={"메인메뉴"} />
+        <BackButton content={"메인메뉴"} destination={"explore"} />
         <Wrapper>
           <HomeButton />
         </Wrapper>

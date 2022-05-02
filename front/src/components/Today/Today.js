@@ -53,7 +53,7 @@ function Today() {
   return (
     <div className="today">
       <div className="nav-bar" style={{ position: "fixed", top: "0", zIndex: "1", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100vw" }}>
-        <BackButton content={"메인메뉴"} />
+        <BackButton content={"메인메뉴"} destination={"explore"} />
         <HomeButton Icon={CalendarMonthIcon} className="today-calendar" onClick={handleClick} />
       </div>
       <div className="today-content">

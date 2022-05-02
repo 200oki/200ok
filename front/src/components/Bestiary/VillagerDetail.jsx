@@ -112,7 +112,7 @@ const VillagerDetail = () => {
   return (
     <Container>
       <Navigator>
-        <BackButton content={"뒤로가기"} />
+        <BackButton content={"뒤로가기"} destination={"bestiary/list"} />
         <Wrapper>
           <HomeButton />
         </Wrapper>
