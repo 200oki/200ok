@@ -6,6 +6,7 @@ import { GameAnswerContext } from "../../context/GameAnswerContext";
 const FlashcardList = ({ flashcard }) => {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
+  const [isTwoSelected, setIsTwoSelected] = useState(false);
   const [flashCards, setFlashCards] = useState([]);
 
   const { answer, setAnswer } = useContext(GameAnswerContext);
@@ -35,21 +36,23 @@ const FlashcardList = ({ flashcard }) => {
     if (choiceOne && choiceTwo) {
       if (choiceOne.startsWith("http") && choiceTwo.startsWith("http")) {
         return reset();
+      } else if (
+        !choiceOne.startsWith("http") &&
+        !choiceTwo.startsWith("http")
+      ) {
+        return reset();
       }
       const a = choiceOne.startsWith("http")
         ? answer.filter((item) => item.name_ko === choiceTwo)
         : answer.filter((item) => item.name_ko === choiceOne);
-      console.log(a);
       const nameChoice = choiceOne.startsWith("http") ? choiceTwo : choiceOne;
       const imgChoice = choiceOne.startsWith("http") ? choiceOne : choiceTwo;
-      if (a[0].name_ko === nameChoice) {
-        console.log("if문", a);
+      if (a[0].name_ko === nameChoice && a[0].image_photo === imgChoice) {
         //정답 비교 하기
+        console.log("context", a[0].name_ko, "name", nameChoice);
         setFlashCards((cards) => {
           //if(정답 로직)
-          console.log("test", cards);
           return cards.map((card) => {
-            console.log(card);
             if (card.data === nameChoice || card.data === imgChoice) {
               return { ...card, matched: true };
             } else {
@@ -57,8 +60,7 @@ const FlashcardList = ({ flashcard }) => {
             }
           });
         });
-        console.log("if문", flashCards);
-        reset();
+        correctReset();
       } else {
         reset();
       }
@@ -66,6 +68,12 @@ const FlashcardList = ({ flashcard }) => {
   }, [choiceOne, choiceTwo]);
 
   const reset = () => {
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setIsTwoSelected(true);
+  };
+
+  const correctReset = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
   };
@@ -77,6 +85,7 @@ const FlashcardList = ({ flashcard }) => {
           <FlashCard
             handleChoice={handleChoice}
             flashcard={flashCard}
+            isTwoSelected={isTwoSelected}
             key={idx}
           />
         );
