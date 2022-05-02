@@ -37,12 +37,36 @@ const TeamList = ({ tmp, card, idx }) => {
         ref={frontEl}
         style={{ backgroundImage: `url(${card.image_photo})` }}
       ></div>
-      <div className="back" ref={backEl}>
-        <div className="teamPositionTitle">
-          {idx < 3 ? "Back End" : "Front End"}
+      <div className="back backImg" ref={backEl}>
+        {idx < 3 ? (
+          <div
+            className={styled.teamPositionTitleBg}
+            style={{ backgroundColor: "#91ed92" }}
+          >
+            <span
+              className={styled.teamPositionTitle}
+              style={{ color: "#fcf2cc" }}
+            >
+              Back End
+            </span>
+          </div>
+        ) : (
+          <div
+            className={styled.teamPositionTitleBg}
+            style={{ backgroundColor: "#ffe269" }}
+          >
+            <span className={styled.teamPositionTitle}>Front End</span>
+          </div>
+        )}
+        <div className={styled.teamMemberTitle}>
+          <span className={styled.subTitle}>이름: </span>ㅇㅇㅇ
         </div>
-        <div className="teamMemberTitle">ㅇㅇㅇ</div>
-        <div className="teamMemberIntro">한줄소개</div>
+        <div className={styled.teamMemberCharName}>
+          <span className={styled.subTitle}>매칭주민: </span> ㅇㅇㅇ
+        </div>
+        <div className={styled.teamMemberIntro}>
+          <span className={styled.subTitle}>한줄소개: </span> 따봉ㅇㅇ
+        </div>
       </div>
     </div>
   );
