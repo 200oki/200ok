@@ -10,6 +10,7 @@ import Typewriter from "typewriter-effect";
 
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchCommentContext } from "../../context/MatchCommentContext";
+import { MatchElementContext } from "../../context/MatchElementContext";
 
 const DIVIDER_HEIGHT = 5;
 const v = "아그네스";
@@ -23,6 +24,8 @@ function MatchResult() {
 
   const [sample, setSample] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { matchElem } = useContext(MatchElementContext);
 
   const fetchCommentData = async () => {
     try {
@@ -86,7 +89,7 @@ function MatchResult() {
 
   useEffect(() => {
     setTimeout(() => {
-      fetchCommentData();
+      fetchCommentData(); // 매칭된 주민 캐릭터 댓글 요청
       getChar();
       setIsLoading(false);
     }, 5000);

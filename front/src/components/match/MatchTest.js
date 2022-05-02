@@ -1,10 +1,12 @@
-import React, { createRef } from "react";
+import React, { createRef, useContext } from "react";
 import styled from "../../css/match.module.css";
 
 import InputBirthday from "./InputBirthday";
 import SelectColor from "./SelectColor";
 import SelectPersonality from "./SelectPersonality";
 import SelectHobbyStyle from "./SelectHobbyStyle";
+
+import { MatchElementContext } from "../../context/MatchElementContext";
 
 /* 
 ? 테스트 순서
@@ -13,6 +15,7 @@ import SelectHobbyStyle from "./SelectHobbyStyle";
 
 function MatchTest() {
   const slideRef = createRef(null);
+  const { matchElem } = useContext(MatchElementContext);
 
   const nextSlide = () => {
     slideRef.current.style.transform += "translateX(-100vw)";
