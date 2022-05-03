@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useStyles } from "../../utils/useStyles";
-import "../../css/quiz.css";
 import * as Api from "../../api";
 import { shuffle } from "../../utils/shuffle";
 import FlashcardList from "./FlashcardList";
@@ -13,6 +12,7 @@ import { GameContext } from "../../context/GameContext";
 
 const GameItem = () => {
   const [timer, setTimer] = useState(0);
+  const [gameTime, setGameTime] = useState(60);
   const [value, setValue] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isWin, setIsWin] = useState(false);
@@ -80,6 +80,7 @@ const GameItem = () => {
   const time = () => {
     const tick = setTimeout(() => {
       setTimer(timer + 1.67);
+      setGameTime(gameTime - 1);
     }, 1000);
   };
 
@@ -95,42 +96,45 @@ const GameItem = () => {
   };
 
   const notSixTier = () => {
-    setScore((v) => v + tier * 8);
-    setTier((v) => v + 1);
     window.clearTimeout(time);
+    setScore((v) => v + tier * (60 - gameTime));
+    setTier((v) => v + 1);
+    console.log("gameTime===>", gameTime);
     setTimer(0);
     setIsModalOpen(false);
   };
   const sixTier = () => {
-    setScore((v) => v + tier * 8);
+    console.log("gameTime===>", gameTime);
+    window.clearTimeout(time);
+    setScore((v) => v + tier * (60 - gameTime));
   };
 
   const handleNavigate = (e) => {
-    e.preventDefault();
-
     if (e.target.innerText == GameButtonText.NextRound) {
       console.log("win", e.target.innerText);
       if (tier !== 6) {
         notSixTier();
 
         navigator("/game-start");
-      } else if (tier === 6) {
+      } else if (tier == 6) {
+        console.log("same six");
         sixTier();
 
-        navigator("/game-result");
-      } else if (e.target.innerText == GameButtonText.RESULT) {
-        window.clearTimeout(time);
         navigator("/game-result");
       }
       //콘텍스트에서 tier가지고 있으니까
       //티어 1 올리고
       //다시 게임 시작 컴포넌트로 보내기
       //아니면 게임 결과 페이지로 보내기
+    } else if (e.target.innerText == GameButtonText.RESULT) {
+      window.clearTimeout(time);
+      navigator("/game-result");
     }
   };
 
   return (
     <React.Fragment>
+      <div className={classes.gameTime}>{gameTime}</div>
       <div className={classes.progressBar}>
         <div
           style={{ width: `${timer}%` }}
