@@ -22,10 +22,10 @@ const BestFriends = (height, offset, __id) => {
     src: ${(props) => props.src};
   `;
   const [friends, setFriends] = useState([]);
-  // const getFriends = async (__id) => {
-  //   const {data} = await Api.get(`csmdata/${__id}?top=3&bottom=0`)
-  //   const
-  // }
+  const getFriends = async (__id) => {
+    const { data } = await Api.get(`csmdata/${__id}?top=3&bottom=0`);
+    setFriends(data.payload);
+  };
   return (
     <BestFriendWrapper>
       <LabelBf>최고의 궁합</LabelBf>
