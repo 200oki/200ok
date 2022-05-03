@@ -56,4 +56,6 @@
   cursor: pointer;
   background-color: #0bb5a6;
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  transform: translateY(-0.25em);
 }
