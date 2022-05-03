@@ -67,7 +67,7 @@ const TeamList = ({ teamInfo, card, idx }) => {
           {card.character}
         </div>
         <div className={styled.teamSubTitle}>
-          <span className={styled.subTitle}>한줄소개: </span>
+          <span className={styled.subTitle}>한마디: </span>
           {card.introduction}
         </div>
       </div>
