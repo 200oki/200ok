@@ -23,6 +23,8 @@ function MatchResult() {
   const [sample, setSample] = useState([]);
   const [commentList, setCommentList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [count, setCount] = useState(0);
+  const [id, setId] = useState("");
 
   const { matchElem } = useContext(MatchElementContext);
 
@@ -39,17 +41,22 @@ function MatchResult() {
   };
 
   const fetchResultData = async () => {
-    const response = await Api.put("csmdata/counts", {
-      birthday: `${matchElem[0]}-${matchElem[1]}`,
-      colors: matchElem[2],
-      personality: matchElem[3],
-      hobby: matchElem[4],
-      styles: matchElem[5],
-    });
-    console.log("response", response);
+    try {
+      const { data } = await Api.put("csmdata/counts", {
+        birthday: `${matchElem[0]}-${matchElem[1]}`,
+        colors: matchElem[2],
+        personality: matchElem[3],
+        hobby: matchElem[4],
+        styles: matchElem[5],
+      });
+      setCount(data.payload.count);
+      setId(data.payload.id);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  console.log("Result page", matchElem);
+  console.log(id, count);
 
   const getChar = async () => {
     try {
