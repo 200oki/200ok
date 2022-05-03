@@ -45,12 +45,30 @@
   transition: all 0.3s ease-in-out; 
 }
 
-.guestbookForm {
+.guestbookPost {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  margin: 5%;
+  justify-content: center;
+  height: 100vh;
+  z-index: 1;
+}
+
+.guestbookPost::before {
+  background-image: url("/public/images/guestbookBg.jpg");
+  content: " ";
+  display: block;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.8;
+  z-index: -1;
 }
 
 .contentBack {

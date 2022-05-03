@@ -33,9 +33,9 @@ const AddGuestbookModal = () => {
   };
 
   return (
-    <div>
-      <form className={styled.commentForm} onSubmit={handleSubmit}>
-        <div className={styled.commentBack}>
+    <div className="guestbookPost">
+      <form className="guestbookForm" onSubmit={handleSubmit}>
+        <div className="contentBack">
           <input
             type="text"
             placeholder="내용을 입력해주세요"
