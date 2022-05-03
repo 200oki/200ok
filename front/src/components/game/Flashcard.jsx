@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { GameAnswerContext } from "../../context/GameAnswerContext";
 
 const FlashCard = ({
   flashcard,
