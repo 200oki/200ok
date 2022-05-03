@@ -36,7 +36,8 @@ class CharacterCategoricalComparison {
    */
   automagic(pool) {
     // (수정) 가장 가까운 캐릭터 한 명만 찾으면 되므로 정렬이나 힙은 필요 없습니다.
-    let smallestSoFar;
+    // 거리의 최대값은 sqrt(5)입니다.
+    let smallestSoFar = { distance: 5 };
 
     for (const char of pool) {
       if (char.special) {
@@ -44,7 +45,7 @@ class CharacterCategoricalComparison {
       }
       const distance = this.oneBatch(char);
       if (distance < smallestSoFar.distance) {
-        let smallest = {
+        smallestSoFar = {
           character: {
             id: char.id,
             name_ko: char.name_ko,
