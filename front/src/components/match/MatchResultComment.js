@@ -8,18 +8,14 @@ import HomeButton from "../common/HomeButton";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 import { NicknameContext } from "../../context/NicknameContext";
-import { MatchCommentContext } from "../../context/MatchCommentContext";
 
-function MatchResultComment({ goToPosition }) {
+function MatchResultComment({ goToPosition, comment, setComment }) {
   const [commentContent, setCommentContent] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
   const { nickname } = useContext(NicknameContext);
-  const { comment, setComment } = useContext(MatchCommentContext);
 
   const classes = useStyles();
 
   const handleContentChange = (e) => {
-    setIsTyping(true);
     setCommentContent(e.target.value);
   };
 
@@ -38,7 +34,7 @@ function MatchResultComment({ goToPosition }) {
         newComment.unshift(response.data.payload);
         return newComment;
       });
-      setIsTyping(false);
+      setCommentContent("");
     } catch (err) {
       console.error(err);
     }
@@ -51,7 +47,7 @@ function MatchResultComment({ goToPosition }) {
           <input
             type="text"
             placeholder="댓글을 입력해주세요"
-            value={isTyping ? commentContent : ""}
+            value={commentContent}
             onChange={handleContentChange}
             required
           />
