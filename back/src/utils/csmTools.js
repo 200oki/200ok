@@ -170,3 +170,5 @@ class SortingHat {
     return Math.sqrt(vector.reduce((p, c) => p + c ** 2));
   }
 }
+
+export { SortingHat };
