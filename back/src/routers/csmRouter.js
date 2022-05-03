@@ -68,7 +68,7 @@ const csmRouter = Router();
  *                      type: number
  *                      example: 16
  */
-
+/** @todo swaggerdoc 업데이트 */
 csmRouter.put(
   "/csmdata/counts",
   [
