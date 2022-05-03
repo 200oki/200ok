@@ -185,6 +185,7 @@ const Guestbook = () => {
     bgcolor: "background.paper",
     boxShadow: 24,
     outline: "none",
+    borderRadius: "0.3em",
     fontFamily: "TmoneyRoundWindExtraBold !important",
     p: 4,
   };
@@ -264,7 +265,6 @@ const Guestbook = () => {
                 <Typography
                   id="modal-modal-title"
                   variant="h6"
-                  component="h2"
                   className={classes.modalFont}
                 >
                   {content}
@@ -294,8 +294,7 @@ const Guestbook = () => {
                   <Typography
                     id="modal-modal-title"
                     variant="h6"
-                    component="h2"
-                    className={`${classes.modalFont} ${content}`}
+                    className={classes.modalFont}
                   >
                     {content}
                     <p className="sender">
