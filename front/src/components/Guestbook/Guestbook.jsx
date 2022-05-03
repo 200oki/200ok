@@ -205,6 +205,7 @@ const Guestbook = () => {
     
   }
   
+  // 백엔드로 post 해주는 부분
   const postGuestbook = async (e) => {
     e.preventDefault();
 
@@ -225,7 +226,7 @@ const Guestbook = () => {
   const handleClick = (item) => {
     setModal((v) => !v);
     setContent(item.content);
-    setDate(item.createdAt.slice(0, 10)); // 날짜를 연-월-일로 자름 (2022-05-04)
+    setDate(item.createdAt.slice(0, 10)); // 날짜를 연-월-일로 자름 ex) 2022-05-04
   };
 
   const cardPerColumn = 2;
@@ -258,35 +259,7 @@ const Guestbook = () => {
       <Navigator>
         <BackButton content={ window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기" } />
         <Wrapper>
-          <PostButton onClick={writeGuestbook} >
-            <Modal 
-              open={modal}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={modalStyle}>
-                <Typography
-                  id="modal-modal-title"
-                  variant="h6"
-                  className={classes.modalFont}
-                >
-                  {content}
-                  <button>
-                    오케이!
-                  </button>
-                </Typography>
-              </Box>
-            </Modal>
-          </PostButton>
-        </Wrapper>
-      </Navigator>
-      <Content>
-        <ContentWrapper>
-          <PrettoSlider onChange={scrollHandler} />
-          <ContentContainer id="content">
-            {columns.map((column, idx) => {
-              return <Column key={idx}>{column}</Column>;
-            })}
+          <PostButton onClick={() => writeGuestbook} />
             <Modal 
               open={modal}
               onClose={handleClick}
@@ -309,6 +282,37 @@ const Guestbook = () => {
                 </Typography>
               </Box>
             </Modal>
+        </Wrapper>
+      </Navigator>
+      <Content>
+        <ContentWrapper>
+          <PrettoSlider onChange={scrollHandler} />
+          <ContentContainer id="content">
+            {columns.map((column, idx) => {
+              return <Column key={idx}>{column}</Column>;
+            })}
+            {/* <Modal 
+              open={modal}
+              onClose={handleClick}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={modalStyle} className="modalBg">
+                <Typography
+                  id="modal-modal-title"
+                  variant="h6"
+                  className={classes.modalFont}
+                >
+                  {content}
+                  <p className="date">
+                    {date}
+                  </p>
+                  <p className="sender">
+                    익명의 누군가로부터
+                  </p>
+                </Typography>
+              </Box>
+            </Modal> */}
           </ContentContainer>
         </ContentWrapper>
       </Content>
