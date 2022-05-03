@@ -52,6 +52,7 @@ class SortingHat {
         return;
       }
       const distance = this.oneBatch(char);
+      console.log(`${char.id}: ${distance}`);
       if (distance < smallestSoFar.distance) {
         smallestSoFar = {
           character: {
@@ -128,7 +129,7 @@ class SortingHat {
         intersect++;
       }
     }
-    return 1 - intersect / Math.max(this.colors, others);
+    return 1 - intersect / Math.max(this.colors.size, others.size);
   }
 
   /** 중복값이 없으면 1, 전부 중복이면 0, 일부 중복이면 0.5입니다. */
@@ -140,7 +141,7 @@ class SortingHat {
         intersect++;
       }
     }
-    return 1 - intersect / Math.max(this.styles, others);
+    return 1 - intersect / Math.max(this.styles.size, others.size);
   }
 
   /** `mm-dd` 문자열을 2020년(윤년) 기준 `yday` 포맷으로 바꿉니다.
@@ -167,6 +168,8 @@ class SortingHat {
    * @return {number}
    */
   static vecMag(vector) {
+    console.log(vector);
+    console.log(Math.sqrt(vector.reduce((p, c) => p + c ** 2)));
     return Math.sqrt(vector.reduce((p, c) => p + c ** 2));
   }
 }
