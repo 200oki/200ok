@@ -52,7 +52,6 @@ class SortingHat {
         return;
       }
       const distance = this.oneBatch(char);
-      console.log(`${char.id}: ${distance}`);
       if (distance < smallestSoFar.distance) {
         smallestSoFar = {
           character: {
@@ -104,11 +103,9 @@ class SortingHat {
     let result;
     if (delta < SortingHat.dayMod) {
       result = delta;
-      console.log(result);
     } else {
       result = SortingHat.dayMod * 2 - delta;
     }
-    console.log(other, delta, result);
     return result / SortingHat.dayMod;
   }
 
@@ -171,8 +168,6 @@ class SortingHat {
    * @return {number}
    */
   static vecMag(vector) {
-    console.log(vector);
-    console.log(Math.sqrt(vector.reduce((p, c) => p + c ** 2)));
     return Math.sqrt(vector.reduce((p, c) => p + c ** 2));
   }
 }
