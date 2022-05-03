@@ -248,7 +248,7 @@ const Guestbook = () => {
       })
     );
   }
-  const check = "모달 체크체크";
+
   return (
     <Container>
       <Navigator>
@@ -256,7 +256,7 @@ const Guestbook = () => {
         <Wrapper>
           <PostButton onClick={writeGuestbook} >
             <Modal 
-              open={postModal}
+              open={modal}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
