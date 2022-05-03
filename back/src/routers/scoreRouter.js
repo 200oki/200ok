@@ -70,7 +70,7 @@ scoreRouter.get(
 );
     
 scoreRouter.get(
-  "/scorelist",
+  "/scores",
   async (req, res, next) => {
     const rankList = await ScoreService.getRankList();
 
