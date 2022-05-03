@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
-import { Box, Modal, Typography } from "@mui/material";
-import { useStyles } from "../../utils/useStyles";
-
+import * as Api from "../../api";
 import "../../css/GuestPost.css";
 
 const AddGuestbookModal = () => {
-  const classes = useStyles();
+  const [content, setContent] = useState([]);
+
+  // 백엔드로 post 해주는 부분
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await Api.post("guestbooks", {
+        content,
+      });
+      setContent((current) => {
+        const newGuestBook = [...current];
+        newGuestBook.push(response.payload);
+        return newGuestBook;
+      });
+    } catch (err) {
+      alert("내용을 입력해주세요!")
+    }
+  }
 
   return (
-    <div className="guestbookPostBg">
-      <Box className="modalBg">
-        <Typography
-          id="modal-modal-title"
-          variant="h6"
-          className={classes.modalFont}
-        >
-          <textarea>
-            내용을 입력해주세요.
-          </textarea>
-          <button>
-            오케이!
-          </button>
-        </Typography>
-      </Box>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <textarea placeholder="내용을 입력해주세요" />
+        <button>오케이!</button>
+      </form>
     </div>
   );
 }
