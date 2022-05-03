@@ -26,6 +26,7 @@ function MatchResult() {
 
   const { matchElem } = useContext(MatchElementContext);
 
+  // 댓글 데이터 요청
   const fetchCommentData = async () => {
     try {
       const { data } = await Api.get(`comments?villager=${v}&location=${l}`);
@@ -36,6 +37,19 @@ function MatchResult() {
     }
     return () => {};
   };
+
+  const fetchResultData = async () => {
+    const response = await Api.put("csmdata/counts", {
+      birthday: `${matchElem[0]}-${matchElem[1]}`,
+      colors: matchElem[2],
+      personality: matchElem[3],
+      hobby: matchElem[4],
+      styles: matchElem[5],
+    });
+    console.log("response", response);
+  };
+
+  console.log("Result page", matchElem);
 
   const getChar = async () => {
     try {
@@ -87,11 +101,10 @@ function MatchResult() {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      fetchCommentData(); // 매칭된 주민 캐릭터 댓글 요청
-      getChar();
-      setIsLoading(false);
-    }, 5000);
+    fetchCommentData(); // 매칭된 주민 캐릭터 댓글 요청
+    fetchResultData();
+    // getChar();
+    setIsLoading(false);
   }, []);
 
   if (isLoading) {
