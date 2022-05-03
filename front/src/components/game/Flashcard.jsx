@@ -18,12 +18,20 @@ const FlashCard = ({
   };
 
   useEffect(setMaxHeight, [flashcard]);
-
+  const flipTimer = () => {
+    const timer = setTimeout(() => {
+      setFlip(false);
+      setIsTwoSelected(false);
+    }, 500);
+  };
   //컨텍스트에서 isTwo 만들고 참조해보기
   useEffect(() => {
     console.log("isTwoSelected", isTwoSelected);
-    setFlip(false);
-    setIsTwoSelected(false);
+
+    if (isTwoSelected) {
+      flipTimer();
+    }
+    return () => clearTimeout(flipTimer);
   }, [isTwoSelected]);
 
   useEffect(() => {
