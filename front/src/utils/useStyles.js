@@ -109,7 +109,7 @@ export const useStyles = makeStyles({
     width: "100%",
     display: "flex",
     justifyContent: "right",
-    height: "80px",
+    height: "25px",
   },
   view: {
     borderRadius: "100%",
@@ -221,7 +221,7 @@ export const useStyles = makeStyles({
     width: "80px",
     height: "80px",
     position: "absolute",
-    top: "58%",
+    top: "70%",
     left: "46%",
     right: "50%",
   },
@@ -265,5 +265,10 @@ export const useStyles = makeStyles({
     fontFamily: "TmoneyRoundWindExtraBold !important",
     color: "#80725a",
     fontSize: "2rem",
+  },
+  gameTime: {
+    fontSize: "2.5rem",
+    margin: "0 auto",
+    textAlign: "center",
   },
 });
