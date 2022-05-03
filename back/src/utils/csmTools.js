@@ -54,6 +54,7 @@ class SortingHat {
       const distance = SortingHat.vecMag(this.oneBatch(char));
       if (distance < smallestSoFar.distance) {
         smallestSoFar = {
+          id: char.id,
           character: {
             id: char.id,
             name_ko: char.name_ko,
