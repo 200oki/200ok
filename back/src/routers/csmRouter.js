@@ -76,6 +76,9 @@ csmRouter.put(
       .isDate({ format: "MM-DD", strictMode: true })
       .withMessage(`Invalid "birthday" format`)
       .bail(),
+    body(["hobby", "personality"])
+      .isString()
+      .withMessage(`"Invalid "hobby" or "personality" format`),
     body(["colors", "styles"])
       .isArray({ min: 1, max: 2 })
       .withMessage(`Invalid "colors" or "styles" format`),
