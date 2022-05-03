@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const model = mongoose.model;
 
-import characters from "./character.js";
+import { characters } from "./character.js";
 
 const csmSchema = new Schema({
   id: {
