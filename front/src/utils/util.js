@@ -20,6 +20,11 @@ export const BtnText = {
   SHARE: "공유하기",
 };
 
+export const GameButtonText = {
+  NextRound: "다음 라운드",
+  RESULT: "결과 보기",
+};
+
 export const testData = [
   {
     tier: 1,
