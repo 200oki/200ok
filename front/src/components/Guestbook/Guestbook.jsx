@@ -167,7 +167,6 @@ const Guestbook = () => {
       setGuestbook(data.payload);
       console.log(data.payload); // 백엔드에서 데이터 잘 오는지 확인
       setCount(data.payload.length);
-      console.log("length:", data.payload.length);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
