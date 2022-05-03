@@ -101,7 +101,6 @@ guestbookRouter.post(
 
     const body = {
       success: true,
-      payload: newGuestbook,
     };
 
     return res.status(status.STATUS_201_CREATED).json(body);
