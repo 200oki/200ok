@@ -1,4 +1,6 @@
 import { csmdata, CsmModel } from "../schemas/csm.js";
+import { RequestError } from "../../utils/errors.js";
+import * as status from "../../utils/status.js";
 
 class Csm {
   static async getCount({ id }) {
@@ -43,7 +45,18 @@ class Csm {
    *    [ { id, distance, character: char, }, ]
    *    ```
    */
-  static getSimilarCharsOf({ id }) {}
+  static getSimilarCharsOf({ id }) {
+    if (!(id in csmdata)) {
+      throw new RequestError(
+        {
+          status: status.STATUS_400_BADREQUEST,
+        },
+        `{${id}} is either non-existent or not csm'able`
+      );
+    } else {
+      return csmdata[id];
+    }
+  }
 }
 
 export { Csm };
