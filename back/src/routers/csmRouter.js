@@ -145,7 +145,7 @@ csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
   const { id } = req.params;
   const count = await CsmService.getCount({ id });
 
-  return res.status(200).json(count);
+  return res.status(status.STATUS_200_OK).json(count);
 });
 
 csmRouter.get(
