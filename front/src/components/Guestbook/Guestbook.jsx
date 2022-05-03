@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
+import { useStyles } from "../../utils/useStyles";
 import * as Api from "../../api";
 import { Slider } from "@mui/material";
 import { styled as Styled } from "@mui/material/styles";
+import { Box, Modal, Typography } from "@mui/material";
 import BackButton from "../common/BackButton";
 import PostButton from "../common/PostButton";
 import { useNavigate } from "react-router-dom";
@@ -89,15 +91,14 @@ const ContentContainer = styled.div`
 const Card = styled.div`
   width: 170px;
   height: 170px;
-  border-radius: 25px;
-  background-color: white;
   display: flex;
   justify-content: center;
   cursor: pointer;
   align-items: center;
-  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
-  background-size: cover;
   background-image: url(${(props) => props.src});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 `;
 
 const Column = styled.div`
@@ -146,19 +147,25 @@ const PrettoSlider = Styled(Slider)({
   },
 });
 
+
+
 const Guestbook = () => {
   const navigate = useNavigate();
 
   const [modal, setModal] = useState(false); // 읽기 모달
   const [guestbook, setGuestbook] = useState([]);
+  const [content, setContent] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [count, setCount] = useState(0);
-  
+  const classes = useStyles();
+
   async function getDataList() {
     try {
       const { data } = await Api.get('guestbooks');
-      setGuestbook([...Object.values(data.payload)]);
+      setGuestbook(data.payload);
       console.log(data.payload); // 백엔드에서 데이터 잘 오는지 확인
+      setCount(data.payload.length);
+      console.log("length:", data.payload.length);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -168,6 +175,19 @@ const Guestbook = () => {
   useEffect(() => {
     getDataList();
   }, []);
+
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #fff",
+    boxShadow: 24,
+    fontFamily: "TmoneyRoundWindExtraBold !important",
+    p: 4,
+  };
 
   const scrollHandler = (e, val) => {
     const element = document.getElementById("content");
@@ -179,8 +199,14 @@ const Guestbook = () => {
   // 아직 모달을 만들지 못해 post로 해둠!
   const postGuestbook = () => {
     setModal(!modal); 
-    navigate('/guestbook/post');
+    // navigate('/guestbook/post');
   }
+
+  const handleClick = (item) => {
+    setModal((v) => !v);
+    console.log("아이템!", item)
+    setContent(item.content);
+  };
 
   const cardPerColumn = 2;
   const columns = [];
@@ -188,8 +214,8 @@ const Guestbook = () => {
   for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
     columns.push(
       guestbook.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((guestbook, idx) => {
-        return ( // 의문 맥스... 지운님 살려줘요...
-          <Card key={idx} src={guestbookImgList[i%4].img} onClick={() => navigate(`/guestbook/${guestbook.id}`)} /> // 여기도 navigate가 아니라 modal 뜨도록!
+        return ( 
+          <Card key={idx} src={guestbookImgList[guestbook.id%4].img} onClick={() => handleClick(guestbook)} /> // 여기도 navigate가 아니라 modal 뜨도록!
         );
       })
     );
@@ -201,12 +227,13 @@ const Guestbook = () => {
     columns.push(
       guestbook.slice(-restCards).map((guestbook, idx) => {
         return (
-          <Card key={idx} src={guestbookImgList[1].img} onClick={() => navigate(`/guestbook/${guestbook.id}`)} />
+          <Card key={idx} src={guestbookImgList[guestbook.id%4].img} onClick={() => handleClick(guestbook)} />
         );
       })
     );
   }
-
+  
+  console.log("야야:", guestbook);
   return (
     <Container>
       <Navigator>
@@ -222,6 +249,23 @@ const Guestbook = () => {
             {columns.map((column, idx) => {
               return <Column key={idx}>{column}</Column>;
             })}
+              <Modal
+                open={modal}
+                onClose={handleClick}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={modalStyle}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                    className={classes.modalFont}
+                  >
+                    {content}
+                  </Typography>
+                </Box>
+              </Modal>
           </ContentContainer>
         </ContentWrapper>
       </Content>
