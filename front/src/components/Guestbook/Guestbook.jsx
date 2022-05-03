@@ -156,7 +156,7 @@ const Guestbook = () => {
   
   async function getDataList() {
     try {
-      const { data } = await Api.get('guestbooks', '');
+      const { data } = await Api.get('guestbooks');
       setGuestbook([...Object.values(data.payload)]);
       console.log(data.payload); // 백엔드에서 데이터 잘 오는지 확인
       setIsLoading(false);
@@ -189,7 +189,7 @@ const Guestbook = () => {
     columns.push(
       guestbook.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((guestbook, idx) => {
         return ( // 의문 맥스... 지운님 살려줘요...
-          <Card key={idx} src={guestbookImgList[idx%4].img} onClick={() => navigate(`/guestbook/${guestbook.id}`)} /> // 여기도 navigate가 아니라 modal 뜨도록!
+          <Card key={idx} src={guestbookImgList[i%4].img} onClick={() => navigate(`/guestbook/${guestbook.id}`)} /> // 여기도 navigate가 아니라 modal 뜨도록!
         );
       })
     );
@@ -201,7 +201,7 @@ const Guestbook = () => {
     columns.push(
       guestbook.slice(-restCards).map((guestbook, idx) => {
         return (
-          <Card key={idx} src={guestbookImgList[idx%4].img} onClick={() => navigate(`/guestbook/${guestbook.id}`)} />
+          <Card key={idx} src={guestbookImgList[1].img} onClick={() => navigate(`/guestbook/${guestbook.id}`)} />
         );
       })
     );
