@@ -89,8 +89,6 @@ const Column = styled.div`
 const VillagerDetail = () => {
   const [villager, setVillager] = useState(undefined);
   const [keys, setKeys] = useState([]);
-  const [height, setHeight] = useState(0);
-  const [offset, setOffset] = useState(0);
   const { id } = useParams();
   const getVillager = async () => {
     try {
@@ -107,8 +105,6 @@ const VillagerDetail = () => {
   };
   useEffect(() => {
     getVillager();
-    setHeight(document.getElementById("img-bubble").clientHeight);
-    setOffset(document.getElementById("columnWrapper").clientWidth / 2);
   }, []);
 
   const options = {
@@ -143,7 +139,7 @@ const VillagerDetail = () => {
               style={{ borderRadius: "50%", boxShadow: "1px 2px 2px 0px rgba(0, 0, 0, 0.2)", marginTop: "40px" }}
             />
           </div>
-          <BestFriends height={height} offset={offset} __id={id} />
+          <BestFriends __id={id} />
         </div>
         <div style={{ display: "flex", flexDirection: "row", alignItems: "space-around" }} id="columnWrapper">
           <Column>
