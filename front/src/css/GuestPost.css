@@ -39,9 +39,10 @@
   border: none;
   border-radius: 30px;
   width: 170px;
-  height: 50px;
+  height: 60px;
   font-family: "TmoneyRoundWindExtraBold";
-  font-size: 1.5em;
+  font-size: 1.7em;
+  color: #262626;
   transition: all 0.3s ease-in-out; 
 }
 
@@ -52,7 +53,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  z-index: 1;
+  z-index : 1;
 }
 
 .guestbookPost::before {
@@ -64,27 +65,30 @@
   background-position: center;
   width: 100vw;
   height: 100vh;
-  opacity: 0.8;
-  background-color: grey;
+  opacity: 0.9;
   z-index: -1;
 }
 
 .guestbookForm {
+  width: 40%;
+  height: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 20px 20px 20px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 20px 20px 20px 20px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 }
 
 .contentBack {
+  width: 90%;
+  height: 70%;
   margin: 30px;
 }
 
 .contentBack > input {
   border: none;
-  font-size: 1em;
+  font-size: 5em;
   font-family: "TmoneyRoundWindExtraBold";
 }
 
@@ -93,12 +97,15 @@
 }
 
 .textarea {
-  width: 40em;
-  height: 20em;
+  width: 100%;
+  height: 100%;
   border: none;
   border-radius: 5px;
   resize: none;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  font-family: "TmoneyRoundWindExtraBold";
+  font-size: 1em;
+  color: #262626;
 }
 
 .textarea:focus {

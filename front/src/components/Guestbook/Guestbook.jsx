@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { useStyles } from "../../utils/useStyles";
 import * as Api from "../../api";
@@ -146,7 +146,7 @@ const PrettoSlider = Styled(Slider)({
   },
 });
 
-
+const DIVIDER_HEIGHT = 2;
 
 const Guestbook = () => {
   const navigate = useNavigate();
@@ -233,7 +233,6 @@ const Guestbook = () => {
         <BackButton content={ window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기" } />
         <Wrapper>
           <PostButton onClick={() => navigate('/guestbook/post')} />
-            {/* PostButton을 누르면 모달로 하고 싶음!! */}
         </Wrapper>
       </Navigator>
       <Content>
