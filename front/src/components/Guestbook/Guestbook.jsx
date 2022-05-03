@@ -260,12 +260,12 @@ const Guestbook = () => {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <Box sx={modalStyle} className="modalBg">
+              <Box sx={modalStyle}>
                 <Typography
                   id="modal-modal-title"
                   variant="h6"
                   component="h2"
-                  className={`${classes.modalFont} ${content}`}
+                  className={`${classes.modalFont}`}
                 >
                   {content}
                   <button>
