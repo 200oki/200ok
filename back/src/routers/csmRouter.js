@@ -15,7 +15,10 @@ const csmRouter = Router();
  *    description: Csm MVP.
  */
 
-/**
+/** @todo GET /csmdata/counts 라우팅 */
+
+/** @todo swaggerdoc 업데이트 */
+/** PUT /csmdata/counts swaggerdoc
  * @swagger
  * /csmdata/counts:
  *   put:
@@ -68,14 +71,13 @@ const csmRouter = Router();
  *                      type: number
  *                      example: 16
  */
-/** @todo swaggerdoc 업데이트 */
 csmRouter.put(
   "/csmdata/counts",
   [
-    body("birthday")
-      .isDate({ format: "MM-DD", strictMode: true })
-      .withMessage(`Invalid "birthday" format`)
-      .bail(),
+    // body("birthday")
+    //   .isDate({ format: "MM-DD", strictMode: true })
+    //   .withMessage(`Invalid "birthday" format`)
+    //   .bail(),
     body(["hobby", "personality"])
       .isString()
       .withMessage(`"Invalid "hobby" or "personality" format`),
@@ -86,6 +88,19 @@ csmRouter.put(
   ],
   async (req, res, next) => {
     try {
+      // validator의 작동 방식은 아마도 new Date()로 확인하는 것 같으므로
+      // 지금 연도가 정해지지 않은 상황에선 별로 쓸모가 없을 듯 합니다.
+      // 따라서 수동으로 합니다.
+      if (
+        !/[01][0-9]-[0-3][0-9]/.test(req.body.birthday) ||
+        new Date(req.body.birthday) === "Invalid Date"
+      ) {
+        throw new RequestError(
+          { status: status.STATUS_400_BADREQUEST },
+          `Invalid "birthday" format`
+        );
+      }
+
       const mostSimilar = CsmService.csm({ ...req.body });
       const id = mostSimilar.id;
       const up = await CsmService.upCount({ id });
@@ -96,7 +111,7 @@ csmRouter.put(
           character: mostSimilar.character,
           distance: mostSimilar.distance,
           count: up,
-          // ..todo:: avg, total?
+          /** @todo avg, total? */
         },
       };
       return res.status(status.STATUS_200_OK).json(body);
@@ -106,7 +121,7 @@ csmRouter.put(
   }
 );
 
-/**
+/** GET /csmdata/:id/count swaggerdoc
  * @swagger
  * /csmdata/{id}/count:
  *   get:
@@ -155,7 +170,6 @@ csmRouter.put(
  *                      type: number
  *                      example: 100
  */
-
 csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
   const { id } = req.params;
   const count = await CsmService.getCount({ id });
