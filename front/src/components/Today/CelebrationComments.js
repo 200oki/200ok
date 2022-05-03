@@ -21,6 +21,8 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
 
   const clickMenu = (event) => {
     event.preventDefault();
+    Array.from(document.querySelectorAll("img")).map((item) => item.className -= "refImg")
+    document.getElementById(event.target.title).className = "refImg"
     setShow(false);
     setIsVillager(true);
     setMenu(event.target.value);
@@ -67,7 +69,7 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
             <div className="menu">
               {villagers.map((villager, index) => {
                 return (
-                  <button onClick={clickMenu} key={index} value={villager}>
+                  <button onClick={clickMenu} key={index} value={villager} title={todayCharacter[index].id}>
                     {villager}
                   </button>
                 );
@@ -82,7 +84,7 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
           <div className="comment">
             <input className="comment" placeholder="축하 메시지를 남겨주세요" onChange={inputChangeHandler} value={comment} onKeyUp={handleKeyUp} />
           </div>
-          <button type="submit" className="btn-comment" style={{ backgroundColor: "#A9FCCA", marginLeft: "2.5rem", width: "12rem" }}>
+          <button type="submit" className="btn-comment" style={{ backgroundColor: "#A9FCCA", marginLeft: "2.5rem", width: "12rem", animation: "none" }}>
             축하해주기
           </button>
         </form>

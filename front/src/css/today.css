@@ -246,13 +246,13 @@ div.comment {
     top: 38vh;
   }
   to {
-    transform: scale(65%);
+    transform: scale(60%);
     top: 5%;
   }
 }
 @keyframes enlarge {
   from {
-    transform: scale(65%);
+    transform: scale(60%);
     top: 5%;
   }
   to {
@@ -265,4 +265,9 @@ div.comment {
   top: 30px;
   right: 50px;
   position: relative;
+}
+
+.refImg {
+  opacity: 1 !important;
+  transform: scale(130%);
 }

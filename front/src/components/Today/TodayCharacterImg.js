@@ -11,8 +11,9 @@ function TodayCharacterImg({ todayCharacter }) {
                         borderRadius: "50%",
                         display: "block",
                         boxShadow: "1px 2px 2px 0px rgba(0, 0, 0, 0.2)",
-                        cursor: "pointer"
-                    }} onClick={() => { navigate(`/detail/${villager.id}`) }} />
+                        cursor: "pointer",
+                        transition: "all 0.5s"
+                    }} onClick={() => { navigate(`/detail/${villager.id}`) }} id={villager.id} />
                 ))
             }
         </div >

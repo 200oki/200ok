@@ -62,10 +62,11 @@ function CelebrationBtn({ todayCharacter, villagers, date }) {
     const [commentShow, setCommentShow] = useState(false);
     const celebrationHandler = (e) => {
         e.preventDefault();
-        if (commentShow) {
-            setCommentShow(false);
+        setCommentShow(!commentShow);
+        if (!commentShow) {
+            Array.from(document.querySelectorAll("img")).map((item) => item.style.opacity = 0.4)
         } else {
-            setCommentShow(true);
+            Array.from(document.querySelectorAll("img")).map((item) => item.style.opacity = 1.0)
         }
     };
 
