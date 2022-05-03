@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { query } from "express-validator";
+import { body, query } from "express-validator";
 
 import { CsmService } from "../services/csmService.js";
 import { validate } from "../middlewares/validator.js";
@@ -69,27 +69,39 @@ const csmRouter = Router();
  *                      example: 16
  */
 
-csmRouter.put("/csmdata/counts", async (req, res, next) => {
-  try {
-    // ..todo:: body 검증 필요
-    const mostSimilar = CsmService.csm({ ...req.body });
-    const id = mostSimilar.id;
-    const up = await CsmService.upCount({ id });
-    const body = {
-      success: true,
-      payload: {
-        id,
-        character: mostSimilar.character,
-        distance: mostSimilar.distance,
-        count: up,
-        // ..todo:: avg, total?
-      },
-    };
-    return res.status(status.STATUS_200_OK).json(body);
-  } catch (error) {
-    next(error);
+csmRouter.put(
+  "/csmdata/counts",
+  [
+    body("birthday")
+      .isDate({ format: "MM-DD", strictMode: true })
+      .withMessage(`Invalid "birthday" format`)
+      .bail(),
+    body(["colors", "styles"])
+      .isArray({ min: 1, max: 2 })
+      .withMessage(`Invalid "colors" or "styles" format`),
+    validate,
+  ],
+  async (req, res, next) => {
+    try {
+      const mostSimilar = CsmService.csm({ ...req.body });
+      const id = mostSimilar.id;
+      const up = await CsmService.upCount({ id });
+      const body = {
+        success: true,
+        payload: {
+          id,
+          character: mostSimilar.character,
+          distance: mostSimilar.distance,
+          count: up,
+          // ..todo:: avg, total?
+        },
+      };
+      return res.status(status.STATUS_200_OK).json(body);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 /**
  * @swagger
