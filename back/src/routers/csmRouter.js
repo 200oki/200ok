@@ -1,5 +1,10 @@
-import { CsmService } from "../services/csmService.js";
 import { Router } from "express";
+import { query } from "express-validator";
+
+import { CsmService } from "../services/csmService.js";
+import { validate } from "../middlewares/validator.js";
+import { RequestError } from "../utils/errors.js";
+import * as status from "../utils/status.js";
 
 const csmRouter = Router();
 
@@ -131,8 +136,16 @@ csmRouter.get("/csmdata/:id/counts", async (req, res, next) => {
   return res.status(200).json(count);
 });
 
-csmRouter.get("/csmdata/:id?format=best_and_worst", async (req, res, next) => {
-  const { id } = req.params;
-  
-});
+csmRouter.get(
+  "/csmdata/:id?format=best_and_worst",
+  [
+    query(["top", "bototm"])
+      .isInt({ min: 0, max: 391 })
+      .withMessage(`Unacceptable "top" or "bottom" value`),
+    validate,
+  ],
+  async (req, res, next) => {
+    const { id } = req.params;
+  }
+);
 export { csmRouter };
