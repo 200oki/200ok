@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import * as Api from "../../api";
 
-const BestFriends = (height, offset, __id) => {
-  console.log(height, offset);
+const BestFriends = ({ height, offset, __id }) => {
+  console.log(height, offset, __id);
   const BestFriendWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -22,17 +22,21 @@ const BestFriends = (height, offset, __id) => {
     src: ${(props) => props.src};
   `;
   const [friends, setFriends] = useState([]);
-  const getFriends = async (__id) => {
+  const getFriends = async () => {
     const { data } = await Api.get(`csmdata/${__id}?top=3&bottom=0`);
     setFriends(data.payload);
   };
-
   useEffect(() => {
     getFriends();
-  });
+    console.log(friends);
+  }, []);
+
   return (
     <BestFriendWrapper>
       <LabelBf>최고의 궁합</LabelBf>
+      {friends.map((friend, idx) => {
+        return <IconBf key={`friend-${idx}`} src={friend.character.image_icon} />;
+      })}
     </BestFriendWrapper>
   );
 };
