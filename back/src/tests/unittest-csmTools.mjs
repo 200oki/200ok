@@ -64,6 +64,6 @@ const poolMock = [
 const hat = new SortingHat(refMock);
 assert.strictEqual(
   hat.automagic(poolMock).character.id,
-  poolMock[3].id,
+  "ike",
   `"admiral"'s closest character is supposed to be "ike".`
 );
