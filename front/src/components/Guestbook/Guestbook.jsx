@@ -197,9 +197,26 @@ const Guestbook = () => {
 
   // 클릭하면 모달 post가 뜰 것
   // 아직 모달을 만들지 못해 post로 해둠!
-  const postGuestbook = () => {
+  const writeGuestbook = () => {
     setModal((v) => !v);
-    // navigate('/guestbook/post');
+    
+  }
+  
+  const postGuestbook = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await Api.post("guestbooks", {
+        content,
+      });
+      setContent((current) => {
+        const newGuestBook = [...current];
+        newGuestBook.push(response.payload);
+        return newGuestBook;
+      });
+    } catch (err) {
+      alert("틀렸습니다!")
+    }
   }
 
   const handleClick = (item) => {
@@ -231,14 +248,25 @@ const Guestbook = () => {
       })
     );
   }
-  
+  const check = "모달 체크체크";
   return (
     <Container>
       <Navigator>
         <BackButton content={ window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기" } />
         <Wrapper>
-          <PostButton onClick={postGuestbook} >
-
+          <PostButton onClick={writeGuestbook} >
+            <Modal 
+              open={modal}
+              onClose={handleClick}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={modalStyle}>
+                <textarea>
+                  내용
+                </textarea>
+              </Box>
+            </Modal>
           </PostButton>
         </Wrapper>
       </Navigator>
@@ -255,16 +283,16 @@ const Guestbook = () => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >
-              <Box sx={modalStyle}>
-                <Typography
-                  id="modal-modal-title"
-                  variant="h6"
-                  component="h2"
-                  className={classes.modalFont}
-                >
-                  {content}
-                </Typography>
-              </Box>
+                <Box sx={modalStyle}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                    className={classes.modalFont}
+                  >
+                    {content}
+                  </Typography>
+                </Box>
               </Modal>
           </ContentContainer>
         </ContentWrapper>
