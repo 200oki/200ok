@@ -50,7 +50,23 @@ class CsmService {
    *    [ { id, distance, character: char, }, ]
    *    ```
    */
-  static getSimilarCharsOf({ id, top = 0, bottom = 0 }) {}
+  static getSimilarCharsOf({ id, top = 0, bottom = 0 }) {
+    const whole = Csm.getSimilarCharsOf({ id });
+    let result = [];
+
+    if (!top && !bottom) {
+      result = whole;
+    } else {
+      if (top) {
+        result.push(...whole.slice(0, top));
+      }
+      if (bottom) {
+        result.push(...whole.slice(whole.length - bottom));
+      }
+    }
+
+    return result;
+  }
 }
 
 export { CsmService };
