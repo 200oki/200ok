@@ -18,11 +18,8 @@
   z-index: -1;
 }
 
-h2 {
-  font-size: 1.5em !important;
-}
-
 .sender {
+  font-size: 0.9em;
   text-align: right;
-  color: pink;
+  color: grey;
 }
