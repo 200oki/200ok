@@ -5,7 +5,7 @@ import * as status from "../utils/status.js";
 function errorMiddleware(error, req, res, next) {
   // console.log("\x1b[33m%s\x1b[0m", error);
   // logger.log({ __level__: 1 }, error);
-  logger.warn(error);
+  logger.warn(error, error.stack);
   // res.status(400).send(error.message);
   if (error instanceof RequestError) {
     res.status(error.status ?? status.STATUS_400_BADREQUEST).json({

@@ -4,7 +4,6 @@ import * as characterSchema from "../schemas/character.js";
 const { characters, characterNames, ...constants } = characterSchema;
 import { RequestError } from "../../utils/errors.js";
 import * as status from "../../utils/status.js";
-import { CharacterModel } from "../schemas/characters.js";
 /** 캐릭터 데이터의 모델 인터페이스입니다.
  *
  * 캐릭터 데이터는 실제로는 db에 없고, 읽기 전용입니다.
@@ -229,42 +228,6 @@ class Character {
       default:
         return 0;
     }
-  }
-
-  static async getCount({ villager }) {
-    const count = await CharacterModel.aggregate([
-      {
-        $match: {
-          name_ko: villager,
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-        },
-      },
-    ]);
-    return count;
-  }
-
-  static async upCount({ villager }) {
-    const up = await CharacterModel.findOneAndUpdate(
-      { name_ko: villager },
-      { $inc: { count: 1 } }
-    );
-    return up;
-  }
-
-  static async totalCount() {
-    const total = await CharacterModel.aggregate([
-      {
-        $group: {
-          _id: null,
-          total: { $sum: "$count" },
-        },
-      },
-    ]);
-    return total;
   }
 }
 

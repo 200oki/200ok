@@ -1,7 +1,32 @@
 import fs from "fs";
 import path from "path";
 
-import characters from "./character.js";
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
+const model = mongoose.model;
+
+import { characters } from "./character.js";
+
+const csmSchema = new Schema({
+  id: {
+    type: String,
+    required: true,
+  },
+  name_ko: {
+    type: String,
+    required: true,
+  },
+  count: {
+    type: Number,
+    required: true,
+  },
+  image_photo: {
+    type: String,
+    required: true,
+  },
+});
+
+const CsmModel = model("csms", csmSchema);
 
 const __dirname = path.resolve();
 let raw = fs.readFileSync(
@@ -31,4 +56,4 @@ for (const similarityRanks of Object.values(csmdata)) {
   }
 }
 
-export { csmdata };
+export { csmdata, CsmModel };
