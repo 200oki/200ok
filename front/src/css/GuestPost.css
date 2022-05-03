@@ -14,6 +14,7 @@
   height: 100%;
   width: 100%;
   background-image: url("/public/images/guestbookPostBg.png");
+  background-repeat: no-repeat;
   overflow: hidden;
   z-index: -1;
 }
@@ -38,4 +39,21 @@
   font-size: 0.9em;
   text-align: right;
   color: #3B3838;
+}
+
+.submitBtn {
+  background-color: #0CC6B8;
+  border: none;
+  border-radius: 30px;
+  width: 170px;
+  height: 50px;
+  font-family: "TmoneyRoundWindExtraBold";
+  font-size: 1.5em;
+  transition: all 0.3s ease-in-out; 
+}
+
+.submitBtn:hover {
+  cursor: pointer;
+  background-color: #0bb5a6;
+  transition: all 0.3s ease-in-out;
 }
