@@ -1,8 +1,8 @@
 import { Box, Modal, Typography } from "@mui/material";
 import React from "react";
 
-const CustomModal = ({ children, open, onClose }) => {
-  const modalStyle = {
+const CustomModal = ({ children, open, onClose, modalStyle }) => {
+  const customModalStyle = {
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -21,7 +21,7 @@ const CustomModal = ({ children, open, onClose }) => {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={modalStyle}>{children}</Box>
+      <Box sx={modalStyle ? modalStyle : customModalStyle}>{children}</Box>
     </Modal>
   );
 };
