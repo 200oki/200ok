@@ -49,7 +49,7 @@ class SortingHat {
 
     for (const char of pool) {
       if (char.special) {
-        return;
+        continue;
       }
       const distance = SortingHat.vecMag(this.oneBatch(char));
       if (distance < smallestSoFar.distance) {
