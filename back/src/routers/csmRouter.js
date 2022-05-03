@@ -163,6 +163,110 @@ csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
   return res.status(status.STATUS_200_OK).json(count);
 });
 
+/** GET /csmdata/:id swagger 문서
+ * @swagger
+ * /csmdata/{id}:
+ *  get:
+ *    summary: |
+ *      `id`와 일치하는 캐릭터와 유사한 캐릭터들의 요약을 배열로 반환합니다.
+ *    description: |
+ *      **쿼리 설명**
+ *      - `top`과 `bottom`은 각각 유사도 상위/하위권에서 자를 숫자입니다.
+ *      - `top`과 `bottom`이 모두 0이면 전체 유사도 배열을 반환합니다.
+ *      - `top` 또는 `bottom` 중 하나가 지정되면 그 부분만 반환합니다.
+ *      - 둘 모두가 지정되면 `[ ...top, ...bottom ]` 형식으로 반환합니다.
+ *      - 어떤 경우에도 순서는 유사도 상위 -> 하위 순입니다.
+ *      ----
+ *      반환 형식은 다음과 같습니다. 순서는 언제나 유사도 상위->하위 순입니다.
+ *      ```
+ *      {
+ *        success: true,
+ *        payload: [ { id, distance, character, }, ]
+ *      }
+ *      ```
+ *    tags: [Csm]
+ *    parameters:
+ *      - in: query
+ *        name: top
+ *        schema:
+ *          type: integer
+ *          minimum: 0
+ *          maximum: 391
+ *        required: false
+ *        description: 유사도 상위 n 명을 끊어서 반환합니다.
+ *        example: 10
+ *      - in: query
+ *        name: bottom
+ *        schema:
+ *          type: integer
+ *          minimum: 0
+ *          maximum: 391
+ *        required: false
+ *        description: 유사도 하위 n 명을 끊어서 반환합니다.
+ *        example: 10
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                  description: 요청 성공 여부
+ *                  example: true
+ *                payload:
+ *                  type: array
+ *                  items:
+ *                    type: object
+ *                    properties:
+ *                      id:
+ *                        type: string
+ *                        example: ike
+ *                      distance:
+ *                        type: number
+ *                        example: 0.9
+ *                      character:
+ *                        type: object
+ *                        properties:
+ *                          id:
+ *                            type: string
+ *                            example: ike
+ *                          name_ko:
+ *                            type: string
+ *                            example: 대공
+ *                          image_photo:
+ *                            "https://image_url.com"
+ *      400:
+ *        description: |
+ *          요청 문법이 틀렸습니다. <br>
+ *          아래는 에러 메시지의 목록입니다.
+ *          - Unacceptable "top" or "bottom" value
+ *        content:
+ *          application/json:
+ *            schema:
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                  description: 요청 성공 여부
+ *                  example: false
+ *                errorMessage:
+ *                  type: string
+ *      404:
+ *        description: |
+ *          유효하지 않은 페이지를 요청했습니다. <br>
+ *          아래는 에러 메시지의 목록입니다.
+ *          - {${id}} is either non-existent or not csm'able
+ *        content:
+ *          application/json:
+ *            schema:
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                  description: 요청 성공 여부
+ *                  example: false
+ *                errorMessage:
+ *                  type: string
+ */
 csmRouter.get(
   "/csmdata/:id",
   [
