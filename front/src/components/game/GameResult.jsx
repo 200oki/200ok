@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useStyles } from "../../utils/useStyles";
 import "../../css/GameResult.css";
 import { Typography } from "@mui/material";
@@ -6,14 +6,35 @@ import { useNavigate } from "react-router-dom";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import HomeButton from "../common/HomeButton";
 import { BtnText } from "../../utils/util";
+import * as Api from "../../api";
+import { NicknameContext } from "../../context/NicknameContext";
+import { GameContext } from "../../context/GameContext";
 
 const GameResult = () => {
-  const [score, setScore] = useState(0);
+  const [gameScore, setGameScore] = useState(0);
   const [rank, setRank] = useState(0);
+
+  const { nickname, setNickname } = useContext(NicknameContext);
+  const { score } = useContext(GameContext);
 
   const classes = useStyles();
   const navigator = useNavigate();
 
+  const settingDefault = (data) => {
+    setGameScore(data.score);
+    setRank(data.rank);
+  };
+
+  const getScoreAndRank = async () => {
+    const bodyData = { nickname: nickname, score: score };
+    const { data } = await Api.post("scores", bodyData);
+    settingDefault(data.payload);
+    return data.payload;
+  };
+
+  useEffect(() => {
+    getScoreAndRank();
+  }, []);
   const typoStyles = {
     fontFamily: "TmoneyRoundWindExtraBold",
     fontSize: "1.5rem",
