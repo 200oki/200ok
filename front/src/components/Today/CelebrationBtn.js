@@ -63,6 +63,7 @@ function CelebrationBtn({ todayCharacter, villagers, date }) {
     const celebrationHandler = (e) => {
         e.preventDefault();
         setCommentShow(!commentShow);
+        Array.from(document.querySelectorAll("img")).map((item) => item.className -= "refImg")
         if (!commentShow) {
             Array.from(document.querySelectorAll("img")).map((item) => item.style.opacity = 0.4)
         } else {
