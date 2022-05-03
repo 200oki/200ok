@@ -13,7 +13,7 @@
   content: "";
   height: 100%;
   width: 100%;
-  background-image: url("/public/images/leafBgImg.jpg");
+  background-image: url("/public/images/guestbookPostBg.png");
   overflow: hidden;
   z-index: -1;
 }
