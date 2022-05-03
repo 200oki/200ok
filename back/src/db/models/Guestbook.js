@@ -4,7 +4,6 @@ class Guestbook {
   /** 방명록 오브젝트 생성 함수
    * 
    * @param {Number} id - 유저 id
-   * @param {Date} date - 방명록 작성 날짜
    * @param {String} content - 방명록 내용
    */
   static async create({ id, date, content }) {
