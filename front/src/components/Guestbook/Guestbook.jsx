@@ -256,15 +256,22 @@ const Guestbook = () => {
         <Wrapper>
           <PostButton onClick={writeGuestbook} >
             <Modal 
-              open={modal}
-              onClose={handleClick}
+              open={postModal}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <Box sx={modalStyle}>
-                <textarea>
-                  내용
-                </textarea>
+              <Box sx={modalStyle} className="modalBg">
+                <Typography
+                  id="modal-modal-title"
+                  variant="h6"
+                  component="h2"
+                  className={`${classes.modalFont} ${content}`}
+                >
+                  {content}
+                  <button>
+                    오케이!
+                  </button>
+                </Typography>
               </Box>
             </Modal>
           </PostButton>
@@ -283,12 +290,12 @@ const Guestbook = () => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >
-                <Box sx={modalStyle}>
+                <Box sx={modalStyle} className="modalBg">
                   <Typography
                     id="modal-modal-title"
                     variant="h6"
                     component="h2"
-                    className={classes.modalFont}
+                    className={`${classes.modalFont} ${content}`}
                   >
                     {content}
                     <p className="sender">
