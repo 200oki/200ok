@@ -1,4 +1,4 @@
-import { CsmModel } from "../schemas/csm.js";
+import { csmdata, CsmModel } from "../schemas/csm.js";
 
 class Csm {
   static async getCount({ id }) {
@@ -33,6 +33,17 @@ class Csm {
     ]);
     return total;
   }
+
+  /** 하드코드된 `csmdata` 테이블에서 유사한 캐릭터의 배열을 읽어 반환합니다.
+   *
+   * @arg {{id: string}} kwargs
+   * @return {any[]} - 유사한 캐릭터들이 비슷한 순서로 정렬된 배열을 반환합니다.
+   *    구조는 다음과 같습니다.
+   *    ```js
+   *    [ { id, distance, character: char, }, ]
+   *    ```
+   */
+  static getSimilarCharsOf({ id }) {}
 }
 
 export { Csm };
