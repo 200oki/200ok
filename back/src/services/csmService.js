@@ -91,10 +91,7 @@ class CsmService {
    */
   static async csm({ birthday, hobby, personality, colors, styles }) {
     const pool = await Character.getMany("ALL");
-    console.log(`pool is Array? ${Array.isArray(pool)}`);
     const hat = new SortingHat(arguments[0]);
-    console.log(arguments[0]);
-    // console.log(pool);
     return hat.automagic(pool);
   }
 }
