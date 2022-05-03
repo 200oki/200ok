@@ -1,4 +1,4 @@
-import { Box, Modal, Typography } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 import React from "react";
 
 const CustomModal = ({ children, open, onClose, modalStyle }) => {
@@ -14,6 +14,7 @@ const CustomModal = ({ children, open, onClose, modalStyle }) => {
     p: 4,
     outline: "none",
   };
+
   return (
     <Modal
       open={open}
