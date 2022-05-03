@@ -9,7 +9,12 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 import { NicknameContext } from "../../context/NicknameContext";
 
-function MatchResultComment({ goToPosition, commentList, setCommentList }) {
+function MatchResultComment({
+  goToPosition,
+  commentList,
+  setCommentList,
+  name,
+}) {
   const [commentContent, setCommentContent] = useState("");
   const { nickname } = useContext(NicknameContext);
 
@@ -24,7 +29,7 @@ function MatchResultComment({ goToPosition, commentList, setCommentList }) {
 
     try {
       const response = await Api.post("comments", {
-        villager: "아그네스",
+        villager: name,
         comment: commentContent,
         nickname: nickname,
         location: "recommendation",
