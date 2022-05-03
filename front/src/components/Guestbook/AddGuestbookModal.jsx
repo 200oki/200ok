@@ -36,7 +36,7 @@ const AddGuestbookModal = () => {
     <div className="guestbookPost">
       <form className="guestbookForm" onSubmit={handleSubmit}>
         <div className="contentBack">
-          <input
+          <textarea className="textarea"
             type="text"
             placeholder="내용을 입력해주세요"
             value={isTyping ? content : ""}
