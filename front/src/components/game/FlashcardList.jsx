@@ -30,7 +30,30 @@ const FlashcardList = ({ flashcard }) => {
     });
     setFlashCards(addExtended);
   };
-
+  const findAnswer = () => {
+    const a = choiceOne.startsWith("http")
+      ? answer.filter((item) => item.name_ko === choiceTwo)
+      : answer.filter((item) => item.name_ko === choiceOne);
+    const nameChoice = choiceOne.startsWith("http") ? choiceTwo : choiceOne;
+    const imgChoice = choiceOne.startsWith("http") ? choiceOne : choiceTwo;
+    if (a[0].name_ko === nameChoice && a[0].image_photo === imgChoice) {
+      //정답 비교 하기
+      console.log("context", a[0].name_ko, "name", nameChoice);
+      setFlashCards((cards) => {
+        //if(정답 로직)
+        return cards.map((card) => {
+          if (card.data === nameChoice || card.data === imgChoice) {
+            return { ...card, matched: true };
+          } else {
+            return card;
+          }
+        });
+      });
+      correctReset();
+    } else {
+      reset();
+    }
+  };
   useEffect(() => {
     console.log("one", choiceOne, "two", choiceTwo);
     if (choiceOne && choiceTwo) {
@@ -42,28 +65,7 @@ const FlashcardList = ({ flashcard }) => {
       ) {
         return reset();
       }
-      const a = choiceOne.startsWith("http")
-        ? answer.filter((item) => item.name_ko === choiceTwo)
-        : answer.filter((item) => item.name_ko === choiceOne);
-      const nameChoice = choiceOne.startsWith("http") ? choiceTwo : choiceOne;
-      const imgChoice = choiceOne.startsWith("http") ? choiceOne : choiceTwo;
-      if (a[0].name_ko === nameChoice && a[0].image_photo === imgChoice) {
-        //정답 비교 하기
-        console.log("context", a[0].name_ko, "name", nameChoice);
-        setFlashCards((cards) => {
-          //if(정답 로직)
-          return cards.map((card) => {
-            if (card.data === nameChoice || card.data === imgChoice) {
-              return { ...card, matched: true };
-            } else {
-              return card;
-            }
-          });
-        });
-        correctReset();
-      } else {
-        reset();
-      }
+      findAnswer();
     }
   }, [choiceOne, choiceTwo]);
 
@@ -85,6 +87,7 @@ const FlashcardList = ({ flashcard }) => {
           <FlashCard
             handleChoice={handleChoice}
             flashcard={flashCard}
+            setIsTwoSelected={setIsTwoSelected}
             isTwoSelected={isTwoSelected}
             key={idx}
           />
