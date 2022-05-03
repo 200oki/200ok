@@ -27,7 +27,6 @@ class Guestbook {
    */
   static async findAll() {
     const guestbookList = await GuestbookModel.find();
-    console.log(guestbookList.length);
     return guestbookList;
   }
 }
