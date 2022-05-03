@@ -29,26 +29,21 @@ const GameResult = () => {
           ?
         </div>
       </div>
+      <img src="images/game_intro.png" alt="dj" className={"gameIntroImg"} />
 
-      <img
-        src="images/game_intro.png"
-        alt="raccoon"
-        className={"gameIntroImg"}
-      />
-      <div className="contentRoot">
-        <div className={"gameIntroComment"}>
-          <img src="images/game_intro_content.png" alt="comment" />
-          <img
-            className={`${classes.introBottomArrow} blinkImg`}
-            src="images/triangleBottomArrow.png"
-            alt="arrow"
-          />
-        </div>
-
-        <div className="btnWrapper">
-          <button onClick={handleClick}>게임 시작</button>
-        </div>
+      <div className={"gameIntroComment"}>
+        <img src="images/game_intro_content.png" alt="comment" />
+        <img
+          className={`${classes.introBottomArrow} blinkImg`}
+          src="images/triangleBottomArrow.png"
+          alt="arrow"
+        />
       </div>
+
+      <div className="btnWrapper">
+        <button onClick={handleClick}>게임 시작</button>
+      </div>
+
       <CustomModal open={isClicked} onClose={handleModal}>
         <Typography
           id="modal-modal-title"
