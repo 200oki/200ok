@@ -1,9 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { GameAnswerContext } from "../../context/GameAnswerContext";
 
-const FlashCard = ({ flashcard, handleChoice, isTwoSelected }) => {
+const FlashCard = ({
+  flashcard,
+  handleChoice,
+  isTwoSelected,
+  setIsTwoSelected,
+}) => {
   const [flip, setFlip] = useState(false);
   const [height, setHeight] = useState("initial");
-
   const frontEl = useRef();
   const backEl = useRef();
   const setMaxHeight = () => {
@@ -15,21 +20,14 @@ const FlashCard = ({ flashcard, handleChoice, isTwoSelected }) => {
   useEffect(setMaxHeight, [flashcard]);
 
   //컨텍스트에서 isTwo 만들고 참조해보기
-  // useEffect(()=>{
-  //   setFlip(v=>!v)
-  // },[isTwo])
+  useEffect(() => {
+    console.log("isTwoSelected", isTwoSelected);
+    setFlip(false);
+    setIsTwoSelected(false);
+  }, [isTwoSelected]);
 
   useEffect(() => {
     window.addEventListener("resize", setMaxHeight);
-    console.log("isTwo", isTwoSelected);
-    if (isTwoSelected) {
-      console.log("two");
-      console.log(
-        document
-          .querySelectorAll(".container > .flip")
-          .forEach((card) => card.classList.remove("flip"))
-      );
-    }
     return () => window.removeEventListener("resize", setMaxHeight);
   }, []);
 
@@ -58,7 +56,7 @@ const FlashCard = ({ flashcard, handleChoice, isTwoSelected }) => {
     <div
       style={{ height: height }}
       onClick={handleClick}
-      className={`card ${flashcard.matched ? "correct" : ""} ${
+      className={`card ${flashcard.matched ? "correct flip" : ""} ${
         flip ? "flip" : ""
       }`}
     >
