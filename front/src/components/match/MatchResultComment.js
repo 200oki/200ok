@@ -9,7 +9,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 import { NicknameContext } from "../../context/NicknameContext";
 
-function MatchResultComment({ goToPosition, comment, setComment }) {
+function MatchResultComment({ goToPosition, commentList, setCommentList }) {
   const [commentContent, setCommentContent] = useState("");
   const { nickname } = useContext(NicknameContext);
 
@@ -29,7 +29,7 @@ function MatchResultComment({ goToPosition, comment, setComment }) {
         nickname: nickname,
         location: "recommendation",
       });
-      setComment((current) => {
+      setCommentList((current) => {
         const newComment = [...current];
         newComment.unshift(response.data.payload);
         return newComment;
@@ -56,10 +56,13 @@ function MatchResultComment({ goToPosition, comment, setComment }) {
           등록
         </button>
       </form>
-      {comment.length > 0 ? (
+      {commentList.length > 0 ? (
         <div className={styled.commentArea}>
-          {comment.map((item) => (
-            <div className={styled.commentWrapper} key={comment.indexOf(item)}>
+          {commentList.map((item) => (
+            <div
+              className={styled.commentWrapper}
+              key={commentList.indexOf(item)}
+            >
               <span className={styled.writer}>{item.nickname}</span>
               <span
                 className={styled.commentDate}

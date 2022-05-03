@@ -21,7 +21,7 @@ function MatchResult() {
   const outerDivRef = useRef();
 
   const [sample, setSample] = useState([]);
-  const [comment, setComment] = useState([]);
+  const [commentList, setCommentList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const { matchElem } = useContext(MatchElementContext);
@@ -29,9 +29,9 @@ function MatchResult() {
   const fetchCommentData = async () => {
     try {
       const { data } = await Api.get(`comments?villager=${v}&location=${l}`);
-      setComment([...Object.values(data.payload)]);
+      setCommentList([...Object.values(data.payload)]);
     } catch (err) {
-      setComment([]);
+      setCommentList([]);
       console.error(err);
     }
     return () => {};
@@ -144,8 +144,8 @@ function MatchResult() {
       <div className={styled.inner}>
         <MatchResultComment
           goToPosition={goToPosition}
-          comment={comment}
-          setComment={setComment}
+          commentList={commentList}
+          setCommentList={setCommentList}
         />
       </div>
     </div>

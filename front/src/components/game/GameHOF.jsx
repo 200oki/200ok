@@ -17,7 +17,7 @@ const DIVIDER_HEIGHT = 5;
 const GameHOF = () => {
   const classes = useStyles();
   const [rank, setRank] = useState([]);
-  const [comment, setComment] = useState([]);
+  const [commentList, setCommentList] = useState([]);
   const [commentContent, setCommentContent] = useState("");
   const { nickname } = useContext(NicknameContext);
   const outerDivRef = useRef();
@@ -39,7 +39,7 @@ const GameHOF = () => {
   const getComment = async () => {
     try {
       const { data } = await Api.get("comments?location=honor");
-      setComment([...Object.values(data.payload)]);
+      setCommentList([...Object.values(data.payload)]);
     } catch (err) {
       console.error(err);
     }
@@ -58,7 +58,7 @@ const GameHOF = () => {
         nickname,
         location: "honor",
       });
-      setComment((current) => {
+      setCommentList((current) => {
         const newComment = [...current];
         newComment.unshift(response.data.payload);
         return newComment;
@@ -144,12 +144,12 @@ const GameHOF = () => {
             등록
           </button>
         </form>
-        {comment.length > 0 ? (
+        {commentList.length > 0 ? (
           <div className={styled.commentArea}>
-            {comment.map((item) => (
+            {commentList.map((item) => (
               <div
                 className={styled.commentWrapper}
-                key={comment.indexOf(item)}
+                key={commentList.indexOf(item)}
               >
                 <span className={styled.writer}>{item.nickname}</span>
                 <span
