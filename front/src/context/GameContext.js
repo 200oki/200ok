@@ -4,7 +4,7 @@ const GameContext = createContext();
 
 const GameProvider = ({ children }) => {
   const [score, setScore] = useState(0);
-  const [tier, setTier] = useState(1);
+  const [tier, setTier] = useState(6);
   const [matchedTotal, setMatchedTotal] = useState([]);
   const store = useMemo(
     () => ({ score, setScore, tier, setTier, matchedTotal, setMatchedTotal }),
