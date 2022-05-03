@@ -9,7 +9,6 @@ import BackButton from "../common/BackButton";
 import Typewriter from "typewriter-effect";
 
 import { NicknameContext } from "../../context/NicknameContext";
-import { MatchCommentContext } from "../../context/MatchCommentContext";
 import { MatchElementContext } from "../../context/MatchElementContext";
 
 const DIVIDER_HEIGHT = 5;
@@ -19,10 +18,10 @@ const l = "recommendation";
 function MatchResult() {
   const navigator = useNavigate();
   const { nickname, setNickname } = useContext(NicknameContext);
-  const { setComment } = useContext(MatchCommentContext);
   const outerDivRef = useRef();
 
   const [sample, setSample] = useState([]);
+  const [comment, setComment] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const { matchElem } = useContext(MatchElementContext);
@@ -143,7 +142,11 @@ function MatchResult() {
         <MatchResultRank sample={sample} goToPosition={goToPosition} />
       </div>
       <div className={styled.inner}>
-        <MatchResultComment goToPosition={goToPosition} />
+        <MatchResultComment
+          goToPosition={goToPosition}
+          comment={comment}
+          setComment={setComment}
+        />
       </div>
     </div>
   );
