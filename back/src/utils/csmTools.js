@@ -12,7 +12,7 @@ class CharacterCategoricalComparison {
    *  personality: string,
    *  colors: string[],
    *  styles: string[],
-   * }} kwargs - 사용자 정보 5가지를 입력받습니다.
+   * }} reference - 사용자 정보 5가지를 입력받습니다.
    */
   constructor({ birthday, hobby, personality, colors, styles }) {
     // Object.assign(this, arguments[0]);
