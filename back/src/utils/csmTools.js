@@ -3,6 +3,14 @@
  * Categorical Similarity Measure로 레퍼런스와 다른 캐릭터를 비교하여 점수를
  * 매깁니다. 최종적으로 5차원 벡터 사이의 거리를 구해 가장 가까운 캐릭터가
  * 레퍼런스와 가장 가깝다고 판단합니다.
+ *
+ * ## Methods
+ * - `automagic(pool)` - `pool` 안에서 레퍼런스와 가장 가까운 캐릭터를 찾아 반환합니다.
+ * - `oneBatch({ birthday_yday, hobby, personality, colors, styles })` -
+ *    현재 레퍼런스와 다른 캐릭터 한 명을 비교한 거리를 반환합니다.
+ * - `static toYday(birthday)` -
+ *    `mm-dd` 문자열을 2020년(윤년) 기준 `yday` 포맷으로 바꿉니다.
+ * - `static vecMag(vector)` - n차원 벡터의 크기를 구합니다.
  */
 class SortingHat {
   static refYear = 2020;
