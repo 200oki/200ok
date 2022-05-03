@@ -51,7 +51,7 @@ class SortingHat {
       if (char.special) {
         return;
       }
-      const distance = this.oneBatch(char);
+      const distance = SortingHat.vecMag(this.oneBatch(char));
       if (distance < smallestSoFar.distance) {
         smallestSoFar = {
           character: {
@@ -72,7 +72,7 @@ class SortingHat {
     }
   }
 
-  /** 현재 레퍼런스와 다른 캐릭터 한 명을 비교한 거리를 반환합니다.
+  /** 현재 레퍼런스와 다른 캐릭터 한 명을 비교한 벡터를 반환합니다.
    *
    * @arg {{
    *  birthday_yday: number,
@@ -81,17 +81,17 @@ class SortingHat {
    *  colors: string[],
    *  styles: string[],
    * }} otherCharData - 캐릭터 데이터에 있는 포맷 그대로 주면 됩니다.
-   * @return {number} distance - 레퍼런스(사용자)와 비교 캐릭터와의
-   *  5차원 공간상의 거리로, 최소 0, 최대 `sqrt(5)`입니다.
+   * @return {number[]} vector - 레퍼런스(사용자)와 비교 캐릭터와의
+   *  차이를 나타내는 5차원 벡터입니다.
    */
   oneBatch({ birthday_yday, hobby, personality, colors, styles }) {
-    return SortingHat.vecMag([
+    return [
       this.compareBirthday(birthday_yday),
       this.compareHobby(hobby),
       this.comparePersonality(personality),
       this.compareColors(colors),
       this.compareStyles(styles),
-    ]);
+    ];
   }
 
   /** 생일 차이는 (차이 일 수 / 183) 입니다. (최소 0, 최대 1)
