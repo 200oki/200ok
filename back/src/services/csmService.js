@@ -89,9 +89,12 @@ class CsmService {
    *
    * - `birthday`는 `mm-dd` 형식이어야 합니다.
    */
-  static csm({ birthday, hobby, personality, colors, styles }) {
-    const pool = Character.getMany("ALL");
+  static async csm({ birthday, hobby, personality, colors, styles }) {
+    const pool = await Character.getMany("ALL");
+    console.log(`pool is Array? ${Array.isArray(pool)}`);
     const hat = new SortingHat(arguments[0]);
+    console.log(arguments[0]);
+    // console.log(pool);
     return hat.automagic(pool);
   }
 }
