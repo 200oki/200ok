@@ -89,8 +89,8 @@ const ContentContainer = styled.div`
 `;
 
 const Card = styled.div`
-  width: 170px;
-  height: 170px;
+  width: 140px;
+  height: 140px;
   display: flex;
   justify-content: center;
   cursor: pointer;
@@ -106,6 +106,7 @@ const Column = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  padding-top: 25%;
 `;
 
 const PrettoSlider = Styled(Slider)({
