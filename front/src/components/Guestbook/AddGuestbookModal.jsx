@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
-import "moment/locale/ko";
+import DeleteButton from "../common/DeleteButton.js";
 import * as Api from "../../api";
-import styled from "../../css/match.module.css";
 import "../../css/GuestPost.css";
+import "moment/locale/ko";
 
 const AddGuestbookModal = () => {
   const [isTyping, setIsTyping] = useState(false);
@@ -34,6 +34,7 @@ const AddGuestbookModal = () => {
 
   return (
     <div className="guestbookPost">
+      <DeleteButton />
       <form className="guestbookForm" onSubmit={handleSubmit}>
         <div className="contentBack">
           <textarea className="textarea"
