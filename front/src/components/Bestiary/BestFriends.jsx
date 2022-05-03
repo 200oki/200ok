@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import * as Api from "../../api";
 
-const BestFriends = (height, offset) => {
+const BestFriends = (height, offset, __id) => {
+  console.log(height, offset);
   const BestFriendWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -20,6 +22,9 @@ const BestFriends = (height, offset) => {
     src: ${(props) => props.src};
   `;
 
+  //   const getFriends = async (__id) => {
+  //     const {data} = await Api.
+  //   }
   return (
     <BestFriendWrapper>
       <LabelBf>최고의 궁합</LabelBf>
