@@ -186,6 +186,11 @@ csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
  *      ```
  *    tags: [Csm]
  *    parameters:
+ *      - in: path
+ *        name: id
+ *        description: |
+ *          유사도를 보고 싶은 캐릭터의 `id`입니다.
+ *        example: admiral
  *      - in: query
  *        name: top
  *        schema:
@@ -194,7 +199,7 @@ csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
  *          maximum: 391
  *        required: false
  *        description: 유사도 상위 n 명을 끊어서 반환합니다.
- *        example: 10
+ *        example: 1
  *      - in: query
  *        name: bottom
  *        schema:
@@ -203,7 +208,7 @@ csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
  *          maximum: 391
  *        required: false
  *        description: 유사도 하위 n 명을 끊어서 반환합니다.
- *        example: 10
+ *        example: 1
  *    responses:
  *      200:
  *        content:
@@ -235,7 +240,8 @@ csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
  *                            type: string
  *                            example: 대공
  *                          image_photo:
- *                            "https://image_url.com"
+ *                            type: string
+ *                            example: "https://image_url.com"
  *      400:
  *        description: |
  *          요청 문법이 틀렸습니다. <br>
