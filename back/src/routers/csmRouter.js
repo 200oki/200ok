@@ -139,7 +139,7 @@ csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
 csmRouter.get(
   "/csmdata/:id",
   [
-    query(["top", "bototm"])
+    query(["top", "bottom"])
       .isInt({ min: 0, max: 391 })
       .withMessage(`Unacceptable "top" or "bottom" value`),
     validate,
