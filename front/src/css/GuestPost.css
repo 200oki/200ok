@@ -19,13 +19,6 @@
   z-index: -1;
 }
 
-.modalBg {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  background-image: url("/public/images/guestbookPostBg.png");
-}
-
 .date {
   margin-top: 30px;
   margin-bottom: 0;
@@ -50,6 +43,28 @@
   font-family: "TmoneyRoundWindExtraBold";
   font-size: 1.5em;
   transition: all 0.3s ease-in-out; 
+}
+
+.guestbookForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5%;
+}
+
+.contentBack {
+  margin: 30px;
+  background-color: white;
+  text-align: center;
+}
+
+.contentBack > input {
+  border: none;
+}
+
+.contentBack > input:focus {
+  outline: none;
 }
 
 .submitBtn:hover {
