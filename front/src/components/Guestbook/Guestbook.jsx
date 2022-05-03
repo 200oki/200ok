@@ -8,7 +8,6 @@ import { Box, Modal, Typography } from "@mui/material";
 import BackButton from "../common/BackButton";
 import PostButton from "../common/PostButton";
 import { useNavigate } from "react-router-dom";
-import AddGuestbookModal from "./AddGuestbookModal";
 import { guestbookImgList } from "../../utils/util";
 
 const Navigator = styled.div`
@@ -16,7 +15,6 @@ const Navigator = styled.div`
   top: 0;
   z-index: 1;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   width: 100vw;
 `;
@@ -102,11 +100,11 @@ const Card = styled.div`
 `;
 
 const Column = styled.div`
-  margin-right: 40px;
+  margin-right: 70px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding-top: 25%;
+  padding-top: 20%;
 `;
 
 const PrettoSlider = Styled(Slider)({
@@ -196,31 +194,6 @@ const Guestbook = () => {
     const maxScrollLeft = element.scrollWidth - element.clientWidth;
     element.scrollLeft = (maxScrollLeft / 100) * val;
   };
-
-  // 클릭하면 모달 post가 뜰 것
-  // 아직 모달을 만들지 못해 post로 해둠!
-  const writeGuestbook = () => {
-    setModal((v) => !v);
-    
-  }
-  
-  // 백엔드로 post 해주는 부분
-  const postGuestbook = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await Api.post("guestbooks", {
-        content,
-      });
-      setContent((current) => {
-        const newGuestBook = [...current];
-        newGuestBook.push(response.payload);
-        return newGuestBook;
-      });
-    } catch (err) {
-      alert("글을 입력해주세요!")
-    }
-  }
 
   // 방명록을 보여주는 부분
   const handleClick = (item) => {
