@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
+import { GameContext } from "../../context/GameContext";
 
 const FlashCard = ({
   flashcard,
@@ -8,6 +9,8 @@ const FlashCard = ({
 }) => {
   const [flip, setFlip] = useState(false);
   const [height, setHeight] = useState("initial");
+  const { matchedTotal, setMatchedTotal } = useContext(GameContext);
+
   const frontEl = useRef();
   const backEl = useRef();
   const setMaxHeight = () => {
@@ -16,6 +19,9 @@ const FlashCard = ({
     setHeight(Math.max(frontHeight, backHeight, 150));
   };
 
+  useEffect(() => {
+    setFlip(false);
+  }, [matchedTotal]);
   useEffect(setMaxHeight, [flashcard]);
   const flipTimer = () => {
     const timer = setTimeout(() => {
@@ -30,7 +36,7 @@ const FlashCard = ({
     if (isTwoSelected) {
       flipTimer();
     }
-    return () => clearTimeout(flipTimer);
+    return () => window.clearTimeout(flipTimer);
   }, [isTwoSelected]);
 
   useEffect(() => {
