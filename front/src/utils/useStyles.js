@@ -109,7 +109,7 @@ export const useStyles = makeStyles({
     width: "100%",
     display: "flex",
     justifyContent: "right",
-    height: "fit-content",
+    height: "80px",
   },
   view: {
     borderRadius: "100%",
