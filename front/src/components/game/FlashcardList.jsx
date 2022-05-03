@@ -2,13 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import FlashCard from "./Flashcard";
 import "../../css/flipcard.css";
 import { GameAnswerContext } from "../../context/GameAnswerContext";
+import { GameContext } from "../../context/GameContext";
 
-const FlashcardList = ({ flashcard }) => {
+const FlashcardList = ({ flashcard, setIsWin, setIsModalOpen }) => {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [isTwoSelected, setIsTwoSelected] = useState(false);
   const [flashCards, setFlashCards] = useState([]);
 
+  const { matchedTotal, setMatchedTotal } = useContext(GameContext);
   const { answer, setAnswer } = useContext(GameAnswerContext);
 
   const handleChoice = (elem) => {
@@ -18,6 +20,12 @@ const FlashcardList = ({ flashcard }) => {
       setChoiceOne(elem);
     }
   };
+  useEffect(() => {
+    if (matchedTotal.length === 16) {
+      setIsWin(true);
+      setGame();
+    }
+  }, [matchedTotal]);
 
   useEffect(() => {
     setCards();
@@ -30,6 +38,16 @@ const FlashcardList = ({ flashcard }) => {
     });
     setFlashCards(addExtended);
   };
+  const setGame = () => {
+    console.log("setGame", matchedTotal);
+    setIsModalOpen(true);
+  };
+  const setTotal = (name, image) => {
+    setMatchedTotal(() => {
+      console.log("setTotal", name, image);
+      return [...matchedTotal, name, image];
+    });
+  };
   const findAnswer = () => {
     const a = choiceOne.startsWith("http")
       ? answer.filter((item) => item.name_ko === choiceTwo)
@@ -38,10 +56,12 @@ const FlashcardList = ({ flashcard }) => {
     const imgChoice = choiceOne.startsWith("http") ? choiceOne : choiceTwo;
     if (a[0].name_ko === nameChoice && a[0].image_photo === imgChoice) {
       //정답 비교 하기
-      console.log("context", a[0].name_ko, "name", nameChoice);
+      console.log("name", a[0].name_ko, "img", a[0].image_photo);
+      setTotal(a[0].name_ko, a[0].image_photo);
+
       setFlashCards((cards) => {
         //if(정답 로직)
-        return cards.map((card) => {
+        return cards.map((card, idx) => {
           if (card.data === nameChoice || card.data === imgChoice) {
             return { ...card, matched: true };
           } else {
@@ -66,6 +86,7 @@ const FlashcardList = ({ flashcard }) => {
         return reset();
       }
       findAnswer();
+      console.log("matchedTotal", matchedTotal);
     }
   }, [choiceOne, choiceTwo]);
 
