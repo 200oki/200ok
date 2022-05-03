@@ -25,7 +25,16 @@
   background-image: url("/public/images/guestbookPostBg.png");
 }
 
+.date {
+  margin-top: 30px;
+  margin-bottom: 0;
+  font-size: 0.9em;
+  text-align: right;
+  color: #3B3838;
+}
+
 .sender {
+  margin-top: 0;
   font-size: 0.9em;
   text-align: right;
   color: #3B3838;

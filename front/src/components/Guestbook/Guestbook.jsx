@@ -102,7 +102,7 @@ const Card = styled.div`
 `;
 
 const Column = styled.div`
-  margin-right: 70px;
+  margin-right: 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -156,6 +156,7 @@ const Guestbook = () => {
   const [modal, setModal] = useState(false); // 모달 열기
   const [guestbook, setGuestbook] = useState([]);
   const [content, setContent] = useState([]);
+  const [date, setDate] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [count, setCount] = useState(0);
   const classes = useStyles();
@@ -224,6 +225,7 @@ const Guestbook = () => {
   const handleClick = (item) => {
     setModal((v) => !v);
     setContent(item.content);
+    setDate(item.createdAt.slice(0, 10));
   };
 
   const cardPerColumn = 2;
@@ -285,25 +287,28 @@ const Guestbook = () => {
             {columns.map((column, idx) => {
               return <Column key={idx}>{column}</Column>;
             })}
-              <Modal 
-                open={modal}
-                onClose={handleClick}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box sx={modalStyle} className="modalBg">
-                  <Typography
-                    id="modal-modal-title"
-                    variant="h6"
-                    className={classes.modalFont}
-                  >
-                    {content}
-                    <p className="sender">
-                      익명의 누군가로부터
-                    </p>
-                  </Typography>
-                </Box>
-              </Modal>
+            <Modal 
+              open={modal}
+              onClose={handleClick}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={modalStyle} className="modalBg">
+                <Typography
+                  id="modal-modal-title"
+                  variant="h6"
+                  className={classes.modalFont}
+                >
+                  {content}
+                  <p className="date">
+                    {date}
+                  </p>
+                  <p className="sender">
+                    익명의 누군가로부터
+                  </p>
+                </Typography>
+              </Box>
+            </Modal>
           </ContentContainer>
         </ContentWrapper>
       </Content>
