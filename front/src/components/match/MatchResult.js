@@ -12,34 +12,22 @@ import { NicknameContext } from "../../context/NicknameContext";
 import { MatchElementContext } from "../../context/MatchElementContext";
 
 const DIVIDER_HEIGHT = 5;
-const v = "아그네스";
-const l = "recommendation";
 
 function MatchResult() {
   const navigator = useNavigate();
   const { nickname, setNickname } = useContext(NicknameContext);
   const outerDivRef = useRef();
 
-  const [sample, setSample] = useState([]);
   const [commentList, setCommentList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [count, setCount] = useState(0);
   const [id, setId] = useState("");
+  const [myChar, setMyChar] = useState({});
+  const [goodBad, setGoodBad] = useState([]);
+  const [best3, setBest3] = useState([]);
 
   const { matchElem } = useContext(MatchElementContext);
 
-  // 댓글 데이터 요청
-  const fetchCommentData = async () => {
-    try {
-      const { data } = await Api.get(`comments?villager=${v}&location=${l}`);
-      setCommentList([...Object.values(data.payload)]);
-    } catch (err) {
-      setCommentList([]);
-      console.error(err);
-    }
-    return () => {};
-  };
-
+  // result로 나온 data count를 1 증가시키고 count, id set
   const fetchResultData = async () => {
     try {
       const { data } = await Api.put("csmdata/counts", {
@@ -49,26 +37,76 @@ function MatchResult() {
         hobby: matchElem[4],
         styles: matchElem[5],
       });
-      setCount(data.payload.count);
       setId(data.payload.id);
     } catch (err) {
       console.error(err);
     }
   };
 
-  console.log(id, count);
+  // 나와 궁합이 맞는 주민
+  const fetchMyCharData = async () => {
+    try {
+      const { data } = await Api.get(`csmdata/${id}/count`);
+      setMyChar(data.payload);
+      console.log("goonghab", data.payload);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  const getChar = async () => {
+  // 나와 일치하는 유형별 궁합(2명)
+  const fetchGoodBadData = async () => {
+    try {
+      const { data } = await Api.get(`csmdata/${id}?top=1&bottom=1`);
+      setGoodBad(data.payload);
+      console.log("goodBad", data.payload);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // count를 기준으로 가장 많은 유형(3명)
+  const fetchBest3Data = async () => {
+    try {
+      const { data } = await Api.get(`csmdata/counts`);
+      setBest3(data.payload);
+      console.log("best3", data.payload);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // 댓글 데이터 요청
+  const fetchCommentData = async () => {
     try {
       const { data } = await Api.get(
-        `characters/random?size=3&fields=id%2Cname_ko%2Cimage_photo`
+        `comments?villager=${id}&location=recommendation`
       );
-      setSample([...Object.values(data.payload)]);
+      setCommentList([...Object.values(data.payload)]);
     } catch (err) {
+      setCommentList([]);
       console.error(err);
     }
     return () => {};
   };
+
+  useEffect(() => {
+    fetchResultData();
+  }, []);
+
+  useEffect(() => {
+    if (id) {
+      Promise.all([
+        fetchMyCharData(),
+        fetchGoodBadData(),
+        fetchBest3Data(),
+        fetchCommentData(),
+      ]);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 5000);
+    }
+  }, [id]);
 
   const goToPosition = (e) => {
     e.preventDefault();
@@ -107,13 +145,6 @@ function MatchResult() {
     navigator("/match");
   };
 
-  useEffect(() => {
-    fetchCommentData(); // 매칭된 주민 캐릭터 댓글 요청
-    fetchResultData();
-    // getChar();
-    setIsLoading(false);
-  }, []);
-
   if (isLoading) {
     return (
       <div className={`${styled.loadingWrapper} ${styled.LoadingTitle}`}>
@@ -138,11 +169,11 @@ function MatchResult() {
       </div>
       <div className={styled.inner}>
         <div className={styled.imgWrapper}>
-          <img src="/images/Aurora.png" alt={"주민 사진"} />
+          <img src={myChar.image_photo} alt={"주민 사진"} />
         </div>
         <div className={styled.textWrapper}>
           <div>{nickname} 님과 잘 어울리는 주민은</div>
-          <div className={styled.villagerName}>❝ 오로라 ❞</div>
+          <div className={styled.villagerName}>❝ {myChar.name_ko} ❞</div>
           <div>귀염뽀짝 어쩌구 저쩌구</div>
           <div>구구절절 쫑알쫑알</div>
           <div>최고의 궁합!</div>
@@ -156,13 +187,14 @@ function MatchResult() {
         </div>
       </div>
       <div className={styled.inner}>
-        <MatchResultCompat sample={sample} goToPosition={goToPosition} />
+        <MatchResultCompat goodBad={goodBad} goToPosition={goToPosition} />
       </div>
       <div className={styled.inner}>
-        <MatchResultRank sample={sample} goToPosition={goToPosition} />
+        <MatchResultRank best3={best3} goToPosition={goToPosition} />
       </div>
       <div className={styled.inner}>
         <MatchResultComment
+          name={myChar.name_ko}
           goToPosition={goToPosition}
           commentList={commentList}
           setCommentList={setCommentList}
