@@ -7,7 +7,7 @@ const Bubble = styled.div`
   min-width: 200px;
   background: ivory;
   display: flex;
-  margin: 50px auto 0px;
+  margin: 0;
   border-radius: 20px;
   font-size: 1.24rem;
   font-family: "TmoneyRoundWindExtraBold";
@@ -20,11 +20,11 @@ const Pointer = styled.div`
   height: 40px;
   width: 40px;
   background: ivory;
-  margin: -22px auto 0px;
+  margin-top: -20px;
   transform: rotate(45deg);
   border-radius: 0px 0px 12px;
-  position: relative;
-  left: 0.5vw;
+  position: absolute;
+  left: 50vw;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 `;
 
