@@ -24,8 +24,8 @@ const TeamIntroduction = () => {
     {
       position: "Back End",
       name: "윤성준",
-      image: "",
-      character: "",
+      image: "https://acnhcdn.com/latest/NpcBromide/NpcNmlElp10.png",
+      character: "티나",
       introduction: "따봉성준",
     },
     {
