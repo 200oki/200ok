@@ -18,6 +18,7 @@ export const guestbookImgList = [
   { id: 1, img: "https://acnhcdn.com/latest/FtrIcon/ShellDriftHora.png"},
   { id: 2, img: "https://acnhcdn.com/latest/FtrIcon/ShellDriftSango.png"},
   { id: 3, img: "https://acnhcdn.com/latest/FtrIcon/Coconut.png"},
+  { id: 4, img: "https://acnhcdn.com/latest/FtrIcon/PhotoStudioBellBag.png"},
 ];
 
 export const testData = [
