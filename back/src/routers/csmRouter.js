@@ -129,7 +129,7 @@ csmRouter.put("/csmdata/counts", async (req, res, next) => {
  *                      example: 100
  */
 
-csmRouter.get("/csmdata/:id/counts", async (req, res, next) => {
+csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
   const { id } = req.params;
   const count = await CsmService.getCount({ id });
 
