@@ -18,6 +18,13 @@
   z-index: -1;
 }
 
+.modalBg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url("/public/images/guestbookPostBg.png")
+}
+
 .sender {
   font-size: 0.9em;
   text-align: right;
