@@ -36,9 +36,9 @@ scoreRouter.post(
 );
 
 scoreRouter.get(
-  "/scores/:id",
+  "/scores/userId",
   [
-    check("id")
+    check("userId")
       .trim()
       .isLength({ min: 1 })
       .exists()
@@ -48,7 +48,7 @@ scoreRouter.get(
     validate,
   ],
   async (req, res, next) => {
-    const id = req.params.id;
+    const id = req.query.userId;
     const userRank = await ScoreService.getUserRank({ id });
 
     if (userRank === undefined) {
