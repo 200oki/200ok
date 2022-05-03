@@ -7,7 +7,7 @@
  * ## Methods
  * - `automagic(pool)` - `pool` 안에서 레퍼런스와 가장 가까운 캐릭터를 찾아 반환합니다.
  * - `oneBatch({ birthday_yday, hobby, personality, colors, styles })` -
- *    현재 레퍼런스와 다른 캐릭터 한 명을 비교한 거리를 반환합니다.
+ *    현재 레퍼런스와 다른 캐릭터 한 명을 비교한 벡터를 반환합니다.
  * - `static toYday(birthday)` -
  *    `mm-dd` 문자열을 2020년(윤년) 기준 `yday` 포맷으로 바꿉니다.
  * - `static vecMag(vector)` - n차원 벡터의 크기를 구합니다.
