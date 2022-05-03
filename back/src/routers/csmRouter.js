@@ -17,7 +17,6 @@ const csmRouter = Router();
 
 /** @todo GET /csmdata/counts 라우팅 */
 
-/** @todo swaggerdoc 업데이트 */
 /** PUT /csmdata/counts swaggerdoc
  * @swagger
  * /csmdata/counts:
@@ -29,8 +28,13 @@ const csmRouter = Router();
  *      ``Request Body``
  *      ```js
  *       {
- *        "id" : 주민 id
- *      }
+ *        "birthday": "MM-DD",
+ *        "hobby": "string",
+ *        "personality": "string",
+ *        "colors": "array",
+ *        "styles": "array"
+ *       }
+ *      ```
  *    tags: [Csm]
  *    requestBody:
  *      x-name: body
@@ -41,35 +45,21 @@ const csmRouter = Router();
  *            required:
  *            - id
  *            properties:
- *              id:
- *                type: string
- *                example: admiral
- *    responses:
- *      201:
- *        description: count 증가
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                success:
- *                  type: string
- *                  example: true
- *                payload:
- *                   type: object
- *                   properties:
- *                    id:
- *                      type: string
- *                      example: admiral
- *                    name_ko:
- *                      type: string
- *                      example: 일섭
- *                    image_photo:
- *                      type: string
- *                      example: https://acnhcdn.com/latest/NpcBromide/NpcNmlBrd06.png
- *                    count:
- *                      type: number
- *                      example: 16
+ *             birthday:
+ *               type: string
+ *               example: 03-24
+ *             hobby:
+ *               type: string
+ *               example: "음악"
+ *             personality:
+ *               type: string
+ *               example: "친절함"
+ *             colors:
+ *               type: array
+ *               example: ["검정색", "파란색"]
+ *             styles:
+ *               type: array
+ *               example: ["심플", "쿨"]
  */
 csmRouter.put(
   "/csmdata/counts",
@@ -115,6 +105,7 @@ csmRouter.put(
           /** @todo 캐릭터데이터 소스를 이원화하는 건 아주 안좋다고 봅니다. */
         },
       };
+      console.log(body);
       return res.status(status.STATUS_200_OK).json(body);
     } catch (error) {
       next(error);
