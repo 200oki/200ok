@@ -204,7 +204,6 @@ const Guestbook = () => {
 
   const handleClick = (item) => {
     setModal((v) => !v);
-    console.log("아이템!", item)
     setContent(item.content);
   };
 
