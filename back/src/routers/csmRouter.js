@@ -108,7 +108,7 @@ csmRouter.put(
 
 /**
  * @swagger
- * /csmdata/{id}/counts:
+ * /csmdata/{id}/count:
  *   get:
  *    summary: counts를 포함한 주민 데이터를 반환해주는 API
  *    description: |
