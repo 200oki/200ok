@@ -225,7 +225,7 @@ const Guestbook = () => {
   const handleClick = (item) => {
     setModal((v) => !v);
     setContent(item.content);
-    setDate(item.createdAt.slice(0, 10));
+    setDate(item.createdAt.slice(0, 10)); // 날짜를 연-월-일로 자름 (2022-05-04)
   };
 
   const cardPerColumn = 2;
