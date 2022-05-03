@@ -5,6 +5,7 @@ import styled, { keyframes } from "styled-components";
 import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 import SpeechBubble from "./SpeechBubble";
+import BestFriends from "./BestFriends";
 
 const Navigator = styled.div`
   position: fixed;
@@ -88,6 +89,8 @@ const Column = styled.div`
 const VillagerDetail = () => {
   const [villager, setVillager] = useState(undefined);
   const [keys, setKeys] = useState([]);
+  const [height, setHeight] = useState(0);
+  const [offset, setOffset] = useState(0);
   const { id } = useParams();
   const getVillager = async () => {
     try {
@@ -104,6 +107,8 @@ const VillagerDetail = () => {
   };
   useEffect(() => {
     getVillager();
+    setHeight(document.getElementById("img-bubble").clientHeight);
+    setOffset(document.getElementById("columnWrapper").clientWidth / 2);
   }, []);
 
   const options = {
@@ -129,11 +134,18 @@ const VillagerDetail = () => {
         </Wrapper>
       </Navigator>
       <Content>
-        <div style={{ height: "auto" }}>
-          <SpeechBubble payload={villager?.name_ko} />
-          <img src={villager?.image_photo} alt="주민사진" style={{ borderRadius: "50%", boxShadow: "1px 2px 2px 0px rgba(0, 0, 0, 0.2)", marginTop: "20px" }} />
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <div id="img-bubble">
+            <SpeechBubble payload={villager?.name_ko} />
+            <img
+              src={villager?.image_photo}
+              alt="주민사진"
+              style={{ borderRadius: "50%", boxShadow: "1px 2px 2px 0px rgba(0, 0, 0, 0.2)", marginTop: "40px" }}
+            />
+          </div>
+          <BestFriends height={height} offset={offset} />
         </div>
-        <div style={{ display: "flex", flexDirection: "row", alignItems: "space-around" }}>
+        <div style={{ display: "flex", flexDirection: "row", alignItems: "space-around" }} id="columnWrapper">
           <Column>
             {keys.slice(0, parseInt(keys.length / 2)).map((v) => (
               <DetailWrapper key={v}>
