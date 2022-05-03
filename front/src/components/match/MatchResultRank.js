@@ -4,7 +4,7 @@ import { useStyles } from "../../utils/useStyles";
 import HomeButton from "../common/HomeButton";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
-const MatchResultRank = ({ sample, goToPosition }) => {
+const MatchResultRank = ({ best3, goToPosition }) => {
   const classes = useStyles();
 
   return (
@@ -13,7 +13,7 @@ const MatchResultRank = ({ sample, goToPosition }) => {
         가장 많은 유형
       </div>
       <div className={styled.rankCharWrapper}>
-        {sample.map((s, idx) => (
+        {best3.map((s, idx) => (
           <div className={styled.rankCharCard} key={idx} idx={idx}>
             <div className={styled.rankCharTitle}>{idx + 1}위</div>
             <div className={styled.rankCharImage}>
