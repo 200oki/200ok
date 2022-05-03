@@ -198,7 +198,7 @@ const Guestbook = () => {
   // 클릭하면 모달 post가 뜰 것
   // 아직 모달을 만들지 못해 post로 해둠!
   const postGuestbook = () => {
-    setModal(!modal); 
+    setModal((v) => !v);
     // navigate('/guestbook/post');
   }
 
@@ -237,7 +237,9 @@ const Guestbook = () => {
       <Navigator>
         <BackButton content={ window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기" } />
         <Wrapper>
-          <PostButton onClick={postGuestbook} />
+          <PostButton onClick={postGuestbook} >
+
+          </PostButton>
         </Wrapper>
       </Navigator>
       <Content>
@@ -247,7 +249,7 @@ const Guestbook = () => {
             {columns.map((column, idx) => {
               return <Column key={idx}>{column}</Column>;
             })}
-              <Modal
+              <Modal 
                 open={modal}
                 onClose={handleClick}
                 aria-labelledby="modal-modal-title"
