@@ -1,5 +1,3 @@
-import Heap from "heap";
-
 /** 대상 캐릭터를 Categorical Similarity Measure로 비교하는 툴킷입니다. */
 class CharacterCategoricalComparison {
   static refYear = 2020;
@@ -25,67 +23,32 @@ class CharacterCategoricalComparison {
     this.styles = new Set(styles);
   }
 
-  /** 레퍼런스와 `pool` 안의 모든 캐릭터와의 거리를 반환합니다.
+  /** `pool` 안에서 레퍼런스와 가장 가까운 캐릭터를 찾아 반환합니다.
    *
    * @arg {any[]} pool - 캐릭터들의 데이터입니다.
-   * @arg {{top: number?, bottom: number?}} options -
-   *    포맷 옵션. `top`은 가장 유사한 n명,
-   *    `bottom`은 가장 덜 유사한 n명을 배열로 합쳐 반환합니다.
-   *    순서는 더 유사한 캐릭터가 항상 앞에 오게 됩니다.
-   *    옵션이 전부 거짓 비스무리하면 전체 배열이 반환됩니다.
-   * @return {any[]} result - 거리 순으로 오름차순 정렬된 캐릭터들의
-   *    배열을 반환합니다. 배열의 길이는 `options` 값에 따라 달라질 수 있습니다.
-   *
-   * ## 노트
-   * node 엔진인 V8은 `timsort`를 사용하며,
-   * `timsort`의 best case는 배열이 이미 정렬되어 있는 경우(O(n))입니다.
+   * @return {any} character -
+   *    `pool` 안에서 레퍼런스와 가장 가까운 캐릭터를 찾아 반환합니다.
    */
-  automagic(pool, { top = null, bottom = null }) {
-    // top이나 bottom이 있으면 힙으로 n개 배열에서 가장 작은/큰 k개 값을 찾습니다.
-    // timsort의 최악 성능은 O(nlogn)
-    // 힙에 n번 푸시하면 역시 O(nlogn) 이지만 힙 크기를 k로 유지하면
-    // O(nlogk)로 줄일 수 있습니다.
-    top ||= 0;
-    bottom ||= 0;
-    const doArray = !top && !bottom;
+  automagic(pool) {
+    // (수정) 가장 가까운 캐릭터 한 명만 찾으면 되므로 정렬이나 힙은 필요 없습니다.
+    let smallestSoFar;
 
-    let result = doArray ? Array(pool.length) : Array(top + bottom);
-    let minheap = new Heap((a, b) => a.distance - b.distance);
-    let maxheap = new Heap((a, b) => b.distance - a.distance);
-
-    pool.forEach((char, idx) => {
+    for (const char of pool) {
       if (char.special) {
         return;
       }
-      let charinfo = {
-        character: {
-          id: char.id,
-          name_ko: char.name_ko,
-          image_photo: char.image_photo,
-        },
-        distance: this.oneBatch(char),
-      };
-
-      if (doArray) {
-        result[idx] = charinfo;
-      } else {
-        // 가장 작은 k개는 maxheap으로 재고 가장 큰 k개는 minheap으로 잽니다.
-        if (top) {
-          if (maxheap.size() < top) {
-            maxheap.push(charinfo);
-          } else if (charinfo.distance < maxheap.peek()) {
-            maxheap.replace(charinfo);
-          }
-        }
-        if (bottom) {
-          if (minheap.size() < bottom) {
-            minheap.push(charinfo);
-          } else if (charinfo.distance > minheap.peek()) {
-            minheap.replace(charinfo);
-          }
-        }
+      const distance = this.oneBatch(char);
+      if (distance < smallestSoFar.distance) {
+        let smallest = {
+          character: {
+            id: char.id,
+            name_ko: char.name_ko,
+            image_photo: char.image_photo,
+          },
+          distance,
+        };
       }
-    });
+    }
   }
 
   /** 현재 레퍼런스와 다른 캐릭터 한 명을 비교한 거리를 반환합니다.
