@@ -82,7 +82,7 @@ function CelebrationBtn({ todayCharacter, villagers, date }) {
                     {countComments}명의 유저가 축하해주고 있어요!
                 </button>
             </div>
-            <div>
+            <div style={{ position: "fixed", bottom: "10%" }}>
                 {commentShow ? <CelebrationComments todayCharacter={todayCharacter} comments={Comments} getCommentList={getCommentList} /> : null}
             </div>
         </>
