@@ -70,21 +70,25 @@ const csmRouter = Router();
  */
 
 csmRouter.put("/csmdata/counts", async (req, res, next) => {
-  // ..todo:: body 검증 필요
-  const mostSimilar = CsmService.csm({ ...req.body });
-  const id = mostSimilar.id;
-  const up = await CsmService.upCount({ id });
-  const body = {
-    success: true,
-    payload: {
-      id,
-      character: mostSimilar.character,
-      distance: mostSimilar.distance,
-      count: up,
-      // ..todo:: avg, total?
-    },
-  };
-  return res.status(200).json(body);
+  try {
+    // ..todo:: body 검증 필요
+    const mostSimilar = CsmService.csm({ ...req.body });
+    const id = mostSimilar.id;
+    const up = await CsmService.upCount({ id });
+    const body = {
+      success: true,
+      payload: {
+        id,
+        character: mostSimilar.character,
+        distance: mostSimilar.distance,
+        count: up,
+        // ..todo:: avg, total?
+      },
+    };
+    return res.status(status.STATUS_200_OK).json(body);
+  } catch (error) {
+    next(error);
+  }
 });
 
 /**
