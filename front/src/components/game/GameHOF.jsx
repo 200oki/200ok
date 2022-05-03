@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import moment from "moment";
 import "moment/locale/ko";
 import "../../css/GameHof.css";
@@ -10,13 +10,16 @@ import styled from "../../css/match.module.css";
 import HomeButton from "../common/HomeButton";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
+import { NicknameContext } from "../../context/NicknameContext";
+
 const DIVIDER_HEIGHT = 5;
 
 const GameHOF = () => {
   const classes = useStyles();
   const [rank, setRank] = useState([]);
   const [comment, setComment] = useState([]);
-  const [isTyping, setIsTyping] = useState(false);
+  const [commentContent, setCommentContent] = useState("");
+  const { nickname } = useContext(NicknameContext);
   const outerDivRef = useRef();
 
   const typoStyles = {
@@ -33,8 +36,42 @@ const GameHOF = () => {
     }
   };
 
+  const getComment = async () => {
+    try {
+      const { data } = await Api.get("comments?location=honor");
+      setComment([...Object.values(data.payload)]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleContentChange = (e) => {
+    setCommentContent(e.target.value);
+  };
+
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await Api.post("comments", {
+        comment: commentContent,
+        nickname,
+        location: "honor",
+      });
+      setComment((current) => {
+        const newComment = [...current];
+        newComment.unshift(response.data.payload);
+        return newComment;
+      });
+      setCommentContent("");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     getData();
+    getComment();
   }, []);
 
   const goToPosition = (e) => {
@@ -93,9 +130,15 @@ const GameHOF = () => {
         </button>
       </div>
       <div className={styled.inner}>
-        <form className={styled.commentForm}>
+        <form className={styled.commentForm} onSubmit={handleCommentSubmit}>
           <div className={styled.commentBack}>
-            <input type="text" placeholder="댓글을 입력해주세요" required />
+            <input
+              type="text"
+              value={commentContent}
+              onChange={handleContentChange}
+              placeholder="댓글을 입력해주세요"
+              required
+            />
           </div>
           <button type="submit" className={styled.commentReg}>
             등록
