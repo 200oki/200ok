@@ -9,7 +9,6 @@ import CustomModal from "../common/CustomModal";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { GameButtonText } from "../../utils/util";
-import usePathParams from "../../utils/usePathParams";
 import { GameContext } from "../../context/GameContext";
 
 const GameItem = () => {
@@ -18,7 +17,6 @@ const GameItem = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isWin, setIsWin] = useState(false);
   const classes = useStyles();
-  const pathname = usePathParams();
 
   const navigator = useNavigate();
   const { score, setScore } = useContext(GameContext);
