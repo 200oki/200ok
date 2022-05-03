@@ -29,7 +29,7 @@ class SortingHat {
    */
   constructor({ birthday, hobby, personality, colors, styles }) {
     // Object.assign(this, arguments[0]);
-    this.birthday = this.toYday(birthday);
+    this.birthday = SortingHat.toYday(birthday);
     this.hobby = hobby;
     this.personality = personality;
     this.colors = new Set(colors);
@@ -85,7 +85,7 @@ class SortingHat {
    *  5차원 공간상의 거리로, 최소 0, 최대 `sqrt(5)`입니다.
    */
   oneBatch({ birthday_yday, hobby, personality, colors, styles }) {
-    return this.vecMag([
+    return SortingHat.vecMag([
       this.compareBirthday(birthday_yday),
       this.compareHobby(hobby),
       this.comparePersonality(personality),
