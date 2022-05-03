@@ -65,7 +65,10 @@ function MatchResultComment({ goToPosition }) {
           {comment.map((item) => (
             <div className={styled.commentWrapper} key={comment.indexOf(item)}>
               <span className={styled.writer}>{item.nickname}</span>
-              <span className={styled.commentDate}>
+              <span
+                className={styled.commentDate}
+                style={{ fontFamily: "TmoneyRoundWindRegular" }}
+              >
                 {moment(moment.utc(item.createdAt).toDate()).format(
                   "YYYY-MM-DD HH:mm:ss"
                 )}
