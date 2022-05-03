@@ -60,3 +60,10 @@ const poolMock = [
     styles: ["쿨"],
   },
 ];
+
+const hat = new SortingHat(refMock);
+assert.strictEqual(
+  hat.automagic(poolMock).id,
+  poolMock[3].id,
+  `"admiral"'s closest character is supposed to be "ike".`
+);
