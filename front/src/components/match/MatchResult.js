@@ -115,7 +115,7 @@ function MatchResult() {
         className="nav-bar"
         style={{ position: "fixed", top: "0", left: "0", zIndex: "1" }}
       >
-        <BackButton content={"메인으로"} />
+        <BackButton content={"메인으로"} destination={"explore"} />
       </div>
       <div className={styled.inner}>
         <div className={styled.imgWrapper}>
