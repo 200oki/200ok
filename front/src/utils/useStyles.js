@@ -239,4 +239,31 @@ export const useStyles = makeStyles({
     top: "50%",
     transform: "translate(-50%, -50%)",
   },
+  gameEndModal: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  },
+  gameEndButton: {
+    marginTop: "15%",
+    fontSize: "15px",
+    background: "#aaefff",
+    borderRadius: "50px",
+    width: "150px",
+    height: "60px",
+    border: "none",
+    boxShadow: "1px 2px 2px 0px rgba(0, 0, 0, 0.15)",
+    color: "#7e725c",
+    transition: "transform 250ms",
+    "&:hover": {
+      transform: "translateY(-0.25em)",
+      cursor: "pointer",
+    },
+  },
+  modalEndFont: {
+    fontFamily: "TmoneyRoundWindExtraBold !important",
+    color: "#80725a",
+    fontSize: "2rem",
+  },
 });
