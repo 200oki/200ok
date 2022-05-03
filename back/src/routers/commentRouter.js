@@ -245,7 +245,7 @@ commentRouter.get(
  *        name: location
  *        required: true
  *        description: 조회할 댓글이 있는 위치
- *        example: recommendation
+ *        example: honor
  *        schema:
  *          type: string
  *    responses:
