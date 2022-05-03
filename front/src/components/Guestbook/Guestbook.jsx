@@ -214,7 +214,7 @@ const Guestbook = () => {
     columns.push(
       guestbook.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((guestbook, idx) => {
         return ( 
-          <Card key={idx} src={guestbookImgList[guestbook.id%4].img} onClick={() => handleClick(guestbook)} /> // 여기도 navigate가 아니라 modal 뜨도록!
+          <Card key={idx} src={guestbookImgList[guestbook.id%4].img} onClick={() => handleClick(guestbook)} />
         );
       })
     );
@@ -232,7 +232,6 @@ const Guestbook = () => {
     );
   }
   
-  console.log("야야:", guestbook);
   return (
     <Container>
       <Navigator>
@@ -254,16 +253,16 @@ const Guestbook = () => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >
-                <Box sx={modalStyle}>
-                  <Typography
-                    id="modal-modal-title"
-                    variant="h6"
-                    component="h2"
-                    className={classes.modalFont}
-                  >
-                    {content}
-                  </Typography>
-                </Box>
+              <Box sx={modalStyle}>
+                <Typography
+                  id="modal-modal-title"
+                  variant="h6"
+                  component="h2"
+                  className={classes.modalFont}
+                >
+                  {content}
+                </Typography>
+              </Box>
               </Modal>
           </ContentContainer>
         </ContentWrapper>
