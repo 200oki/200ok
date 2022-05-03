@@ -22,11 +22,11 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  background-image: url("/public/images/guestbookPostBg.png")
+  background-image: url("/public/images/guestbookPostBg.png");
 }
 
 .sender {
   font-size: 0.9em;
   text-align: right;
-  color: grey;
+  color: #3B3838;
 }
