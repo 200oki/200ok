@@ -110,8 +110,9 @@ csmRouter.put(
           id,
           character: mostSimilar.character,
           distance: mostSimilar.distance,
-          count: up,
+          count: up.count,
           /** @todo avg, total? */
+          /** @todo 캐릭터데이터 소스를 이원화하는 건 아주 안좋다고 봅니다. */
         },
       };
       return res.status(status.STATUS_200_OK).json(body);
