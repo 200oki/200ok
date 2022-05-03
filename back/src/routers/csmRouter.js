@@ -131,8 +131,8 @@ csmRouter.get("/csmdata/:id/counts", async (req, res, next) => {
   return res.status(200).json(count);
 });
 
-csmRouter.get(
-  "/csmdata/:id?format=best_and_worst",
-  async (req, res, next) => {}
-);
+csmRouter.get("/csmdata/:id?format=best_and_worst", async (req, res, next) => {
+  const { id } = req.params;
+  
+});
 export { csmRouter };
