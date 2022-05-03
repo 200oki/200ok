@@ -55,6 +55,13 @@ class SortingHat {
         };
       }
     }
+
+    // Just a sanity check;
+    if ("character" in smallestSoFar) {
+      return smallestSoFar;
+    } else {
+      throw new Error(`Character matching gone south`);
+    }
   }
 
   /** 현재 레퍼런스와 다른 캐릭터 한 명을 비교한 거리를 반환합니다.
