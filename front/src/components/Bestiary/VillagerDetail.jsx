@@ -143,7 +143,7 @@ const VillagerDetail = () => {
               style={{ borderRadius: "50%", boxShadow: "1px 2px 2px 0px rgba(0, 0, 0, 0.2)", marginTop: "40px" }}
             />
           </div>
-          <BestFriends height={height} offset={offset} />
+          <BestFriends height={height} offset={offset} __id={id} />
         </div>
         <div style={{ display: "flex", flexDirection: "row", alignItems: "space-around" }} id="columnWrapper">
           <Column>
