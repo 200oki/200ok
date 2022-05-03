@@ -1,4 +1,9 @@
-/** 대상 캐릭터를 Categorical Similarity Measure로 비교하는 툴킷입니다. */
+/** 레퍼런스와 다른 캐릭터들을 비교해 가장 어울리는 캐릭터를 찾아주는 툴킷입니다.
+ *
+ * Categorical Similarity Measure로 레퍼런스와 다른 캐릭터를 비교하여 점수를
+ * 매깁니다. 최종적으로 5차원 벡터 사이의 거리를 구해 가장 가까운 캐릭터가
+ * 레퍼런스와 가장 가깝다고 판단합니다.
+ */
 class CharacterCategoricalComparison {
   static refYear = 2020;
   /* 밀리초 단위 하루입니다. */
