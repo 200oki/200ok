@@ -26,6 +26,10 @@ const BestFriends = (height, offset, __id) => {
     const { data } = await Api.get(`csmdata/${__id}?top=3&bottom=0`);
     setFriends(data.payload);
   };
+
+  useEffect(() => {
+    getFriends();
+  });
   return (
     <BestFriendWrapper>
       <LabelBf>최고의 궁합</LabelBf>
