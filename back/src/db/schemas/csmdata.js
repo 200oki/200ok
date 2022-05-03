@@ -13,6 +13,15 @@ let raw = fs.readFileSync(
  * `csmtable.json`은 캐릭터의 `id`만을 포함하고 있지만
  * 메모리 상에서는 `character` 필드에 `characters` 데이터 항목을 가리키는
  * 포인터를 저장하게 됩니다.
+ *
+ * ## 구조 예시
+ * ```js
+ *  {
+ *    [id]: [
+ *      { [id]: char.id, distance: number, character: char }
+ *    ]
+ *  }
+ * ```
  */
 const csmdata = JSON.parse(raw);
 
