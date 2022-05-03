@@ -8,7 +8,7 @@ const BackButton = ({ content, destination }) => {
   const navigator = useNavigate();
 
   const backHome = () => {
-    console.log(destination);
+    setNickname("");
     destination.startsWith("/")
       ? navigator(destination)
       : navigator(`/${destination}`);
