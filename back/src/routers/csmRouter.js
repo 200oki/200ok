@@ -15,7 +15,52 @@ const csmRouter = Router();
  *    description: Csm MVP.
  */
 
-/** @todo GET /csmdata/counts 라우팅 */
+/** GET /csmdata/counts swaggerdoc
+ * @swagger
+ * /csmdata/counts:
+ *   get:
+ *    summary: count를 기준으로 상위 3명의 주민을 반환 해주는 API
+ *    tags: [Csm]
+ *    responses:
+ *      200:
+ *        description: count를 기준으로 상위 3명의 주민을 반환
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                success:
+ *                  type: string
+ *                  example: true
+ *                payload:
+ *                  payload:
+ *                  type: array
+ *                  items:
+ *                    type: object
+ *                    properties:
+ *                      id:
+ *                        type: string
+ *                        example: admiral
+ *                      name_ko:
+ *                        type: string
+ *                        example: 일섭
+ *                      image_photo:
+ *                        type: string
+ *                        example: https://acnhcdn.com/latest/NpcBromide/NpcNmlBrd06.png
+ *                      count:
+ *                        type: number
+ *                        example: 16
+
+ */
+
+csmRouter.get("/csmdata/counts", async (req, res, next) => {
+  const rank = await CsmService.getRank();
+  const body = {
+    success: true,
+    payload: rank,
+  };
+  res.status(status.STATUS_200_OK).json(body);
+});
 
 /** PUT /csmdata/counts swaggerdoc
  * @swagger
@@ -60,6 +105,42 @@ const csmRouter = Router();
  *             styles:
  *               type: array
  *               example: ["심플", "쿨"]
+ *    responses:
+ *      200:
+ *        description: count를 기준으로 상위 3명의 주민을 반환
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                suceess:
+ *                  type: string
+ *                  description: 응답 여부
+ *                  example: true
+ *                payload:
+ *                  type: object
+ *                  properties:
+ *                    id:
+ *                      type: string
+ *                      example: lolly
+ *                    character:
+ *                      type: object
+ *                      properties:
+ *                        id:
+ *                          type: string
+ *                          example: lolly
+ *                        name_ko:
+ *                          type: string
+ *                          example: 사이다
+ *                        image_photo:
+ *                          type: string
+ *                          example: https://acnhcdn.com/latest/NpcBromide/NpcNmlCat18.png
+ *                    distance:
+ *                      type: number
+ *                      example: 1.1253414782291422
+ *                    count:
+ *                      type: number
+ *                      example: 6
  */
 csmRouter.put(
   "/csmdata/counts",

@@ -94,6 +94,11 @@ class CsmService {
     const hat = new SortingHat(arguments[0]);
     return hat.automagic(pool);
   }
+
+  static async getRank() {
+    const rank = await Csm.getRank();
+    return rank;
+  }
 }
 
 export { CsmService };

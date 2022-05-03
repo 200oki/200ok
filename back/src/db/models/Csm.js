@@ -57,6 +57,11 @@ class Csm {
       return csmdata[id];
     }
   }
+
+  static async getRank() {
+    const rank = await CsmModel.find().sort({ count: -1 }).limit(3).lean();
+    return rank;
+  }
 }
 
 export { Csm };
