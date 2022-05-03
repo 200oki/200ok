@@ -137,7 +137,7 @@ csmRouter.get("/csmdata/:id/counts", async (req, res, next) => {
 });
 
 csmRouter.get(
-  "/csmdata/:id?format=best_and_worst",
+  "/csmdata/:id",
   [
     query(["top", "bototm"])
       .isInt({ min: 0, max: 391 })
@@ -145,7 +145,17 @@ csmRouter.get(
     validate,
   ],
   async (req, res, next) => {
-    const { id } = req.params;
+    try {
+      const { id } = req.params;
+      const top = parseInt(req.query.top) || 0;
+      const bottom = parseInt(req.query.bottom) || 0;
+
+      const result = CsmService.getSimilarCharsOf({ id, top, bottom });
+      res.status(status.STATUS_200_OK).json({ success: true, payload: result });
+    } catch (error) {
+      next(error);
+    }
   }
 );
+
 export { csmRouter };
