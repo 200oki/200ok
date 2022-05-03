@@ -121,10 +121,6 @@ const commentRouter = Router();
 commentRouter.post(
   "/comments",
   [
-    body("villager")
-      .exists()
-      .withMessage("주민 이름을 body에 담아주세요")
-      .bail(),
     body("comment").exists().withMessage("댓글 내용을 입력해주세요.").bail(),
     body("nickname").exists().withMessage("닉네임을 입력해주세요.").bail(),
     body("location").exists().withMessage("위치를 입력해주세요").bail(),
@@ -153,24 +149,23 @@ commentRouter.post(
 );
 /**
  * @swagger
- * /comments?villager="주민이름"&location="댓글 위치":
+ * /comments?location="댓글 위치"&villager="주민이름":
  *   get:
  *    summary: 댓글을 조회하는 API
  *    description: 댓글을 조회할 때 사용하는 API 입니다.
  *    tags: [Comments]
  *    parameters:
  *      - in: query
- *        name: villager
- *        required: true
- *        description: 주민 이름
- *        example: 아그네스
- *        schema:
- *          type: string
- *      - in: query
  *        name: location
  *        required: true
  *        description: 조회할 댓글이 있는 위치
  *        example: recommendation
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: villager
+ *        description: 주민 이름
+ *        example: 아그네스
  *        schema:
  *          type: string
  *    responses:
@@ -206,11 +201,6 @@ commentRouter.post(
 commentRouter.get(
   "/comments",
   [
-    query("villager")
-      .exists()
-      .withMessage("query에 주민 이름을 입력해주세요.")
-      .bail(),
-    validate,
     query("location")
       .exists()
       .withMessage("query에 location 값을 입력해주세요.")
@@ -220,7 +210,15 @@ commentRouter.get(
   async (req, res, next) => {
     try {
       const { location, villager } = req.query;
-      const comments = await CommentService.listComment({ villager, location });
+      let comments;
+      if (villager != null) {
+        comments = await CommentService.listComment({
+          villager,
+          location,
+        });
+      } else {
+        comments = await CommentService.listHonor({ location });
+      }
       // await client.set(req.url, JSON.stringify(comments));
       const body = {
         success: true,
@@ -234,6 +232,48 @@ commentRouter.get(
     }
   }
 );
+
+/**
+ * @swagger
+ * /comments?location="댓글 위치":
+ *   get:
+ *    summary: 댓글을 조회하는 API
+ *    description: 댓글을 조회할 때 사용하는 API 입니다.
+ *    tags: [Comments]
+ *    parameters:
+ *      - in: query
+ *        name: location
+ *        required: true
+ *        description: 조회할 댓글이 있는 위치
+ *        example: recommendation
+ *        schema:
+ *          type: string
+ *    responses:
+ *      "200":
+ *        content:
+ *          aplication/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                suceess:
+ *                  type: string
+ *                  description: 응답 여부
+ *                  example: true
+ *                payload:
+ *                  type: array
+ *                  items:
+ *                    type: object
+ *                    properties:
+ *                      nickname:
+ *                        type: string
+ *                        example: 고구마
+ *                      comment:
+ *                        type: string
+ *                        example: 댓글내용
+ *                      createdAt:
+ *                        type: date
+ *                        example: 2022-04-21T17:45:00.308Z
+ */
 
 export { commentRouter };
 
