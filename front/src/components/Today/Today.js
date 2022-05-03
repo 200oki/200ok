@@ -11,10 +11,10 @@ function Today() {
   const navigate = useNavigate()
 
   const today = new Date();
-  const month = today.getMonth() >= 9 ? String(today.getMonth() + 1) : '0' + String(today.getMonth() + 1);
-  const day = today.getDate() >= 10 ? String(today.getDate()) : '0' + String(today.getDate());
-  // const month = "08";
-  // const day = "23";
+  // const month = today.getMonth() >= 9 ? String(today.getMonth() + 1) : '0' + String(today.getMonth() + 1);
+  // const day = today.getDate() >= 10 ? String(today.getDate()) : '0' + String(today.getDate());
+  const month = "08";
+  const day = "23";
   const dateQuery = month + "-" + day;
   const date = { month, day };
   const fields = ["id", "name_ko", "image_photo", "image_icon"]
