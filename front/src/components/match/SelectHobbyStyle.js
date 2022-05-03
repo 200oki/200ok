@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import * as Api from "../../api";
 import styled from "../../css/match.module.css";
 import { useNavigate } from "react-router-dom";
 
@@ -23,7 +24,13 @@ const SelectHobbyStyle = ({ array, nextSlide }) => {
   };
 
   const handleTestSubmit = async (e) => {
-    navigator("/match-result");
+    e.preventDefault();
+
+    if (array[0] === "취미") {
+      setMatchElem([...matchElem, hobby]);
+    } else {
+      setMatchElem([...matchElem, [style]]);
+    }
   };
 
   return (
@@ -64,9 +71,9 @@ const SelectHobbyStyle = ({ array, nextSlide }) => {
       {array[0] === "취미" ? (
         <button
           className={hobby !== null ? styled.btnActive : styled.btnHidden}
-          onClick={() => {
-            setMatchElem([...matchElem, [hobby]]);
+          onClick={(e) => {
             nextSlide();
+            handleTestSubmit(e);
           }}
         >
           다음
@@ -74,9 +81,9 @@ const SelectHobbyStyle = ({ array, nextSlide }) => {
       ) : (
         <button
           className={style !== null ? styled.btnActive : styled.btnHidden}
-          onClick={() => {
-            setMatchElem([...matchElem, [style]]);
-            handleTestSubmit();
+          onClick={(e) => {
+            handleTestSubmit(e);
+            navigator("/match-result");
           }}
         >
           다음
