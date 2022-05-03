@@ -1,8 +1,8 @@
 import { Csm } from "../db/index.js";
 
 class CsmService {
-  static async getCount({ villager }) {
-    const count = await Csm.getCount({ villager });
+  static async getCount({ id }) {
+    const count = await Csm.getCount({ id });
     const totalList = await Csm.totalCount();
     const total = totalList[0].total;
     count[0]["total"] = total;
@@ -15,9 +15,15 @@ class CsmService {
     return body;
   }
 
-  static async upCount({ villager }) {
-    const up = await Csm.upCount({ villager });
-    return up;
+  static async upCount({ id }) {
+    const up = await Csm.upCount({ id });
+    const body = {
+      id: up.id,
+      name_ko: up.name_ko,
+      image_photo: up.image_photo,
+      count: up.count,
+    };
+    return body;
   }
 
   static async totalCount() {
@@ -26,3 +32,5 @@ class CsmService {
     return total;
   }
 }
+
+export { CsmService };

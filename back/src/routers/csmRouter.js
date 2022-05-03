@@ -11,7 +11,8 @@ csmRouter.get("/csmdata/:id/counts", async (req, res, next) => {
 });
 
 csmRouter.put("/csmdata/counts", async (req, res, next) => {
-  const up = await CharacterService.upCount({ villager });
+  const { id } = req.body;
+  const up = await CsmService.upCount({ id });
   const body = {
     success: true,
     payload: up,
@@ -19,7 +20,8 @@ csmRouter.put("/csmdata/counts", async (req, res, next) => {
   return res.status(200).json(body);
 });
 
-csmRouter.get("/csmdata/:id?format=best_and_worst", async (req, res, next) => {
-  
-});
+csmRouter.get(
+  "/csmdata/:id?format=best_and_worst",
+  async (req, res, next) => {}
+);
 export { csmRouter };

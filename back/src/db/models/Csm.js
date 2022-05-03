@@ -1,11 +1,11 @@
 import { CsmModel } from "../schemas/csm.js";
 
 class Csm {
-  static async getCount({ villager }) {
+  static async getCount({ id }) {
     const count = await CsmModel.aggregate([
       {
         $match: {
-          name_ko: villager,
+          id,
         },
       },
       {
@@ -17,11 +17,8 @@ class Csm {
     return count;
   }
 
-  static async upCount({ villager }) {
-    const up = await CsmModel.findOneAndUpdate(
-      { name_ko: villager },
-      { $inc: { count: 1 } }
-    );
+  static async upCount({ id }) {
+    const up = await CsmModel.findOneAndUpdate({ id }, { $inc: { count: 1 } });
     return up;
   }
 
@@ -37,3 +34,5 @@ class Csm {
     return total;
   }
 }
+
+export { Csm };

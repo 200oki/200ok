@@ -29,4 +29,3 @@ export { client, checkCache };
 // await client.set("/comments", JSON.stringify(list));
 // const data = await client.get("/comments");
 // const dataList = JSON.parse(data);
-// console.log(dataList);
