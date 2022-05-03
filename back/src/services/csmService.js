@@ -1,4 +1,6 @@
 import { Csm } from "../db/index.js";
+import { Character } from "../db/index.js";
+import { SortingHat } from "../utils/csmTools.js";
 
 class CsmService {
   static async getCount({ id }) {
@@ -66,6 +68,26 @@ class CsmService {
     }
 
     return result;
+  }
+
+  /** 사용자 데이터에 기반해 가장 유사한 캐릭터를 찾아 반환합니다.
+   *
+   * @return {{
+   *  id: string,
+   *  distance: number,
+   *  character: {
+   *    id: string,
+   *    name_ko: string,
+   *    image_photo: string,
+   *  }
+   * }}
+   *
+   * - `birthday`는 `mm-dd` 형식이어야 합니다.
+   */
+  static csm({ birthday, hobby, personality, colors, styles }) {
+    const pool = Character.getMany("ALL");
+    const hat = new SortingHat(arguments[0]);
+    return hat.automagic(pool);
   }
 }
 
