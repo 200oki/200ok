@@ -17,3 +17,8 @@
   overflow: hidden;
   z-index: -1;
 }
+
+.sender {
+  text-align: right;
+  color: pink;
+}

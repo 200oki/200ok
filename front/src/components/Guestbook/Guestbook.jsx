@@ -291,6 +291,9 @@ const Guestbook = () => {
                     className={classes.modalFont}
                   >
                     {content}
+                    <p className="sender">
+                      익명의 누군가로부터
+                    </p>
                   </Typography>
                 </Box>
               </Modal>
