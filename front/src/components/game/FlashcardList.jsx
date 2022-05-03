@@ -40,6 +40,7 @@ const FlashcardList = ({ flashcard, setIsWin, setIsModalOpen }) => {
   };
   const setGame = () => {
     console.log("setGame", matchedTotal);
+    setMatchedTotal([]);
     setIsModalOpen(true);
   };
   const setTotal = (name, image) => {
