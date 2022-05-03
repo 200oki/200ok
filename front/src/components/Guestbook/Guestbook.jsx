@@ -152,7 +152,7 @@ const PrettoSlider = Styled(Slider)({
 const Guestbook = () => {
   const navigate = useNavigate();
 
-  const [modal, setModal] = useState(false); // 읽기 모달
+  const [modal, setModal] = useState(false); // 모달 열기
   const [guestbook, setGuestbook] = useState([]);
   const [content, setContent] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

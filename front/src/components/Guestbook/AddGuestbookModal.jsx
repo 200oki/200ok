@@ -8,7 +8,9 @@ const AddGuestbookModal = () => {
     <div className="guestbookPostBg">
       <h2>제목</h2>
       <div className="guestbook">
-        얍얍
+        <textarea>
+          내용
+        </textarea>
       </div>
     </div>
   );
