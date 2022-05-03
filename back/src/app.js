@@ -7,6 +7,7 @@ import { logger } from "./utils/winstonLogger.js";
 import { characterRouter } from "./routers/characterRouter.js";
 import { commentRouter } from "./routers/commentRouter.js";
 import { scoreRouter } from "./routers/scoreRouter.js";
+import { statRouter } from "./routers/statRouter.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 
 // 환경 변수 설정을 위한 dotenv 적용
@@ -25,6 +26,7 @@ app.use(
 app.use(characterRouter);
 app.use(commentRouter);
 app.use(scoreRouter);
+app.use(statRouter);
 
 app.use(errorMiddleware);
 

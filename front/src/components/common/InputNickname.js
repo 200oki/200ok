@@ -2,37 +2,41 @@ import React, { useContext } from "react";
 import Typewriter from "typewriter-effect";
 import styled from "../../css/match.module.css";
 import { useNavigate } from "react-router-dom";
+import { useStyles } from "../../utils/useStyles";
 import "../../css/typingFont.css";
+import usePathParams from "../../utils/usePathParams";
+import BackButton from "./BackButton";
 
 import { NicknameContext } from "../../context/NicknameContext";
 
 function InputNickname() {
   const { nickname, setNickname } = useContext(NicknameContext);
   const navigator = useNavigate();
+  const pathname = usePathParams();
+  const classes = useStyles();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      setNickname(nickname);
-    } catch (err) {
-      console.error(err);
-    }
+    setNickname(nickname);
   };
+
   const handleCheckUri = () => {
-    if (window.location.pathname === "/game") {
-      navigator("/game-start");
-    } else if (window.location.pathname === "/match") {
-      navigator("/matchResult");
+    if (pathname === "/game") {
+      navigator("/game-intro");
+    } else if (pathname === "/match") {
+      navigator("/match-intro");
     }
   };
 
   const handleChange = (e) => {
     setNickname(e.target.value);
-    console.log(nickname);
   };
 
   return (
     <div className={styled.Wrapper}>
+      <div className={classes.navBar}>
+        <BackButton content={"메인으로"} destination="explore" />
+      </div>
       <Typewriter
         onInit={(typewriter) => {
           typewriter

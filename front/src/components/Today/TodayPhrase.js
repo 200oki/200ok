@@ -29,7 +29,7 @@ function TodayPhrase({ date, villagers, commentShow }) {
     }, [commentShow])
 
     const rhetoric = ["귀여운", "사랑스러운", "예쁜", "깜찍한", "앙증맞은", "멋진"];
-    const adjective = rhetoric[Math.floor(Math.random() * rhetoric.length)];
+    const adjective = rhetoric[(Month * Date) % rhetoric.length];
 
     const heroes =
         villagers.length === 1
