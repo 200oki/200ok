@@ -4,7 +4,7 @@
  * 매깁니다. 최종적으로 5차원 벡터 사이의 거리를 구해 가장 가까운 캐릭터가
  * 레퍼런스와 가장 가깝다고 판단합니다.
  */
-class CharacterCategoricalComparison {
+class SortingHat {
   static refYear = 2020;
   /* 밀리초 단위 하루입니다. */
   static oneDay = 1000 * 60 * 60 * 24;
