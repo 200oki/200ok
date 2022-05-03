@@ -219,10 +219,11 @@ const Guestbook = () => {
         return newGuestBook;
       });
     } catch (err) {
-      alert("틀렸습니다!")
+      alert("글을 입력해주세요!")
     }
   }
 
+  // 방명록을 보여주는 부분
   const handleClick = (item) => {
     setModal((v) => !v);
     setContent(item.content);
@@ -236,7 +237,7 @@ const Guestbook = () => {
     columns.push(
       guestbook.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((guestbook, idx) => {
         return ( 
-          <Card key={idx} src={guestbookImgList[guestbook.id%4].img} onClick={() => handleClick(guestbook)} />
+          <Card key={idx} src={guestbookImgList[guestbook.id%5].img} onClick={() => handleClick(guestbook)} />
         );
       })
     );
@@ -248,7 +249,7 @@ const Guestbook = () => {
     columns.push(
       guestbook.slice(-restCards).map((guestbook, idx) => {
         return (
-          <Card key={idx} src={guestbookImgList[guestbook.id%4].img} onClick={() => handleClick(guestbook)} />
+          <Card key={idx} src={guestbookImgList[guestbook.id%5].img} onClick={() => handleClick(guestbook)} />
         );
       })
     );
@@ -259,7 +260,17 @@ const Guestbook = () => {
       <Navigator>
         <BackButton content={ window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기" } />
         <Wrapper>
-          <PostButton onClick={() => writeGuestbook} />
+          <PostButton onClick={() => navigate('/guestbook/post')} />
+            {/* PostButton을 누르면 모달로 하고 싶음!! */}
+        </Wrapper>
+      </Navigator>
+      <Content>
+        <ContentWrapper>
+          <PrettoSlider onChange={scrollHandler} />
+          <ContentContainer id="content">
+            {columns.map((column, idx) => {
+              return <Column key={idx}>{column}</Column>;
+            })}
             <Modal 
               open={modal}
               onClose={handleClick}
@@ -282,37 +293,6 @@ const Guestbook = () => {
                 </Typography>
               </Box>
             </Modal>
-        </Wrapper>
-      </Navigator>
-      <Content>
-        <ContentWrapper>
-          <PrettoSlider onChange={scrollHandler} />
-          <ContentContainer id="content">
-            {columns.map((column, idx) => {
-              return <Column key={idx}>{column}</Column>;
-            })}
-            {/* <Modal 
-              open={modal}
-              onClose={handleClick}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={modalStyle} className="modalBg">
-                <Typography
-                  id="modal-modal-title"
-                  variant="h6"
-                  className={classes.modalFont}
-                >
-                  {content}
-                  <p className="date">
-                    {date}
-                  </p>
-                  <p className="sender">
-                    익명의 누군가로부터
-                  </p>
-                </Typography>
-              </Box>
-            </Modal> */}
           </ContentContainer>
         </ContentWrapper>
       </Content>
