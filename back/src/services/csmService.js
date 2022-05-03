@@ -67,6 +67,11 @@ class CsmService {
       }
     }
 
+    // 현재로서는 컨트롤러에서 반환값을 수정할 일은 없습니다.
+    // 수정할 가능성이 생기면 얕은 사본을 보내야 합니다.
+    // result = result.map((v) => {
+    //   return { ...v };
+    // });
     return result;
   }
 
