@@ -1,10 +1,12 @@
 import React, { useState, useContext } from "react";
 import DeleteButton from "../common/DeleteButton.js";
+import { useNavigate } from "react-router-dom";
 import * as Api from "../../api";
 import "../../css/GuestPost.css";
 import "moment/locale/ko";
 
 const AddGuestbookModal = () => {
+  const navigate = useNavigate();
   const [isTyping, setIsTyping] = useState(false);
   const [content, setContent] = useState("");
 
@@ -24,7 +26,8 @@ const AddGuestbookModal = () => {
       setContent((current) => {
         const newContent = [...current];
         newContent.push(response.data.payload);
-        return newContent;
+        console.log("새거 :", newContent[newContent.length-1].id);
+        navigate(`/guestbook/${newContent[newContent.length-1].id}`);
       });
       setIsTyping(false);
     } catch (err) {

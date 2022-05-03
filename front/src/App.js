@@ -26,7 +26,7 @@ import StyleChart from "./components/Statistics/StyleChart";
 import VillagerList from "./components/Bestiary/VillagerList";
 import VillagerDetail from "./components/Bestiary/VillagerDetail";
 import Guestbook from "./components/Guestbook/Guestbook.jsx";
-import AddGuestbookModal from "./components/Guestbook/AddGuestbookModal.jsx";
+import AddGuestbook from "./components/Guestbook/AddGuestbook.jsx";
 
 const GlobalFont = createGlobalStyle`
   font-family: "TmoneyRoundWindExtraBold"
@@ -66,7 +66,7 @@ function App() {
           <Route path="/bestiary/list" element={<VillagerList />} />
           <Route path="/detail/:id" element={<VillagerDetail />} />
           <Route path="/guestbook" element={<Guestbook />} />
-          <Route path="/guestbook/post" element={<AddGuestbookModal />} />
+          <Route path="/guestbook/post" element={<AddGuestbook />} />
         </Routes>
       </Router>
     </div>
