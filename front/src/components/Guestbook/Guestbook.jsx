@@ -183,8 +183,8 @@ const Guestbook = () => {
     transform: "translate(-50%, -50%)",
     width: 400,
     bgcolor: "background.paper",
-    border: "2px solid #fff",
     boxShadow: 24,
+    outline: "none",
     fontFamily: "TmoneyRoundWindExtraBold !important",
     p: 4,
   };
@@ -265,7 +265,7 @@ const Guestbook = () => {
                   id="modal-modal-title"
                   variant="h6"
                   component="h2"
-                  className={`${classes.modalFont} ${content}`}
+                  className={classes.modalFont}
                 >
                   {content}
                   <button>
