@@ -265,7 +265,7 @@ const Guestbook = () => {
                   id="modal-modal-title"
                   variant="h6"
                   component="h2"
-                  className={`${classes.modalFont}`}
+                  className={`${classes.modalFont} ${content}`}
                 >
                   {content}
                   <button>
