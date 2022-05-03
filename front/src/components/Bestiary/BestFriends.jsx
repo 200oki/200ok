@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import * as Api from "../../api";
 
 const BestFriends = ({ height, offset, __id }) => {
-  console.log(height, offset, __id);
   const BestFriendWrapper = styled.div`
     display: flex;
+    border: 5px solid black;
+    border-radius: 25px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
