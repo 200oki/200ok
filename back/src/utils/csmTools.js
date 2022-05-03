@@ -102,12 +102,14 @@ class SortingHat {
   compareBirthday(other) {
     const delta = Math.abs(this.birthday - other);
     let result;
-    if (delta < this.dayMod) {
+    if (delta < SortingHat.dayMod) {
       result = delta;
+      console.log(result);
     } else {
-      result = this.dayMod * 2 - delta;
+      result = SortingHat.dayMod * 2 - delta;
     }
-    return result / this.dayMod;
+    console.log(other, delta, result);
+    return result / SortingHat.dayMod;
   }
 
   /** 단순 비교로 같으면 0, 다르면 1입니다. */
@@ -157,8 +159,9 @@ class SortingHat {
     let [m, d] = birthday.split("-");
     m--;
     return (
-      (Date.UTC(this.refYear, m, d) - Date.UTC(this.refYear, 0, 0)) /
-      this.oneDay
+      (Date.UTC(SortingHat.refYear, m, d) -
+        Date.UTC(SortingHat.refYear, 0, 0)) /
+      SortingHat.oneDay
     );
   }
 
