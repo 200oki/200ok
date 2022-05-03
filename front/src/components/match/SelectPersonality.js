@@ -2,12 +2,14 @@ import React, { useState, useContext } from "react";
 import styled from "../../css/match.module.css";
 
 import { NicknameContext } from "../../context/NicknameContext";
+import { MatchElementContext } from "../../context/MatchElementContext";
 
 function SelectPersonality({ nextSlide }) {
   const { nickname } = useContext(NicknameContext);
-  const [person, setPerson] = useState(null);
+  const { matchElem, setMatchElem } = useContext(MatchElementContext);
+  const [personality, setPersonality] = useState(null);
 
-  const personality = [
+  const personalities = [
     { key: "무뚝뚝", value: "츤데레라는 소리를 자주 듣는 편이다." },
     { key: "아이돌", value: "엉뚱하고 오덕기질이 있다." },
     { key: "단순 활발", value: "노빠꾸 기질이 있는 편이다." },
@@ -19,7 +21,7 @@ function SelectPersonality({ nextSlide }) {
   ];
 
   const handlePersonalityChange = (e) => {
-    setPerson(e.target.value);
+    setPersonality(e.target.value);
   };
 
   return (
@@ -30,8 +32,8 @@ function SelectPersonality({ nextSlide }) {
       <form className={styled.personForm}>
         <div>
           <div className={styled.personalityLeftDiv}>
-            {personality
-              .filter((p) => personality.indexOf(p) < 4)
+            {personalities
+              .filter((p) => personalities.indexOf(p) < 4)
               .map((p, i) => (
                 <div key={`input${i}`} className={styled.personRadioBtn}>
                   <input
@@ -46,8 +48,8 @@ function SelectPersonality({ nextSlide }) {
               ))}
           </div>
           <div className={styled.personalityRightDiv}>
-            {personality
-              .filter((p) => personality.indexOf(p) >= 4)
+            {personalities
+              .filter((p) => personalities.indexOf(p) >= 4)
               .map((p, i) => (
                 <div key={`input${i + 4}`} className={styled.personRadioBtn}>
                   <input
@@ -64,8 +66,11 @@ function SelectPersonality({ nextSlide }) {
         </div>
       </form>
       <button
-        className={person !== null ? styled.btnActive : styled.btnHidden}
-        onClick={nextSlide}
+        className={personality !== null ? styled.btnActive : styled.btnHidden}
+        onClick={() => {
+          setMatchElem([...matchElem, personality]);
+          nextSlide();
+        }}
       >
         다음
       </button>
