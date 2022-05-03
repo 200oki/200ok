@@ -70,11 +70,19 @@ const csmRouter = Router();
  */
 
 csmRouter.put("/csmdata/counts", async (req, res, next) => {
-  const { id } = req.body; // 현재 매칭 캐릭터가 없어서 id로 대체했습니다 적용하시면 수정하겠습니다.
+  // ..todo:: body 검증 필요
+  const mostSimilar = CsmService.csm({ ...req.body });
+  const id = mostSimilar.id;
   const up = await CsmService.upCount({ id });
   const body = {
     success: true,
-    payload: up,
+    payload: {
+      id,
+      character: mostSimilar.character,
+      distance: mostSimilar.distance,
+      count: up,
+      // ..todo:: avg, total?
+    },
   };
   return res.status(200).json(body);
 });
