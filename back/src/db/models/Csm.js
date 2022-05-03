@@ -49,7 +49,7 @@ class Csm {
     if (!(id in csmdata)) {
       throw new RequestError(
         {
-          status: status.STATUS_400_BADREQUEST,
+          status: status.STATUS_404_NOTFOUND,
         },
         `{${id}} is either non-existent or not csm'able`
       );
