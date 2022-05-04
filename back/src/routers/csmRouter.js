@@ -202,7 +202,7 @@ csmRouter.put(
         );
       }
 
-      const mostSimilar = await CsmService.csm({ ...req.body });
+      const mostSimilar = CsmService.csm({ ...req.body });
       const id = mostSimilar.id;
       const up = await CsmService.upCount({ id });
       const body = {
