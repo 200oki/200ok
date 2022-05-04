@@ -75,8 +75,8 @@ const Write = () => {
       </Navigator>
       <Content>
         <ButtonWrapper>
-          <StyledItem onClick={() => navigate("list")} content="게시판" />
-          <StyledItem onClick={() => navigate("/stats")} content="방명록" />
+          <StyledItem onClick={() => navigate("/board")} content="게시판" />
+          <StyledItem onClick={() => navigate("/guestbook")} content="방명록" />
         </ButtonWrapper>
       </Content>
     </Container>
