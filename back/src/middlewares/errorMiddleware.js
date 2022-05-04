@@ -13,6 +13,7 @@ function errorMiddleware(error, req, res, next) {
     if (error.exit > 0) {
       process.exit(error.exit);
     }
+    /** @todo 범용 에러(AppError, RequestError) 사용 */
   } else {
     res.status(status.STATUS_500_INTERNALSERVERERROR).json({
       errorMessage: error.message,
