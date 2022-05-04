@@ -244,7 +244,7 @@ router.get("/characters/:id", async (req, res, next) => {
     // 쿼리에 원하는 필드값을 넣을 수 있습니다.
     let fields = parseArrayQuery(req.query.fields);
 
-    let found = CharacterService.get({ id: req.params.id, fields });
+    let found = CharacterService.get(req.params.id, fields);
     if (found.errorMessage) {
       throw new RequestError({ status: found.statusCode }, found.errorMessage);
     }
