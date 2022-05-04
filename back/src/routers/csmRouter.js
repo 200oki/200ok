@@ -280,7 +280,7 @@ csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
   return res.status(status.STATUS_200_OK).json(count);
 });
 
-/** GET /csmdata/:id swagger 문서
+/** GET /csmdata/:id swaggerdoc
  * @swagger
  * /csmdata/{id}:
  *  get:
@@ -357,6 +357,9 @@ csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
  *                            type: string
  *                            example: 대공
  *                          image_photo:
+ *                            type: string
+ *                            example: "https://image_url.com"
+ *                          image_icon:
  *                            type: string
  *                            example: "https://image_url.com"
  *      400:
