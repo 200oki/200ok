@@ -21,7 +21,7 @@ const GameItem = () => {
   const navigator = useNavigate();
   const { score, setScore } = useContext(GameContext);
   const { tier, setTier } = useContext(GameContext);
-  const { answer, setAnswer } = useContext(GameAnswerContext);
+  const { setAnswer } = useContext(GameAnswerContext);
 
   const ms = {
     position: "relative",
@@ -91,6 +91,19 @@ const GameItem = () => {
     time();
   }, [timer]);
 
+  useEffect(() => {
+    if (tier !== 6) {
+      console.log("not 6 tier score====>", score);
+      console.log("same six tier====>", tier);
+
+      notSixTier();
+    } else if (tier == 6) {
+      console.log("6 tier score====>", score);
+      console.log("same six tier====>", tier);
+      sixTier();
+    }
+  }, [isWin]);
+
   const handleClose = () => {
     setIsModalOpen((v) => !v);
   };
@@ -105,6 +118,7 @@ const GameItem = () => {
   };
   const sixTier = () => {
     console.log("gameTime===>", gameTime);
+    console.log("sixTier>>>>>", tier);
     window.clearTimeout(time);
     setScore((v) => v + tier * (60 - gameTime));
   };
@@ -113,19 +127,13 @@ const GameItem = () => {
     if (e.target.innerText == GameButtonText.NextRound) {
       console.log("win", e.target.innerText);
       if (tier !== 6) {
-        notSixTier();
-
+        console.log("not 6 tier score", score);
         navigator("/game-start");
       } else if (tier == 6) {
+        console.log("6 tier score", score);
         console.log("same six");
-        sixTier();
-
         navigator("/game-result");
       }
-      //콘텍스트에서 tier가지고 있으니까
-      //티어 1 올리고
-      //다시 게임 시작 컴포넌트로 보내기
-      //아니면 게임 결과 페이지로 보내기
     } else if (e.target.innerText == GameButtonText.RESULT) {
       window.clearTimeout(time);
       navigator("/game-result");
