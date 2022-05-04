@@ -9,7 +9,7 @@ const BestFriendWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: ${(props) => props.height}px;
+  height: calc(${(props) => props.height}px - 10px);
   width: 200px;
   position: absolute;
   right: calc(50vw - ${(props) => props.offset}px);
