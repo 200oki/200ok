@@ -3,7 +3,7 @@ import { Fab } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const DeleteButton = ({ Icon, className, ...other }) => {
+const ExitButton = ({ Icon, className, ...other }) => {
   const navigator = useNavigate();
   const handleOnclick = other.onClick ? other.onClick : undefined;
 
@@ -15,7 +15,7 @@ const DeleteButton = ({ Icon, className, ...other }) => {
     },
   };
 
-  const goDelete = () => {
+  const goExit = () => {
     navigator("/guestbook");
   };
   return (
@@ -23,11 +23,11 @@ const DeleteButton = ({ Icon, className, ...other }) => {
       sx={styles}
       aria-label="post"
       className={className}
-      onClick={handleOnclick === undefined ? goDelete : handleOnclick}
+      onClick={handleOnclick === undefined ? goExit : handleOnclick}
     >
       {Icon === undefined ? <ClearIcon /> : <Icon />}
     </Fab>
   );
 };
 
-export default DeleteButton;
+export default ExitButton;

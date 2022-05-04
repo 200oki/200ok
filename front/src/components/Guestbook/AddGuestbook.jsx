@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import DeleteButton from "../common/DeleteButton.js";
+import ExitButton from "../common/ExitButton.js";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../../api";
 import "../../css/GuestPost.css";
@@ -27,7 +27,7 @@ const AddGuestbook = () => {
         const newContent = [...current];
         newContent.push(response.data.payload);
         console.log("새거 :", newContent[newContent.length-1]); // 데이터 잘 들어있는지 확인
-        
+
         // 모달을 띄워주기 위해 state로 다 가져가기
         navigate('/guestbook', 
           { state: { payload: newContent[newContent.length-1], modal: true } });
@@ -40,7 +40,7 @@ const AddGuestbook = () => {
 
   return (
     <div className="guestbookPost">
-      <DeleteButton />
+      <ExitButton />
       <form className="guestbookForm" onSubmit={handleSubmit}>
         <div className="contentBack">
           <textarea className="textarea"
