@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const BestFriendWrapper = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ const BestFriendWrapper = styled.div`
   width: 200px;
   position: absolute;
   right: calc(50vw - ${(props) => props.offset}px);
-  background-color: rgb(103, 158, 203, 0.5);
+  background-color: rgb(160, 220, 248, 0.5);
 `;
 
 const LabelBf = styled.div`
@@ -20,12 +21,18 @@ const LabelBf = styled.div`
   font-size: 1.2rem;
 `;
 const IconBf = styled.img`
+  cursor: pointer;
   src: ${(props) => props.src};
+  transition: all;
+  &:hover {
+    transform: rotate(20deg);
+  }
 `;
 
 const BestFriends = ({ friends }) => {
   const [height, setHeight] = useState(0);
   const [offset, setOffset] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setHeight(document.getElementById("img-bubble")?.clientHeight);
@@ -36,7 +43,15 @@ const BestFriends = ({ friends }) => {
     <BestFriendWrapper height={height} offset={offset}>
       <LabelBf>최고의 궁합</LabelBf>
       {friends.map((friend, idx) => {
-        return <IconBf key={`friend-${idx}`} src={friend.character.image_icon} />;
+        return (
+          <IconBf
+            key={`friend-${idx}`}
+            src={friend.character.image_icon}
+            onClick={() => {
+              navigate(`/detail/${friend.id}`);
+            }}
+          />
+        );
       })}
     </BestFriendWrapper>
   );
