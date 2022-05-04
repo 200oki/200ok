@@ -37,6 +37,9 @@ const GameItem = () => {
     p: 4,
     outline: "none",
   };
+  useEffect(() => {
+    console.log("score Changed!!!!!!!", score);
+  }, [score]);
 
   const getCards = async () => {
     try {
@@ -84,6 +87,8 @@ const GameItem = () => {
     }, 1000);
   };
 
+  const test = () => {};
+
   useEffect(() => {
     if (timer >= 100) {
       return () => clearTimeout(time);
@@ -95,7 +100,6 @@ const GameItem = () => {
     if (tier !== 6) {
       console.log("not 6 tier score====>", score);
       console.log("same six tier====>", tier);
-
       notSixTier();
     } else if (tier === 6) {
       console.log("6 tier score====>", score);
@@ -109,18 +113,28 @@ const GameItem = () => {
   };
 
   const notSixTier = () => {
-    window.clearTimeout(time);
-    setScore((v) => v + tier * (60 - gameTime));
-    setTier((v) => v + 1);
-    console.log("gameTime===>", gameTime);
-    setTimer(0);
-    setIsModalOpen(false);
+    if (gameTime !== 60) {
+      window.clearTimeout(time);
+      setScore(score + tier * gameTime);
+      setTier((v) => v + 1);
+      console.log("gameTime===>", gameTime);
+      setTimer(0);
+      setIsModalOpen(false);
+    }
   };
+
   const sixTier = () => {
-    console.log("gameTime===>", gameTime);
-    console.log("sixTier>>>>>", tier);
-    window.clearTimeout(time);
-    setScore((v) => v + tier * (60 - gameTime));
+    if (gameTime !== 60) {
+      console.log("gameTime===>", gameTime);
+      console.log("sixTier>>>>>", tier);
+      window.clearTimeout(time);
+      if (gameTime === 0) {
+        setScore(score + tier * 8);
+      } else {
+        console.log("점수계산 sixTier");
+        setScore(score + tier * gameTime);
+      }
+    }
   };
 
   const handleNavigate = (e) => {
@@ -150,6 +164,7 @@ const GameItem = () => {
         ></div>
       </div>
       <div className="container">
+        <button onClick={test}>test</button>
         <FlashcardList
           flashcard={value}
           setIsWin={setIsWin}
