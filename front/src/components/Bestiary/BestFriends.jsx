@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const BestFriendWrapper = styled.div`
   display: flex;
-  border: 5px solid #00527a;
+  border: 5px solid #315e44;
   border-radius: 25px;
   flex-direction: column;
   align-items: center;
@@ -13,7 +13,7 @@ const BestFriendWrapper = styled.div`
   width: 200px;
   position: absolute;
   right: calc(50vw - ${(props) => props.offset}px);
-  background-color: rgb(160, 220, 248, 0.5);
+  background-color: rgb(75, 144, 104, 0.5);
 `;
 
 const LabelBf = styled.div`
