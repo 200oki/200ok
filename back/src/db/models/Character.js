@@ -10,14 +10,14 @@ import * as status from "../../utils/status.js";
  *
  * ## Methods
  *
- * - `static async get({ id })` - 캐릭터 한명을 골라 반환합니다.
- * - `static async getMany(field, value)` -
+ * - `static get({ id })` - 캐릭터 한명을 골라 반환합니다.
+ * - `static getMany(field, value)` -
  *  `[field]: value` 필터 한 가지를 정확히 만족하는 캐릭터들을 반환합니다.
- * - ~~`static async getByBirthday({ id })` -
+ * - ~~`static getByBirthday({ id })` -
  *  생일이 일치하는 캐릭터의 배열을 반환합니다.~~
- * - `static async list()` - 전체 캐릭터를 `{ id: name_ko }` 형식으로 반환합니다.
- * - `static async sample({ n })`- 캐릭터 `n`명을 무작위로 골라 배열로 반환합니다.
- * - `static async filter(keyword, pool)` - 캐릭터 데이터를 필터해서 반환합니다.
+ * - `static list()` - 전체 캐릭터를 `{ id: name_ko }` 형식으로 반환합니다.
+ * - `static sample({ n })`- 캐릭터 `n`명을 무작위로 골라 배열로 반환합니다.
+ * - `static filter(keyword, pool)` - 캐릭터 데이터를 필터해서 반환합니다.
  * - `static compareBySearchPriority(a, b)` -
  *  검색 키워드를 효율적으로 정렬하기 위한 비교 함수입니다.
  */
@@ -44,7 +44,7 @@ class Character {
    *
    * 이 안에 없는 필드를 쿼리하는 것은 에러입니다.
    */
-  static async exists(field, value) {
+  static exists(field, value) {
     if (!(field in characters) || field === "ALL") {
       throw new Error(
         `Field name "${field}" either doesn't exist or not peekable`
@@ -66,7 +66,7 @@ class Character {
    * @arg {{string}} id - 캐릭터 `id`는 영문 이름의 소문자/공백제거/아스키 버전입니다.
    * @return {{any}?} character
    */
-  static async get({ id }) {
+  static get({ id }) {
     if (id in characters.id) {
       return characters.id[id];
     } else {
@@ -98,7 +98,7 @@ class Character {
    *
    * 이 안에 없는 필드를 쿼리하는 것은 에러입니다.
    */
-  static async getMany(field, value) {
+  static getMany(field, value) {
     if (field === "ALL") {
       return characters.ALL;
     }
@@ -124,7 +124,7 @@ class Character {
    * @return {{any}} characters - 캐릭터가 여러 명 포함된 객체입니다.
    * - 생일이 같은 캐릭터가 여러 명일 수도 있고, 없을 수도 있습니다.
    */
-  static async getByBirthday({ birthday }) {
+  static getByBirthday({ birthday }) {
     // const found = _(characters).pick((v, k) => v.birthday === birthday);
     // return found;
     if (birthday in characters.birthday) {
@@ -143,7 +143,7 @@ class Character {
    *
    * @return {{any}} characterNames
    */
-  static async list() {
+  static list() {
     return characterNames;
   }
 
@@ -155,7 +155,7 @@ class Character {
    *    때문에 여기서는 문자열입니다.
    * @return {any[]} randomCharacters - 반환값의 순서 역시 무작위입니다.
    */
-  static async sample(n, tiers = []) {
+  static sample(n, tiers = []) {
     // const found = _(characters).chain().pairs().sample(n).object().value();
     // return found;
     let pool;
@@ -174,7 +174,7 @@ class Character {
    * @arg {any[]} pool - 필터를 적용할 대상입니다.
    * @return {any[]} result - 필터된 데이터를 반환합니다.
    */
-  static async filter(keyword, pool) {
+  static filter(keyword, pool) {
     const field = keyword[0];
     const value = keyword[1].toLowerCase();
     if (!(field in characters) || field === "ALL") {
