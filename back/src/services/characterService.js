@@ -44,7 +44,7 @@ class CharacterService {
    * @return {{any}|errorinfo} character
    */
   static get({ id, fields = [] }) {
-    const character = Character.get({ id });
+    const character = Character.get(id);
     if (character) {
       if (fields.length) {
         return _(character).pick(fields);
