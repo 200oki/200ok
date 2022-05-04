@@ -8,6 +8,17 @@ import * as status from "../utils/status.js";
 
 const csmRouter = Router();
 
+/** `top`, `bottom` 쿼리를 정수로 변환을 시도합니다.
+ *
+ * @arg {{top: string?, bottom: string?}} kwargs -
+ *    `req.query`에 있는 `top`, `bottom` 쿼리입니다.
+ *    - nullish이면 0으로 반환합니다. (쿼리가 없음)
+ *    - 값이 있지만 변환이 안 되면 Bad Request 에러입니다.
+ *    - 값이 정수이지만 0-391 사이가 아니면 역시 Bad Request 에러입니다.
+ * @return {[number, number]}
+ */
+function parseTopBottomQuery({ top, bottom }) {}
+
 /**
  *  @swagger
  *  tags:
