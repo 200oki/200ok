@@ -76,6 +76,7 @@ const GuestbookList = () => {
     setModal((v) => !v);
     setContent(element.content);
     setDate(element.createdAt.slice(0, 10)); 
+  };
 
   const cardPerColumn = 2;
   const columns = [];
