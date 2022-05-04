@@ -27,7 +27,7 @@ const Detail = styled.div`
   font-family: "TmoneyRoundWindExtraBold";
   font-size: 1.24rem;
   padding-left: ${(props) => (props.role === "label" ? "0" : "20px")};
-  margin: ${(props) => (props.role === "label" ? "0" : "-40px")};
+  margin-left: ${(props) => (props.role === "label" ? "0" : "-40px")};
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 `;
 
