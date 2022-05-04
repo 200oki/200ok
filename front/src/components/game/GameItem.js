@@ -97,7 +97,7 @@ const GameItem = () => {
       console.log("same six tier====>", tier);
 
       notSixTier();
-    } else if (tier == 6) {
+    } else if (tier === 6) {
       console.log("6 tier score====>", score);
       console.log("same six tier====>", tier);
       sixTier();
@@ -124,17 +124,17 @@ const GameItem = () => {
   };
 
   const handleNavigate = (e) => {
-    if (e.target.innerText == GameButtonText.NextRound) {
+    if (e.target.innerText === GameButtonText.NextRound) {
       console.log("win", e.target.innerText);
       if (tier !== 6) {
         console.log("not 6 tier score", score);
         navigator("/game-start");
-      } else if (tier == 6) {
+      } else if (tier === 6) {
         console.log("6 tier score", score);
         console.log("same six");
         navigator("/game-result");
       }
-    } else if (e.target.innerText == GameButtonText.RESULT) {
+    } else if (e.target.innerText === GameButtonText.RESULT) {
       window.clearTimeout(time);
       navigator("/game-result");
     }
@@ -168,7 +168,7 @@ const GameItem = () => {
                 : "1단계가 완료되었습니다."}
             </Typography>
 
-            {tier != 6 ? (
+            {tier !== 6 ? (
               <button
                 className={classes.gameEndButton}
                 onClick={handleNavigate}
