@@ -18,7 +18,7 @@ import * as status from "../utils/status.js";
  *
  * ## Methods
  *
- * - `static get({ id, fields = [] })`
+ * - `static get(id, fields = [])`
  *    - 캐릭터 한명을 골라 반환합니다.
  * 찾는 `id`가 없으면 404 에러입니다.
  * - ~~`static getByBirthday({ birthday, fields = [] })`~~
@@ -34,16 +34,12 @@ import * as status from "../utils/status.js";
 class CharacterService {
   /** 캐릭터 한명을 골라 반환합니다. 찾는 `id`가 없으면 404 에러입니다.
    *
-   * @arg {{id: string, fields: string[]}} payload -
-   * ```js
-   * { id: string, fields: string[] = []}
-   * ```
-   * - `id`는 영문 이름의 소문자/공백제거/아스키 버전입니다.
-   * - `fields`는 포함하고 싶은 필드 목록입니다.
-   * - 빈 배열이면 모든 필드를 포함합니다.
+   * @arg {string} id - `id`는 영문 이름의 소문자/공백제거/아스키 버전입니다.
+   * @arg {string[]} [fields] - `fields`는 포함하고 싶은 필드 목록입니다.
+   *    빈 배열이면 모든 필드를 포함합니다.
    * @return {{any}|errorinfo} character
    */
-  static get({ id, fields = [] }) {
+  static get(id, fields = []) {
     const character = Character.get(id);
     if (character) {
       if (fields.length) {
