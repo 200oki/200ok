@@ -46,7 +46,7 @@ const GuestbookList = () => {
       if (state.modal) { // 만약 modal이 true 라면 받아온 데이터를 모달로 띄우기
         setModal(state.modal);
         setContent(state.payload.content);
-        setDate(state.payload.createdAt.slice(0, 10));
+        setDate(state.payload.createdAt.slice(0, 10)); // 날짜를 연-월-일로 자름 ex) 2022-05-04
       }
     }
   }, [state]);
@@ -71,12 +71,11 @@ const GuestbookList = () => {
     element.scrollLeft = (maxScrollLeft / 100) * val;
   };
 
-  // 방명록 보여주는 부분
+  // 모달로 방명록 보여주는 부분
   const handleClick = (element) => {
     setModal((v) => !v);
     setContent(element.content);
-    setDate(element.createdAt.slice(0, 10)); // 날짜를 연-월-일로 자름 ex) 2022-05-04
-  };
+    setDate(element.createdAt.slice(0, 10)); 
 
   const cardPerColumn = 2;
   const columns = [];
