@@ -30,6 +30,7 @@ const GuestbookList = () => {
     try {
       const { data } = await Api.get('guestbooks');
       setGuestbook(data.payload);
+      console.log(data.payload); // 백엔드에서 데이터 잘 오는지 확인
       setCount(data.payload.length);
       setIsLoading(false);
     } catch (error) {
@@ -40,13 +41,11 @@ const GuestbookList = () => {
   useEffect(() => {
     getDataList();
     console.log("state :", state); // 받아온 값 확인하기
-    console.log("첨엔 여기 오지마!! 하지만 오겠지...")
     if (state !== null) {
       if (state.modal) { // 만약 modal이 true 라면 받아온 데이터를 모달로 띄우기
         setModal(state.modal);
         setContent(state.payload.content);
         setDate(state.payload.createdAt.slice(0, 10));
-        console.log("여기는 오나??")
       }
     }
   }, [state]);
