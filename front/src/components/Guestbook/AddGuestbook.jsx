@@ -30,7 +30,11 @@ const AddGuestbook = () => {
 
         // 모달을 띄워주기 위해 state로 다 가져가기
         navigate('/guestbook', 
-          { state: { payload: newContent[newContent.length-1], modal: true } });
+          { 
+            state: { payload: newContent[newContent.length-1], 
+            modal: true 
+          } 
+        });
       });
       setIsTyping(false);
     } catch (err) {
