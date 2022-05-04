@@ -7,6 +7,74 @@ import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 import { useNavigate } from "react-router-dom";
 
+const BoardList = () => {
+  const navigate = useNavigate();
+
+  const [villagers, setVillagers] = useState([]);
+  const [count, setCount] = useState(0);
+  const [show, setShow] = useState(false);
+
+  const scrollHandler = (e, val) => {
+    const element = document.getElementById("content");
+    const maxScrollLeft = element.scrollWidth - element.clientWidth;
+    element.scrollLeft = (maxScrollLeft / 100) * val;
+  };
+
+  const clickHandler = (e) => {
+    e.preventDefault();
+  };
+
+  useEffect(() => {
+  }, []);
+
+  const cardPerColumn = 3;
+  const columns = [];
+
+  for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
+    columns.push(
+      villagers.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
+        return (
+          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
+            <Name>{villager.name_ko}</Name>
+          </Card>
+        );
+      })
+    );
+  }
+  const restCards = count % cardPerColumn;
+  if (restCards > 0) {
+    columns.push(
+      villagers.slice(-restCards).map((villager, idx) => {
+        return (
+          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
+            <Name>{villager.name_ko}</Name>
+          </Card>
+        );
+      })
+    );
+  }
+  return (
+    <Container>
+      <Navigator>
+        <BackButton content={"뒤로가기"} destination={"write"} />
+        <Wrapper>
+          <HomeButton />
+        </Wrapper>
+      </Navigator>
+      <Content>
+        <ContentWrapper>
+          <ContentContainer id="content">
+            {columns.map((column, idx) => {
+              return <Column key={idx}>{column}</Column>;
+            })}
+          </ContentContainer>
+          <PrettoSlider onChange={scrollHandler} />
+        </ContentWrapper>
+      </Content>
+    </Container>
+  );
+};
+
 const Navigator = styled.div`
   position: fixed;
   top: 0;
@@ -154,73 +222,5 @@ const PrettoSlider = Styled(Slider)({
     },
   },
 });
-
-const BoardList = () => {
-  const navigate = useNavigate();
-
-  const [villagers, setVillagers] = useState([]);
-  const [count, setCount] = useState(0);
-  const [show, setShow] = useState(false);
-
-  const scrollHandler = (e, val) => {
-    const element = document.getElementById("content");
-    const maxScrollLeft = element.scrollWidth - element.clientWidth;
-    element.scrollLeft = (maxScrollLeft / 100) * val;
-  };
-
-  const clickHandler = (e) => {
-    e.preventDefault();
-  };
-
-  useEffect(() => {
-  }, []);
-
-  const cardPerColumn = 3;
-  const columns = [];
-
-  for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
-    columns.push(
-      villagers.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
-        return (
-          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
-            <Name>{villager.name_ko}</Name>
-          </Card>
-        );
-      })
-    );
-  }
-  const restCards = count % cardPerColumn;
-  if (restCards > 0) {
-    columns.push(
-      villagers.slice(-restCards).map((villager, idx) => {
-        return (
-          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
-            <Name>{villager.name_ko}</Name>
-          </Card>
-        );
-      })
-    );
-  }
-  return (
-    <Container>
-      <Navigator>
-        <BackButton content={"뒤로가기"} destination={"write"} />
-        <Wrapper>
-          <HomeButton />
-        </Wrapper>
-      </Navigator>
-      <Content>
-        <ContentWrapper>
-          <ContentContainer id="content">
-            {columns.map((column, idx) => {
-              return <Column key={idx}>{column}</Column>;
-            })}
-          </ContentContainer>
-          <PrettoSlider onChange={scrollHandler} />
-        </ContentWrapper>
-      </Content>
-    </Container>
-  );
-};
 
 export default BoardList;
