@@ -42,7 +42,6 @@
   font-family: "TmoneyRoundWindExtraBold";
   font-size: 1.7em;
   color: #00BAAC;
-  transition: all 0.3s ease-in-out; 
   margin-bottom: 30px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
