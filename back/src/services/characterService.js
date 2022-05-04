@@ -123,6 +123,11 @@ class CharacterService {
       );
     }
 
+    // 2주차 코드 리뷰 제안: https://kdt-gitlab.elice.io/ai_track/class_04/data_project/team4/200ok/-/merge_requests/13#note_52206
+    // 리뷰를 읽을 때는 완전히 납득했지만 고치려고 살펴본 결과
+    // 실제로는 props/values를 직접 수정하는 부분은 없는 것 같습니다.
+    // zip과 unzip을 거치기 때문에 인자가 직접 수정되지는 않을 것으로 보입니다.
+    // 따라서 괜히 복사를 하기보단 그냥 두기로 합니다. -sj
     let result;
     if (props.length === 0) {
       // 도감 때문에 전체 캐릭터 리스트가 필요합니다.
