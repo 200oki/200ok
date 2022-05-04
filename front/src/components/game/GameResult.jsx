@@ -28,7 +28,6 @@ const GameResult = () => {
   const getScoreAndRank = async () => {
     const bodyData = { nickname: nickname, score: score };
     const { data } = await Api.post("scores", bodyData);
-    console.log(data.payload);
     settingDefault(data.payload);
     return data.payload;
   };
@@ -48,7 +47,6 @@ const GameResult = () => {
       navigator("/");
     } else if (e.target.innerText === BtnText.SHARE) {
     } else if (e.target.innerText === BtnText.RETRY) {
-      console.log("result reset Score=>>>>>>>>>", score);
       navigator("/game");
     } else {
       navigator("/game-hof");
