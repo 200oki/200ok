@@ -42,7 +42,7 @@ const GuestbookList = () => {
   useEffect(() => {
     getDataList();
     console.log("state :", state); // 받아온 값 확인하기
-    if (state !== null) {
+    if (state !== null) { // 처음에 null 값이 들어있어서 오류 => not null일 때만 사용하도록 조건 추가
       if (state.modal) { // 만약 modal이 true 라면 받아온 데이터를 모달로 띄우기
         setModal(state.modal);
         setContent(state.payload.content);
