@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "../../css/match.module.css";
 import { useStyles } from "../../utils/useStyles";
 import { useNavigate } from "react-router-dom";
 import HomeButton from "../common/HomeButton";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import usePathParams from "../../utils/usePathParams";
+
+import { ParamContext } from "../../context/ParamContext";
 
 function MatchResultRank({ goodBad, goToPosition }) {
   const classes = useStyles();
   const navigator = useNavigate();
+  const pathname = usePathParams();
+  const { setParam } = useContext(ParamContext);
 
   return (
     <>
@@ -27,6 +32,7 @@ function MatchResultRank({ goodBad, goToPosition }) {
             <button
               className={styled.goToCharInfoBtn}
               onClick={() => {
+                setParam(pathname);
                 navigator(`/detail/${s.id}`);
               }}
             >
