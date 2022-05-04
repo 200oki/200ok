@@ -12,6 +12,8 @@ const GameResult = () => {
   const classes = useStyles();
   const navigator = useNavigate();
   const { score, setScore } = useContext(GameContext);
+  const { setTier, setMatchedTotal } = useContext(GameContext);
+
   const handleClick = () => {
     navigator("/game-start");
   };
@@ -22,6 +24,8 @@ const GameResult = () => {
 
   useEffect(() => {
     setScore(0);
+    setTier(1);
+    setMatchedTotal([]);
   }, []);
 
   return (
