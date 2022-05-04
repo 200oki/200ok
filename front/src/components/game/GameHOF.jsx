@@ -29,7 +29,7 @@ const GameHOF = () => {
 
   const getData = async () => {
     try {
-      const { data } = await Api.get("scorelist");
+      const { data } = await Api.get("scores");
       setRank(data.rankList);
     } catch (e) {
       console.log(e);
