@@ -38,10 +38,6 @@ const GameItem = () => {
     outline: "none",
   };
 
-  useEffect(() => {
-    console.log("score Changed!!!!!!!", score);
-  }, [score]);
-
   const getCards = async () => {
     try {
       let url;
@@ -100,16 +96,12 @@ const GameItem = () => {
   useEffect(() => {
     if (timer >= 100 && gameTime === 0) {
       setIsModalOpen(true);
-      console.log("return timer", timer, gameTime);
-      console.log("if (timer >= 100 && gameTime === 0) {");
       window.clearTimeout(time);
     }
   }, [timer, gameTime]);
 
   useEffect(() => {
     if (timer >= 100 || isWin) {
-      console.log("timer >= 100 || isWin", timer, isWin);
-
       return () => window.clearTimeout(time);
     }
     time();
@@ -124,7 +116,6 @@ const GameItem = () => {
   }, [isWin]);
 
   const handleClose = () => {
-    console.log("setIsModalOpen");
     setIsModalOpen((v) => !v);
   };
 
