@@ -11,7 +11,7 @@ import * as status from "../../utils/status.js";
  * ## Methods
  *
  * - `static exists(field, value)` - 캐릭터(들)이 있는지 살펴봅니다.
- * - `static get({ id })` - 캐릭터 한명을 골라 반환합니다.
+ * - `static get(id)` - 캐릭터 한명을 골라 반환합니다.
  * - `static getMany(field, value)` -
  *  `[field]: value` 필터 한 가지를 정확히 만족하는 캐릭터들을 반환합니다.
  * - ~~`static getByBirthday({ id })` -
@@ -64,10 +64,10 @@ class Character {
 
   /** 캐릭터 한명을 골라 반환합니다. 찾는 `id`가 없으면 `null`을 돌려줍니다.
    *
-   * @arg {{string}} id - 캐릭터 `id`는 영문 이름의 소문자/공백제거/아스키 버전입니다.
+   * @arg {string} id - 캐릭터 `id`는 영문 이름의 소문자/공백제거/아스키 버전입니다.
    * @return {{any}?} character
    */
-  static get({ id }) {
+  static get(id) {
     if (id in characters.id) {
       return characters.id[id];
     } else {
