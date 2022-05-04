@@ -1,5 +1,5 @@
 import { logger } from "../utils/winstonLogger.js";
-import { RequestError } from "../utils/errors.js";
+import { AppError, RequestError } from "../utils/errors.js";
 import * as status from "../utils/status.js";
 
 function errorMiddleware(error, req, res, next) {
@@ -9,6 +9,10 @@ function errorMiddleware(error, req, res, next) {
       ...error.payload,
     });
     logger.info(`${error.name}: ${error.message}`);
+  } else if (error instanceof AppError) {
+    if (error.exit > 0) {
+      process.exit(error.exit);
+    }
   } else {
     res.status(status.STATUS_500_INTERNALSERVERERROR).json({
       errorMessage: error.message,
