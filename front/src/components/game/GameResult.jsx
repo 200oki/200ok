@@ -14,8 +14,8 @@ const GameResult = () => {
   const [gameScore, setGameScore] = useState(0);
   const [rank, setRank] = useState(0);
 
-  const { nickname, setNickname } = useContext(NicknameContext);
-  const { score } = useContext(GameContext);
+  const { nickname } = useContext(NicknameContext);
+  const { score, setScore } = useContext(GameContext);
 
   const classes = useStyles();
   const navigator = useNavigate();
@@ -23,6 +23,7 @@ const GameResult = () => {
   const settingDefault = (data) => {
     setGameScore(data.score);
     setRank(data.rank);
+    setScore(0);
   };
 
   const getScoreAndRank = async () => {
@@ -35,6 +36,7 @@ const GameResult = () => {
   useEffect(() => {
     getScoreAndRank();
   }, []);
+
   const typoStyles = {
     fontFamily: "TmoneyRoundWindExtraBold",
     fontSize: "1.5rem",
@@ -78,7 +80,7 @@ const GameResult = () => {
             축하합니다!
           </Typography>
           <Typography sx={typoStyles} variant={"body1"} className="content2">
-            당신의 기록은 <span className="gameResultScore">{score}점</span>{" "}
+            당신의 기록은 <span className="gameResultScore">{gameScore}점</span>{" "}
             이고,
           </Typography>
           <Typography sx={typoStyles} variant={"body1"} className="content3">
