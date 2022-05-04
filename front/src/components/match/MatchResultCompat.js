@@ -23,7 +23,7 @@ function MatchResultRank({ goodBad, goToPosition }) {
         {goodBad.map((s, idx) => (
           <div className={styled.rankCharCard} key={idx} idx={idx}>
             <div className={styled.rankCharTitle}>
-              {idx === 0 ? <span>Good :)</span> : <span>Bad :(</span>}
+              {idx === 0 ? <span>Good 😊</span> : <span>Bad 🙁</span>}
             </div>
             <div className={styled.rankCharImage}>
               <img src={s.character.image_photo} alt="주민사진" />
