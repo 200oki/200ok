@@ -40,7 +40,6 @@ const AddGuestbook = () => {
 
   return (
     <div className="guestbookPost">
-      <ExitButton />
       <form className="guestbookForm" onSubmit={handleSubmit}>
         <div className="contentBack">
           <textarea className="textarea"
