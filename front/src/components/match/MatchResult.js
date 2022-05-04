@@ -8,6 +8,7 @@ import MatchResultComment from "./MatchResultComment";
 import BackButton from "../common/BackButton";
 import Typewriter from "typewriter-effect";
 
+import { ParamContext } from "../../context/ParamContext";
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchElementContext } from "../../context/MatchElementContext";
 
@@ -15,6 +16,7 @@ const DIVIDER_HEIGHT = 5;
 
 function MatchResult() {
   const navigator = useNavigate();
+  const { setParam } = useContext(ParamContext);
   const { nickname, setNickname } = useContext(NicknameContext);
   const outerDivRef = useRef();
 
@@ -92,6 +94,7 @@ function MatchResult() {
 
   useEffect(() => {
     fetchResultData();
+    setParam(null);
   }, []);
 
   useEffect(() => {
