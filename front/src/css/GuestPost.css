@@ -147,4 +147,8 @@
     margin: 0 auto;
     justify-content: center;
   }
+  .exitBtn,
+  .submitBtn {
+    margin-bottom: 20px;
+  }
 }
