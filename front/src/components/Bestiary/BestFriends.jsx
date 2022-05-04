@@ -9,7 +9,7 @@ const BestFriendWrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: ${(props) => props.height}px;
-  width: auto;
+  width: 200px;
   position: absolute;
   right: calc(50vw - ${(props) => props.offset}px);
   background-color: rgb(103, 158, 203, 0.5);
