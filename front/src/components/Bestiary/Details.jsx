@@ -99,7 +99,7 @@ const Details = ({ villager }) => {
         <Column>
           {keys.slice(0, parseInt(keys.length / 2)).map((v) => (
             <DetailWrapper key={v}>
-              <Detail color="green" role="label">
+              <Detail color="#315E44" role="label" style={{ color: "white" }}>
                 {options[v]}
               </Detail>
               <Detail color="white" role="payload" style={{ zIndex: "-1", position: "relative", left: "-40px" }}>
@@ -119,7 +119,7 @@ const Details = ({ villager }) => {
         <Column>
           {keys.slice(parseInt(keys.length / 2)).map((v) => (
             <DetailWrapper key={v}>
-              <Detail color="green" role="label" style={{ position: "relative", left: "40px" }}>
+              <Detail color="#315E44" role="label" style={{ position: "relative", left: "40px", color: "white" }}>
                 {options[v]}
               </Detail>
               <Detail color="white" role="payload">
