@@ -19,7 +19,7 @@ import {
  *  - `payload` holds res data to send it even in the brink of erroring out.
  *  - `params`: Anything that you would otherwise pass to an Error.
  */
-class RequestError extends Error {
+class ObsoleteRequestError extends Error {
   constructor(
     { status = STATUS_400_BADREQUEST, payload = { success: false } },
     ...params
@@ -27,7 +27,7 @@ class RequestError extends Error {
     super(...params);
 
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, RequestError);
+      Error.captureStackTrace(this, ObsoleteRequestError);
     }
 
     this.name = this.constructor.name;
@@ -61,7 +61,7 @@ class AppError extends Error {
     super(...params);
     Object.setPrototypeOf(this, new.target.prototype);
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, AppError);
+      Error.captureStackTrace(this, this.constructor);
     }
 
     this.name = name ?? this.constructor.name;
@@ -71,4 +71,13 @@ class AppError extends Error {
   }
 }
 
-export { RequestError, AppError };
+class RequestError extends AppError {
+  static status = STATUS_400_BADREQUEST;
+  static exit = 0;
+  constructor({ name, status, exit, detail }, ...params) {
+    super(...arguments);
+    Object.setPrototypeOf(this, new.target.prototype);
+  }
+}
+
+export { ObsoleteRequestError as RequestError, AppError };
