@@ -71,10 +71,10 @@ const GuestbookList = () => {
   };
 
   // 방명록 보여주는 부분
-  const handleClick = (item) => {
+  const handleClick = (element) => {
     setModal((v) => !v);
-    setContent(item.content);
-    setDate(item.createdAt.slice(0, 11)); // 날짜를 연-월-일로 자름 ex) 2022-05-04
+    setContent(element.content);
+    setDate(element.createdAt.slice(0, 11)); // 날짜를 연-월-일로 자름 ex) 2022-05-04
   };
 
   const cardPerColumn = 2;
