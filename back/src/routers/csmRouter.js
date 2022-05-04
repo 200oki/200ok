@@ -15,7 +15,7 @@ const csmRouter = Router();
  *    - nullish이면 0으로 반환합니다. (쿼리가 없음)
  *    - 값이 있지만 변환이 안 되면 Bad Request 에러입니다.
  *    - 값이 정수이지만 0-391 사이가 아니면 역시 Bad Request 에러입니다.
- * @return {[number, number]}
+ * @return {[number, number]} `[ top, bottom ]` 순으로 반환합니다.
  */
 function parseTopBottomQuery({ top, bottom }) {
   top ??= 0;
@@ -35,6 +35,7 @@ function parseTopBottomQuery({ top, bottom }) {
       `Unacceptable "top" or "bottom" value`
     );
   }
+  return [top, bottom];
 }
 
 /**
