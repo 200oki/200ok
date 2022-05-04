@@ -32,10 +32,6 @@ const BoardList = () => {
     element.scrollLeft = (maxScrollLeft / 100) * val;
   };
 
-  const clickHandler = (e) => {
-    e.preventDefault();
-  };
-
   useEffect(() => {
     getBoardList();
   }, []);
