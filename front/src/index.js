@@ -7,18 +7,15 @@ import "./css/index.css";
 import { GameProvider } from "./context/GameContext";
 import { NicknameProvider } from "./context/NicknameContext";
 import { MatchElementProvider } from "./context/MatchElementContext";
-import { MatchCommentProvider } from "./context/MatchCommentContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <NicknameProvider>
       <MatchElementProvider>
-        <MatchCommentProvider>
-          <GameProvider>
-            <App />
-          </GameProvider>
-        </MatchCommentProvider>
+        <GameProvider>
+          <App />
+        </GameProvider>
       </MatchElementProvider>
     </NicknameProvider>
   </React.StrictMode>
