@@ -102,7 +102,7 @@ const VillagerDetail = () => {
       }
     };
     getVillager();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const getFriends = async () => {
@@ -110,7 +110,7 @@ const VillagerDetail = () => {
       setFriends(data.payload);
     };
     getFriends();
-  }, []);
+  }, [id]);
 
   return (
     <Container>
