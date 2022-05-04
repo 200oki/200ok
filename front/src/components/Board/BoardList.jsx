@@ -204,7 +204,7 @@ const BoardList = () => {
   return (
     <Container>
       <Navigator>
-        <BackButton content={"뒤로가기"} destination={"bestiary"} />
+        <BackButton content={"뒤로가기"} destination={"write"} />
         <Wrapper>
           <HomeButton />
         </Wrapper>
