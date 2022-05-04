@@ -26,9 +26,8 @@ const AddGuestbook = () => {
       setContent((current) => {
         const newContent = [...current];
         newContent.push(response.data.payload);
-        console.log("새거 :", newContent[newContent.length-1]);
-        // navigate(`/guestbook/${newContent[newContent.length-1].id}`);
-        navigate('/guestbook', { state: { payload: newContent[newContent.length-1], modal: true } });
+        console.log("새거 :", newContent[newContent.length-1]); // 데이터 잘 들어있는지 확인
+        navigate('/guestbook', { state: { payload: newContent[newContent.length-1], modal: true } }); // 모달을 띄워주기 위해 state로 다 가져가기
       });
       setIsTyping(false);
     } catch (err) {

@@ -175,8 +175,8 @@ const GuestbookList = () => {
 
   useEffect(() => {
     getDataList();
-    console.log("state :", state);
-    if (state.modal) {
+    console.log("state :", state); // 받아온 값 확인하기
+    if (state.modal) { // 만약 modal이 true 라면 받아온 데이터를 모달로 띄우기
       setModal(state.modal);
       setContent(state.payload.content);
       setDate(state.payload.createdAt.slice(0, 10));
