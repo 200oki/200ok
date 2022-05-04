@@ -74,7 +74,7 @@ const GuestbookList = () => {
   const handleClick = (element) => {
     setModal((v) => !v);
     setContent(element.content);
-    setDate(element.createdAt.slice(0, 1)); // 날짜를 연-월-일로 자름 ex) 2022-05-04
+    setDate(element.createdAt.slice(0, 10)); // 날짜를 연-월-일로 자름 ex) 2022-05-04
   };
 
   const cardPerColumn = 2;
