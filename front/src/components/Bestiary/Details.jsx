@@ -49,47 +49,52 @@ const Details = ({ villager }) => {
   if (villager?.special) {
     const keys = ["gender", "birthday"];
     return (
-      <div style={{ display: "flex", flexDirection: "row", alignItems: "space-around" }} id="columnWrapper">
-        <Column>
-          {keys.slice(0, parseInt(keys.length / 2)).map((v) => (
-            <DetailWrapper key={v}>
-              <Detail color="green" role="label">
-                {options[v]}
-              </Detail>
-              <Detail color="white" role="payload" style={{ zIndex: "-1", position: "relative", left: "-40px" }}>
-                {villager[v] === undefined
-                  ? null
-                  : villager[v] === "Male"
-                  ? "남"
-                  : villager[v] === "Female"
-                  ? "여"
-                  : villager[v].constructor === Array
-                  ? villager[v].join(" ")
-                  : villager[v]}
-              </Detail>
-            </DetailWrapper>
-          ))}
-        </Column>
-        <Column>
-          {keys.slice(parseInt(keys.length / 2)).map((v) => (
-            <DetailWrapper key={v}>
-              <Detail color="green" role="label" style={{ position: "relative", left: "40px" }}>
-                {options[v]}
-              </Detail>
-              <Detail color="white" role="payload">
-                {villager[v] === undefined
-                  ? null
-                  : villager[v] === "Male"
-                  ? "남"
-                  : villager[v] === "Female"
-                  ? "여"
-                  : villager[v].constructor === Array
-                  ? villager[v].join(" ")
-                  : villager[v]}
-              </Detail>
-            </DetailWrapper>
-          ))}
-        </Column>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <Detail color="#5e314b" role="payload" style={{ color: "white" }}>
+          스페셜 주민 입니다.
+        </Detail>
+        <div style={{ display: "flex", flexDirection: "row", alignItems: "space-around" }} id="columnWrapper">
+          <Column>
+            {keys.slice(0, parseInt(keys.length / 2)).map((v) => (
+              <DetailWrapper key={v}>
+                <Detail color="#315E44" role="label" style={{ color: "white" }}>
+                  {options[v]}
+                </Detail>
+                <Detail color="white" role="payload" style={{ zIndex: "-1", position: "relative", left: "-40px" }}>
+                  {villager[v] === undefined
+                    ? null
+                    : villager[v] === "Male"
+                    ? "남"
+                    : villager[v] === "Female"
+                    ? "여"
+                    : villager[v].constructor === Array
+                    ? villager[v].join(" ")
+                    : villager[v]}
+                </Detail>
+              </DetailWrapper>
+            ))}
+          </Column>
+          <Column>
+            {keys.slice(parseInt(keys.length / 2)).map((v) => (
+              <DetailWrapper key={v}>
+                <Detail color="#315E44" role="label" style={{ position: "relative", left: "40px", color: "white" }}>
+                  {options[v]}
+                </Detail>
+                <Detail color="white" role="payload">
+                  {villager[v] === undefined
+                    ? null
+                    : villager[v] === "Male"
+                    ? "남"
+                    : villager[v] === "Female"
+                    ? "여"
+                    : villager[v].constructor === Array
+                    ? villager[v].join(" ")
+                    : villager[v]}
+                </Detail>
+              </DetailWrapper>
+            ))}
+          </Column>
+        </div>
       </div>
     );
   } else {
