@@ -42,8 +42,8 @@ app.use(characterRouter);
 app.use(commentRouter);
 app.use(scoreRouter);
 app.use(statRouter);
-
 app.use(csmRouter);
+app.use('/uploads', express.static('uploads'));
 app.use(errorMiddleware);
 
 // .env를 검사합니다.
