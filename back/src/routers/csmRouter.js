@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { body, query } from "express-validator";
+import { body } from "express-validator";
 
 import { CsmService } from "../services/csmService.js";
 import { validate } from "../middlewares/validator.js";
