@@ -143,3 +143,12 @@
 .textarea:focus {
   outline: none;
 }
+
+@media (max-width: 1000px) {
+  .alignButton {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    justify-content: center;
+  }
+}

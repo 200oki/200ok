@@ -50,7 +50,7 @@ const AddGuestbook = () => {
             required
           />
         </div>
-        <div>
+        <div className="alignButton">
           <button type="submit" className="exitBtn" onClick={() => navigate('/guestbook')}>
             그만 쓸래
           </button>
