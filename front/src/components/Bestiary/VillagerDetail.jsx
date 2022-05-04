@@ -6,7 +6,6 @@ import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 import SpeechBubble from "./SpeechBubble";
 import BestFriends from "./BestFriends";
-import Details from "./Details";
 
 const Navigator = styled.div`
   position: fixed;
@@ -56,37 +55,6 @@ const Content = styled.div`
   animation: ${pop} 1s linear forwards;
 `;
 
-const Detail = styled.div`
-  background-color: ${(props) => props.color};
-  width: ${(props) => (props.role === "label" ? "10rem" : "20rem")};
-  height: 40px;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "TmoneyRoundWindExtraBold";
-  font-size: 1.24rem;
-  margin: 0;
-  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
-`;
-
-const DetailWrapper = styled.div`
-  width: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Column = styled.div`
-  height: 30vh;
-  width: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-`;
-
 const VillagerDetail = () => {
   const [villager, setVillager] = useState(undefined);
   const [friends, setFriends] = useState(null);
@@ -132,7 +100,7 @@ const VillagerDetail = () => {
           </div>
           {friends && <BestFriends friends={friends} />}
         </div>
-        {villager && <Details villager={villager} />}
+        {!!villager && villager.special ? <SpecialInfo villager={villager} /> : <NormalInfo villager={villager} />}
       </Content>
     </Container>
   );
