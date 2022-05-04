@@ -49,7 +49,7 @@ const GuestbookList = () => {
         setDate(state.payload.createdAt.slice(0, 10)); // 날짜를 연-월-일로 자름 ex) 2022-05-04
       }
     }
-  }, [state]);
+  }, []);
 
   const modalStyle = {
     position: "absolute",
