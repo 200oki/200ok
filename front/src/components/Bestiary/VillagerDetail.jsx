@@ -6,6 +6,8 @@ import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 import SpeechBubble from "./SpeechBubble";
 import BestFriends from "./BestFriends";
+import NormalInfo from "./NormalInfo";
+import SpecialInfo from "./SpecialInfo";
 
 const Navigator = styled.div`
   position: fixed;
