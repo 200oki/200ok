@@ -16,7 +16,8 @@ class ScoreService {
       score,
     };
     const createdScore = await Score.create({ newScore });
-    return createdScore;
+    const userRankScore = await Score.findUserRank({ id });
+    return userRankScore;
   }
 
   /** 현재 유저 랭크 반환 함수

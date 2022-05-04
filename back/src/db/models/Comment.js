@@ -25,6 +25,16 @@ class Comment {
       .lean();
     return list;
   }
+
+  static async honorList({ location }) {
+    const list = await CommentModel.find(
+      { location },
+      { _id: 0, __v: 0, id: 0, location: 0, updatedAt: 0 }
+    )
+      .sort({ createdAt: -1 })
+      .lean();
+    return list;
+  }
 }
 
 export { Comment };

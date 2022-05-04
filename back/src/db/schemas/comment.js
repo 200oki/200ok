@@ -46,7 +46,6 @@ const CommentSchema = new Schema(
     },
     villager: {
       type: String,
-      required: true,
       index: true,
     },
     location: {

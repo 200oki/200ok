@@ -4,3 +4,4 @@
 .gitlab
 ~$*
 
+node_modules
