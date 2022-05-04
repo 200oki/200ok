@@ -51,7 +51,7 @@ const AddGuestbook = () => {
           />
         </div>
         <div>
-          <button type="submit" className="exitBtn" onClick={navigate('/guestbook')}>
+          <button type="submit" className="exitBtn" onClick={() => navigate('/guestbook')}>
             그만 쓸래
           </button>
           <button type="submit" className="submitBtn" onClick={(e) => handleSubmit(e)} >

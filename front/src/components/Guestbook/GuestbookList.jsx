@@ -68,7 +68,7 @@ const GuestbookList = () => {
     element.scrollLeft = (maxScrollLeft / 100) * val;
   };
 
-  // 방명록을 보여주는 부분
+  // 방명록 보여주는 부분
   const handleClick = (item) => {
     setModal((v) => !v);
     setContent(item.content);
@@ -115,7 +115,6 @@ const GuestbookList = () => {
             {columns.map((column, idx) => {
               return <Column key={idx}>{column}</Column>;
             })}
-            {/* onClick={(idx) => get(guestbooks/userId?usedId=idx)} */}
             <Modal 
               open={modal}
               onClose={handleClick}
