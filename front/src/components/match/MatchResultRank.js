@@ -8,7 +8,7 @@ import usePathParams from "../../utils/usePathParams";
 
 import { ParamContext } from "../../context/ParamContext";
 
-const MatchResultRank = ({ best3, goToPosition }) => {
+const MatchResultRank = ({ best3, total, goToPosition }) => {
   const classes = useStyles();
   const navigator = useNavigate();
   const pathname = usePathParams();
@@ -30,7 +30,7 @@ const MatchResultRank = ({ best3, goToPosition }) => {
             <div className={styled.rankCharSubTitle}>
               <span className={styled.charSmallSubTitle}>전체 참여자 중</span>{" "}
               <div className={styled.percentTitle}>
-                {(Math.random() * 100).toFixed(2)}%
+                {((s["count"] / total) * 100).toFixed(2)}%
               </div>
             </div>
             <button
