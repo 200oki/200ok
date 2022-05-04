@@ -10,6 +10,141 @@ import PostButton from "../common/PostButton";
 import { useNavigate, useLocation } from "react-router-dom";
 import { guestbookImgList } from "../../utils/util";
 
+const GuestbookList = () => {
+  const navigate = useNavigate();
+
+  const [modal, setModal] = useState(false); // 모달 열기
+  const [guestbook, setGuestbook] = useState([]);
+  const [content, setContent] = useState([]);
+  const [date, setDate] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [count, setCount] = useState(0);
+  const classes = useStyles();
+
+  // 글 쓰는 부분에서 state를 받아옴
+  // state { payload: { id: number, content: string, createdAt: date }, modal: true }
+  // 글을 post 한 후, modal 창을 띄우기 위함
+  const { state } = useLocation();
+
+  async function getDataList() {
+    try {
+      const { data } = await Api.get('guestbooks');
+      setGuestbook(data.payload);
+      console.log(data.payload); // 백엔드에서 데이터 잘 오는지 확인
+      setCount(data.payload.length);
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getDataList();
+    console.log("state :", state); // 받아온 값 확인하기
+    if (state.modal) { // 만약 modal이 true 라면 받아온 데이터를 모달로 띄우기
+      setModal(state.modal);
+      setContent(state.payload.content);
+      setDate(state.payload.createdAt.slice(0, 10));
+    }
+  }, []);
+
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    outline: "none",
+    borderRadius: "0.3em",
+    fontFamily: "TmoneyRoundWindExtraBold !important",
+    p: 4,
+  };
+
+  const scrollHandler = (e, val) => {
+    const element = document.getElementById("content");
+    const maxScrollLeft = element.scrollWidth - element.clientWidth;
+    element.scrollLeft = (maxScrollLeft / 100) * val;
+  };
+
+  // 방명록을 보여주는 부분
+  const handleClick = (item) => {
+    setModal((v) => !v);
+    setContent(item.content);
+    setDate(item.createdAt.slice(0, 10)); // 날짜를 연-월-일로 자름 ex) 2022-05-04
+  };
+
+  const cardPerColumn = 2;
+  const columns = [];
+
+  for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
+    columns.push(
+      guestbook.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((guestbook, idx) => {
+        return ( 
+          <Card key={idx} src={guestbookImgList[guestbook.id%5].img} onClick={() => handleClick(guestbook)} />
+        );
+      })
+    );
+  }
+
+  const restCards = count % cardPerColumn;
+
+  if (restCards > 0) {
+    columns.push(
+      guestbook.slice(-restCards).map((guestbook, idx) => {
+        return (
+          <Card key={idx} src={guestbookImgList[guestbook.id%5].img} onClick={() => handleClick(guestbook)} />
+        );
+      })
+    );
+  }
+
+  return (
+    <Container>
+      <Navigator>
+        <BackButton content={ window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기" } />
+        <Wrapper>
+          <PostButton onClick={() => navigate('/guestbook/post')} />
+        </Wrapper>
+      </Navigator>
+      <Content>
+        <ContentWrapper>
+          <PrettoSlider onChange={scrollHandler} />
+          <ContentContainer id="content">
+            {columns.map((column, idx) => {
+              return <Column key={idx}>{column}</Column>;
+            })}
+            {/* onClick={(idx) => get(guestbooks/userId?usedId=idx)} */}
+            <Modal 
+              open={modal}
+              onClose={handleClick}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={modalStyle} className="modalBg">
+                <Typography
+                  id="modal-modal-title"
+                  variant="h6"
+                  className={classes.modalFont}
+                >
+                  {content}
+                  <p className="date">
+                    {date}
+                  </p>
+                  <p className="sender">
+                    익명의 누군가로부터
+                  </p>
+                </Typography>
+              </Box>
+            </Modal>
+          </ContentContainer>
+        </ContentWrapper>
+      </Content>
+    </Container>
+  );
+};
+
 const Navigator = styled.div`
   position: fixed;
   top: 0;
@@ -145,140 +280,6 @@ const PrettoSlider = Styled(Slider)({
     },
   },
 });
-
-const DIVIDER_HEIGHT = 2;
-
-const GuestbookList = () => {
-  const navigate = useNavigate();
-
-  const [modal, setModal] = useState(false); // 모달 열기
-  const [guestbook, setGuestbook] = useState([]);
-  const [content, setContent] = useState([]);
-  const [date, setDate] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [count, setCount] = useState(0);
-  const classes = useStyles();
-
-  const { state } = useLocation();
-
-  async function getDataList() {
-    try {
-      const { data } = await Api.get('guestbooks');
-      setGuestbook(data.payload);
-      console.log(data.payload); // 백엔드에서 데이터 잘 오는지 확인
-      setCount(data.payload.length);
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  useEffect(() => {
-    getDataList();
-    console.log("state :", state); // 받아온 값 확인하기
-    if (state.modal) { // 만약 modal이 true 라면 받아온 데이터를 모달로 띄우기
-      setModal(state.modal);
-      setContent(state.payload.content);
-      setDate(state.payload.createdAt.slice(0, 10));
-    }
-  }, []);
-
-  const modalStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    outline: "none",
-    borderRadius: "0.3em",
-    fontFamily: "TmoneyRoundWindExtraBold !important",
-    p: 4,
-  };
-
-  const scrollHandler = (e, val) => {
-    const element = document.getElementById("content");
-    const maxScrollLeft = element.scrollWidth - element.clientWidth;
-    element.scrollLeft = (maxScrollLeft / 100) * val;
-  };
-
-  // 방명록을 보여주는 부분
-  const handleClick = (item) => {
-    setModal((v) => !v);
-    setContent(item.content);
-    setDate(item.createdAt.slice(0, 10)); // 날짜를 연-월-일로 자름 ex) 2022-05-04
-  };
-
-  const cardPerColumn = 2;
-  const columns = [];
-
-  for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
-    columns.push(
-      guestbook.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((guestbook, idx) => {
-        return ( 
-          <Card key={idx} src={guestbookImgList[guestbook.id%5].img} onClick={() => handleClick(guestbook)} />
-        );
-      })
-    );
-  }
-
-  const restCards = count % cardPerColumn;
-
-  if (restCards > 0) {
-    columns.push(
-      guestbook.slice(-restCards).map((guestbook, idx) => {
-        return (
-          <Card key={idx} src={guestbookImgList[guestbook.id%5].img} onClick={() => handleClick(guestbook)} />
-        );
-      })
-    );
-  }
-
-  return (
-    <Container>
-      <Navigator>
-        <BackButton content={ window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기" } />
-        <Wrapper>
-          <PostButton onClick={() => navigate('/guestbook/post')} />
-        </Wrapper>
-      </Navigator>
-      <Content>
-        <ContentWrapper>
-          <PrettoSlider onChange={scrollHandler} />
-          <ContentContainer id="content">
-            {columns.map((column, idx) => {
-              return <Column key={idx}>{column}</Column>;
-            })}
-            {/* onClick={(idx) => get(guestbooks/userId?usedId=idx)} */}
-            <Modal 
-              open={modal}
-              onClose={handleClick}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={modalStyle} className="modalBg">
-                <Typography
-                  id="modal-modal-title"
-                  variant="h6"
-                  className={classes.modalFont}
-                >
-                  {content}
-                  <p className="date">
-                    {date}
-                  </p>
-                  <p className="sender">
-                    익명의 누군가로부터
-                  </p>
-                </Typography>
-              </Box>
-            </Modal>
-          </ContentContainer>
-        </ContentWrapper>
-      </Content>
-    </Container>
-  );
-};
 
 
 export default GuestbookList;
