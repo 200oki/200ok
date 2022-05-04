@@ -170,6 +170,7 @@
   background: #f7e7a3;
   border-radius: 0.4em;
   width: 80%;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 }
 
 .speechBubbleLeft:after {
@@ -211,6 +212,7 @@
 
 .commentDate {
   color: #837156;
+  font-size: 14px;
 }
 
 .commentContent {
@@ -249,14 +251,12 @@
 }
 
 .imgWrapper {
-  width: 240px;
-  height: 240px;
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 100%;
   margin-bottom: 20px;
+}
+
+.imgWrapper > img {
+  border-radius: 50%;
+  box-shadow: 4px 3px 4px 0px rgba(0, 0, 0, 0.3);
 }
 
 .textWrapper {
