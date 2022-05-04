@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import * as Api from "../../api";
 import styled from "../../css/match.module.css";
 import { useNavigate } from "react-router-dom";
 
