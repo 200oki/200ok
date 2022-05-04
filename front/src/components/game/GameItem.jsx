@@ -37,6 +37,7 @@ const GameItem = () => {
     p: 4,
     outline: "none",
   };
+
   useEffect(() => {
     console.log("score Changed!!!!!!!", score);
   }, [score]);
@@ -58,6 +59,12 @@ const GameItem = () => {
     }
   };
 
+  const setGame = () => {
+    setGameTime(60);
+    setTimer(0);
+    setIsWin(false);
+  };
+
   useEffect(() => {
     getCards().then((data) => {
       let arr = [];
@@ -67,6 +74,7 @@ const GameItem = () => {
       });
       setValue(shuffle(arr));
     });
+    setGame();
   }, []);
 
   useEffect(() => {
@@ -78,78 +86,78 @@ const GameItem = () => {
       });
       setValue(shuffle(arr));
     });
+    setIsModalOpen(false);
+    time();
   }, [tier]);
 
   const time = () => {
-    const tick = setTimeout(() => {
+    const tick = window.setTimeout(() => {
       setTimer(timer + 1.67);
       setGameTime(gameTime - 1);
     }, 1000);
   };
 
-  const test = () => {};
+  useEffect(() => {
+    if (timer >= 100 && gameTime === 0) {
+      setIsModalOpen(true);
+      console.log("return timer", timer, gameTime);
+      console.log("if (timer >= 100 && gameTime === 0) {");
+      window.clearTimeout(time);
+    }
+  }, [timer, gameTime]);
 
   useEffect(() => {
-    if (timer >= 100) {
-      return () => clearTimeout(time);
+    if (timer >= 100 || isWin) {
+      console.log("timer >= 100 || isWin", timer, isWin);
+
+      return () => window.clearTimeout(time);
     }
     time();
-  }, [timer]);
+  }, [timer, isWin]);
 
   useEffect(() => {
     if (tier !== 6) {
-      console.log("not 6 tier score====>", score);
-      console.log("same six tier====>", tier);
       notSixTier();
     } else if (tier === 6) {
-      console.log("6 tier score====>", score);
-      console.log("same six tier====>", tier);
       sixTier();
     }
   }, [isWin]);
 
   const handleClose = () => {
+    console.log("setIsModalOpen");
     setIsModalOpen((v) => !v);
   };
 
   const notSixTier = () => {
-    if (gameTime !== 60) {
-      window.clearTimeout(time);
-      setScore(score + tier * gameTime);
-      setTier((v) => v + 1);
-      console.log("gameTime===>", gameTime);
+    if (gameTime !== 60 && isWin) {
+      setScore((v) => v + tier * gameTime);
       setTimer(0);
-      setIsModalOpen(false);
+      setGameTime(60);
     }
   };
 
   const sixTier = () => {
     if (gameTime !== 60) {
-      console.log("gameTime===>", gameTime);
-      console.log("sixTier>>>>>", tier);
-      window.clearTimeout(time);
       if (gameTime === 0) {
-        setScore(score + tier * 8);
+        setScore((v) => v + tier * 8);
       } else {
-        console.log("점수계산 sixTier");
-        setScore(score + tier * gameTime);
+        setScore((v) => v + tier * gameTime);
       }
     }
   };
 
   const handleNavigate = (e) => {
     if (e.target.innerText === GameButtonText.NextRound) {
-      console.log("win", e.target.innerText);
       if (tier !== 6) {
-        console.log("not 6 tier score", score);
+        setTier((v) => v + 1);
+        setGame();
         navigator("/game-start");
       } else if (tier === 6) {
-        console.log("6 tier score", score);
-        console.log("same six");
+        setGame();
         navigator("/game-result");
       }
     } else if (e.target.innerText === GameButtonText.RESULT) {
-      window.clearTimeout(time);
+      setGame();
       navigator("/game-result");
     }
   };
@@ -164,7 +172,6 @@ const GameItem = () => {
         ></div>
       </div>
       <div className="container">
-        <button onClick={test}>test</button>
         <FlashcardList
           flashcard={value}
           setIsWin={setIsWin}
@@ -178,9 +185,7 @@ const GameItem = () => {
               id="modal-modal-description"
               className={classes.modalEndFont}
             >
-              {tier
-                ? `${tier}단계가 완료되었습니다.}`
-                : "1단계가 완료되었습니다."}
+              {tier}단계가 완료되었습니다.
             </Typography>
 
             {tier !== 6 ? (
