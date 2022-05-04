@@ -50,7 +50,7 @@ const UploadFiles = forwardRef((props, ref) => {
   <div className="form-group">
 
     <label className="btn btn-default">
-    {/* 여러개 파일을 한번에 업로드 하기 위해 multiple 속성을 추가한다. 
+    {/* 여러개 파일을 한번에 업로드 하기 위해 multiple 속성을 추가한다. => 나중에 제거할 것!!
     파일 정보를 배열로 받을 수 있다.  */}
     <input type="file" onChange={selectFile} ref={fileInput} multiple />
     </label>
