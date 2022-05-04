@@ -63,7 +63,7 @@
   "resolved" "https://registry.npmjs.org/@redis/bloom/-/bloom-1.0.2.tgz"
   "version" "1.0.2"
 
-"@redis/client@^1.0.0", "@redis/client@1.1.0":
+"@redis/client@1.1.0":
   "integrity" "sha512-xO9JDIgzsZYDl3EvFhl6LC52DP3q3GCMUer8zHgKV6qSYsq1zB+pZs9+T80VgcRogrlRYhi4ZlfX6A+bHiBAgA=="
   "resolved" "https://registry.npmjs.org/@redis/client/-/client-1.1.0.tgz"
   "version" "1.1.0"
@@ -119,7 +119,7 @@
   "resolved" "https://registry.npmjs.org/@types/linkify-it/-/linkify-it-3.0.2.tgz"
   "version" "3.0.2"
 
-"@types/markdown-it@*", "@types/markdown-it@^12.2.3":
+"@types/markdown-it@^12.2.3":
   "integrity" "sha512-GKMHFfv3458yYy+v/N8gjufHO6MSZKCOXpZc5GXIWWy8uldwfmPn98vp81gZ5f9SVw8YYBctgfJ22a2d7AOMeQ=="
   "resolved" "https://registry.npmjs.org/@types/markdown-it/-/markdown-it-12.2.3.tgz"
   "version" "12.2.3"
@@ -726,7 +726,7 @@
     "lodash" "^4.17.21"
     "validator" "^13.7.0"
 
-"express@^4.18.1", "express@>=4.0.0":
+"express@^4.18.1":
   "integrity" "sha512-zZBcOX9TfehHQhtupq57OF8lFZ3UZi08Y97dwFCkD8p9d/d2Y3M+ykKcwaMDEL+4qyUolgBDX6AblpR3fL212Q=="
   "resolved" "https://registry.npmjs.org/express/-/express-4.18.1.tgz"
   "version" "4.18.1"
@@ -1251,7 +1251,7 @@
   "resolved" "https://registry.npmjs.org/markdown-it-anchor/-/markdown-it-anchor-8.6.2.tgz"
   "version" "8.6.2"
 
-"markdown-it@*", "markdown-it@^12.3.2":
+"markdown-it@^12.3.2":
   "integrity" "sha512-TchMembfxfNVpHkbtriWltGWc+m3xszaRD0CZup7GFFhzIgQqxIfn3eGj1yZpfuflzPvfkt611B2Q/Bsk1YnGg=="
   "resolved" "https://registry.npmjs.org/markdown-it/-/markdown-it-12.3.2.tgz"
   "version" "12.3.2"
@@ -1504,11 +1504,6 @@
   "version" "1.0.0"
   dependencies:
     "fn.name" "1.x.x"
-
-"openapi-types@>=7":
-  "integrity" "sha512-GB+QO6o1hAtKsb8tP3/FTD5jpkdKrf42L4Gel9UySngMurzr+Q9pO+dtnmySQCzoCEfJr39IH6bveEn71xNcVg=="
-  "resolved" "https://registry.npmjs.org/openapi-types/-/openapi-types-11.0.0.tgz"
-  "version" "11.0.0"
 
 "p-cancelable@^1.0.0":
   "integrity" "sha512-s73XxOZ4zpt1edZYZzvhqFa6uvQc1vwUa0K0BdtIZgQMAJj9IbebH+JkgKZc9h+B05PKHLOTl4ajG1BmNrVZlw=="
@@ -2142,7 +2137,7 @@
     "readable-stream" "^3.6.0"
     "triple-beam" "^1.3.0"
 
-"winston@^3", "winston@^3.7.2":
+"winston@^3.7.2":
   "integrity" "sha512-QziIqtojHBoyzUOdQvQiar1DH0Xp9nF1A1y7NVy2DGEsz82SBDtOalS0ulTRGVT14xPX3WRWkCsdcJKqNflKng=="
   "resolved" "https://registry.npmjs.org/winston/-/winston-3.7.2.tgz"
   "version" "3.7.2"

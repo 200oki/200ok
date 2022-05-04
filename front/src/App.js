@@ -25,6 +25,7 @@ import HobbyChart from "./components/Statistics/HobbyChart";
 import StyleChart from "./components/Statistics/StyleChart";
 import VillagerList from "./components/Bestiary/VillagerList";
 import VillagerDetail from "./components/Bestiary/VillagerDetail";
+import BoardList from "./components/Board/BoardList.jsx";
 import TeamIntroduction from "./components/TeamIntroduction/TeamIntroduction";
 
 const GlobalFont = createGlobalStyle`
@@ -61,6 +62,7 @@ function App() {
           <Route path="/bestiary" element={<Bestiary />} />
           <Route path="/bestiary/list" element={<VillagerList />} />
           <Route path="/detail/:id" element={<VillagerDetail />} />
+          <Route path="/board" element={<BoardList />} />
         </Routes>
       </Router>
     </div>
