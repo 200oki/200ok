@@ -2,15 +2,16 @@ import { useStyles } from "../../utils/useStyles";
 import "../../css/GameIntro.css";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../common/BackButton";
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import CustomModal from "../common/CustomModal";
 import { Typography } from "@mui/material";
+import { GameContext } from "../../context/GameContext";
 
 const GameResult = () => {
   const [isClicked, setIsClicked] = useState(false);
   const classes = useStyles();
   const navigator = useNavigate();
-
+  const { score, setScore } = useContext(GameContext);
   const handleClick = () => {
     navigator("/game-start");
   };
@@ -18,6 +19,10 @@ const GameResult = () => {
   const handleModal = () => {
     setIsClicked((v) => !v);
   };
+
+  useEffect(() => {
+    setScore(0);
+  }, []);
 
   return (
     <div className="gameResultRoot">
