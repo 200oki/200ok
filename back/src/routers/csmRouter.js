@@ -82,7 +82,7 @@ function parseTopBottomQuery({ top, bottom }) {
  *                        example: 16
 
  */
-
+/** query: [ top=n ] [ bottom=n ] */
 csmRouter.get("/csmdata/counts", async (req, res, next) => {
   const rank = await CsmService.getRank();
   const body = {
@@ -390,6 +390,7 @@ csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
  *                errorMessage:
  *                  type: string
  */
+/** query: [ top=n ] [ bottom=n ] */
 csmRouter.get("/csmdata/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
