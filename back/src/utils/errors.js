@@ -70,4 +70,4 @@ class AppError extends Error {
   }
 }
 
-export { RequestError };
+export { RequestError, AppError };
