@@ -150,5 +150,6 @@
   .exitBtn,
   .submitBtn {
     margin-bottom: 20px;
+    margin-right: 0;
   }
 }
