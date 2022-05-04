@@ -31,8 +31,6 @@ const FlashCard = ({
   };
   //컨텍스트에서 isTwo 만들고 참조해보기
   useEffect(() => {
-    console.log("isTwoSelected", isTwoSelected);
-
     if (isTwoSelected) {
       flipTimer();
     }
