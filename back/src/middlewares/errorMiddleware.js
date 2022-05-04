@@ -14,6 +14,7 @@ function errorMiddleware(error, req, res, next) {
       process.exit(error.exit);
     }
     /** @todo 범용 에러(AppError, RequestError) 사용 */
+    /** @todo process.on('uncaughtException') 어디선가 하기! */
   } else {
     res.status(status.STATUS_500_INTERNALSERVERERROR).json({
       errorMessage: error.message,
