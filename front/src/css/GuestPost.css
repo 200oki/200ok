@@ -19,11 +19,11 @@
 }
 
 .date {
-  margin-top: 20px;
+  margin-top: 1em;
   margin-bottom: 0;
   font-size: 0.9em;
   text-align: right;
-  color: #3a3939;
+  color: #3B3838;
 }
 
 .sender {
