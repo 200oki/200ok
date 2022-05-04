@@ -4,9 +4,11 @@ const MatchElementContext = createContext();
 
 const MatchElementProvider = ({ children }) => {
   const [matchElem, setMatchElem] = useState([]);
+  const [id, setId] = useState(null);
+
   const store = useMemo(
-    () => ({ matchElem, setMatchElem }),
-    [matchElem, setMatchElem]
+    () => ({ matchElem, setMatchElem, id, setId }),
+    [matchElem, setMatchElem, id, setId]
   );
 
   return (
