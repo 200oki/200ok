@@ -51,9 +51,14 @@ const AddGuestbook = () => {
             required
           />
         </div>
-        <button type="submit" className="submitBtn">
-          오케이!
-        </button>
+        <div>
+          <button type="submit" className="exitBtn">
+            그만 쓸래
+          </button>
+          <button type="submit" className="submitBtn">
+            오케이!
+          </button>
+        </div>
       </form>
     </div>
   );

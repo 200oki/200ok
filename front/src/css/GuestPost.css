@@ -35,15 +35,47 @@
 }
 
 .submitBtn {
-  background-color: #0CC6B8;
+  background-color: #C2F0EC;
   border: none;
   border-radius: 30px;
   width: 170px;
   height: 60px;
   font-family: "TmoneyRoundWindExtraBold";
   font-size: 1.7em;
-  color: #262626;
+  color: #00BAAC;
   transition: all 0.3s ease-in-out; 
+  margin-bottom: 30px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.submitBtn:hover {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  transform: translateY(-0.2em);
+}
+
+.exitBtn {
+  background-color: #FFC9CF;
+  opacity: 0.9;
+  border: none;
+  border-radius: 30px;
+  width: 170px;
+  height: 60px;
+  font-family: "TmoneyRoundWindExtraBold";
+  font-size: 1.7em;
+  color: #f16e7b;
+  transition: all 0.3s ease-in-out; 
+  margin-bottom: 30px;
+  margin-right: 20px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.exitBtn:hover {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  transform: translateY(-0.2em);
 }
 
 .guestbookPost {
@@ -104,23 +136,10 @@
   resize: none;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   font-family: "TmoneyRoundWindExtraBold";
-  font-size: 1em;
+  font-size: 1.5rem;
   color: #262626;
 }
 
 .textarea:focus {
   outline: none;
-}
-
-.submitBtn {
-  margin-bottom: 30px;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-}
-
-.submitBtn:hover {
-  cursor: pointer;
-  background-color: #0bb5a6;
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
-  transform: translateY(-0.2em);
 }
