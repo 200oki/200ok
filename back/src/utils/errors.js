@@ -1,4 +1,7 @@
-import { STATUS_400_BADREQUEST } from "./status.js";
+import {
+  STATUS_400_BADREQUEST,
+  STATUS_500_INTERNALSERVERERROR,
+} from "./status.js";
 
 /** Request Error Class that blames (mostly) bad request kind.
  *
@@ -44,7 +47,7 @@ class AppError extends Error {
    *  detail?: any
    * }} kwargs - 일부는 생략 가능합니다. 전부 생략하려면 `{}`를 줍니다.
    *    - `name`: 기본값 `this.constructor.name` = `"AppError"`
-   *    - `status`: http status code입니다. 기본값 `400 Bad Request`
+   *    - `status`: http status code입니다. 기본값 `500 Internal Server Error`
    *    - `exit`: 0이 아니면 `exit`에 인자로 들어가 프로세스를 끝냅니다. 기본값 `0`
    *    - `detail`: 에러 분류를 돕기 위한 추가 정보입니다.
    * @arg {string} [message] - `Error` 컨스트럭터로 릴레이할 메시지입니다.
@@ -61,9 +64,9 @@ class AppError extends Error {
     }
 
     this.name = name ?? this.constructor.name;
-    this.status = status ?? STATUS_400_BADREQUEST;
-    this.customCode = customCode ?? -1;
+    this.status = status ?? STATUS_500_INTERNALSERVERERROR;
     this.exit = exit ?? 0;
+    this.detail = detail;
   }
 }
 
