@@ -390,26 +390,16 @@ csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
  *                errorMessage:
  *                  type: string
  */
-csmRouter.get(
-  "/csmdata/:id",
-  [
-    query(["top", "bottom"])
-      .isInt({ min: 0, max: 391 })
-      .withMessage(`Unacceptable "top" or "bottom" value`),
-    validate,
-  ],
-  async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const top = parseInt(req.query.top) || 0;
-      const bottom = parseInt(req.query.bottom) || 0;
+csmRouter.get("/csmdata/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const [top, bottom] = parseTopBottomQuery(req.query);
 
-      const result = CsmService.getSimilarCharsOf({ id, top, bottom });
-      res.status(status.STATUS_200_OK).json({ success: true, payload: result });
-    } catch (error) {
-      next(error);
-    }
+    const result = CsmService.getSimilarCharsOf({ id, top, bottom });
+    res.status(status.STATUS_200_OK).json({ success: true, payload: result });
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 export { csmRouter };
