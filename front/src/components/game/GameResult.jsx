@@ -23,18 +23,19 @@ const GameResult = () => {
   const settingDefault = (data) => {
     setGameScore(data.score);
     setRank(data.rank);
-    setScore(0);
   };
 
   const getScoreAndRank = async () => {
     const bodyData = { nickname: nickname, score: score };
     const { data } = await Api.post("scores", bodyData);
+    console.log(data.payload);
     settingDefault(data.payload);
     return data.payload;
   };
 
   useEffect(() => {
     getScoreAndRank();
+    return () => setScore(0);
   }, []);
 
   const typoStyles = {
@@ -47,6 +48,7 @@ const GameResult = () => {
       navigator("/");
     } else if (e.target.innerText === BtnText.SHARE) {
     } else if (e.target.innerText === BtnText.RETRY) {
+      console.log("result reset Score=>>>>>>>>>", score);
       navigator("/game");
     } else {
       navigator("/game-hof");
