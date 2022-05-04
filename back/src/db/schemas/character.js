@@ -8,7 +8,6 @@ import path from "path";
 // import * as characters from "./src/db/schemas/characters.json";
 
 import _ from "underscore";
-// import { logger } from "../../utils/winstonLogger.js";
 
 const __dirname = path.resolve();
 let raw = fs.readFileSync(
@@ -176,16 +175,6 @@ const characters = {
   styles: _.object(ALL_STYLES, emptyArrays(ALL_STYLES.length)),
 };
 
-/** 모든 캐릭터의 한국어 이름을 담고 있습니다. 존재 여부 검사에 사용합니다.
- *
- * - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
- * - https://leetcode.com/problems/contains-duplicate/discuss/515531/javascript-set-vs-object
- *
- * 언급된 두 아티클을 참고해 보면 자바스크립트 `Set`은 해시테이블 방식이 아닌 듯 합니다.
- * 그래서 이것도 `Set`이 아니고 값이 없는 객체입니다.
- */
-// const ALLNAMES_KO = {};
-
 // characters.id 이외의 다른 프로퍼티를 채워 넣습니다.
 /** 한국어 이름으로 정렬된 모든 캐릭터입니다. */
 for (const char of characters.ALL) {
@@ -254,10 +243,6 @@ for (const char of characters.ALL) {
 const characterNames = Object.fromEntries(
   Object.entries(characters.id).map(([k, v]) => [k, v.name_ko])
 );
-// const characterNamesMock = {
-//   admiral: "일섭",
-//   cyrus: "리포",
-// };
 
 // if (process.env.NODE_ENV === "dev") {
 //   console.log(
