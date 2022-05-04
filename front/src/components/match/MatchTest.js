@@ -4,7 +4,8 @@ import styled from "../../css/match.module.css";
 import InputBirthday from "./InputBirthday";
 import SelectColor from "./SelectColor";
 import SelectPersonality from "./SelectPersonality";
-import SelectHobbyStyle from "./SelectHobbyStyle";
+import SelectHobby from "./SelectHobby";
+import SelectStyle from "./SelectStyle";
 
 import { MatchElementContext } from "../../context/MatchElementContext";
 
@@ -37,8 +38,8 @@ function MatchTest() {
       <InputBirthday nextSlide={nextSlide} />
       <SelectColor nextSlide={nextSlide} />
       <SelectPersonality nextSlide={nextSlide} />
-      <SelectHobbyStyle array={hobby} nextSlide={nextSlide} />
-      <SelectHobbyStyle array={styles} nextSlide={nextSlide} />
+      <SelectHobby array={hobby} nextSlide={nextSlide} />
+      <SelectStyle array={styles} nextSlide={nextSlide} />
     </div>
   );
 }
