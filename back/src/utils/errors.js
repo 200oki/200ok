@@ -52,7 +52,7 @@ class AppError extends Error {
    * @arg {string} [fileName]
    * @arg {number} [lineNumber]
    */
-  constructor({ name, status, customCode, operational }, ...params) {
+  constructor({ name, status, exit, detail }, ...params) {
     super(...params);
     Object.setPrototypeOf(this, new.target.prototype);
 
