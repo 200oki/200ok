@@ -175,10 +175,24 @@ csmRouter.get("/csmdata/counts", async (req, res, next) => {
 csmRouter.put(
   "/csmdata/counts",
   [
-    // body("birthday")
-    //   .isDate({ format: "MM-DD", strictMode: true })
-    //   .withMessage(`Invalid "birthday" format`)
-    //   .bail(),
+    async (req, res, next) => {
+      // validator의 작동 방식은 아마도 new Date()로 확인하는 것 같으므로
+      // 지금 연도가 정해지지 않은 상황에선 별로 쓸모가 없을 듯 합니다.
+      // 따라서 수동으로 합니다.
+      if (
+        !/[01][0-9]-[0-3][0-9]/.test(req.body.birthday) ||
+        new Date(req.body.birthday) === "Invalid Date"
+      ) {
+        next(
+          new RequestError(
+            { status: status.STATUS_400_BADREQUEST },
+            `Invalid "birthday" format`
+          )
+        );
+      } else {
+        next();
+      }
+    },
     body(["hobby", "personality"])
       .isString()
       .withMessage(`"Invalid "hobby" or "personality" format`),
@@ -189,19 +203,6 @@ csmRouter.put(
   ],
   async (req, res, next) => {
     try {
-      // validator의 작동 방식은 아마도 new Date()로 확인하는 것 같으므로
-      // 지금 연도가 정해지지 않은 상황에선 별로 쓸모가 없을 듯 합니다.
-      // 따라서 수동으로 합니다.
-      if (
-        !/[01][0-9]-[0-3][0-9]/.test(req.body.birthday) ||
-        new Date(req.body.birthday) === "Invalid Date"
-      ) {
-        throw new RequestError(
-          { status: status.STATUS_400_BADREQUEST },
-          `Invalid "birthday" format`
-        );
-      }
-
       const mostSimilar = CsmService.csm({ ...req.body });
       const id = mostSimilar.id;
       const up = await CsmService.upCount({ id });
