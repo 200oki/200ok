@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import * as Api from "../../api";
 
 const BestFriendWrapper = styled.div`
   display: flex;
-  border: 5px solid black;
+  border: 5px solid #00527a;
   border-radius: 25px;
   flex-direction: column;
   align-items: center;
@@ -13,30 +12,25 @@ const BestFriendWrapper = styled.div`
   width: auto;
   position: absolute;
   right: calc(50vw - ${(props) => props.offset}px);
+  background-color: rgb(103, 158, 203, 0.5);
 `;
 
 const LabelBf = styled.div`
-  color: #543627;
+  color: #4c191b;
   font-size: 1.2rem;
 `;
 const IconBf = styled.img`
   src: ${(props) => props.src};
 `;
 
-const BestFriends = ({ __id }) => {
-  const [friends, setFriends] = useState([]);
+const BestFriends = ({ friends }) => {
   const [height, setHeight] = useState(0);
   const [offset, setOffset] = useState(0);
 
-  const getFriends = async () => {
-    const { data } = await Api.get(`csmdata/${__id}?top=3&bottom=0`);
-    setFriends(data.payload);
-  };
   useEffect(() => {
-    getFriends();
-    setHeight(document.getElementById("img-bubble").clientHeight);
-    setOffset(document.getElementById("columnWrapper").clientWidth / 2);
-  }, []);
+    setHeight(document.getElementById("img-bubble")?.clientHeight);
+    setOffset(document.getElementById("columnWrapper")?.clientWidth / 2);
+  }, [height]);
 
   return (
     <BestFriendWrapper height={height} offset={offset}>
