@@ -17,7 +17,25 @@ const csmRouter = Router();
  *    - 값이 정수이지만 0-391 사이가 아니면 역시 Bad Request 에러입니다.
  * @return {[number, number]}
  */
-function parseTopBottomQuery({ top, bottom }) {}
+function parseTopBottomQuery({ top, bottom }) {
+  top ??= 0;
+  bottom ??= 0;
+  top = parseInt(top);
+  bottom = parseInt(bottom);
+  if (
+    isNaN(top) ||
+    isNaN(bottom) ||
+    top < 0 ||
+    bottom < 0 ||
+    top > 391 ||
+    bottom > 391
+  ) {
+    throw new RequestError(
+      { status: status.STATUS_400_BADREQUEST },
+      `Unacceptable "top" or "bottom" value`
+    );
+  }
+}
 
 /**
  *  @swagger
