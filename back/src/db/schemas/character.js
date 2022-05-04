@@ -1,5 +1,5 @@
-import dotenv from "dotenv";
-dotenv.config();
+// import dotenv from "dotenv";
+// dotenv.config();
 import fs from "fs";
 import path from "path";
 // json 임포트 불가: 아마 babel을 사용하지 않아서 그런 것 같습니다.
