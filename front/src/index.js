@@ -5,6 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import "./css/index.css";
 
 import { GameProvider } from "./context/GameContext";
+import { ParamProvider } from "./context/ParamContext";
 import { NicknameProvider } from "./context/NicknameContext";
 import { MatchElementProvider } from "./context/MatchElementContext";
 
@@ -14,7 +15,9 @@ root.render(
     <NicknameProvider>
       <MatchElementProvider>
         <GameProvider>
-          <App />
+          <ParamProvider>
+            <App />
+          </ParamProvider>
         </GameProvider>
       </MatchElementProvider>
     </NicknameProvider>
