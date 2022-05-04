@@ -10,6 +10,7 @@ import * as status from "../../utils/status.js";
  *
  * ## Methods
  *
+ * - `static exists(field, value)` - 캐릭터(들)이 있는지 살펴봅니다.
  * - `static get({ id })` - 캐릭터 한명을 골라 반환합니다.
  * - `static getMany(field, value)` -
  *  `[field]: value` 필터 한 가지를 정확히 만족하는 캐릭터들을 반환합니다.
