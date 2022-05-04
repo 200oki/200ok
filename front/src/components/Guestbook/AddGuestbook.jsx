@@ -5,7 +5,7 @@ import * as Api from "../../api";
 import "../../css/GuestPost.css";
 import "moment/locale/ko";
 
-const AddGuestbookModal = () => {
+const AddGuestbook = () => {
   const navigate = useNavigate();
   const [isTyping, setIsTyping] = useState(false);
   const [content, setContent] = useState("");
@@ -26,8 +26,9 @@ const AddGuestbookModal = () => {
       setContent((current) => {
         const newContent = [...current];
         newContent.push(response.data.payload);
-        console.log("새거 :", newContent[newContent.length-1].id);
-        navigate(`/guestbook/${newContent[newContent.length-1].id}`);
+        console.log("새거 :", newContent[newContent.length-1]);
+        // navigate(`/guestbook/${newContent[newContent.length-1].id}`);
+        navigate('/guestbook', { state: { payload: newContent[newContent.length-1], modal: true } });
       });
       setIsTyping(false);
     } catch (err) {
@@ -56,4 +57,4 @@ const AddGuestbookModal = () => {
   );
 }
 
-export default AddGuestbookModal;
+export default AddGuestbook;

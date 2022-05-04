@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { useStyles } from "../../utils/useStyles";
 import * as Api from "../../api";
@@ -7,7 +7,7 @@ import { styled as Styled } from "@mui/material/styles";
 import { Box, Modal, Typography } from "@mui/material";
 import BackButton from "../common/BackButton";
 import PostButton from "../common/PostButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { guestbookImgList } from "../../utils/util";
 
 const Navigator = styled.div`
@@ -148,7 +148,7 @@ const PrettoSlider = Styled(Slider)({
 
 const DIVIDER_HEIGHT = 2;
 
-const Guestbook = () => {
+const GuestbookList = () => {
   const navigate = useNavigate();
 
   const [modal, setModal] = useState(false); // 모달 열기
@@ -158,6 +158,8 @@ const Guestbook = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [count, setCount] = useState(0);
   const classes = useStyles();
+
+  const { state } = useLocation();
 
   async function getDataList() {
     try {
@@ -173,6 +175,12 @@ const Guestbook = () => {
 
   useEffect(() => {
     getDataList();
+    console.log("state :", state);
+    if (state.modal) {
+      setModal(state.modal);
+      setContent(state.payload.content);
+      setDate(state.payload.createdAt.slice(0, 10));
+    }
   }, []);
 
   const modalStyle = {
@@ -242,6 +250,7 @@ const Guestbook = () => {
             {columns.map((column, idx) => {
               return <Column key={idx}>{column}</Column>;
             })}
+            {/* onClick={(idx) => get(guestbooks/userId?usedId=idx)} */}
             <Modal 
               open={modal}
               onClose={handleClick}
@@ -272,4 +281,4 @@ const Guestbook = () => {
 };
 
 
-export default Guestbook;
+export default GuestbookList;
