@@ -49,6 +49,11 @@
             "date": 1651445284743,
             "name": "logs\\error\\2022-05-02.error.log",
             "hash": "7669c3dcabab60f4bcb4cc26f7a9d19a"
+        },
+        {
+            "date": 1651692941327,
+            "name": "logs\\error\\2022-05-05.error.log",
+            "hash": "4478fbc4f5c3bfee1bff1c74304a06b5"
         }
     ],
     "hashType": "md5"

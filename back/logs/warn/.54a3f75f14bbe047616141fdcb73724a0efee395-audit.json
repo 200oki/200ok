@@ -49,6 +49,11 @@
             "date": 1651445284740,
             "name": "logs\\warn\\2022-05-02.warn.log",
             "hash": "c92aa179bb9de37be6ac51c047f0c420"
+        },
+        {
+            "date": 1651692941323,
+            "name": "logs\\warn\\2022-05-05.warn.log",
+            "hash": "9f3edfd227fc1f80d0bfc23e945c556c"
         }
     ],
     "hashType": "md5"
