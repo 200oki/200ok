@@ -50,7 +50,7 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
-  transform: translateY(-0.2em);
+  transform: translateY(-0.1em);
 }
 
 .exitBtn {
@@ -72,7 +72,7 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
-  transform: translateY(-0.2em);
+  transform: translateY(-0.1em);
 }
 
 .guestbookPost {
