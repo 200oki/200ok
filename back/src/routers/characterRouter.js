@@ -36,7 +36,7 @@ router.get("/characters/random", async (req, res, next) => {
     let tiers = parseArrayQuery(req.query.tiers);
     let fields = parseArrayQuery(req.query.fields);
 
-    let result = await CharacterService.sample(size, tiers, fields);
+    let result = CharacterService.sample(size, tiers, fields);
     res.status(status.STATUS_200_OK).json({ success: true, payload: result });
   } catch (error) {
     next(error);
@@ -71,7 +71,7 @@ router.get("/characters/search", async (req, res, next) => {
       );
     }
 
-    let result = await CharacterService.search(props, values, fields);
+    let result = CharacterService.search(props, values, fields);
     const total = result.length;
     if (!isNaN(page)) {
       result = CharacterService.page(result, size, page);
@@ -169,13 +169,13 @@ router.get("/characters", async (req, res, next) => {
       // birthday 쿼리가 있을 때는 오늘의 생일 모드입니다.
       // 쿼리에 원하는 필드값을 넣을 수 있습니다.
       let fields = parseArrayQuery(req.query.fields);
-      found = await CharacterService.getByBirthday({
+      found = CharacterService.getByBirthday({
         birthday: req.query.birthday,
         fields,
       });
     } else {
       // 쿼리가 없으면 전체 캐릭터 이름 사전을 보내줍니다.
-      found = await CharacterService.list();
+      found = CharacterService.list();
     }
 
     res.status(status.STATUS_200_OK).json({ success: true, payload: found });
@@ -244,7 +244,7 @@ router.get("/characters/:id", async (req, res, next) => {
     // 쿼리에 원하는 필드값을 넣을 수 있습니다.
     let fields = parseArrayQuery(req.query.fields);
 
-    let found = await CharacterService.get({ id: req.params.id, fields });
+    let found = CharacterService.get({ id: req.params.id, fields });
     if (found.errorMessage) {
       throw new RequestError({ status: found.statusCode }, found.errorMessage);
     }
