@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "../../css/match.module.css";
 import { useStyles } from "../../utils/useStyles";
+import { useNavigate } from "react-router-dom";
 import HomeButton from "../common/HomeButton";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 function MatchResultRank({ goodBad, goToPosition }) {
   const classes = useStyles();
+  const navigator = useNavigate();
 
   return (
     <>
@@ -22,7 +24,14 @@ function MatchResultRank({ goodBad, goToPosition }) {
               <img src={s.character.image_photo} alt="주민사진" />
             </div>
             <div className={styled.rankCharName}>{s.character.name_ko}</div>
-            <button className={styled.goToCharInfoBtn}>도감 보기</button>
+            <button
+              className={styled.goToCharInfoBtn}
+              onClick={() => {
+                navigator(`/detail/${s.id}`);
+              }}
+            >
+              도감 보기
+            </button>
           </div>
         ))}
       </div>
