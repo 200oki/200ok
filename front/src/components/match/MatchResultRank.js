@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "../../css/match.module.css";
 import { useStyles } from "../../utils/useStyles";
+import { useNavigate } from "react-router-dom";
 import HomeButton from "../common/HomeButton";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import usePathParams from "../../utils/usePathParams";
+
+import { ParamContext } from "../../context/ParamContext";
 
 const MatchResultRank = ({ best3, goToPosition }) => {
   const classes = useStyles();
+  const navigator = useNavigate();
+  const pathname = usePathParams();
+  const { setParam } = useContext(ParamContext);
 
   return (
     <>
@@ -26,7 +33,15 @@ const MatchResultRank = ({ best3, goToPosition }) => {
                 {(Math.random() * 100).toFixed(2)}%
               </div>
             </div>
-            <button className={styled.goToCharInfoBtn}>도감 보기</button>
+            <button
+              className={styled.goToCharInfoBtn}
+              onClick={() => {
+                setParam(pathname);
+                navigator(`/detail/${s["id"]}`);
+              }}
+            >
+              도감 보기
+            </button>
           </div>
         ))}
       </div>
