@@ -26,6 +26,7 @@ const GuestbookList = () => {
   // 글을 post 한 후, modal 창을 띄우기 위함
   const { state } = useLocation();
 
+  // 백엔드에서 방명록 전체를 받아옴
   async function getDataList() {
     try {
       const { data } = await Api.get('guestbooks');
