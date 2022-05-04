@@ -71,9 +71,27 @@ class AppError extends Error {
   }
 }
 
+/** `AppError` 타입을 Bad Request 용으로 쓰기 편하게 확장한 에러입니다. */
 class RequestError extends AppError {
   static status = STATUS_400_BADREQUEST;
   static exit = 0;
+  /** `AppError` 타입을 Bad Request 용으로 쓰기 편하게 확장한 에러입니다.
+   *
+   * @arg {{
+   *  name?: string,
+   *  status?: number,
+   *  exit?: number,
+   *  detail?: any
+   * }} kwargs - 일부는 생략 가능합니다. 전부 생략하려면 `{}`를 줍니다.
+   *    - `name`: 기본값 `this.constructor.name` = `"RequestError"`
+   *    - `status`: http status code입니다. 기본값 `400 Bad Request`
+   *    - `exit`: 0이 아니면 `exit`에 인자로 들어가 프로세스를 끝냅니다. 기본값 `0`
+   *    - `detail`: 에러 분류를 돕기 위한 추가 정보입니다.
+   * @arg {string} [message] - `Error` 컨스트럭터로 릴레이할 메시지입니다.
+   * @arg {{cause: Error}} [options] - `{ cause?: Error }`
+   * @arg {string} [fileName]
+   * @arg {number} [lineNumber]
+   */
   constructor({ name, status, exit, detail }, ...params) {
     super(...arguments);
     Object.setPrototypeOf(this, new.target.prototype);
