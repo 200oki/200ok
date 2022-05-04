@@ -1,4 +1,4 @@
-export const CharacterInfoKeys = {
+const CharacterInfoKeys = {
   name_ko: "이름",
   gender: "성별",
   species: "동물",
@@ -11,3 +11,4 @@ export const CharacterInfoKeys = {
   rank: "티어 내 순위",
   favorite_song: "좋아하는 노래",
 };
+export default CharacterInfoKeys;
