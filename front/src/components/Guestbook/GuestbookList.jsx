@@ -45,7 +45,7 @@ const GuestbookList = () => {
       if (state.modal) { // 만약 modal이 true 라면 받아온 데이터를 모달로 띄우기
         setModal(state.modal);
         setContent(state.payload.content);
-        setDate(state.payload.createdAt.slice(0, 1));
+        setDate(state.payload.createdAt.slice(0, 10));
       }
     }
   }, [state]);
