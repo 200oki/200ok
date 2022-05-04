@@ -29,7 +29,6 @@ const FlashcardList = ({ flashcard, setIsWin, setIsModalOpen }) => {
 
   useEffect(() => {
     setCards();
-    console.log("flashCard", flashCards);
   }, [flashcard]);
 
   const setCards = () => {
@@ -39,13 +38,11 @@ const FlashcardList = ({ flashcard, setIsWin, setIsModalOpen }) => {
     setFlashCards(addExtended);
   };
   const setGame = () => {
-    console.log("setGame", matchedTotal);
     setMatchedTotal([]);
     setIsModalOpen(true);
   };
   const setTotal = (name, image) => {
     setMatchedTotal(() => {
-      console.log("setTotal", name, image);
       return [...matchedTotal, name, image];
     });
   };
@@ -57,7 +54,7 @@ const FlashcardList = ({ flashcard, setIsWin, setIsModalOpen }) => {
     const imgChoice = choiceOne.startsWith("http") ? choiceOne : choiceTwo;
     if (a[0].name_ko === nameChoice && a[0].image_photo === imgChoice) {
       //정답 비교 하기
-      console.log("name", a[0].name_ko, "img", a[0].image_photo);
+
       setTotal(a[0].name_ko, a[0].image_photo);
 
       setFlashCards((cards) => {
@@ -76,7 +73,6 @@ const FlashcardList = ({ flashcard, setIsWin, setIsModalOpen }) => {
     }
   };
   useEffect(() => {
-    console.log("one", choiceOne, "two", choiceTwo);
     if (choiceOne && choiceTwo) {
       if (choiceOne.startsWith("http") && choiceTwo.startsWith("http")) {
         return reset();
@@ -87,7 +83,6 @@ const FlashcardList = ({ flashcard, setIsWin, setIsModalOpen }) => {
         return reset();
       }
       findAnswer();
-      console.log("matchedTotal", matchedTotal);
     }
   }, [choiceOne, choiceTwo]);
 
