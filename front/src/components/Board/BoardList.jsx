@@ -10,9 +10,21 @@ import { useNavigate } from "react-router-dom";
 const BoardList = () => {
   const navigate = useNavigate();
 
-  const [villagers, setVillagers] = useState([]);
+  const [posts, setPost] = useState([]);
   const [count, setCount] = useState(0);
-  const [show, setShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  async function getBoardList() {
+    try {
+      const { data } = await Api.get('/posts');
+      setPost(data.payload);
+      console.log(data.payload);
+      setCount(data.payload.length);
+      setIsLoading(false);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   const scrollHandler = (e, val) => {
     const element = document.getElementById("content");
@@ -25,17 +37,18 @@ const BoardList = () => {
   };
 
   useEffect(() => {
+    getBoardList();
   }, []);
 
-  const cardPerColumn = 3;
+  const cardPerColumn = 2;
   const columns = [];
 
   for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
     columns.push(
-      villagers.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
+      posts.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((post, idx) => {
         return (
-          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
-            <Name>{villager.name_ko}</Name>
+          <Card key={idx} src={post.img} onClick={() => navigate(`/board/${post.id}`)}>
+            <Name>{post.title}</Name>
           </Card>
         );
       })
@@ -44,10 +57,10 @@ const BoardList = () => {
   const restCards = count % cardPerColumn;
   if (restCards > 0) {
     columns.push(
-      villagers.slice(-restCards).map((villager, idx) => {
+      posts.slice(-restCards).map((post, idx) => {
         return (
-          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
-            <Name>{villager.name_ko}</Name>
+          <Card key={idx} src={post.img} onClick={() => navigate(`/board/${post.id}`)}>
+            <Name>{post.title}</Name>
           </Card>
         );
       })
@@ -149,8 +162,8 @@ const ContentContainer = styled.div`
 `;
 
 const Card = styled.div`
-  width: 170px;
-  height: 170px;
+  width: 200px;
+  height: 200px;
   border-radius: 25px;
   background-color: white;
   display: flex;
