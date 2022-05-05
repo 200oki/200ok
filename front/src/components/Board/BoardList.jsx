@@ -165,7 +165,7 @@ const ContentContainer = styled.div`
 const Card = styled.div`
   width: 240px;
   height: 240px;
-  border-radius: 25px;
+  border-radius: 10px;
   background-color: white;
   display: flex;
   justify-content: center;
