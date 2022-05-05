@@ -4,6 +4,14 @@ import "../../css/flipcard.css";
 import { GameAnswerContext } from "../../context/GameAnswerContext";
 import { GameContext } from "../../context/GameContext";
 
+/**
+ *
+ * @param flashcard
+ * @param setIsWin
+ * @param setIsModalOpen
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const FlashcardList = ({ flashcard, setIsWin, setIsModalOpen }) => {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
