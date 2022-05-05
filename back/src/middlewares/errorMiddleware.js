@@ -10,10 +10,20 @@ function errorMiddleware(error, req, res, next) {
     });
     logger.info(`${error.name}: ${error.message}`);
   } else if (error instanceof AppError) {
+    if (error.logas in logger) {
+      logger[error.logas](error.stack, error.detail);
+    }
     if (error.exit > 0) {
       process.exit(error.exit);
     }
-    /** @todo 범용 에러(AppError, RequestError) 사용 */
+    res.status(error.status).json({
+      success: false,
+      // 이 부분은 합의가 필요하고 프로젝트마다 달라집니다.
+      detail: {
+        status: error.status,
+        message: error.message,
+      },
+    });
     /** @todo process.on('uncaughtException') 어디선가 하기! */
   } else {
     res.status(status.STATUS_500_INTERNALSERVERERROR).json({
