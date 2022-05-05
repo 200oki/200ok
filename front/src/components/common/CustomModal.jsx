@@ -9,6 +9,7 @@ import React from "react";
  * @param onClose
  * Modal close Handler
  * @param modalStyle
+ * Modal Styling
  */
 
 const CustomModal = ({ children, open, onClose, modalStyle }) => {
