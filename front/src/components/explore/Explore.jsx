@@ -34,7 +34,7 @@ const Explore = () => {
   return (
     <div className={"root"}>
       <button className={styled.teamPageBtn} onClick={handleClick}>
-        <img src="images/ham.png" />
+        <img src="/images/ham.png" />
       </button>
       {menuList.map((item, idx) => {
         return (
