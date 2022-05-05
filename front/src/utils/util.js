@@ -1,3 +1,6 @@
+/**
+ Explore Button Text
+ */
 export const menuList = [
   "오늘의 주인공",
   "주민매칭",
