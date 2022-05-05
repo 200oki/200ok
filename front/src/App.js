@@ -11,7 +11,7 @@ import MatchIntro from "./components/match/MatchIntro";
 import MatchTest from "./components/match/MatchTest";
 import MatchResult from "./components/match/MatchResult";
 import Today from "./components/Today/Today";
-// import Calendar from "./components/Today/Calendar";
+import Calendar from "./components/Today/Calendar";
 import Bestiary from "./components/Bestiary/Bestiary";
 import GameResult from "./components/game/GameResult";
 import Game from "./components/game/Game";
@@ -46,7 +46,7 @@ function App() {
           <Route path="/game-result" element={<GameResult />} />
           <Route path="/game-hof" element={<GameHOF />} />
           <Route path="/today" element={<Today />} />
-          {/* <Route path="/calendar" element={<Calendar />} /> */}
+          <Route path="/calendar" element={<Calendar />} />
           <Route path="/match-intro" element={<MatchIntro />} />
           <Route path="/match" element={<InputNickname />} />
           <Route path="/match-test" element={<MatchTest />} />
