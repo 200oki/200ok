@@ -7,6 +7,7 @@ import usePathParams from "../../utils/usePathParams";
 
 const PostButton = ({ Icon, className, ...other }) => {
   const navigator = useNavigate();
+  const pathname = usePathParams();
   const handleOnclick = other.onClick ? other.onClick : undefined;
 
   const styles = {
@@ -17,15 +18,20 @@ const PostButton = ({ Icon, className, ...other }) => {
     },
   };
 
-  const goPost = () => {
-    navigator("/guestbook/post");
+  const handleCheckUri = () => {
+    if (pathname === "/guestbook") {
+      navigator("/guestbook/post");
+    } else if (pathname === "/board") {
+      navigator("/board/post");
+    }
   };
+
   return (
     <Fab
       sx={styles}
       aria-label="post"
       className={className}
-      onClick={handleOnclick === undefined ? goPost : handleOnclick}
+      onClick={handleOnclick === undefined ? handleCheckUri : handleOnclick}
     >
       {Icon === undefined ? <CreateIcon /> : <Icon />}
     </Fab>
