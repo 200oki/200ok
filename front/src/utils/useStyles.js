@@ -68,7 +68,7 @@ export const useStyles = makeStyles({
       width: "100%",
       top: "0",
       left: "0",
-      backgroundImage: "url(images/leafBgImg.png)",
+      backgroundImage: "url(/images/leafBgImg.png)",
       position: "absolute",
       content: '""',
       opacity: "0.4",
