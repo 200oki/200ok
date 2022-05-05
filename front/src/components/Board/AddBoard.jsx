@@ -1,4 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../../api";
 import "../../css/Board.css";
@@ -9,6 +10,9 @@ const AddBoard = () => {
   const [nickname, setNickname] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [postfiles, setPostfiles] = useState({
+    file: [],
+  });
 
   const handleNicknameChange = (e) => {
     setIsTyping(true);
@@ -25,18 +29,33 @@ const AddBoard = () => {
     setContent(e.target.value);
   };
 
-  // 백엔드로 post 해주는 부분
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("nick :", nickname);
-    console.log("title :", title);
-    console.log("content :", content);
+    e.persist();
 
+    let files = e.target.profile_files.files;
+    let formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append("files", files[i]);
+    }
+
+    let dataSet = {
+      nickname,
+      title,
+      content,
+    };
+
+    formData.append("data", JSON.stringify(dataSet));
+    
     try {
-      const response = await Api.post("guestbooks", {
-        nickname,
-        title,
-        content,
+      const response = await axios({
+        method: "POST",
+        url: "posts",
+        mode: "cors",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        data: formData,
       });
       setContent((current) => {
         const newBoard = [...current];
@@ -46,15 +65,15 @@ const AddBoard = () => {
         navigate(`/board/${newBoard.id}`);
       });
       setIsTyping(false);
+      console.log(response);
     } catch (err) {
       console.error(err);
     }
   };
 
-
   return (
     <div className="boardPost">
-      <form className="boardForm" onSubmit={handleSubmit}>
+      <form className="boardForm" onSubmit={(e) => onSubmit(e)}>
         <div className="contentBack">
           <div className="input">
             <input 
@@ -63,11 +82,17 @@ const AddBoard = () => {
               placeholder="닉네임을 입력해주세요" 
               className="inputNickname" 
             />
+            <hr style={{margin: '0 0 0 0'}}/>
             <input 
               value={title} 
               onChange={handleTitleChange} 
               placeholder="제목을 입력해주세요"
               className="inputTitle" 
+            />
+            <input
+              type="file"
+              name="profile_files"
+              multiple="multiple"
             />
           </div>
           <textarea className="textarea"
@@ -82,7 +107,7 @@ const AddBoard = () => {
           <button type="submit" className="exitBtn" onClick={() => navigate('/board')}>
             그만 쓸래
           </button>
-          <button type="submit" className="submitBtn" onClick={(e) => handleSubmit(e)} >
+          <button type="submit" className="submitBtn">
             오케이!
           </button>
         </div>
