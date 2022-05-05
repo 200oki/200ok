@@ -3,7 +3,7 @@ export const menuList = [
   "주민매칭",
   "주민도감",
   "주민퀴즈",
-  "방명록",
+  "글쓰기",
 ];
 
 export const statList = [
