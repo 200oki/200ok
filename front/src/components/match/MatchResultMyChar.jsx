@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import styled from "../../css/match.module.css";
 
-const MatchResultMyChar = () => {
+import { NicknameContext } from "../../context/NicknameContext";
+
+const MatchResultMyChar = ({ myChar, goToPosition, goToFirstPage }) => {
+  const { nickname } = useContext(NicknameContext);
+
   return (
     <>
       <div className={styled.imgWrapper}>
