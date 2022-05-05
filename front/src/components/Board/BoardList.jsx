@@ -199,7 +199,7 @@ const Title = styled.div`
 `;
 
 const PrettoSlider = Styled(Slider)({
-  color: "#0099FA",
+  color: "#FFE701",
   height: 8,
   "& .MuiSlider-track": {
     border: "none",
