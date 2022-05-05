@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useStyles } from "../../utils/useStyles";
 import "../../css/GameResult.css";
 import { Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import HomeButton from "../common/HomeButton";
 import { BtnText } from "../../utils/util";
@@ -13,6 +13,7 @@ import { GameContext } from "../../context/GameContext";
 const GameResult = () => {
   const [gameScore, setGameScore] = useState(0);
   const [rank, setRank] = useState(0);
+  const { id } = useParams();
 
   const { nickname } = useContext(NicknameContext);
   const { score, setScore } = useContext(GameContext);
@@ -34,6 +35,7 @@ const GameResult = () => {
 
   useEffect(() => {
     getScoreAndRank();
+    console.log("idTest=======>", id);
     return () => setScore(0);
   }, []);
 
@@ -60,20 +62,20 @@ const GameResult = () => {
         onClick={gameResultHandler}
       />
       <img
-        src="images/rakun.png"
+        src="/images/rakun.png"
         alt="raccoon"
         className={classes.gameResultImg}
       />
       <div className="contentRoot">
         <div>
           <img
-            src="images/gameResult.png"
+            src="/images/gameResult.png"
             alt="comment"
             className={classes.gameResultComment}
           />
           <img
             className={`${classes.bottomArrow} blinkImg`}
-            src="images/triangleBottomArrow.png"
+            src="/images/triangleBottomArrow.png"
             alt="arrow"
           />
           <Typography sx={typoStyles} variant={"body1"} className="content1">
