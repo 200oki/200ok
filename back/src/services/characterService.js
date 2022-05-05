@@ -48,10 +48,10 @@ class CharacterService {
         return character;
       }
     } else {
-      return {
-        errorMessage: `character record {${id}} not found`,
-        statusCode: status.STATUS_404_NOTFOUND,
-      };
+      throw new RequestError(
+        { status: status.STATUS_404_NOTFOUND },
+        `character record {${id}} not found`
+      );
     }
   }
 
