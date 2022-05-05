@@ -16,7 +16,7 @@ const BoardList = () => {
 
   async function getBoardList() {
     try {
-      const { data } = await Api.get('/posts');
+      const { data } = await Api.get('posts');
       setPost(data.payload);
       console.log(data.payload);
       setCount(data.payload.length);
