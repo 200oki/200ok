@@ -229,7 +229,7 @@ export const useStyles = makeStyles({
     width: "80px",
     height: "80px",
     position: "absolute",
-    top: "60%",
+    top: "68%",
     left: "44%",
     right: "50%",
   },
