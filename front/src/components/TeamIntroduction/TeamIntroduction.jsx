@@ -33,7 +33,7 @@ const TeamIntroduction = () => {
       name: "권민지",
       image: "https://acnhcdn.com/latest/NpcBromide/NpcNmlDuk01.png",
       character: "리처드",
-      introduction: "따봉민지",
+      introduction: "딱대",
     },
     {
       position: "Front End",
