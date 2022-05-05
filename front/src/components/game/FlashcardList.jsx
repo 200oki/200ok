@@ -8,8 +8,8 @@ import { GameContext } from "../../context/GameContext";
  * @param flashcard
  * @param setIsWin
  * @param setIsModalOpen
- * @returns {JSX.Element}
- * @constructor
+ * from GameItem Component
+ * setModalOpen open modal in GameItem Component
  */
 const FlashcardList = ({ flashcard, setIsWin, setIsModalOpen }) => {
   const [choiceOne, setChoiceOne] = useState(null);
