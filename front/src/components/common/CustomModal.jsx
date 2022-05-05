@@ -7,6 +7,7 @@ import React from "react";
  * @param open
  * Modal open handler
  * @param onClose
+ * Modal close Handler
  * @param modalStyle
  */
 
