@@ -6,13 +6,11 @@ import mongoose from "mongoose";
 dotenv.config();
 
 // .env를 검사합니다.
-["SERVER_PORT", "MONGODB_URL", "JWT_SECRET_KEY", "NODE_ENV"].forEach(
-  (envVar) => {
-    if (!(envVar in process.env)) {
-      throw new Error(`OUR STUPID ADMIN FORGOT TO ADD "${envVar}" IN THE ENV`);
-    }
+["SERVER_PORT", "MONGODB_URL", "NODE_ENV"].forEach((envVar) => {
+  if (!(envVar in process.env)) {
+    throw new Error(`OUR STUPID ADMIN FORGOT TO ADD "${envVar}" IN THE ENV`);
   }
-);
+});
 
 // mongoose 설정
 const DB_URL =
