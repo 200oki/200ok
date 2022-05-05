@@ -6,8 +6,7 @@ import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 import SpeechBubble from "./SpeechBubble";
 import BestFriends from "./BestFriends";
-import NormalInfo from "./NormalInfo";
-import SpecialInfo from "./SpecialInfo";
+import Info from "./Info";
 
 const Navigator = styled.div`
   position: fixed;
@@ -58,7 +57,7 @@ const Content = styled.div`
 `;
 
 const VillagerDetail = () => {
-  const [villager, setVillager] = useState(undefined);
+  const [villager, setVillager] = useState(null);
   const [friends, setFriends] = useState(null);
   const { id } = useParams();
 
@@ -90,6 +89,7 @@ const VillagerDetail = () => {
           <HomeButton />
         </Wrapper>
       </Navigator>
+
       <Content>
         <div style={{ display: "flex", flexDirection: "row" }}>
           <div id="img-bubble">
@@ -102,7 +102,7 @@ const VillagerDetail = () => {
           </div>
           {friends && <BestFriends friends={friends} />}
         </div>
-        {!!villager && villager.special ? <SpecialInfo villager={villager} /> : <NormalInfo villager={villager} />}
+        {villager && <Info villager={villager} />}
       </Content>
     </Container>
   );
