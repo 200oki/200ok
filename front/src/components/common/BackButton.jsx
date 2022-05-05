@@ -14,7 +14,7 @@ const BackButton = ({ content, destination }) => {
   const navigator = useNavigate();
 
   const backHome = () => {
-    if (destination === null && param === null) {
+    if (destination === undefined && param === null) {
       navigator(-1);
     } else if (param) {
       navigator(param);
