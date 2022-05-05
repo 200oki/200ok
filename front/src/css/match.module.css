@@ -1,34 +1,44 @@
 .Wrapper,
-.inner {
+.inner,
+.loadingWrapper {
   width: 100%;
   height: 100vh;
   position: relative;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.Wrapper,
+.inner {
+  flex-direction: column;
+}
+
 .Wrapper::before,
-.inner::before {
+.inner::before,
+.loadingWrapper::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("../../public/images/leafBgImg.jpg");
+  background: url("../../public/images/leafBgImg.png");
   opacity: 0.4;
   z-index: -1;
 }
 
 .outer {
   height: 100vh;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .outer::-webkit-scrollbar {
   display: none;
+}
+
+.LoadingTitle {
+  font-size: 2rem;
 }
 
 .divider {
@@ -41,7 +51,6 @@
   height: fit-content;
   text-align: center;
   font-size: 30px;
-  font-family: "TmoneyRoundWindExtraBold";
 }
 
 .inputForm {
@@ -74,12 +83,14 @@
   height: 50px;
   border-radius: 50px;
   margin: 0 0 30px 0;
+  box-shadow: 5px 5px 4px -1px rgba(119, 119, 119, 0.75);
 }
 
 .commentBack {
   width: 700px;
   height: 50px;
   border-radius: 10px;
+  box-shadow: 5px 5px 4px -1px rgba(230, 221, 201, 0.75);
 }
 
 .inputBack > input {
@@ -105,7 +116,6 @@
   border-radius: 10px;
   width: 60px;
   height: 50px;
-  font-family: "TmoneyRoundWindExtraBold";
   font-size: 16px;
   transition: all 0.3s ease-in-out;
 }
@@ -143,13 +153,12 @@
 }
 
 .commentWrapper {
-  font-family: "TmoneyRoundWindRegular";
+  font-family: "TmoneyRoundWindRegular" !important;
   height: fit-content;
   padding: 10px;
 }
 
 .writer {
-  font-family: "TmoneyRoundWindExtraBold";
   font-weight: 300;
   font-size: 18px;
   margin-right: 10px;
@@ -168,13 +177,12 @@
 
 .btnActive,
 .btnHidden {
-  width: 70px;
-  height: 30px;
+  width: 90px;
+  height: 40px;
   border: none;
   border-radius: 30px;
   background: #a5e4ff;
   transition: all 0.5s;
-  font-family: "TmoneyRoundWindExtraBold";
   font-size: 15px;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 }
@@ -210,7 +218,6 @@
 .textWrapper {
   font-size: 20px;
   text-align: center;
-  font-family: "TmoneyRoundWindExtraBold";
 }
 .textWrapper > div {
   line-height: 1.8rem;
@@ -228,20 +235,254 @@
   justify-content: space-around;
 }
 
-.btnsWrapper > button {
+.btnsWrapper > button,
+.goToCharInfoBtn {
   font-size: 15px;
   font-weight: bold;
-  background: #fff9e4;
+  background: #fff5d0;
   border-radius: 50px;
   width: 150px;
   height: 40px;
   border: none;
-  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.15);
+  color: #7e725c;
   transition: transform 250ms;
-  font-family: "TmoneyRoundWindExtraBold";
 }
 
-.btnsWrapper > button:hover {
+.btnsWrapper > button:hover,
+.goToCharInfoBtn:hover {
   transform: translateY(-0.25em);
   cursor: pointer;
+}
+
+.rankCharWrapper {
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.rankCharCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.rankCharTitle,
+.rankCharName {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.rankCharSubTitle {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.charSmallSubTitle {
+  font-size: 15px;
+  font-family: "TmoneyRoundWindRegular" !important;
+}
+
+.percentTitle {
+  color: #f27788;
+}
+
+.rankCharTitleBg,
+.rankCharTitleBg2 {
+  width: 200px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 80px;
+  color: #fff;
+}
+
+.rankCharTitleBg {
+  background-color: rgba(21, 203, 188, 0.7);
+  box-shadow: 0 3px rgba(21, 158, 147, 0.8);
+}
+
+.rankCharTitleBg2 {
+  background-color: rgba(252, 192, 199, 0.9);
+  box-shadow: 0 3px rgba(242, 120, 136, 0.8);
+}
+
+.rankCharTitle {
+  font-size: 25px;
+}
+
+.rankCharName {
+  font-size: 18px;
+  color: #835a2a;
+}
+
+.rankCharImage > img {
+  border-radius: 50%;
+  box-shadow: 4px 3px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+.slider {
+  width: 500vw;
+  transition: transform 0.8s;
+}
+
+.testContent {
+  width: 100vw;
+  float: left;
+}
+
+.birthFormWrapper {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.personForm,
+.hobbyStyleForm,
+.colorForm {
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.personForm > div,
+.hobbyStyleForm > div,
+.colorForm > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.colorForm > div {
+  flex-direction: column;
+}
+
+.personRadioBtn,
+.hobbyStyleRadioBtn,
+.colorRadioBtn {
+  height: 45px;
+}
+
+.personRadioBtn,
+.hobbyStyleRadioBtn {
+  width: 80%;
+}
+
+.colorRadioBtn {
+  width: 50%;
+  margin: 20px;
+}
+
+.personRadioBtn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.hobbyStyleRadioBtn {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.colorTopDiv,
+.colorBottomDiv,
+.personalityLeftDiv,
+.personalityRightDiv,
+.hobbyStyleDiv {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.personalityLeftDiv,
+.personalityRightDiv,
+.hobbyStyleDiv {
+  flex-direction: column;
+}
+
+.testTitle {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.personRadioBtn input[type="radio"],
+.personRadioBtn input[type="radio"]:checked,
+.hobbyStyleRadioBtn input[type="radio"],
+.hobbyStyleRadioBtn input[type="radio"]:checked,
+.colorRadioBtn input[type="radio"],
+.colorRadioBtn input[type="radio"]:checked {
+  display: none;
+}
+
+.personRadioBtn label,
+.hobbyStyleRadioBtn label,
+.colorRadioBtn label {
+  font-family: "TmoneyRoundWindRegular" !important;
+  font-size: 18px;
+  display: block;
+  border-radius: 50px;
+  margin: 0 auto;
+  text-align: center;
+  height: -webkit-fill-available;
+  padding: 5px;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.personRadioBtn label,
+.hobbyStyleRadioBtn label {
+  line-height: 45px;
+}
+
+.colorRadioBtn label {
+  line-height: 35px;
+}
+
+.personRadioBtn label:hover,
+.hobbyStyleRadioBtn label:hover,
+.colorRadioBtn label:hover {
+  cursor: pointer;
+}
+
+.personRadioBtn input[type="radio"] + label,
+.hobbyStyleRadioBtn input[type="radio"] + label,
+.colorRadioBtn input[type="radio"] + label {
+  background: white;
+  color: #7e725c;
+}
+
+.personRadioBtn input[type="radio"] + label,
+.colorRadioBtn input[type="radio"] + label {
+  width: 100%;
+}
+
+.hobbyStyleRadioBtn input[type="radio"] + label {
+  width: 60%;
+}
+
+.personRadioBtn input[type="radio"]:checked + label,
+.hobbyStyleRadioBtn input[type="radio"]:checked + label,
+.colorRadioBtn input[type="radio"]:checked + label {
+  background: #66d267;
+  /* background: #a9fbca; */
+  color: white;
+}
+
+.fadeInImg {
+  animation: fadein 3s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

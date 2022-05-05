@@ -1,15 +1,15 @@
 import "../css/main.css";
 import React from "react";
-import StyledItem from "../components/StyledItem";
+import StyledItem from "../components/common/StyledItem";
 import { useStyles } from "../utils/useStyles";
 import { useNavigate } from "react-router-dom";
 
 function Main() {
   const classes = useStyles();
   const navigator = useNavigate();
-  
+
   const handleClick = () => {
-    navigator("/explore");    
+    navigator("/explore");
   };
 
   return (

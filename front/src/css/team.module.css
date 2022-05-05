@@ -1,0 +1,50 @@
+.teamPageBtn {
+  background: none;
+  border: none;
+  width: fit-content;
+  height: fit-content;
+  animation: rotate 1.2s infinite;
+  position: fixed;
+  top: 30px;
+  left: 50px;
+}
+
+.teamPageBtn:hover {
+  cursor: pointer;
+}
+
+.teamPageBtn > img {
+  width: 80px;
+  height: 80px;
+}
+
+@keyframes rotate {
+  0% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(1.3);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.teamPositionTitleBg {
+  padding: 5px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+.teamPositionTitle {
+  font-size: 18px;
+  color: #7c6839;
+}
+
+.teamSubTitle {
+  color: #67676b;
+}
+
+.subTitle {
+  font-size: 14px;
+}

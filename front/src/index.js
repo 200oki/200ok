@@ -4,16 +4,19 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./css/index.css";
 
+import { GameProvider } from "./context/GameContext";
 import { NicknameProvider } from "./context/NicknameContext";
-import { MatchCommentProvider } from "./context/MatchCommentContext";
+import { MatchElementProvider } from "./context/MatchElementContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <NicknameProvider>
-      <MatchCommentProvider>
-        <App />
-      </MatchCommentProvider>
+      <MatchElementProvider>
+        <GameProvider>
+          <App />
+        </GameProvider>
+      </MatchElementProvider>
     </NicknameProvider>
   </React.StrictMode>
 );
