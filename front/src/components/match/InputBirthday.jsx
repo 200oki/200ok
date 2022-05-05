@@ -106,7 +106,11 @@ function InputBirthday({ nextSlide }) {
       <button
         className={month && day ? styled.btnActive : styled.btnHidden}
         onClick={() => {
-          setMatchElem([...matchElem, month, day]);
+          if (month < 10) {
+            setMatchElem([...matchElem, `0${month}`, `${day}`]);
+          } else {
+            setMatchElem([...matchElem, `${month}`, `${day}`]);
+          }
           nextSlide();
         }}
       >

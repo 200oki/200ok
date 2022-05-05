@@ -9,7 +9,12 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 import { NicknameContext } from "../../context/NicknameContext";
 
-function MatchResultComment({ goToPosition, commentList, setCommentList }) {
+function MatchResultComment({
+  goToPosition,
+  commentList,
+  setCommentList,
+  name,
+}) {
   const [commentContent, setCommentContent] = useState("");
   const { nickname } = useContext(NicknameContext);
 
@@ -24,7 +29,7 @@ function MatchResultComment({ goToPosition, commentList, setCommentList }) {
 
     try {
       const response = await Api.post("comments", {
-        villager: "아그네스",
+        villager: name,
         comment: commentContent,
         nickname: nickname,
         location: "recommendation",
@@ -58,28 +63,34 @@ function MatchResultComment({ goToPosition, commentList, setCommentList }) {
       </form>
       {commentList.length > 0 ? (
         <div className={styled.commentArea}>
-          {commentList.map((item) => (
-            <div
-              className={styled.commentWrapper}
-              key={commentList.indexOf(item)}
-            >
-              <span className={styled.writer}>{item.nickname}</span>
-              <span
-                className={styled.commentDate}
-                style={{ fontFamily: "TmoneyRoundWindRegular" }}
-              >
-                {moment(moment.utc(item.createdAt).toDate()).format(
-                  "YYYY-MM-DD HH:mm:ss"
-                )}
-              </span>
+          {commentList.map((item, idx) => {
+            return (
               <div
-                className={styled.commentContent}
-                style={{ fontFamily: "TmoneyRoundWindRegular" }}
+                className={
+                  idx % 2 === 0
+                    ? `${styled.commentWrapper} ${styled.speechBubbleLeft}`
+                    : `${styled.commentWrapper} ${styled.speechBubbleRight}`
+                }
+                key={commentList.indexOf(item)}
               >
-                {item.comment}
+                <span className={styled.writer}>{item.nickname}</span>
+                <span
+                  className={styled.commentDate}
+                  style={{ fontFamily: "TmoneyRoundWindRegular" }}
+                >
+                  {moment(moment.utc(item.createdAt).toDate()).format(
+                    "YYYY-MM-DD HH:mm:ss"
+                  )}
+                </span>
+                <div
+                  className={styled.commentContent}
+                  style={{ fontFamily: "TmoneyRoundWindRegular" }}
+                >
+                  {item.comment}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
         <div className={styled.commentArea} style={{ textAlign: "center" }}>
