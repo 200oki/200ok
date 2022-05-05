@@ -3,10 +3,12 @@ import styled from "../../css/match.module.css";
 
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchElementContext } from "../../context/MatchElementContext";
+import { useEffect } from "react";
 
 function SelectPersonality({ nextSlide }) {
   const { nickname } = useContext(NicknameContext);
-  const { matchElem, setMatchElem } = useContext(MatchElementContext);
+  const { matchElem, setMatchElem, resultMent, setResultMent } =
+    useContext(MatchElementContext);
   const [personality, setPersonality] = useState(null);
 
   const personalities = [
@@ -55,6 +57,22 @@ function SelectPersonality({ nextSlide }) {
   const handlePersonalityChange = (e) => {
     setPersonality(e.target.value);
   };
+
+  const handleResultMentSetting = () => {
+    const rm = personalities.filter((p) => {
+      return p.key === personality;
+    });
+    console.log("rm", rm[0]);
+    console.log("rm-result", rm[0].result);
+    setResultMent([...resultMent, rm[0].result]);
+  };
+
+  useEffect(() => {
+    if (personality !== null) {
+      handleResultMentSetting();
+      console.log("result", resultMent);
+    }
+  }, [personality]);
 
   return (
     <div className={`${styled.testContent} ${styled.Wrapper}`}>
