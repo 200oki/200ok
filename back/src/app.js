@@ -42,11 +42,5 @@ app.use(commentRouter);
 app.use(scoreRouter);
 app.use(csmRouter);
 app.use(errorMiddleware);
-// .env를 검사합니다.
-// ["SERVER_PORT", "MONGODB_URL", "JWT_SECRET_KEY", "NODE_ENV"].forEach((k) => {
-//   if (!(k in process.env)) {
-//     throw new Error(`OUR STUPID ADMIN FORGOT TO ADD "${k}" IN THE ENV`);
-//   }
-// });
 
 export { app };
