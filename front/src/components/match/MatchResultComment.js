@@ -15,8 +15,6 @@ function MatchResultComment({ goToPosition, commentList, setCommentList }) {
 
   const classes = useStyles();
 
-  const classes = useStyles();
-
   const handleContentChange = (e) => {
     setCommentContent(e.target.value);
   };
