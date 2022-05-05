@@ -13,7 +13,10 @@
 .correct{
     pointer-events: none;
 }
-
+.cardText{
+    font-size: 1.5rem;
+    color: #606060;
+}
 .card{
     display: flex;
     margin-top: .1rem;
