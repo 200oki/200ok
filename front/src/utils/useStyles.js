@@ -131,6 +131,9 @@ export const useStyles = makeStyles({
   },
   modalFont2: {
     fontFamily: "TmoneyRoundWindRegular",
+    paddingTop: "15px",
+    paddingLeft: "32px",
+    paddingRight: "15px",
   },
   progressBar: {
     backgroundColor: "white",
@@ -274,5 +277,15 @@ export const useStyles = makeStyles({
     fontSize: "2.5rem",
     margin: "0 auto",
     textAlign: "center",
+  },
+  GuestContentWrapper: {
+    maxHeight: "100%",
+    minHeight: "100%",
+    overflowY: "auto",
+    display: "flex",
+    fontSize: "1.3rem",
+    flexDirection: "column",
+    justifyContent: "end",
+    alignItems: "end",
   },
 });
