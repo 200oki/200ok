@@ -34,7 +34,6 @@ const GuestbookList = () => {
     try {
       const { data } = await Api.get("guestbooks");
       setGuestbook(data.payload);
-      console.log("GuestBook data.payload =====>>", data.payload); // 백엔드에서 데이터 잘 오는지 확인
       setCount(data.payload.length);
       setIsLoading(false);
     } catch (error) {
