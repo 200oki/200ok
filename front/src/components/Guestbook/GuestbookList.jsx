@@ -29,7 +29,7 @@ const GuestbookList = () => {
   // 백엔드에서 방명록 전체를 받아옴
   async function getDataList() {
     try {
-      const { data } = await Api.get('guestbooks');
+      const { data } = await Api.get("guestbooks");
       setGuestbook(data.payload);
       console.log(data.payload); // 백엔드에서 데이터 잘 오는지 확인
       setCount(data.payload.length);
@@ -42,8 +42,10 @@ const GuestbookList = () => {
   useEffect(() => {
     getDataList();
     console.log("state :", state); // 받아온 값 확인하기
-    if (state !== null) { // 처음에 null 값이 들어있어서 오류 => not null일 때만 사용하도록 조건 추가
-      if (state.modal) { // 만약 modal이 true 라면 받아온 데이터를 모달로 띄우기
+    if (state !== null) {
+      // 처음에 null 값이 들어있어서 오류 => not null일 때만 사용하도록 조건 추가
+      if (state.modal) {
+        // 만약 modal이 true 라면 받아온 데이터를 모달로 띄우기
         setModal(state.modal);
         setContent(state.payload.content);
         setDate(state.payload.createdAt.slice(0, 10)); // 날짜를 연-월-일로 자름 ex) 2022-05-04
@@ -76,7 +78,7 @@ const GuestbookList = () => {
   const handleClick = (element) => {
     setModal((v) => !v);
     setContent(element.content);
-    setDate(element.createdAt.slice(0, 10)); 
+    setDate(element.createdAt.slice(0, 10));
     console.log("여긴가");
   };
 
@@ -86,9 +88,7 @@ const GuestbookList = () => {
   for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
     columns.push(
       guestbook.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((guestbook, idx) => {
-        return ( 
-          <Card key={idx} src={guestbookImgList[guestbook.id%5].img} onClick={() => handleClick(guestbook)} />
-        );
+        return <Card key={idx} src={guestbookImgList[guestbook.id % 5].img} onClick={() => handleClick(guestbook)} />;
       })
     );
   }
@@ -98,9 +98,7 @@ const GuestbookList = () => {
   if (restCards > 0) {
     columns.push(
       guestbook.slice(-restCards).map((guestbook, idx) => {
-        return (
-          <Card key={idx} src={guestbookImgList[guestbook.id%5].img} onClick={() => handleClick(guestbook)} />
-        );
+        return <Card key={idx} src={guestbookImgList[guestbook.id % 5].img} onClick={() => handleClick(guestbook)} />;
       })
     );
   }
@@ -108,9 +106,9 @@ const GuestbookList = () => {
   return (
     <Container>
       <Navigator>
-        <BackButton content={ window.location.pathname === "/explore" ? "메인메뉴" : "뒤로가기" } />
+        <BackButton content="메인메뉴" destination="/explore" />
         <Wrapper>
-          <PostButton onClick={() => navigate('/guestbook/post')} />
+          <PostButton onClick={() => navigate("/guestbook/post")} />
         </Wrapper>
       </Navigator>
       <Content>
@@ -120,25 +118,12 @@ const GuestbookList = () => {
             {columns.map((column, idx) => {
               return <Column key={idx}>{column}</Column>;
             })}
-            <Modal 
-              open={modal}
-              onClose={handleClick}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
+            <Modal open={modal} onClose={handleClick} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
               <Box sx={modalStyle} className="modalBg">
-                <Typography
-                  id="modal-modal-title"
-                  variant="h6"
-                  className={classes.modalFont}
-                >
+                <Typography id="modal-modal-title" variant="h6" className={classes.modalFont}>
                   {content}
-                  <p className="date">
-                    {date}
-                  </p>
-                  <p className="sender">
-                    익명의 누군가로부터
-                  </p>
+                  <p className="date">{date}</p>
+                  <p className="sender">익명의 누군가로부터</p>
                 </Typography>
               </Box>
             </Modal>
@@ -284,6 +269,5 @@ const PrettoSlider = Styled(Slider)({
     },
   },
 });
-
 
 export default GuestbookList;
