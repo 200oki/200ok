@@ -22,7 +22,7 @@ const NormalInfo = ({ villager }) => {
   }, [villager]);
 
   return (
-    <Row>
+    <Row id="columnWrapper">
       <Column>{leftDetails}</Column>
       <Column>{rightDetails}</Column>
     </Row>
@@ -30,11 +30,10 @@ const NormalInfo = ({ villager }) => {
 };
 
 const Row = styled.div`
-  width: auto;
+  width: 1000px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
   margin-top: 50px;
 `;
 
