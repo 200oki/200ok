@@ -161,8 +161,8 @@ const ContentContainer = styled.div`
 `;
 
 const Card = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 240px;
+  height: 240px;
   border-radius: 25px;
   background-color: white;
   display: flex;
