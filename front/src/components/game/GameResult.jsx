@@ -40,6 +40,7 @@ const GameResult = () => {
 
   useEffect(() => {
     // 클립보드 복사기능 여기에
+    console.log(document.querySelector(".copyUrl").value);
   }, [id]);
 
   const typoStyles = {
@@ -59,6 +60,7 @@ const GameResult = () => {
   };
   return (
     <div className="gameResultRoot">
+      <textarea value={window.location.href} className="copyUrl" />
       <HomeButton
         Icon={EmojiEventsIcon}
         className={classes.fab}
