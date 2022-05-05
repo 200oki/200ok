@@ -5,6 +5,7 @@ import { NicknameContext } from "../../context/NicknameContext";
 
 /**
  * @param content
+ * What you see in Back Button
  * @param destination
  */
 const BackButton = ({ content, destination }) => {
