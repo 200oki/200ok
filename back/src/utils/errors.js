@@ -71,7 +71,7 @@ class AppError extends Error {
     this.status = status ?? this.constructor.status;
     this.exit = exit ?? this.constructor.exit;
     this.logas = logas ?? this.constructor.logas;
-    this.detail = detail;
+    this.detail = { ...detail };
   }
 }
 
