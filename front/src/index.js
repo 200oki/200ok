@@ -8,22 +8,19 @@ import { GameProvider } from "./context/GameContext";
 import { ParamProvider } from "./context/ParamContext";
 import { NicknameProvider } from "./context/NicknameContext";
 import { MatchElementProvider } from "./context/MatchElementContext";
-import { MatchCommentProvider } from "./context/MatchCommentContext";
 import { GameAnswerProvider } from "./context/GameAnswerContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <NicknameProvider>
     <MatchElementProvider>
-      <MatchCommentProvider>
-        <GameAnswerProvider>
-          <GameProvider>
-            <ParamProvider>
-              <App />
-            </ParamProvider>
-          </GameProvider>
-        </GameAnswerProvider>
-      </MatchCommentProvider>
+      <GameAnswerProvider>
+        <GameProvider>
+          <ParamProvider>
+            <App />
+          </ParamProvider>
+        </GameProvider>
+      </GameAnswerProvider>
     </MatchElementProvider>
   </NicknameProvider>
 );
