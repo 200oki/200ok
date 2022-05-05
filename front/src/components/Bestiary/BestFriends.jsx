@@ -46,7 +46,8 @@ const BestFriendWrapper = styled.div`
 
 const LabelBf = styled.div`
   color: #4c191b;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 `;
 const IconBf = styled.img`
   cursor: pointer;
