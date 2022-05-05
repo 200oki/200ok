@@ -129,6 +129,9 @@ export const useStyles = makeStyles({
   modalFont: {
     fontFamily: "TmoneyRoundWindExtraBold !important",
   },
+  modalFont2: {
+    fontFamily: "TmoneyRoundWindRegular",
+  },
   progressBar: {
     backgroundColor: "white",
     borderRadius: "25px",
