@@ -42,9 +42,10 @@ const BoardList = () => {
   for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
     columns.push(
       posts.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((post, idx) => {
+        const title = post.title > 7 ? post.title : post.title + "...";
         return (
           <Card key={idx} src={post.img} onClick={() => navigate(`/board/${post.id}`)}>
-            <Name>{post.title}</Name>
+            <Title> title </Title>
           </Card>
         );
       })
@@ -56,7 +57,7 @@ const BoardList = () => {
       posts.slice(-restCards).map((post, idx) => {
         return (
           <Card key={idx} src={post.img} onClick={() => navigate(`/board/${post.id}`)}>
-            <Name>{post.title}</Name>
+            <Title>{post.title}</Title>
           </Card>
         );
       })
@@ -181,7 +182,7 @@ const Column = styled.div`
   justify-content: space-around;
 `;
 
-const Name = styled.div`
+const Title = styled.div`
   background-color: white;
   width: 100%;
   height: 40px;
