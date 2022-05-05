@@ -68,7 +68,6 @@ function SelectPersonality({ nextSlide }) {
   useEffect(() => {
     if (personality !== null) {
       handleResultMentSetting();
-      console.log("result", resultMent);
     }
   }, [personality]);
 
