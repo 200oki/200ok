@@ -255,6 +255,7 @@
 }
 
 .imgWrapper > img {
+  width: 250px;
   border-radius: 50%;
   box-shadow: 4px 3px 4px 0px rgba(0, 0, 0, 0.3);
 }
@@ -374,6 +375,7 @@
 }
 
 .rankCharImage > img {
+  width: 250px;
   border-radius: 50%;
   box-shadow: 4px 3px 4px 0px rgba(0, 0, 0, 0.3);
 }
