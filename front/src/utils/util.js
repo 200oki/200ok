@@ -14,6 +14,9 @@ export const statList = [
   "스타일 분포",
 ];
 
+/**
+ Result Button Text
+ */
 export const BtnText = {
   HOME: "홈으로",
   RETRY: "다시하기",
