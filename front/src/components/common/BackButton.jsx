@@ -7,6 +7,7 @@ import { NicknameContext } from "../../context/NicknameContext";
  * @param content
  * What you see in Back Button
  * @param destination
+ * Where you want Navigate to
  */
 const BackButton = ({ content, destination }) => {
   const { nickname, setNickname } = useContext(NicknameContext);
