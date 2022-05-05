@@ -57,6 +57,18 @@ const PersonalityChart = () => {
       height={500}
       width={1200}
       options= {{
+        scales: {
+          x: {
+            grid: {
+              display: false
+            }
+          },
+          y: {
+            grid: {
+              display: false
+            }
+          }
+        },
         responsive: false,
         plugins: {
           datalabels: {

@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import { Character } from "./models/Character.js";
 import { Comment } from "./models/Comment.js";
 import { Score } from "./models/Score.js";
-
 dotenv.config();
 
 const DB_URL =
@@ -22,4 +21,4 @@ db.on("error", (error) =>
   console.error("MongoDB 연결에 실패하였습니다...\n" + "\n" + error)
 );
 
-export { Character, Comment, Score };
+export { Character, Comment, Score, Guestbook };
