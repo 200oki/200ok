@@ -72,12 +72,12 @@ const BoardList = () => {
       </Navigator>
       <Content>
         <ContentWrapper>
+        <PrettoSlider onChange={scrollHandler} />
           <ContentContainer id="content">
             {columns.map((column, idx) => {
               return <Column key={idx}>{column}</Column>;
             })}
           </ContentContainer>
-          <PrettoSlider onChange={scrollHandler} />
         </ContentWrapper>
       </Content>
     </Container>
