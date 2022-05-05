@@ -26,8 +26,9 @@ import StyleChart from "./components/Statistics/StyleChart";
 import VillagerList from "./components/Bestiary/VillagerList";
 import VillagerDetail from "./components/Bestiary/VillagerDetail";
 import TeamIntroduction from "./components/TeamIntroduction/TeamIntroduction";
-import BoardList from "./components/Board/BoardList";
 import Write from "./components/Board/Write";
+import BoardList from "./components/Board/BoardList";
+import AddBoard from "./components/Board/AddBoard";
 
 const GlobalFont = createGlobalStyle`
   * { font-family: "TmoneyRoundWindExtraBold" }
@@ -65,6 +66,7 @@ function App() {
           <Route path="/detail/:id" element={<VillagerDetail />} />
           <Route path="/write" element={<Write />} />
           <Route path="/board" element={<BoardList />} />
+          <Route path="/board/post" element={<AddBoard />} />
         </Routes>
       </Router>
     </div>
