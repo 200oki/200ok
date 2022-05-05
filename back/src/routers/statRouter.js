@@ -45,8 +45,8 @@ const statRouter = Router();
  *                      type: number
  *                      description: groupby count 배열
  *                      example: 10
- *                                       
-*/
+ *
+ */
 statRouter.get(
   "/stats",
   [
@@ -61,12 +61,12 @@ statRouter.get(
   ],
   async (req, res, next) => {
     const groupName = req.query.groupName;
-    const index = statList.findIndex(x => x.groupName === groupName);
-    
+    const index = statList.findIndex((x) => x.groupName === groupName);
+
     if (index === -1) {
       const body = {
         success: false,
-      }
+      };
       return res.status(status.STATUS_400_BADREQUEST).json(body);
     }
 
@@ -78,6 +78,5 @@ statRouter.get(
     return res.status(status.STATUS_200_OK).json(body);
   }
 );
-
 
 export { statRouter };
