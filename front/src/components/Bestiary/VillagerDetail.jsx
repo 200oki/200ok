@@ -27,8 +27,12 @@ const VillagerDetail = () => {
 
   useEffect(() => {
     const getFriends = async () => {
-      const { data } = await Api.get(`csmdata/${id}?top=3&bottom=0`);
-      setFriends(data.payload);
+      try {
+        const { data } = await Api.get(`csmdata/${id}?top=3&bottom=0`);
+        setFriends(data.payload);
+      } catch (error) {
+        console.error(error);
+      }
     };
     getFriends();
   }, [id]);
