@@ -2,10 +2,11 @@ import CreateIcon from '@mui/icons-material/Create';
 import { Fab } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import usePathParams from "../../utils/usePathParams";
 
 const PostButton = ({ Icon, className, ...other }) => {
   const navigator = useNavigate();
-  const handleOnclick = other.onClick ? other.onClick : undefined;
+  const pathname = usePathParams();
 
   const styles = {
     color: "common.white",
@@ -15,15 +16,20 @@ const PostButton = ({ Icon, className, ...other }) => {
     },
   };
 
-  const goPost = () => {
-    navigator("/guestbook/post");
-  };
+  const handleCheckUri = () => {
+      if (pathname === "/board") {
+        navigator("/board/post");
+      } else if (pathname === "/guestbook") {
+        navigator("/guestbook/post");
+      }
+    };
+
   return (
     <Fab
       sx={styles}
       aria-label="post"
       className={className}
-      onClick={handleOnclick === undefined ? goPost : handleOnclick}
+      onClick={handleCheckUri}
     >
       {Icon === undefined ? <CreateIcon /> : <Icon />}
     </Fab>
