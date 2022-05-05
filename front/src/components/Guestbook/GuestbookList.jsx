@@ -261,7 +261,7 @@ const Column = styled.div`
 `;
 
 const PrettoSlider = Styled(Slider)({
-  color: "#52af77",
+  color: "#0099FA",
   height: 8,
   "& .MuiSlider-track": {
     border: "none",
