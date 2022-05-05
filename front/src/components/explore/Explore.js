@@ -25,6 +25,9 @@ const Explore = () => {
       case "주민퀴즈":
         return navigator("/game");
         break;
+      case "글쓰기":
+        return navigator("/guestbook");
+        break;
       default:
         return navigator("/team-introduction");
         break;
