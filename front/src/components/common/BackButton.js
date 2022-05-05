@@ -6,7 +6,6 @@ import { NicknameContext } from "../../context/NicknameContext";
 const BackButton = ({ content, destination }) => {
   const { nickname, setNickname } = useContext(NicknameContext);
   const navigator = useNavigate();
-  const pathname = usePathParams();
 
   const backHome = () => {
     if (nickname) setNickname("");
