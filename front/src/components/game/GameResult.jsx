@@ -11,6 +11,7 @@ import { NicknameContext } from "../../context/NicknameContext";
 import { GameContext } from "../../context/GameContext";
 import { CopyToClipboard } from "react-copy-to-clipboard/src";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const GameResult = () => {
   const [gameScore, setGameScore] = useState(0);
@@ -49,10 +50,7 @@ const GameResult = () => {
 
   useEffect(() => {
     // 클립보드 복사기능 여기에
-    const test = "이창민";
-    console.log(test.includes("창민"));
     console.log("userId ====>", userId);
-
     if (userId && userId !== null && !value.includes(userId)) {
       //유저아이디가 없고 localhost:3000/game-result/ㅁㄴㅇㅁㄴㅇ/ㅁㄴㅇㅁㅇㄴ/ㅁㄴㅇㅁㄴㅇ
       setValue(value + `/${userId}`);
@@ -68,6 +66,22 @@ const GameResult = () => {
     if (e.target.innerText === BtnText.HOME) {
       navigator("/");
     } else if (e.target.innerText === BtnText.SHARE) {
+      toast.success(
+        <div>
+          링크가 복사되었다구리!
+          <br /> 공유해보자구리!
+        </div>,
+        {
+          icon: "🎈",
+          position: "top-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
     } else if (e.target.innerText === BtnText.RETRY) {
       navigator("/game");
     } else {
@@ -76,7 +90,7 @@ const GameResult = () => {
   };
   return (
     <div className="gameResultRoot">
-      <textarea value={value} className="copyUrl" />
+      <textarea readOnly={true} value={value} className="copyUrl" />
       <HomeButton
         Icon={EmojiEventsIcon}
         className={classes.fab}
@@ -89,6 +103,7 @@ const GameResult = () => {
       />
       <div className="contentRoot">
         <div>
+          <ToastContainer />
           <img
             src="/images/gameResult.png"
             alt="comment"
