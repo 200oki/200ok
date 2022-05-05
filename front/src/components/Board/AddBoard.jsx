@@ -24,7 +24,7 @@ const AddBoard = () => {
     e.preventDefault();
     console.log("nick :", nickname);
     console.log("content :", content);
-    
+
     try {
       const response = await Api.post("guestbooks", {
         nickname,
@@ -35,7 +35,7 @@ const AddBoard = () => {
         newBoard.push(response.data.payload);
         console.log("새거 :", newBoard[newBoard.length-1]); // 데이터 잘 들어있는지 확인
 
-        navigate(`/guestbook/${newBoard.id}`);
+        navigate(`/board/${newBoard.id}`);
       });
       setIsTyping(false);
     } catch (err) {
@@ -45,8 +45,8 @@ const AddBoard = () => {
 
 
   return (
-    <div>
-      <form className="guestbookForm" onSubmit={handleSubmit}>
+    <div className="boardPost">
+      <form className="boardForm" onSubmit={handleSubmit}>
         <div className="contentBack">
           <input value={nickname} onChange={handleNicknameChange} />
           <textarea className="textarea"
