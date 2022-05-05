@@ -99,7 +99,7 @@ const Navigator = styled.div`
 const Container = styled.div`
   position: relative;
 &::before {
-  background-image: url("/images/guestbookBg.jpg");
+  background-image: url("/images/boardBg.png");
   content: " ";
   display: block;
   position: absolute;
@@ -199,7 +199,7 @@ const Title = styled.div`
 `;
 
 const PrettoSlider = Styled(Slider)({
-  color: "#52af77",
+  color: "#0099FA",
   height: 8,
   "& .MuiSlider-track": {
     border: "none",
