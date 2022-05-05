@@ -1,12 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "../../css/match.module.css";
 import * as Api from "../../api";
 import { useNavigate } from "react-router-dom";
 
 import { NicknameContext } from "../../context/NicknameContext";
-
 import { MatchElementContext } from "../../context/MatchElementContext";
-import { useEffect } from "react";
 
 const SelectStyle = ({ array }) => {
   const navigator = useNavigate();
