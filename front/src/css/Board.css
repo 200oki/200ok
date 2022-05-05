@@ -29,8 +29,7 @@
 }
 
 .inputNickname,
-.inputTitle,
-.inputFiles {
+.inputTitle {
   width: 100%;
   height: 100%;
   border: none;
@@ -43,6 +42,10 @@
 .inputNickname:focus,
 .inputTitle:focus {
   outline: none;
+}
+
+.inputFiles {
+  font-family: "TmoneyRoundWindRegular";
 }
 
 .alignButton {
