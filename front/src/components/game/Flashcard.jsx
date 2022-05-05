@@ -86,7 +86,7 @@ const FlashCard = ({
         {flashcard.data.startsWith("http") ? (
           <img src={flashcard.data} alt="characters" className="characterImg" />
         ) : (
-          <p>{flashcard.data}</p>
+          <p className="cardText">{flashcard.data}</p>
         )}
       </div>
     </div>
