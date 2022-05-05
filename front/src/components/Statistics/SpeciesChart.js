@@ -28,7 +28,6 @@ const SpeciesChart = () => {
         labels: dataList[1],
           datasets: [
           {
-            label: '# Species',
             data: dataList[2],
             backgroundColor: [
               'rgba(242, 135, 5, 0.3)'
