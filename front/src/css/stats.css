@@ -15,7 +15,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("../../public/images/leafBgImg.jpg");
+  background: url("../../public/images/leafBgImg.png");
   opacity: 0.4;
   z-index: -1;
 }
@@ -25,7 +25,7 @@
   position: relative;
 }
 .stat::before {
-  background-image: url("/public/images/leafBgImg.jpg");
+  background-image: url("/public/images/leafBgImg.png");
   content: " ";
   display: block;
   position: absolute;
@@ -93,6 +93,9 @@
 
 .graphBack {
   background-color: #f7f8ee;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes blink-effect {

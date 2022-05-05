@@ -6,17 +6,17 @@ import "./css/index.css";
 
 import { GameProvider } from "./context/GameContext";
 import { NicknameProvider } from "./context/NicknameContext";
-import { MatchCommentProvider } from "./context/MatchCommentContext";
+import { MatchElementProvider } from "./context/MatchElementContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <NicknameProvider>
-      <MatchCommentProvider>
+      <MatchElementProvider>
         <GameProvider>
           <App />
         </GameProvider>
-      </MatchCommentProvider>
+      </MatchElementProvider>
     </NicknameProvider>
   </React.StrictMode>
 );

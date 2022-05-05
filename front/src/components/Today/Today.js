@@ -11,20 +11,23 @@ function Today() {
   const navigate = useNavigate()
 
   const today = new Date();
-  const month = today.getMonth() >= 9 ? String(today.getMonth() + 1) : '0' + String(today.getMonth() + 1);
-  const day = today.getDate() >= 10 ? String(today.getDate()) : '0' + String(today.getDate());
-  // const month = "04";
-  // const day = "23";
+  // const month = today.getMonth() >= 9 ? String(today.getMonth() + 1) : '0' + String(today.getMonth() + 1);
+  // const day = today.getDate() >= 10 ? String(today.getDate()) : '0' + String(today.getDate());
+  const month = "08";
+  const day = "23";
   const dateQuery = month + "-" + day;
   const date = { month, day };
+  const fields = ["id", "name_ko", "image_photo", "image_icon"]
+  const fieldsToGet = fields.join();
 
   const [todayCharacter, setTodayCharacter] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   async function getTodayCharacter() {
     try {
-      const { data } = await Api.get(`characters?birthday=${dateQuery}`);
-      setTodayCharacter([...Object.values(data.payload)]);
+      // search api로 바꾸기
+      const { data } = await Api.get(`characters/search?fields=${fieldsToGet}&props=birthday&values=${dateQuery}`);
+      setTodayCharacter(data.payload);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -50,8 +53,8 @@ function Today() {
   return (
     <div className="today">
       <div className="nav-bar" style={{ position: "fixed", top: "0", zIndex: "1", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100vw" }}>
-        <BackButton content={"메인메뉴"} />
-        <HomeButton Icon={CalendarMonthIcon} className="today-calendar" onClick={handleClick} />
+        <BackButton content={"메인메뉴"} destination={"explore"} />
+        <HomeButton className="today-calendar" />
       </div>
       <div className="today-content">
         {villagers.length > 0

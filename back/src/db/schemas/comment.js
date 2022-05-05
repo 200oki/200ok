@@ -47,12 +47,10 @@ const CommentSchema = new Schema(
     villager: {
       type: String,
       required: true,
-      index: true,
     },
     location: {
       type: String,
       required: true,
-      index: true,
     },
     nickname: {
       type: String,

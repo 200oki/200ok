@@ -59,6 +59,9 @@ const PersonalityChart = () => {
       options= {{
         responsive: false,
         plugins: {
+          datalabels: {
+            color: 'white',
+          },
           legend: false // Hide legend
         },
       }}

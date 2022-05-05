@@ -3,7 +3,7 @@
   position: relative;
 }
 .today::before {
-  background-image: url("/public/images/leafBgImg.jpg");
+  background-image: url("/public/images/leafBgImg.png");
   content: " ";
   display: block;
   position: absolute;
@@ -53,7 +53,7 @@
 
 /*  */
 .phrase-transparent {
-  opacity: 0;
+  display: none;
 }
 
 /* Villager selector as dropdown menu*/
@@ -97,7 +97,9 @@
 .menu {
   margin-top: 5px;
   margin-bottom: -50px;
-  z-index: 100;
+  margin-right: -100vw;
+  z-index: 1;
+  position: relative;
 }
 
 /* Comment inputbox */
@@ -108,7 +110,7 @@ input.comment {
   font-size: 1.23rem;
   border-radius: 0 1.5rem 1.5rem 0;
   text-align: center;
-  cursor: pointer;
+  cursor: text;
   transition: all 0.5s;
   width: 100%;
   height: calc(3rem - 2px);
@@ -161,6 +163,15 @@ div.comment {
   box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
   background-color: #fff9e4;
   font-family: TmoneyRoundWindExtraBold;
+  animation: twinkling 0.8s alternate ease-in-out infinite;
+}
+@keyframes twinkling {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
 }
 .btn-comment:hover {
   background-color: #cdcdcd !important;
@@ -169,8 +180,13 @@ div.comment {
 
 /*  Comment Section */
 .comment-section {
-  z-index: 0;
+  height: 50vh;
+  overflow: scroll;
 }
+.comment-section::-webkit-scrollbar {
+  display: none;
+}
+
 .comment-box {
   width: 100%;
   height: 50px;
@@ -236,13 +252,13 @@ div.comment {
     top: 38vh;
   }
   to {
-    transform: scale(65%);
+    transform: scale(60%);
     top: 5%;
   }
 }
 @keyframes enlarge {
   from {
-    transform: scale(65%);
+    transform: scale(60%);
     top: 5%;
   }
   to {
@@ -255,4 +271,9 @@ div.comment {
   top: 30px;
   right: 50px;
   position: relative;
+}
+
+.refImg {
+  opacity: 1 !important;
+  transform: scale(130%);
 }

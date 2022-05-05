@@ -1,6 +1,8 @@
 import { useStyles } from "../../utils/useStyles";
 import "../../css/GameIntro.css";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../common/BackButton";
+import React from "react";
 
 const GameResult = () => {
   const classes = useStyles();
@@ -11,6 +13,10 @@ const GameResult = () => {
   };
   return (
     <div className="gameResultRoot">
+      <div className="backBtnWrapper">
+        <BackButton content="뒤로가기" destination="game" />
+      </div>
+
       <img
         src="images/game_intro.png"
         alt="raccoon"

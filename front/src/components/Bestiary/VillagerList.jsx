@@ -20,7 +20,7 @@ const Navigator = styled.div`
 const Container = styled.div`
   position: relative;
 &::before {
-  background-image: url("/images/leafBgImg.jpg");
+  background-image: url("/images/leafBgImg.png");
   content: " ";
   display: block;
   position: absolute;
@@ -340,7 +340,7 @@ const VillagerList = () => {
   return (
     <Container>
       <Navigator>
-        <BackButton content={window.location.pathname === "/bestiary" ? "메인메뉴" : "뒤로가기"} />
+        <BackButton content={"뒤로가기"} destination={"bestiary"} />
         <Wrapper>
           <HomeButton />
         </Wrapper>

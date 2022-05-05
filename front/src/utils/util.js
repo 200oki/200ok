@@ -1,8 +1,9 @@
 export const menuList = [
   "오늘의 주인공",
-  "나와 맞는 주민 찾기",
+  "주민매칭",
   "주민도감",
   "주민퀴즈",
+  "글쓰기",
 ];
 
 export const statList = [
@@ -20,6 +21,12 @@ export const guestbookImgList = [
   { id: 3, img: "https://acnhcdn.com/latest/FtrIcon/Coconut.png"},
   { id: 4, img: "https://acnhcdn.com/latest/FtrIcon/PhotoStudioBellBag.png"},
 ];
+
+export const BtnText = {
+  HOME: "홈으로",
+  RETRY: "다시하기",
+  SHARE: "공유하기",
+};
 
 export const testData = [
   {

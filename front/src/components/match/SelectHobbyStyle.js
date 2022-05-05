@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 import { NicknameContext } from "../../context/NicknameContext";
 
+import { MatchElementContext } from "../../context/MatchElementContext";
+
 const SelectHobbyStyle = ({ array, nextSlide }) => {
   const navigator = useNavigate();
   const { nickname } = useContext(NicknameContext);
+  const { matchElem, setMatchElem } = useContext(MatchElementContext);
 
   const [hobby, setHobby] = useState(null);
   const [style, setStyle] = useState(null);
@@ -61,14 +64,20 @@ const SelectHobbyStyle = ({ array, nextSlide }) => {
       {array[0] === "취미" ? (
         <button
           className={hobby !== null ? styled.btnActive : styled.btnHidden}
-          onClick={nextSlide}
+          onClick={() => {
+            setMatchElem([...matchElem, [hobby]]);
+            nextSlide();
+          }}
         >
           다음
         </button>
       ) : (
         <button
           className={style !== null ? styled.btnActive : styled.btnHidden}
-          onClick={handleTestSubmit}
+          onClick={() => {
+            setMatchElem([...matchElem, [style]]);
+            handleTestSubmit();
+          }}
         >
           다음
         </button>

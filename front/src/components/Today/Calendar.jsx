@@ -1,7 +1,14 @@
-import { useState } from "react";
+import React from "react";
 import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 import styled, { keyframes } from "styled-components";
+
+const DateNavigator = styled.div`
+  width: 10vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
 const Navigator = styled.div`
   position: fixed;
@@ -16,7 +23,7 @@ const Navigator = styled.div`
 const Container = styled.div`
   position: relative;
 &::before {
-  background-image: url("/images/leafBgImg.jpg");
+  background-image: url("/images/leafBgImg.png");
   content: " ";
   display: block;
   position: absolute;
@@ -51,19 +58,57 @@ const Wrapper = styled.div`
   top: 30px;
   right: 50px;
 `;
-
-const Bestiary = () => {
+const MonthCalendar = styled.div`
+  margin-top: 20px;
+  height: 40vw;
+  width: 40vw;
+  background-color: white;
+`;
+const Calendar = () => {
+  const [month, setMonth] = React.useState(1);
+  const handleClick = (e) => {
+    if (e.target.alt === "left") {
+      if (month > 1) {
+        setMonth(month - 1);
+      } else {
+        setMonth(12);
+      }
+    } else {
+      if (month < 12) {
+        setMonth(month + 1);
+      } else {
+        setMonth(1);
+      }
+    }
+  };
   return (
     <Container>
       <Navigator>
-        <BackButton content={"뒤로가기"} />
+        <BackButton content={"뒤로가기"} destination={"today"} />
         <Wrapper>
           <HomeButton />
         </Wrapper>
       </Navigator>
-      <Content>이곳에 달력</Content>
+      <Content>
+        <DateNavigator>
+          <img
+            src="/images/triangle.png"
+            alt="left"
+            style={{ width: "2rem", height: "1.5rem", transform: "rotate(-90deg)", cursor: "pointer" }}
+            onClick={handleClick}
+          />
+          <div style={{ fontSize: "2rem", lineHeight: "1.5rem" }}>{month}</div>
+          <img
+            src="/images/triangle.png"
+            alt="right"
+            style={{ width: "2rem", height: "1.5rem", transform: "rotate(90deg)", cursor: "pointer" }}
+            onClick={handleClick}
+          />
+        </DateNavigator>
+        <MonthCalendar />
+      </Content>
     </Container>
   );
 };
 
-export default Bestiary;
+export default Calendar;

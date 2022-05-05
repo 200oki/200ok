@@ -14,8 +14,8 @@ const statRouter = Router();
  */
 /**
  * @swagger
- * /stats/{groupName}:
- *  get:
+ * /stats/{columnName}
+ *   get:
  *    summary: 컬럼 값으로 그룹핑하는 API
  *    description: 컬럼을 조회할 때 사용하는 API 입니다.
  *    tags: [Stats]

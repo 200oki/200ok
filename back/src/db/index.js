@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import { Character } from "./models/Character.js";
 import { Comment } from "./models/Comment.js";
 import { Score } from "./models/Score.js";
-import { Guestbook } from "./models/Guestbook.js";
 dotenv.config();
 
 const DB_URL =

@@ -9,7 +9,7 @@ import BackButton from "../common/BackButton";
 import Typewriter from "typewriter-effect";
 
 import { NicknameContext } from "../../context/NicknameContext";
-import { MatchCommentContext } from "../../context/MatchCommentContext";
+import { MatchElementContext } from "../../context/MatchElementContext";
 
 const DIVIDER_HEIGHT = 5;
 const v = "아그네스";
@@ -18,18 +18,20 @@ const l = "recommendation";
 function MatchResult() {
   const navigator = useNavigate();
   const { nickname, setNickname } = useContext(NicknameContext);
-  const { setComment } = useContext(MatchCommentContext);
   const outerDivRef = useRef();
 
   const [sample, setSample] = useState([]);
+  const [commentList, setCommentList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { matchElem } = useContext(MatchElementContext);
 
   const fetchCommentData = async () => {
     try {
       const { data } = await Api.get(`comments?villager=${v}&location=${l}`);
-      setComment([...Object.values(data.payload)]);
+      setCommentList([...Object.values(data.payload)]);
     } catch (err) {
-      setComment([]);
+      setCommentList([]);
       console.error(err);
     }
     return () => {};
@@ -86,7 +88,7 @@ function MatchResult() {
 
   useEffect(() => {
     setTimeout(() => {
-      fetchCommentData();
+      fetchCommentData(); // 매칭된 주민 캐릭터 댓글 요청
       getChar();
       setIsLoading(false);
     }, 5000);
@@ -112,7 +114,7 @@ function MatchResult() {
         className="nav-bar"
         style={{ position: "fixed", top: "0", left: "0", zIndex: "1" }}
       >
-        <BackButton content={"메인으로"} />
+        <BackButton content={"메인으로"} destination={"explore"} />
       </div>
       <div className={styled.inner}>
         <div className={styled.imgWrapper}>
@@ -140,7 +142,11 @@ function MatchResult() {
         <MatchResultRank sample={sample} goToPosition={goToPosition} />
       </div>
       <div className={styled.inner}>
-        <MatchResultComment goToPosition={goToPosition} />
+        <MatchResultComment
+          goToPosition={goToPosition}
+          commentList={commentList}
+          setCommentList={setCommentList}
+        />
       </div>
     </div>
   );

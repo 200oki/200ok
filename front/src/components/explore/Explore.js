@@ -16,7 +16,7 @@ const Explore = () => {
       case "오늘의 주인공":
         return navigator("/today");
         break;
-      case "나와 맞는 주민 찾기":
+      case "주민매칭":
         return navigator("/match");
         break;
       case "주민도감":
@@ -24,6 +24,9 @@ const Explore = () => {
         break;
       case "주민퀴즈":
         return navigator("/game");
+        break;
+      case "글쓰기":
+        return navigator("/guestbook");
         break;
       default:
         return navigator("/team-introduction");

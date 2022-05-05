@@ -5,6 +5,67 @@ import styled, { keyframes } from "styled-components";
 import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 import SpeechBubble from "./SpeechBubble";
+import BestFriends from "./BestFriends";
+import Info from "./Info";
+
+const VillagerDetail = () => {
+  const [villager, setVillager] = useState(null);
+  const [friends, setFriends] = useState(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const getVillager = async () => {
+      try {
+        const { data } = await Api.get(`characters/${id}`);
+        setVillager(data.payload);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getVillager();
+  }, [id]);
+
+  useEffect(() => {
+    const getFriends = async () => {
+      try {
+        const { data } = await Api.get(`csmdata/${id}?top=3&bottom=0`);
+        setFriends(data.payload);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getFriends();
+  }, [id]);
+
+  return (
+    <Container>
+      <Navigator>
+        <BackButton content={"뒤로가기"} />
+        <Wrapper>
+          <HomeButton />
+        </Wrapper>
+      </Navigator>
+
+      <Content>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <div id="img-bubble">
+            <SpeechBubble payload={villager?.name_ko} />
+            <VillagerImg src={villager?.image_photo} alt={`주민 ${villager?.name_ko}의 사진`} />
+          </div>
+          {friends && <BestFriends friends={friends} />}
+        </div>
+        {villager && <Info villager={villager} />}
+      </Content>
+    </Container>
+  );
+};
+
+const VillagerImg = styled.img`
+  border-radius: 50%;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  margin-top: 40px;
+  src: ${(props) => props.src};
+`;
 
 const Navigator = styled.div`
   position: fixed;
@@ -24,7 +85,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   position: relative;
 &::before {
-  background-image: url("/images/leafBgImg.jpg");
+  background-image: url("/images/leafBgImg.png");
   content: " ";
   display: block;
   position: absolute;
@@ -53,70 +114,4 @@ const Content = styled.div`
   align-items: center;
   animation: ${pop} 1s linear forwards;
 `;
-
-const Detail = styled.div`
-  background-color: ${(props) => props.color};
-  width: ${(props) => (props.role === "label" ? "5rem" : "10rem")};
-  height: 40px;
-  border-radius: 20px;
-  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "TmoneyRoundWindExtraBold";
-  font-size: 1.24rem;
-`;
-
-const DetailWrapper = styled.div`
-  width: 70vw;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-`;
-
-const VillagerDetail = () => {
-  const [villager, setVillager] = useState({});
-  const { id } = useParams();
-  const getVillager = async () => {
-    const { data } = await Api.get(`characters/${id}`);
-    setVillager(data.payload);
-  };
-  useEffect(() => {
-    getVillager();
-  }, []);
-  return (
-    <Container>
-      <Navigator>
-        <BackButton content={"뒤로가기"} />
-        <Wrapper>
-          <HomeButton />
-        </Wrapper>
-      </Navigator>
-      <Content>
-        <SpeechBubble payload={villager.name_ko} />
-        <img src={villager.image_photo} alt="주민사진" style={{ borderRadius: "50%" }} />
-        <DetailWrapper>
-          <Detail color="white" role="payload">
-            <Detail color="green" role="label" style={{ position: "relative", left: "-50%" }}></Detail>
-          </Detail>
-          <Detail color="white" role="payload">
-            <Detail color="green" role="label" style={{ position: "relative", left: "-50%" }}></Detail>
-          </Detail>
-          <Detail color="white" role="payload">
-            <Detail color="green" role="label" style={{ position: "relative", left: "-50%" }}></Detail>
-          </Detail>
-          <Detail color="white" role="payload">
-            <Detail color="green" role="label" style={{ position: "relative", left: "-50%" }}></Detail>
-          </Detail>
-          <Detail color="white" role="payload">
-            <Detail color="green" role="label" style={{ position: "relative", left: "-50%" }}></Detail>
-          </Detail>
-          <Detail color="white" role="payload">
-            <Detail color="green" role="label" style={{ position: "relative", left: "-50%" }}></Detail>
-          </Detail>
-        </DetailWrapper>
-      </Content>
-    </Container>
-  );
-};
 export default VillagerDetail;

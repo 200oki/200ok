@@ -25,11 +25,12 @@ import HobbyChart from "./components/Statistics/HobbyChart";
 import StyleChart from "./components/Statistics/StyleChart";
 import VillagerList from "./components/Bestiary/VillagerList";
 import VillagerDetail from "./components/Bestiary/VillagerDetail";
+import TeamIntroduction from "./components/TeamIntroduction/TeamIntroduction";
 import GuestbookList from "./components/Guestbook/GuestbookList.jsx";
 import AddGuestbook from "./components/Guestbook/AddGuestbook.jsx";
 
 const GlobalFont = createGlobalStyle`
-  font-family: "TmoneyRoundWindExtraBold"
+  * { font-family: "TmoneyRoundWindExtraBold" }
 `;
 
 function App() {
@@ -39,6 +40,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/explore" element={<Explore />} />
+          <Route path="/team-introduction" element={<TeamIntroduction />} />
           <Route path="/game" element={<InputNickname />} />
           <Route path="/game-intro" element={<GameIntro />} />
           <Route path="/game-start" element={<Game />} />
@@ -46,13 +49,10 @@ function App() {
           <Route path="/game-hof" element={<GameHOF />} />
           <Route path="/today" element={<Today />} />
           <Route path="/calendar" element={<Calendar />} />
-          <Route path="/explore" element={<Explore />} />
           <Route path="/match-intro" element={<MatchIntro />} />
           <Route path="/match" element={<InputNickname />} />
           <Route path="/match-test" element={<MatchTest />} />
           <Route path="/match-result" element={<MatchResult />} />
-          <Route path="/game" element={<InputNickname />} />
-          <Route path="/matchResult" element={<MatchResult />} />
           <Route path="/stats" element={<Stat />}>
             <Route path="gender" element={<GenderChart />} />
             <Route path="species" element={<SpeciesChart />} />
@@ -60,8 +60,6 @@ function App() {
             <Route path="hobby" element={<HobbyChart />} />
             <Route path="style" element={<StyleChart />} />
           </Route>
-          <Route path="/game" element={<InputNickname />} />
-          <Route path="/matchResult" element={<MatchResult />} />
           <Route path="/bestiary" element={<Bestiary />} />
           <Route path="/bestiary/list" element={<VillagerList />} />
           <Route path="/detail/:id" element={<VillagerDetail />} />

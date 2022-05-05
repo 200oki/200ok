@@ -8,18 +8,16 @@ import HomeButton from "../common/HomeButton";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 import { NicknameContext } from "../../context/NicknameContext";
-import { MatchCommentContext } from "../../context/MatchCommentContext";
 
-function MatchResultComment({ goToPosition }) {
+function MatchResultComment({ goToPosition, commentList, setCommentList }) {
   const [commentContent, setCommentContent] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
   const { nickname } = useContext(NicknameContext);
-  const { comment, setComment } = useContext(MatchCommentContext);
+
+  const classes = useStyles();
 
   const classes = useStyles();
 
   const handleContentChange = (e) => {
-    setIsTyping(true);
     setCommentContent(e.target.value);
   };
 
@@ -33,12 +31,12 @@ function MatchResultComment({ goToPosition }) {
         nickname: nickname,
         location: "recommendation",
       });
-      setComment((current) => {
+      setCommentList((current) => {
         const newComment = [...current];
         newComment.unshift(response.data.payload);
         return newComment;
       });
-      setIsTyping(false);
+      setCommentContent("");
     } catch (err) {
       console.error(err);
     }
@@ -51,7 +49,7 @@ function MatchResultComment({ goToPosition }) {
           <input
             type="text"
             placeholder="댓글을 입력해주세요"
-            value={isTyping ? commentContent : ""}
+            value={commentContent}
             onChange={handleContentChange}
             required
           />
@@ -60,17 +58,28 @@ function MatchResultComment({ goToPosition }) {
           등록
         </button>
       </form>
-      {comment.length > 0 ? (
+      {commentList.length > 0 ? (
         <div className={styled.commentArea}>
-          {comment.map((item) => (
-            <div className={styled.commentWrapper} key={comment.indexOf(item)}>
+          {commentList.map((item) => (
+            <div
+              className={styled.commentWrapper}
+              key={commentList.indexOf(item)}
+            >
               <span className={styled.writer}>{item.nickname}</span>
-              <span className={styled.commentDate}>
+              <span
+                className={styled.commentDate}
+                style={{ fontFamily: "TmoneyRoundWindRegular" }}
+              >
                 {moment(moment.utc(item.createdAt).toDate()).format(
                   "YYYY-MM-DD HH:mm:ss"
                 )}
               </span>
-              <div className={styled.commentContent}>{item.comment}</div>
+              <div
+                className={styled.commentContent}
+                style={{ fontFamily: "TmoneyRoundWindRegular" }}
+              >
+                {item.comment}
+              </div>
             </div>
           ))}
         </div>

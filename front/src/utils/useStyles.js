@@ -2,8 +2,8 @@ import { makeStyles } from "@mui/styles";
 
 export const useStyles = makeStyles({
   ivoryItem: {
-    border: "1.2px #c0dbdd solid",
-    color: "black",
+    border: "none",
+    color: "#7c6839",
     padding: "10px",
     fontSize: "1.23rem",
     lineHeight: "1.2em",
@@ -11,15 +11,15 @@ export const useStyles = makeStyles({
     textAlign: "center",
     cursor: "pointer",
     width: "25%",
-    height: "45px",
+    height: "50px",
     boxShadow: "1px 3px 2px 1px rgba(25, 25, 25, .2)",
     backgroundColor: "#fff9e4",
     fontFamily: "TmoneyRoundWindExtraBold",
     transition: "transform 250ms",
     "&:hover": {
-      backgroundColor: "#cdcdcd",
+      backgroundColor: "#e6ddc6",
       transform: "translateY(-0.25em)",
-      border: "1.2px #cdcdcd solid",
+      border: "none",
     },
   },
   whiteItem: {
@@ -57,6 +57,7 @@ export const useStyles = makeStyles({
   menuItem: {
     width: "320px",
   },
+  navBar: { position: "fixed", top: "0", left: "0", zIndex: "1" },
   quizRoot: {
     height: "100%",
     justifyContent: "center",
@@ -68,7 +69,7 @@ export const useStyles = makeStyles({
       width: "100%",
       top: "0",
       left: "0",
-      backgroundImage: "url(images/leafBgImg.jpg)",
+      backgroundImage: "url(images/leafBgImg.png)",
       position: "absolute",
       content: '""',
       opacity: "0.4",
@@ -108,7 +109,7 @@ export const useStyles = makeStyles({
     textAlign: "center",
     width: "100%",
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "right",
     height: "fit-content",
   },
   view: {
@@ -140,7 +141,7 @@ export const useStyles = makeStyles({
     backgroundColor: "green",
     borderRadius: "25px",
     zIndex: 999,
-    width: "25%",
+    width: "100%",
     height: "10px",
   },
   cardRoot: {
