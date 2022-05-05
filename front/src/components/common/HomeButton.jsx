@@ -3,6 +3,15 @@ import { Fab } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * *
+ * @param Icon
+ * @param className
+ * @param other
+ * @returns {JSX.Element}
+ * @constructor
+ */
+
 const HomeButton = ({ Icon, className, ...other }) => {
   const navigator = useNavigate();
   const handleOnclick = other.onClick ? other.onClick : undefined;
