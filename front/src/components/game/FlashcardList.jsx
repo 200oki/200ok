@@ -7,6 +7,8 @@ import { GameContext } from "../../context/GameContext";
 /**
  * @param flashcard
  * @param setIsWin
+ * when you win set true
+ * default false
  * @param setIsModalOpen
  * from GameItem Component
  * setModalOpen open modal in GameItem Component
