@@ -25,13 +25,10 @@ function MatchResult() {
 
   const [commentList, setCommentList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // const [id, setId] = useState("");
   const [myChar, setMyChar] = useState({});
   const [goodBad, setGoodBad] = useState([]);
   const [best3, setBest3] = useState([]);
   const [total, setTotal] = useState(0);
-
-  const { matchElem } = useContext(MatchElementContext);
 
   const setCharAndTotal = (data) => {
     setMyChar(data);
@@ -95,13 +92,6 @@ function MatchResult() {
   useEffect(() => {
     setParam(null);
   }, []);
-
-  // useEffect(() => {
-  //   if (id === "") {
-  //     fetchResultData();
-  //     setParam(null);
-  //   }
-  // }, [id]);
 
   useEffect(() => {
     if (id) {
