@@ -11,12 +11,14 @@ const NormalInfo = ({ villager }) => {
   React.useEffect(() => {
     setLeftDetails(
       leftInfoKeys.map((key, index) => {
-        return <Details key={`details-${index}`} label={CharacterInfoKeys[key]} value={villager[key]} />;
+        const value = Array.isArray(villager[key]) ? villager[key].join(" ") : villager[key];
+        return <Details key={`details-${index}`} label={CharacterInfoKeys[key]} value={value} />;
       })
     );
     setRightDetails(
       rightInfoKeys.map((key, index) => {
-        return <Details key={`details-${index}`} label={CharacterInfoKeys[key]} value={villager[key]} />;
+        const value = Array.isArray(villager[key]) ? villager[key].join(" ") : villager[key];
+        return <Details key={`details-${index}`} label={CharacterInfoKeys[key]} value={value} />;
       })
     );
   }, [villager]);
