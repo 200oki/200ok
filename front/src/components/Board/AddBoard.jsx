@@ -93,6 +93,7 @@ const AddBoard = () => {
               type="file"
               name="profile_files"
               multiple="multiple"
+              className="inputFiles"
             />
           </div>
           <textarea className="textarea"
