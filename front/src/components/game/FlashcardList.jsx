@@ -5,7 +5,6 @@ import { GameAnswerContext } from "../../context/GameAnswerContext";
 import { GameContext } from "../../context/GameContext";
 
 /**
- *
  * @param flashcard
  * @param setIsWin
  * @param setIsModalOpen
