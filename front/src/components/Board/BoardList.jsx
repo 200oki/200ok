@@ -44,7 +44,7 @@ const BoardList = () => {
       posts.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((post, idx) => {
         const title = post.title.length < 8 ? post.title : post.title.slice(0, 8) + "...";
         return (
-          <Card key={idx} src={post.img} onClick={() => navigate(`/board/${post.id}`)}>
+          <Card key={idx} src={post.images[0]} onClick={() => navigate(`/board/${post.id}`)}>
             <Title> {title} </Title>
           </Card>
         );
@@ -57,7 +57,7 @@ const BoardList = () => {
       posts.slice(-restCards).map((post, idx) => {
         const title = post.title.length < 8 ? post.title : post.title.slice(0, 8) + "...";
         return (
-          <Card key={idx} src={post.img} onClick={() => navigate(`/board/${post.id}`)}>
+          <Card key={idx} src={post.images[0]} onClick={() => navigate(`/board/${post.id}`)}>
             <Title> {title} </Title>
           </Card>
         );
@@ -177,7 +177,7 @@ const Card = styled.div`
 `;
 
 const Column = styled.div`
-  margin-right: 70px;
+  margin-right: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
