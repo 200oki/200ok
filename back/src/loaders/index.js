@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 // import redis from "redis";
 
-import { logger } from "./utils/winstonLogger.js";
+import { logger } from "../utils/winstonLogger.js";
 
 process.on("uncaughtException", (err, origin) => {
   logger.error(`\n${origin.toUpperCase}: SERVER CRASH ENSUES\n`, err.stack);
