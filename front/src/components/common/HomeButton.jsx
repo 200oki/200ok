@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
  * @param className
  * useStyles className / css
  * @param other
+ * eventHandler
  */
 
 const HomeButton = ({ Icon, className, ...other }) => {
