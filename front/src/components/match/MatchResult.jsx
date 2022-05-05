@@ -33,22 +33,6 @@ function MatchResult() {
 
   const { matchElem } = useContext(MatchElementContext);
 
-  // result로 나온 data count를 1 증가시키고 count, id set
-  const fetchResultData = async () => {
-    try {
-      const { data } = await Api.put("csmdata/counts", {
-        birthday: `${matchElem[0]}-${matchElem[1]}`,
-        colors: matchElem[2],
-        personality: matchElem[3],
-        hobby: matchElem[4],
-        styles: matchElem[5],
-      });
-      setId(data.payload.id);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   const setCharAndTotal = (data) => {
     setMyChar(data);
     setTotal(data.total);
