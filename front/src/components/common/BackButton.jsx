@@ -3,6 +3,10 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { NicknameContext } from "../../context/NicknameContext";
 
+/**
+ * @param content
+ * @param destination
+ */
 const BackButton = ({ content, destination }) => {
   const { nickname, setNickname } = useContext(NicknameContext);
   const navigator = useNavigate();
