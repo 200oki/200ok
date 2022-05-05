@@ -9,10 +9,14 @@ import { BtnText } from "../../utils/util";
 import * as Api from "../../api";
 import { NicknameContext } from "../../context/NicknameContext";
 import { GameContext } from "../../context/GameContext";
+import { CopyToClipboard } from "react-copy-to-clipboard/src";
 
 const GameResult = () => {
   const [gameScore, setGameScore] = useState(0);
   const [rank, setRank] = useState(0);
+  const [value, setValue] = useState(window.location.href);
+  const [copied, setCopied] = useState(false);
+
   const { id } = useParams();
 
   const { nickname } = useContext(NicknameContext);
@@ -96,7 +100,10 @@ const GameResult = () => {
         </div>
 
         <div className="resultBtnWrapper">
-          <button onClick={gameResultHandler}>공유하기</button>
+          <CopyToClipboard text={value} onCopy={() => setCopied(true)}>
+            <button onClick={gameResultHandler}>공유하기</button>
+          </CopyToClipboard>
+
           <button onClick={gameResultHandler}>홈으로</button>
           <button onClick={gameResultHandler}>다시하기</button>
         </div>
