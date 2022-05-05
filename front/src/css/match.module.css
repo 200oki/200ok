@@ -82,7 +82,7 @@
   width: 300px;
   height: 50px;
   border-radius: 50px;
-  margin: 0 0 30px 0;
+  margin: 20px 0 30px 0;
   box-shadow: 5px 5px 4px -1px rgba(119, 119, 119, 0.75);
 }
 
@@ -96,6 +96,7 @@
   width: 80%;
   height: 60%;
   border: none;
+  font-size: 1.2rem;
 }
 
 .commentBack > input {
@@ -182,7 +183,7 @@
   border-radius: 30px;
   background: #a5e4ff;
   transition: all 0.5s;
-  font-size: 15px;
+  font-size: 17px;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 }
 
