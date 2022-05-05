@@ -21,6 +21,23 @@
   z-index: -1;
 }
 
+.input {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.inputNickname,
+.inputTitle {
+  border: none;
+  margin-bottom: 10px;
+}
+
+.inputNickname:focus,
+.inputTitle:focus {
+  outline: none;
+}
 
 .submitBtn {
   background-color: #C2F0EC;
@@ -64,7 +81,7 @@
   transform: translateY(-0.1em);
 }
 
-.guestbookForm {
+.boardForm {
   width: 40%;
   height: 50%;
   display: flex;

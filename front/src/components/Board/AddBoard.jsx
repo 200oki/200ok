@@ -41,7 +41,7 @@ const AddBoard = () => {
       setContent((current) => {
         const newBoard = [...current];
         newBoard.push(response.data.payload);
-        console.log("새거 :", newBoard[newBoard.length-1]); // 데이터 잘 들어있는지 확인
+        console.log("새거 :", newBoard.id); // 데이터 잘 들어있는지 확인
 
         navigate(`/board/${newBoard.id}`);
       });
@@ -56,8 +56,20 @@ const AddBoard = () => {
     <div className="boardPost">
       <form className="boardForm" onSubmit={handleSubmit}>
         <div className="contentBack">
-          <input value={nickname} onChange={handleNicknameChange} />
-          <input value={title} onChange={handleTitleChange} />
+          <div className="input">
+            <input 
+              value={nickname} 
+              onChange={handleNicknameChange} 
+              placeholder="닉네임을 입력해주세요" 
+              className="inputNickname" 
+            />
+            <input 
+              value={title} 
+              onChange={handleTitleChange} 
+              placeholder="제목을 입력해주세요"
+              className="inputTitle" 
+            />
+          </div>
           <textarea className="textarea"
             type="text"
             placeholder="내용을 입력해주세요"
