@@ -87,9 +87,17 @@ const GuestbookList = () => {
 
   for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
     columns.push(
-      guestbook.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((guestbook, idx) => {
-        return <Card key={idx} src={guestbookImgList[guestbook.id % 5].img} onClick={() => handleClick(guestbook)} />;
-      })
+      guestbook
+        .slice(cardPerColumn * i, cardPerColumn * (i + 1))
+        .map((guestbook, idx) => {
+          return (
+            <Card
+              key={idx}
+              src={guestbookImgList[guestbook.id % 5].img}
+              onClick={() => handleClick(guestbook)}
+            />
+          );
+        })
     );
   }
 
@@ -98,7 +106,13 @@ const GuestbookList = () => {
   if (restCards > 0) {
     columns.push(
       guestbook.slice(-restCards).map((guestbook, idx) => {
-        return <Card key={idx} src={guestbookImgList[guestbook.id % 5].img} onClick={() => handleClick(guestbook)} />;
+        return (
+          <Card
+            key={idx}
+            src={guestbookImgList[guestbook.id % 5].img}
+            onClick={() => handleClick(guestbook)}
+          />
+        );
       })
     );
   }
@@ -118,11 +132,25 @@ const GuestbookList = () => {
             {columns.map((column, idx) => {
               return <Column key={idx}>{column}</Column>;
             })}
-            <Modal open={modal} onClose={handleClick} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+            <Modal
+              open={modal}
+              onClose={handleClick}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
               <Box sx={modalStyle} className="modalBg">
-                <Typography id="modal-modal-title" variant="h6" className={classes.modalFont}>
+                <Typography
+                  id="modal-modal-title"
+                  variant="h6"
+                  className={classes.modalFont2}
+                >
                   {content}
-                  <p className="date">{date}</p>
+                  <p
+                    style={{ fontFamily: "TmoneyRoundWindRegular" }}
+                    className="date"
+                  >
+                    {date}
+                  </p>
                   <p className="sender">익명의 누군가로부터</p>
                 </Typography>
               </Box>
