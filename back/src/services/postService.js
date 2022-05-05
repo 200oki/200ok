@@ -16,6 +16,16 @@ class PostService {
     const data = await Post.create({ newPost });
     return data;
   }
+
+  static async listPost() {
+    const posts = await Post.find();
+    return posts;
+  }
+
+  static async findPost({ id }) {
+    const post = await Post.findOne({ id });
+    return post;
+  }
 }
 
 export { PostService };

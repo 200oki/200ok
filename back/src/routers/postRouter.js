@@ -47,24 +47,47 @@ const postRouter = Router();
  *                 type: string
  */
 postRouter.post("/posts", upload.array("images", 3), async (req, res, next) => {
-  if (req.files != null) {
-    const images = req.files.map((file) => file.filename);
-    const { title, content, nickname } = req.body;
-    const post = PostService.createPost({
-      title,
-      content,
-      nickname,
-      images,
-    });
+  try {
+    if (req.files != null) {
+      const images = req.files.map((file) => file.filename);
+      const { title, content, nickname } = req.body;
+      const post = await PostService.createPost({
+        title,
+        content,
+        nickname,
+        images,
+      });
+      res.status(status.STATUS_200_OK).send(post);
+    } else {
+      const { title, content, nickname } = req.body;
+      const post = await PostService.createPost({
+        title,
+        content,
+        nickname,
+      });
+      res.status(status.STATUS_200_OK).send(post);
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+postRouter.get("/posts", async (req, res, next) => {
+  try {
+    const list = await PostService.listPost();
+    res.status(status.STATUS_200_OK).send(list);
+  } catch (error) {
+    next(error);
+  }
+});
+
+postRouter.get("/posts/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const post = await PostService.findPost({ id });
     res.status(status.STATUS_200_OK).send(post);
-  } else {
-    const { title, content, nickname } = req.body;
-    const post = PostService.createPost({
-      title,
-      content,
-      nickname,
-    });
-    res.status(status.STATUS_200_OK).send(post);
+  } catch (error) {
+    next(error);
   }
 });
 
