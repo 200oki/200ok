@@ -13,8 +13,7 @@ import * as status from "../utils/status.js";
 
 /** 캐릭터 서비스 클래스입니다.
  *
- * 캐릭터 데이터는 읽기 전용입니다.
- * 찾는 `id`가 없으면 `errorinfo`를 반환합니다.
+ * 캐릭터 데이터는 읽기 전용입니다. 비동기가 아닌 것에 주의.
  *
  * ## Methods
  *
