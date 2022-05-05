@@ -3,11 +3,8 @@ import { Fab } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import usePathParams from "../../utils/usePathParams";
-
 const PostButton = ({ Icon, className, ...other }) => {
   const navigator = useNavigate();
-  const pathname = usePathParams();
   const handleOnclick = other.onClick ? other.onClick : undefined;
 
   const styles = {
@@ -18,20 +15,15 @@ const PostButton = ({ Icon, className, ...other }) => {
     },
   };
 
-  const handleCheckUri = () => {
-    if (pathname === "/guestbook") {
-      navigator("/guestbook/post");
-    } else if (pathname === "/board") {
-      navigator("/board/post");
-    }
+  const goPost = () => {
+    navigator("/guestbook/post");
   };
-
   return (
     <Fab
       sx={styles}
       aria-label="post"
       className={className}
-      onClick={handleOnclick === undefined ? handleCheckUri : handleOnclick}
+      onClick={handleOnclick === undefined ? goPost : handleOnclick}
     >
       {Icon === undefined ? <CreateIcon /> : <Icon />}
     </Fab>

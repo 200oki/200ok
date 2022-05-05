@@ -121,7 +121,6 @@ scoreRouter.post(
 
     const body = {
       success: true,
-      payload: newScore,
     };
 
     return res.status(status.STATUS_201_CREATED).json(body);

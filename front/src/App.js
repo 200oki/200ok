@@ -11,7 +11,7 @@ import MatchIntro from "./components/match/MatchIntro";
 import MatchTest from "./components/match/MatchTest";
 import MatchResult from "./components/match/MatchResult";
 import Today from "./components/Today/Today";
-// import Calendar from "./components/Today/Calendar";
+import Calendar from "./components/Today/Calendar";
 import Bestiary from "./components/Bestiary/Bestiary";
 import GameResult from "./components/game/GameResult";
 import Game from "./components/game/Game";
@@ -29,6 +29,8 @@ import TeamIntroduction from "./components/TeamIntroduction/TeamIntroduction";
 import Write from "./components/Board/Write";
 import BoardList from "./components/Board/BoardList";
 import AddBoard from "./components/Board/AddBoard";
+import GuestbookList from "./components/Guestbook/GuestbookList.jsx";
+import AddGuestbook from "./components/Guestbook/AddGuestbook.jsx";
 
 const GlobalFont = createGlobalStyle`
   * { font-family: "TmoneyRoundWindExtraBold" }
@@ -49,7 +51,7 @@ function App() {
           <Route path="/game-result" element={<GameResult />} />
           <Route path="/game-hof" element={<GameHOF />} />
           <Route path="/today" element={<Today />} />
-          {/* <Route path="/calendar" element={<Calendar />} /> */}
+          <Route path="/calendar" element={<Calendar />} />
           <Route path="/match-intro" element={<MatchIntro />} />
           <Route path="/match" element={<InputNickname />} />
           <Route path="/match-test" element={<MatchTest />} />
@@ -67,6 +69,8 @@ function App() {
           <Route path="/write" element={<Write />} />
           <Route path="/board" element={<BoardList />} />
           <Route path="/board/post" element={<AddBoard />} />
+          <Route path="/guestbook" element={<GuestbookList />} />
+          <Route path="/guestbook/post" element={<AddGuestbook />} />
         </Routes>
       </Router>
     </div>

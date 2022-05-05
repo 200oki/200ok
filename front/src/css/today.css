@@ -110,7 +110,7 @@ input.comment {
   font-size: 1.23rem;
   border-radius: 0 1.5rem 1.5rem 0;
   text-align: center;
-  cursor: pointer;
+  cursor: text;
   transition: all 0.5s;
   width: 100%;
   height: calc(3rem - 2px);
