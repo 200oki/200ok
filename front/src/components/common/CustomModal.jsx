@@ -1,6 +1,16 @@
 import { Box, Modal } from "@mui/material";
 import React from "react";
 
+/**
+ *
+ * @param children
+ * @param open
+ * @param onClose
+ * @param modalStyle
+ * @returns {JSX.Element}
+ * @constructor
+ */
+
 const CustomModal = ({ children, open, onClose, modalStyle }) => {
   const customModalStyle = {
     position: "absolute",
