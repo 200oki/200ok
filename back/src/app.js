@@ -8,9 +8,11 @@ import { logger } from "./utils/winstonLogger.js";
 import { characterRouter } from "./routers/characterRouter.js";
 import { commentRouter } from "./routers/commentRouter.js";
 import { scoreRouter } from "./routers/scoreRouter.js";
+import { statRouter } from "./routers/statRouter.js";
 import { csmRouter } from "./routers/csmRouter.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import "../src/loaders/index.js";
+
 // 환경 변수 설정을 위한 dotenv 적용
 const __dirname = path.resolve();
 dotenv.config({ path: path.join(__dirname, "../.env") });
@@ -40,6 +42,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(characterRouter);
 app.use(commentRouter);
 app.use(scoreRouter);
+app.use(statRouter);
 app.use(csmRouter);
 app.use(errorMiddleware);
 
