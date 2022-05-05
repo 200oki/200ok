@@ -46,11 +46,7 @@ const VillagerDetail = () => {
         <div style={{ display: "flex", flexDirection: "row" }}>
           <div id="img-bubble">
             <SpeechBubble payload={villager?.name_ko} />
-            <img
-              src={villager?.image_photo}
-              alt="주민사진"
-              style={{ borderRadius: "50%", boxShadow: "1px 2px 2px 0px rgba(0, 0, 0, 0.2)", marginTop: "40px" }}
-            />
+            <VillagerImg src={villager?.image_photo} alt={`주민 ${villager?.name_ko}의 사진`} />
           </div>
           {friends && <BestFriends friends={friends} />}
         </div>
@@ -59,6 +55,14 @@ const VillagerDetail = () => {
     </Container>
   );
 };
+
+const VillagerImg = styled.img`
+  border-radius: 50%;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+  margin-top: 40px;
+  src: ${(props) => props.src};
+`;
+
 const Navigator = styled.div`
   position: fixed;
   top: 0;
