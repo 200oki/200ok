@@ -20,6 +20,9 @@ export const BtnText = {
   SHARE: "공유하기",
 };
 
+/**
+ * Game Set Button Text
+ */
 export const GameButtonText = {
   NextRound: "다음 라운드",
   RESULT: "결과 보기",
