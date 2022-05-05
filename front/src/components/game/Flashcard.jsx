@@ -7,6 +7,7 @@ import { GameContext } from "../../context/GameContext";
  * @param handleChoice
  * choiceOne, choiceTwo
  * @param isTwoSelected
+ * check Two card Selected
  * @param setIsTwoSelected
  */
 
