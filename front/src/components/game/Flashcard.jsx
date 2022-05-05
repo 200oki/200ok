@@ -80,7 +80,7 @@ const FlashCard = ({
       }`}
     >
       <div className="front" ref={frontEl}>
-        <img src="images/cardFront.png" alt="leaf" className="frontLeaf" />
+        <img src="/images/cardFront.png" alt="leaf" className="frontLeaf" />
       </div>
       <div className="back" ref={backEl}>
         {flashcard.data.startsWith("http") ? (
