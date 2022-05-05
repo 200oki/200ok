@@ -35,9 +35,12 @@ const GameResult = () => {
 
   useEffect(() => {
     getScoreAndRank();
-    console.log("idTest=======>", id);
     return () => setScore(0);
   }, []);
+
+  useEffect(() => {
+    // 클립보드 복사기능 여기에
+  }, [id]);
 
   const typoStyles = {
     fontFamily: "TmoneyRoundWindExtraBold",
