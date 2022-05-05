@@ -5,7 +5,8 @@ import mongoose from "mongoose";
 import { logger } from "../utils/winstonLogger.js";
 
 process.on("uncaughtException", (err, origin) => {
-  logger.error(`\n${origin.toUpperCase}: THE END OF TIME IS NIGH\n`, err.stack);
+  logger.error(`\n\n${origin.toUpperCase()}: THE END OF TIME IS NIGH\n`);
+  logger.error(err.stack);
   process.exit(1);
 });
 
