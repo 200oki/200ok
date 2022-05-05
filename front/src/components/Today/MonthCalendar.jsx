@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import * as Api from "../../api";
 
 const Container = styled.div`
   margin-top: 20px;
