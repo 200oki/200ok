@@ -7,8 +7,8 @@ import { useEffect } from "react";
 
 function SelectPersonality({ nextSlide }) {
   const { nickname } = useContext(NicknameContext);
-  const { matchElem, setMatchElem, resultMent, setResultMent } =
-    useContext(MatchElementContext);
+  const { matchElem, setMatchElem } = useContext(MatchElementContext);
+  const { resultMent, setResultMent } = useContext(MatchElementContext);
   const [personality, setPersonality] = useState(null);
 
   const personalities = [
