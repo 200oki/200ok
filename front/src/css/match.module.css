@@ -272,6 +272,16 @@
   margin: 7px 0 7px 0;
 }
 
+.avgText {
+  font-size: 15px;
+  color: #cec6ba;
+}
+
+.avgSubText {
+  font-size: 18px;
+  color: #0cc6b6;
+}
+
 .btnsWrapper {
   width: 80%;
   margin-top: 40px;
