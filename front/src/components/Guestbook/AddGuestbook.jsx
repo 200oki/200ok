@@ -1,13 +1,15 @@
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as Api from "../../api";
 import "../../css/GuestPost.css";
 import "moment/locale/ko";
+import { GuestIdContext } from "../../context/GuestIdContext";
 
 const AddGuestbook = () => {
   const navigate = useNavigate();
   const [isTyping, setIsTyping] = useState(false);
   const [content, setContent] = useState("");
+  const { setUserId } = useContext(GuestIdContext);
 
   const handleContentChange = (e) => {
     setIsTyping(true);
@@ -19,22 +21,12 @@ const AddGuestbook = () => {
     e.preventDefault();
 
     try {
-      const response = await Api.post("guestbooks", {
+      const { data } = await Api.post("guestbooks", {
         content: content,
       });
-      setContent((current) => {
-        const newContent = [...current];
-        newContent.push(response.data.payload);
-        console.log("새거 :", newContent[newContent.length-1]); // 데이터 잘 들어있는지 확인
-
-        // 모달을 띄워주기 위해 state로 다 가져가기
-        navigate('/guestbook', 
-          { 
-            state: { payload: newContent[newContent.length-1], 
-            modal: true 
-          } 
-        });
-      });
+      console.log("data.payload==========>", data.payload);
+      setUserId(data.payload.id);
+      navigate("/guestbook");
       setIsTyping(false);
     } catch (err) {
       console.error(err);
@@ -45,7 +37,8 @@ const AddGuestbook = () => {
     <div className="guestbookPost">
       <form className="guestbookForm" onSubmit={handleSubmit}>
         <div className="contentBack">
-          <textarea className="textarea"
+          <textarea
+            className="textarea"
             type="text"
             placeholder="내용을 입력해주세요"
             value={isTyping ? content : ""}
@@ -54,16 +47,20 @@ const AddGuestbook = () => {
           />
         </div>
         <div className="alignButton">
-          <button type="submit" className="exitBtn" onClick={() => navigate('/guestbook')}>
+          <button
+            type="submit"
+            className="exitBtn"
+            onClick={() => navigate("/guestbook")}
+          >
             그만 쓸래
           </button>
-          <button type="submit" className="submitBtn" onClick={(e) => handleSubmit(e)} >
+          <button type="submit" className="submitBtn" onClick={handleSubmit}>
             오케이!
           </button>
         </div>
       </form>
     </div>
   );
-}
+};
 
 export default AddGuestbook;

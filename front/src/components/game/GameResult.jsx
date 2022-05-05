@@ -32,7 +32,7 @@ const GameResult = () => {
     setGameScore(data.score);
     setRank(data.rank);
   };
-
+  //공유하기 ===> get score?userId = ""
   const getScoreAndRank = async () => {
     const bodyData = { nickname: nickname, score: score };
     const { data } = await Api.post("scores", bodyData);
