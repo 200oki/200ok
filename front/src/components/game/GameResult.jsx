@@ -44,7 +44,10 @@ const GameResult = () => {
   };
 
   useEffect(() => {
-    getScoreAndRank();
+    if (!userId) {
+      console.log("useEffect==>>", userId);
+      getScoreAndRank();
+    }
     return () => setScore(0);
   }, []);
 
