@@ -2,6 +2,13 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 // import redis from "redis";
 
+import { logger } from "./utils/winstonLogger.js";
+
+process.on("uncaughtException", (err, origin) => {
+  logger.error(`\n${origin.toUpperCase}: SERVER CRASH ENSUES\n`, err.stack);
+  process.exit(1);
+});
+
 // 환경 변수 가져오기
 dotenv.config();
 
