@@ -66,22 +66,24 @@ const GameResult = () => {
     if (e.target.innerText === BtnText.HOME) {
       navigator("/");
     } else if (e.target.innerText === BtnText.SHARE) {
-      toast.success(
-        <div>
-          링크가 복사되었다구리!
-          <br /> 공유해보자구리!
-        </div>,
-        {
-          icon: "🎈",
-          position: "top-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
+      if (copied) {
+        toast.success(
+          <div>
+            링크가 복사되었다구리!
+            <br /> 공유해보자구리!
+          </div>,
+          {
+            icon: "🎈",
+            position: "top-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
     } else if (e.target.innerText === BtnText.RETRY) {
       navigator("/game");
     } else {
