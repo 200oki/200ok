@@ -47,6 +47,7 @@ const GuestbookList = () => {
         setModal(state.modal);
         setContent(state.payload.content);
         setDate(state.payload.createdAt.slice(0, 10)); // 날짜를 연-월-일로 자름 ex) 2022-05-04
+        state.modal = false;
       }
     }
   }, []);
@@ -76,6 +77,7 @@ const GuestbookList = () => {
     setModal((v) => !v);
     setContent(element.content);
     setDate(element.createdAt.slice(0, 10)); 
+    console.log("여긴가");
   };
 
   const cardPerColumn = 2;
