@@ -12,19 +12,17 @@ import { GameAnswerProvider } from "./context/GameAnswerContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <NicknameProvider>
-      <MatchElementProvider>
-        <MatchCommentProvider>
-          <GameAnswerProvider>
-            <GameProvider>
-              <App />
-            </GameProvider>
-          </GameAnswerProvider>
-        </MatchCommentProvider>
-      </MatchElementProvider>
-    </NicknameProvider>
-  </React.StrictMode>
+  <NicknameProvider>
+    <MatchElementProvider>
+      <MatchCommentProvider>
+        <GameAnswerProvider>
+          <GameProvider>
+            <App />
+          </GameProvider>
+        </GameAnswerProvider>
+      </MatchCommentProvider>
+    </MatchElementProvider>
+  </NicknameProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
