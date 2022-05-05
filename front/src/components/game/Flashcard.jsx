@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { GameContext } from "../../context/GameContext";
 
+/**
+ *
+ * @param flashcard
+ * @param handleChoice
+ * @param isTwoSelected
+ * @param setIsTwoSelected
+ */
+
 const FlashCard = ({
   flashcard,
   handleChoice,
