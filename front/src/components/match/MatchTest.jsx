@@ -1,6 +1,5 @@
 import React, { createRef } from "react";
 import styled from "../../css/match.module.css";
-
 import InputBirthday from "./InputBirthday";
 import SelectColor from "./SelectColor";
 import SelectPersonality from "./SelectPersonality";
