@@ -5,6 +5,7 @@ import { GameContext } from "../../context/GameContext";
  * @param flashcard
  * card data
  * @param handleChoice
+ * choiceOne, choiceTwo
  * @param isTwoSelected
  * @param setIsTwoSelected
  */
