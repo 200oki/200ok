@@ -7,7 +7,9 @@ class Post {
   }
 
   static async find() {
-    const posts = await PostModel.find({}, { _id: 0, updatedAt: 0, __v: 0 });
+    const posts = await PostModel.find({}, { _id: 0, updatedAt: 0, __v: 0 })
+      .sort({ createdAt: -1 })
+      .lean();
     return posts;
   }
 
@@ -15,7 +17,9 @@ class Post {
     const post = await PostModel.findOne(
       { id },
       { _id: 0, updatedAt: 0, __v: 0 }
-    );
+    )
+      .sort({ createdAt: -1 })
+      .lean();
     return post;
   }
 }
