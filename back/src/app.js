@@ -10,6 +10,7 @@ import { commentRouter } from "./routers/commentRouter.js";
 import { scoreRouter } from "./routers/scoreRouter.js";
 import { statRouter } from "./routers/statRouter.js";
 import { csmRouter } from "./routers/csmRouter.js";
+import { guestbookRouter } from "./routers/guestbookRouter.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import "../src/loaders/index.js";
 
@@ -44,6 +45,7 @@ app.use(commentRouter);
 app.use(scoreRouter);
 app.use(statRouter);
 app.use(csmRouter);
+app.use(guestbookRouter);
 app.use(errorMiddleware);
 
 export { app };
