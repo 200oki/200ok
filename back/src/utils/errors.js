@@ -60,7 +60,7 @@ class AppError extends Error {
    * @arg {string} [fileName]
    * @arg {number} [lineNumber]
    */
-  constructor({ name, status, exit, detail }, ...params) {
+  constructor({ name, status, exit, logas, detail }, ...params) {
     super(...params);
     Object.setPrototypeOf(this, new.target.prototype);
     if (Error.captureStackTrace) {
@@ -70,7 +70,7 @@ class AppError extends Error {
     this.name = name ?? this.constructor.name;
     this.status = status ?? this.constructor.status;
     this.exit = exit ?? this.constructor.exit;
-    this.logas = logas ?? this.constructor.logas;
+    this.logas = logas; // ?? this.constructor.logas;
     this.detail = { ...detail };
   }
 }
@@ -99,7 +99,7 @@ class RequestError extends AppError {
    * @arg {string} [fileName]
    * @arg {number} [lineNumber]
    */
-  constructor({ name, status, exit, detail }, ...params) {
+  constructor({ name, status, exit, logas, detail }, ...params) {
     super(...arguments);
     Object.setPrototypeOf(this, new.target.prototype);
   }
