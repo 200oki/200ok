@@ -7,8 +7,6 @@ import React from "react";
  * @param open
  * @param onClose
  * @param modalStyle
- * @returns {JSX.Element}
- * @constructor
  */
 
 const CustomModal = ({ children, open, onClose, modalStyle }) => {
