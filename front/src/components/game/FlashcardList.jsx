@@ -6,6 +6,8 @@ import { GameContext } from "../../context/GameContext";
 
 /**
  * @param flashcard
+ * from GameItem Component
+ * one card data
  * @param setIsWin
  * when you win set true
  * default false
