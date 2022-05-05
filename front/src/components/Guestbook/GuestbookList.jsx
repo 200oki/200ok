@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled, { keyframes } from "styled-components";
-import { useStyles } from "../../utils/useStyles";
 import * as Api from "../../api";
 import { Slider } from "@mui/material";
 import { styled as Styled } from "@mui/material/styles";
@@ -23,7 +22,6 @@ const GuestbookList = () => {
   const [count, setCount] = useState(0);
   const [columns, setColumns] = useState([]);
   const { userId, setUserId } = useContext(GuestIdContext);
-  const classes = useStyles();
 
   // 글 쓰는 부분에서 state를 받아옴
   // state { payload: { id: number, content: string, createdAt: date }, modal: true }
