@@ -9,6 +9,7 @@ import BackButton from "../common/BackButton";
 import PostButton from "../common/PostButton";
 import { useNavigate, useLocation } from "react-router-dom";
 import { guestbookImgList } from "../../utils/util";
+import "../../css/guestBook.css";
 
 const GuestbookList = () => {
   const navigate = useNavigate();
@@ -59,8 +60,12 @@ const GuestbookList = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: "40%",
+    height: "40%",
     bgcolor: "background.paper",
+    backgroundImage: "url(/images/letterBg.png)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100% 100%",
     boxShadow: 24,
     outline: "none",
     borderRadius: "0.3em",
@@ -139,20 +144,18 @@ const GuestbookList = () => {
               aria-describedby="modal-modal-description"
             >
               <Box sx={modalStyle} className="modalBg">
-                <Typography
-                  id="modal-modal-title"
-                  variant="h6"
-                  className={classes.modalFont2}
-                >
-                  {content}
-                  <p
-                    style={{ fontFamily: "TmoneyRoundWindRegular" }}
-                    className="date"
-                  >
-                    {date}
-                  </p>
-                  <p className="sender">익명의 누군가로부터</p>
-                </Typography>
+                <div className={"guestContentWrapper postArea"}>
+                  <p className="modalFont2">{content}</p>
+                  <PostDiv>
+                    <p
+                      style={{ fontFamily: "TmoneyRoundWindRegular" }}
+                      className="date"
+                    >
+                      {date}
+                    </p>
+                    <p className="sender">익명의 누군가로부터</p>
+                  </PostDiv>
+                </div>
               </Box>
             </Modal>
           </ContentContainer>
@@ -257,6 +260,15 @@ const Column = styled.div`
   flex-direction: column;
   justify-content: space-around;
   padding-top: 20%;
+`;
+
+const PostDiv = styled.div`
+  display: flex;
+  font-size: 1.3rem;
+  flex-direction: column;
+  justify-content: end;
+  align-items: end;
+  height: 90%;
 `;
 
 const PrettoSlider = Styled(Slider)({
