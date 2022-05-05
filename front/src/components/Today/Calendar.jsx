@@ -5,7 +5,7 @@ import styled, { keyframes } from "styled-components";
 import MonthCalendar from "./MonthCalendar";
 
 const DateNavigator = styled.div`
-  width: 10vw;
+  width: 200px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -93,7 +93,8 @@ const Calendar = () => {
             style={{ width: "2rem", height: "1.5rem", transform: "rotate(-90deg)", cursor: "pointer" }}
             onClick={handleClick}
           />
-          <div style={{ fontSize: "2rem", lineHeight: "1.5rem" }}>{month}</div>
+          <div style={{ fontSize: "2rem", lineHeight: "1.5rem", width: "1.5rem" }}>{month}</div>
+          <span>월</span>
           <img
             src="/images/triangle.png"
             alt="right"
