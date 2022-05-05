@@ -3,6 +3,7 @@ import { GameContext } from "../../context/GameContext";
 
 /**
  * @param flashcard
+ * card data
  * @param handleChoice
  * @param isTwoSelected
  * @param setIsTwoSelected
