@@ -34,7 +34,7 @@ const HobbyChart = () => {
 
 	return (
 		<BarChart className="graphBack" width={1200} height={500} data={data} >
-			<CartesianGrid />
+      <CartesianGrid horizontal={false} vertical={false} />
 			<XAxis dataKey="name" />
 			<YAxis />
       <Tooltip />
