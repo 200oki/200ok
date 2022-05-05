@@ -25,6 +25,9 @@ export const GameButtonText = {
   RESULT: "결과 보기",
 };
 
+/**
+ * Card Game Mock Data
+ */
 export const testData = [
   {
     tier: 1,
