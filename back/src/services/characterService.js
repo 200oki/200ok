@@ -37,7 +37,7 @@ class CharacterService {
    * @arg {string} id - `id`는 영문 이름의 소문자/공백제거/아스키 버전입니다.
    * @arg {string[]} [fields] - `fields`는 포함하고 싶은 필드 목록입니다.
    *    빈 배열이면 모든 필드를 포함합니다.
-   * @return {{any}|errorinfo} character
+   * @return {any} character
    */
   static get(id, fields = []) {
     const character = Character.get(id);
