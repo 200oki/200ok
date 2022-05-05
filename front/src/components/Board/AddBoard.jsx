@@ -7,11 +7,17 @@ const AddBoard = () => {
   const navigate = useNavigate();
   const [isTyping, setIsTyping] = useState(false);
   const [nickname, setNickname] = useState("");
+  const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const handleNicknameChange = (e) => {
     setIsTyping(true);
     setNickname(e.target.value);
+  }
+
+  const handleTitleChange = (e) => {
+    setIsTyping(true);
+    setTitle(e.target.value);
   }
 
   const handleContentChange = (e) => {
@@ -23,11 +29,13 @@ const AddBoard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("nick :", nickname);
+    console.log("title :", title);
     console.log("content :", content);
 
     try {
       const response = await Api.post("guestbooks", {
         nickname,
+        title,
         content,
       });
       setContent((current) => {
@@ -49,6 +57,7 @@ const AddBoard = () => {
       <form className="boardForm" onSubmit={handleSubmit}>
         <div className="contentBack">
           <input value={nickname} onChange={handleNicknameChange} />
+          <input value={title} onChange={handleTitleChange} />
           <textarea className="textarea"
             type="text"
             placeholder="내용을 입력해주세요"
