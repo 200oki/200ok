@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 import styled from "../../css/match.module.css";
 
 import { NicknameContext } from "../../context/NicknameContext";
+import { MatchElementContext } from "../../context/MatchElementContext";
 
 const MatchResultMyChar = ({ myChar, goToPosition, goToFirstPage }) => {
   const { nickname } = useContext(NicknameContext);
+  const { resultMent } = useContext(MatchElementContext);
 
   return (
     <>
@@ -20,7 +22,7 @@ const MatchResultMyChar = ({ myChar, goToPosition, goToFirstPage }) => {
           </span>{" "}
           ❞
         </div>
-        <div>귀염뽀짝 어쩌구 저쩌구</div>
+        <div>{resultMent[0]} 당신은</div>
         <div>구구절절 쫑알쫑알</div>
         <div>최고의 궁합!</div>
         <div className={styled.avgText}>
