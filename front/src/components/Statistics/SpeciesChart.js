@@ -43,6 +43,12 @@ const SpeciesChart = () => {
       width={1200}
       options= {{
         responsive: false,
+        plugins: {
+          datalabels: {
+            color: 'white',
+          },
+          legend: false // Hide legend
+        },
       }}
     />
   );
