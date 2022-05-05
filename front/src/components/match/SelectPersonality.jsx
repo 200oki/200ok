@@ -62,8 +62,6 @@ function SelectPersonality({ nextSlide }) {
     const rm = personalities.filter((p) => {
       return p.key === personality;
     });
-    console.log("rm", rm[0]);
-    console.log("rm-result", rm[0].result);
     setResultMent([...resultMent, rm[0].result]);
   };
 
