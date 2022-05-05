@@ -41,7 +41,9 @@ function App() {
           <Route path="/game" element={<InputNickname />} />
           <Route path="/game-intro" element={<GameIntro />} />
           <Route path="/game-start" element={<Game />} />
-          <Route path="/game-result" element={<GameResult />} />
+          <Route path="/game-result" element={<GameResult />}>
+            <Route path=":id" element={<GameResult />} />
+          </Route>
           <Route path="/game-hof" element={<GameHOF />} />
           <Route path="/today" element={<Today />} />
           <Route path="/calendar" element={<Calendar />} />
