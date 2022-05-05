@@ -1,17 +1,22 @@
-.card-grid {
-  display: grid;
-  align-items: center;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.8rem;
+.card-grid{
+    display:grid;
+    align-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap:1.8rem;
 }
 
-.container {
-  max-width: 900px;
-  margin: 70px auto 0;
+.container{
+    max-width: 900px;
+    margin: 70px auto 0;
 }
 
-.correct {
-  pointer-events: none;
+.correct{
+    pointer-events: none;
+}
+
+.cardText{
+    font-size: 1.5rem;
+    color: #606060;
 }
 
 .card {

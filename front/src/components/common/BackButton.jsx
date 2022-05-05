@@ -3,6 +3,12 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ParamContext } from "../../context/ParamContext";
 
+/**
+ * @param content
+ * What you see in Back Button
+ * @param destination
+ * Where you want Navigate to
+ */
 const BackButton = ({ content, destination }) => {
   const { param } = useContext(ParamContext);
   const navigator = useNavigate();

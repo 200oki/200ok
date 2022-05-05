@@ -20,6 +20,9 @@
   width: 100%;
   z-index: -1;
 }
+.copyUrl{
+  display: none;
+}
 .contentRoot {
   display: table-cell;
   table-layout: fixed;

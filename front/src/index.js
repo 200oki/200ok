@@ -8,20 +8,24 @@ import { GameProvider } from "./context/GameContext";
 import { ParamProvider } from "./context/ParamContext";
 import { NicknameProvider } from "./context/NicknameContext";
 import { MatchElementProvider } from "./context/MatchElementContext";
+import { MatchCommentProvider } from "./context/MatchCommentContext";
+import { GameAnswerProvider } from "./context/GameAnswerContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <NicknameProvider>
-      <MatchElementProvider>
-        <GameProvider>
-          <ParamProvider>
-            <App />
-          </ParamProvider>
-        </GameProvider>
-      </MatchElementProvider>
-    </NicknameProvider>
-  </React.StrictMode>
+  <NicknameProvider>
+    <MatchElementProvider>
+      <MatchCommentProvider>
+        <GameAnswerProvider>
+          <GameProvider>
+            <ParamProvider>
+              <App />
+            </ParamProvider>
+          </GameProvider>
+        </GameAnswerProvider>
+      </MatchCommentProvider>
+    </MatchElementProvider>
+  </NicknameProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

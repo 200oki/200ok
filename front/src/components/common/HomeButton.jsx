@@ -3,6 +3,16 @@ import { Fab } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * *
+ * @param Icon
+ * 아이콘 있으면 해당 아이콘 버튼으로 생성, 없으면 홈버튼
+ * @param className
+ * useStyles className / css
+ * @param other
+ * eventHandler
+ */
+
 const HomeButton = ({ Icon, className, ...other }) => {
   const navigator = useNavigate();
   const handleOnclick = other.onClick ? other.onClick : undefined;

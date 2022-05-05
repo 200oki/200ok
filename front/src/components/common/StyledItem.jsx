@@ -24,7 +24,6 @@ const StyledItem = ({ type, content, className, ...other }) => {
     margin: "0 14px 50px 15px",
   };
   const handleOpen = () => {
-    console.log(open);
     setOpen((v) => !v);
   };
   return (

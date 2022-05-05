@@ -1,8 +1,11 @@
+/**
+ Explore Button Text
+ */
 export const menuList = [
   "오늘의 주인공",
   "주민매칭",
   "주민도감",
-  "주민퀴즈",
+  "미니게임",
   "글쓰기",
 ];
 
@@ -22,12 +25,26 @@ export const guestbookImgList = [
   { id: 4, img: "https://acnhcdn.com/latest/FtrIcon/PhotoStudioBellBag.png"},
 ];
 
+/**
+ Result Button Text
+ */
 export const BtnText = {
   HOME: "홈으로",
   RETRY: "다시하기",
   SHARE: "공유하기",
 };
 
+/**
+ * Game Set Button Text
+ */
+export const GameButtonText = {
+  NextRound: "다음 라운드",
+  RESULT: "결과 보기",
+};
+
+/**
+ * Card Game Mock Data
+ */
 export const testData = [
   {
     tier: 1,
