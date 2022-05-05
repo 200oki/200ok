@@ -124,6 +124,7 @@ const GameItem = () => {
       setScore((v) => v + tier * gameTime);
       setTimer(0);
       setGameTime(60);
+      window.clearTimeout(time);
     }
   };
 
