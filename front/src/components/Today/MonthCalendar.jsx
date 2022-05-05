@@ -9,6 +9,7 @@ const Container = styled.div`
 `;
 
 const MonthCalendar = ({ month }) => {
+  const [villagers, setVillagers] = React.useState([]);
   return <Container />;
 };
 
