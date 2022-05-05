@@ -4,7 +4,7 @@ import * as Api from "../../api";
 import { Slider } from "@mui/material";
 import { styled as Styled } from "@mui/material/styles";
 import BackButton from "../common/BackButton";
-import HomeButton from "../common/HomeButton";
+import PostButton from "../common/PostButton";
 import { useNavigate } from "react-router-dom";
 
 const BoardList = () => {
@@ -67,7 +67,7 @@ const BoardList = () => {
       <Navigator>
         <BackButton content={"뒤로가기"} destination={"write"} />
         <Wrapper>
-          <HomeButton />
+          <PostButton />
         </Wrapper>
       </Navigator>
       <Content>
