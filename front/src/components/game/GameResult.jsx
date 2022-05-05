@@ -10,10 +10,12 @@ import * as Api from "../../api";
 import { NicknameContext } from "../../context/NicknameContext";
 import { GameContext } from "../../context/GameContext";
 import { CopyToClipboard } from "react-copy-to-clipboard/src";
+import { ToastContainer, toast } from "react-toastify";
 
 const GameResult = () => {
   const [gameScore, setGameScore] = useState(0);
   const [rank, setRank] = useState(0);
+  const [userId, setUserId] = useState(null);
   const [value, setValue] = useState(window.location.href);
   const [copied, setCopied] = useState(false);
 
@@ -34,6 +36,9 @@ const GameResult = () => {
     const bodyData = { nickname: nickname, score: score };
     const { data } = await Api.post("scores", bodyData);
     settingDefault(data.payload);
+    setUserId(data.payload.id);
+    console.log(data.payload);
+    console.log("_id>>>>>>", data.payload._id);
     return data.payload;
   };
 
@@ -44,8 +49,15 @@ const GameResult = () => {
 
   useEffect(() => {
     // 클립보드 복사기능 여기에
-    console.log(document.querySelector(".copyUrl").value);
-  }, [id]);
+    const test = "이창민";
+    console.log(test.includes("창민"));
+    console.log("userId ====>", userId);
+
+    if (userId && userId !== null && !value.includes(userId)) {
+      //유저아이디가 없고 localhost:3000/game-result/ㅁㄴㅇㅁㄴㅇ/ㅁㄴㅇㅁㅇㄴ/ㅁㄴㅇㅁㄴㅇ
+      setValue(value + `/${userId}`);
+    }
+  }, [userId]);
 
   const typoStyles = {
     fontFamily: "TmoneyRoundWindExtraBold",
@@ -64,7 +76,7 @@ const GameResult = () => {
   };
   return (
     <div className="gameResultRoot">
-      <textarea value={window.location.href} className="copyUrl" />
+      <textarea value={value} className="copyUrl" />
       <HomeButton
         Icon={EmojiEventsIcon}
         className={classes.fab}
@@ -103,7 +115,6 @@ const GameResult = () => {
           <CopyToClipboard text={value} onCopy={() => setCopied(true)}>
             <button onClick={gameResultHandler}>공유하기</button>
           </CopyToClipboard>
-
           <button onClick={gameResultHandler}>홈으로</button>
           <button onClick={gameResultHandler}>다시하기</button>
         </div>
