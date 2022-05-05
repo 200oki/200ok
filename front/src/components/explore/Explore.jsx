@@ -22,7 +22,7 @@ const Explore = () => {
       case "주민도감":
         return navigator("/bestiary");
         break;
-      case "주민퀴즈":
+      case "미니게임":
         return navigator("/game");
         break;
       default:
