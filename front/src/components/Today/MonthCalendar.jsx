@@ -11,8 +11,17 @@ const Container = styled.div`
 `;
 const CharacterDot = styled.img`
   src: ${(props) => props.src};
+  width: 50px;
+  height: 50px;
+`;
+const Date = styled.div`
+  border: 1px solid blue;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 200px;
   width: 60px;
-  height: 60px;
 `;
 
 const MonthCalendar = ({ month }) => {
@@ -32,15 +41,27 @@ const MonthCalendar = ({ month }) => {
   const days = [];
   if (villagers) {
     villagers.map((villager) => {
-      days[parseInt(villager.birthday_day) - 1] = [];
-      days[parseInt(villager.birthday_day) - 1].push(villager);
+      if (Array.isArray(days[parseInt(villager.birthday_day) - 1])) {
+        days[parseInt(villager.birthday_day) - 1].push(villager);
+      } else {
+        days[parseInt(villager.birthday_day) - 1] = [];
+        days[parseInt(villager.birthday_day) - 1].push(villager);
+      }
     });
   }
   return (
     <Container>
-      {villagers?.map((villager, index) => {
-        return <CharacterDot key={`villager-${index}`} src={villager.image_icon} alt={villager.id} />;
-      })}
+      {days.length !== 0 &&
+        days.map((day, index) => {
+          return (
+            <Date key={`date-${index + 1}`}>
+              <span>{index + 1}</span>
+              {day.map((villager, index) => {
+                return <CharacterDot key={`character-${index}`} src={villager.image_icon} alt={villager.id} />;
+              })}
+            </Date>
+          );
+        })}
     </Container>
   );
 };
