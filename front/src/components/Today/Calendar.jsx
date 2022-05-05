@@ -2,6 +2,7 @@ import React from "react";
 import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 import styled, { keyframes } from "styled-components";
+import MonthCalendar from "./MonthCalendar";
 
 const DateNavigator = styled.div`
   width: 10vw;
@@ -58,12 +59,7 @@ const Wrapper = styled.div`
   top: 30px;
   right: 50px;
 `;
-const MonthCalendar = styled.div`
-  margin-top: 20px;
-  height: 40vw;
-  width: 40vw;
-  background-color: white;
-`;
+
 const Calendar = () => {
   const [month, setMonth] = React.useState(1);
   const handleClick = (e) => {
@@ -105,7 +101,7 @@ const Calendar = () => {
             onClick={handleClick}
           />
         </DateNavigator>
-        <MonthCalendar />
+        <MonthCalendar month={month} />
       </Content>
     </Container>
   );
