@@ -22,7 +22,7 @@ const Explore = () => {
       case "주민도감":
         return navigator("/bestiary");
         break;
-      case "주민퀴즈":
+      case "미니게임":
         return navigator("/game");
         break;
       case "글쓰기":
@@ -37,7 +37,7 @@ const Explore = () => {
   return (
     <div className={"root"}>
       <button className={styled.teamPageBtn} onClick={handleClick}>
-        <img src="images/ham.png" />
+        <img src="/images/ham.png" />
       </button>
       {menuList.map((item, idx) => {
         return (

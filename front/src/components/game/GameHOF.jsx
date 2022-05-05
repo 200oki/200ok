@@ -29,7 +29,7 @@ const GameHOF = () => {
 
   const getData = async () => {
     try {
-      const { data } = await Api.get("scorelist");
+      const { data } = await Api.get("scores");
       setRank(data.rankList);
     } catch (e) {
       console.log(e);
@@ -146,28 +146,34 @@ const GameHOF = () => {
         </form>
         {commentList.length > 0 ? (
           <div className={styled.commentArea}>
-            {commentList.map((item) => (
-              <div
-                className={styled.commentWrapper}
-                key={commentList.indexOf(item)}
-              >
-                <span className={styled.writer}>{item.nickname}</span>
-                <span
-                  className={styled.commentDate}
-                  style={{ fontFamily: "TmoneyRoundWindRegular" }}
-                >
-                  {moment(moment.utc(item.createdAt).toDate()).format(
-                    "YYYY-MM-DD HH:mm:ss"
-                  )}
-                </span>
+            {commentList.map((item, idx) => {
+              return (
                 <div
-                  className={styled.commentContent}
-                  style={{ fontFamily: "TmoneyRoundWindRegular" }}
+                  className={
+                    idx % 2 === 0
+                      ? `${styled.commentWrapper} ${styled.speechBubbleLeft}`
+                      : `${styled.commentWrapper} ${styled.speechBubbleRight}`
+                  }
+                  key={commentList.indexOf(item)}
                 >
-                  {item.comment}
+                  <span className={styled.writer}>{item.nickname}</span>
+                  <span
+                    className={styled.commentDate}
+                    style={{ fontFamily: "TmoneyRoundWindRegular" }}
+                  >
+                    {moment(moment.utc(item.createdAt).toDate()).format(
+                      "YYYY-MM-DD HH:mm:ss"
+                    )}
+                  </span>
+                  <div
+                    className={styled.commentContent}
+                    style={{ fontFamily: "TmoneyRoundWindRegular" }}
+                  >
+                    {item.comment}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : (
           <div className={styled.commentArea} style={{ textAlign: "center" }}>

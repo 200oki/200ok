@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled, { keyframes } from "styled-components";
-import { useStyles } from "../../utils/useStyles";
 import * as Api from "../../api";
 import { Slider } from "@mui/material";
 import { styled as Styled } from "@mui/material/styles";
 import { Box, Modal, Typography } from "@mui/material";
 import BackButton from "../common/BackButton";
 import PostButton from "../common/PostButton";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { guestbookImgList } from "../../utils/util";
+import "../../css/guestBook.css";
+import { GuestIdContext } from "../../context/GuestIdContext";
 
 const GuestbookList = () => {
   const navigate = useNavigate();
@@ -19,38 +20,90 @@ const GuestbookList = () => {
   const [date, setDate] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [count, setCount] = useState(0);
-  const classes = useStyles();
+  const [columns, setColumns] = useState([]);
+  const { userId, setUserId } = useContext(GuestIdContext);
 
   // 글 쓰는 부분에서 state를 받아옴
   // state { payload: { id: number, content: string, createdAt: date }, modal: true }
   // 글을 post 한 후, modal 창을 띄우기 위함
-  const { state } = useLocation();
 
   // 백엔드에서 방명록 전체를 받아옴
-  async function getDataList() {
+  const getDataList = async () => {
     try {
       const { data } = await Api.get("guestbooks");
       setGuestbook(data.payload);
-      console.log(data.payload); // 백엔드에서 데이터 잘 오는지 확인
       setCount(data.payload.length);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   useEffect(() => {
-    getDataList();
-    console.log("state :", state); // 받아온 값 확인하기
-    if (state !== null) {
-      // 처음에 null 값이 들어있어서 오류 => not null일 때만 사용하도록 조건 추가
-      if (state.modal) {
-        // 만약 modal이 true 라면 받아온 데이터를 모달로 띄우기
-        setModal(state.modal);
-        setContent(state.payload.content);
-        setDate(state.payload.createdAt.slice(0, 10)); // 날짜를 연-월-일로 자름 ex) 2022-05-04
-        state.modal = false;
+    if (guestbook.length !== 0) {
+      const cardPerColumn = 2;
+      for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
+        setColumns((v) => [
+          ...v,
+          guestbook
+            .slice(cardPerColumn * i, cardPerColumn * (i + 1))
+            .map((guestbook, idx) => {
+              return (
+                <Card
+                  key={idx}
+                  src={guestbookImgList[guestbook.id % 5].img}
+                  onClick={() => handleClick(guestbook)}
+                />
+              );
+            }),
+        ]);
       }
+      const restCards = count % cardPerColumn;
+
+      if (restCards > 0) {
+        setColumns((v) => [
+          ...v,
+          guestbook.slice(-restCards).map((guestbook, idx) => {
+            return (
+              <Card
+                key={idx}
+                src={guestbookImgList[guestbook.id % 5].img}
+                onClick={() => handleClick(guestbook)}
+              />
+            );
+          }),
+        ]);
+      }
+    }
+  }, [guestbook]);
+
+  useEffect(() => {
+    if (columns.length !== 0) {
+      setIsLoading(false);
+    }
+  }, [columns]);
+  //guestbooks/userId?userId='${context}'
+  //context 초기화
+  const getModalData = async () => {
+    try {
+      const { data } = await Api.get(`guestbooks/userId?userId=${userId}`);
+      console.log(data);
+      setGuestbook(data.payload);
+      setCount(data.payload.length);
+      setContent(data.payload.content);
+      setDate(data.payload.createdAt.slice(0, 10));
+      setModal(true);
+      setUserId(null);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getDataList();
+    // 처음에 null 값이 들어있어서 오류 => not null일 때만 사용하도록 조건 추가
+    if (userId !== null) {
+      console.log("useId no null");
+      getModalData();
     }
   }, []);
 
@@ -59,8 +112,12 @@ const GuestbookList = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: "40%",
+    height: "40%",
     bgcolor: "background.paper",
+    backgroundImage: "url(/images/letterBg.png)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100% 100%",
     boxShadow: 24,
     outline: "none",
     borderRadius: "0.3em",
@@ -82,27 +139,6 @@ const GuestbookList = () => {
     console.log("여긴가");
   };
 
-  const cardPerColumn = 2;
-  const columns = [];
-
-  for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
-    columns.push(
-      guestbook.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((guestbook, idx) => {
-        return <Card key={idx} src={guestbookImgList[guestbook.id % 5].img} onClick={() => handleClick(guestbook)} />;
-      })
-    );
-  }
-
-  const restCards = count % cardPerColumn;
-
-  if (restCards > 0) {
-    columns.push(
-      guestbook.slice(-restCards).map((guestbook, idx) => {
-        return <Card key={idx} src={guestbookImgList[guestbook.id % 5].img} onClick={() => handleClick(guestbook)} />;
-      })
-    );
-  }
-
   return (
     <Container>
       <Navigator>
@@ -112,23 +148,39 @@ const GuestbookList = () => {
         </Wrapper>
       </Navigator>
       <Content>
-        <ContentWrapper>
-          <PrettoSlider onChange={scrollHandler} />
-          <ContentContainer id="content">
-            {columns.map((column, idx) => {
-              return <Column key={idx}>{column}</Column>;
-            })}
-            <Modal open={modal} onClose={handleClick} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-              <Box sx={modalStyle} className="modalBg">
-                <Typography id="modal-modal-title" variant="h6" className={classes.modalFont}>
-                  {content}
-                  <p className="date">{date}</p>
-                  <p className="sender">익명의 누군가로부터</p>
-                </Typography>
-              </Box>
-            </Modal>
-          </ContentContainer>
-        </ContentWrapper>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <ContentWrapper>
+            <PrettoSlider onChange={scrollHandler} />
+            <ContentContainer id="content">
+              {columns.map((column, idx) => {
+                return <Column key={idx}>{column}</Column>;
+              })}
+              <Modal
+                open={modal}
+                onClose={handleClick}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={modalStyle} className="modalBg">
+                  <div className={"guestContentWrapper postArea"}>
+                    <p className="modalFont2">{content}</p>
+                    <PostDiv>
+                      <p
+                        style={{ fontFamily: "TmoneyRoundWindRegular" }}
+                        className="date"
+                      >
+                        {date}
+                      </p>
+                      <p className="sender">익명의 누군가로부터</p>
+                    </PostDiv>
+                  </div>
+                </Box>
+              </Modal>
+            </ContentContainer>
+          </ContentWrapper>
+        )}
       </Content>
     </Container>
   );
@@ -145,20 +197,21 @@ const Navigator = styled.div`
 
 const Container = styled.div`
   position: relative;
-&::before {
-  background-image: url("/images/guestbookBg.jpg");
-  content: " ";
-  display: block;
-  position: absolute;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  opacity: 0.8;
-  z-index: -1;
+  &::before {
+    background-image: url("/images/guestbookBg.jpg");
+    content: " ";
+    display: block;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.8;
+    z-index: -1;
+  }
 `;
 
 const pop = keyframes`
@@ -231,15 +284,24 @@ const Column = styled.div`
   padding-top: 20%;
 `;
 
+const PostDiv = styled.div`
+  display: flex;
+  font-size: 1.3rem;
+  flex-direction: column;
+  justify-content: end;
+  align-items: end;
+  height: 90%;
+`;
+
 const PrettoSlider = Styled(Slider)({
-  color: "#52af77",
+  color: "#0099FA",
   height: 8,
   "& .MuiSlider-track": {
     border: "none",
   },
   "& .MuiSlider-thumb": {
-    height: 24,
-    width: 24,
+    height: 40,
+    width: 40,
     backgroundColor: "#fff",
     border: "2px solid currentColor",
     "&:focus, &:hover, &.Mui-active, &.Mui-focusVisible": {

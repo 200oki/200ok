@@ -75,7 +75,7 @@ const SelectColor = ({ nextSlide }) => {
       <button
         className={color !== null ? styled.btnActive : styled.btnHidden}
         onClick={() => {
-          setMatchElem([...matchElem, color]);
+          setMatchElem([...matchElem, [color]]);
           nextSlide();
         }}
       >

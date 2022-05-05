@@ -2,33 +2,79 @@ import React, { useContext, useRef, useEffect, useState } from "react";
 import * as Api from "../../api";
 import { useNavigate } from "react-router-dom";
 import styled from "../../css/match.module.css";
+import MatchResultMyChar from "./MatchResultMyChar";
 import MatchResultCompat from "./MatchResultCompat";
 import MatchResultRank from "./MatchResultRank";
 import MatchResultComment from "./MatchResultComment";
 import BackButton from "../common/BackButton";
 import Typewriter from "typewriter-effect";
 
+import { ParamContext } from "../../context/ParamContext";
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchElementContext } from "../../context/MatchElementContext";
 
 const DIVIDER_HEIGHT = 5;
-const v = "아그네스";
-const l = "recommendation";
 
 function MatchResult() {
   const navigator = useNavigate();
+  const { setParam } = useContext(ParamContext);
+  const { id, setId } = useContext(MatchElementContext);
+  const { setMatchElem } = useContext(MatchElementContext);
   const { nickname, setNickname } = useContext(NicknameContext);
   const outerDivRef = useRef();
 
-  const [sample, setSample] = useState([]);
   const [commentList, setCommentList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [myChar, setMyChar] = useState({});
+  const [goodBad, setGoodBad] = useState([]);
+  const [best3, setBest3] = useState([]);
+  const [total, setTotal] = useState(0);
 
-  const { matchElem } = useContext(MatchElementContext);
+  const setCharAndTotal = (data) => {
+    setMyChar(data);
+    setTotal(data.total);
+  };
 
+  // 나와 궁합이 맞는 주민
+  const fetchMyCharData = async () => {
+    try {
+      const { data } = await Api.get(`csmdata/${id}/count`);
+      setCharAndTotal(data.payload);
+      console.log("나와 궁합이 맞는 주민", data.payload);
+      return data.payload;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // 나와 일치하는 유형별 궁합(2명)
+  const fetchGoodBadData = async () => {
+    try {
+      const { data } = await Api.get(`csmdata/${id}?top=1&bottom=1`);
+      setGoodBad(data.payload);
+      console.log("Good & Bad", data.payload);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // count를 기준으로 가장 많은 유형(3명)
+  const fetchBest3Data = async () => {
+    try {
+      const { data } = await Api.get(`csmdata/counts`);
+      setBest3(data.payload);
+      console.log("Best 3명", data.payload);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // 댓글 데이터 요청
   const fetchCommentData = async () => {
     try {
-      const { data } = await Api.get(`comments?villager=${v}&location=${l}`);
+      const { data } = await Api.get(
+        `comments?villager=${id}&location=recommendation`
+      );
       setCommentList([...Object.values(data.payload)]);
     } catch (err) {
       setCommentList([]);
@@ -37,17 +83,23 @@ function MatchResult() {
     return () => {};
   };
 
-  const getChar = async () => {
-    try {
-      const { data } = await Api.get(
-        `characters/random?size=3&fields=id%2Cname_ko%2Cimage_photo`
-      );
-      setSample([...Object.values(data.payload)]);
-    } catch (err) {
-      console.error(err);
+  useEffect(() => {
+    setParam(null);
+  }, []);
+
+  useEffect(() => {
+    if (id) {
+      Promise.all([
+        fetchMyCharData(),
+        fetchGoodBadData(),
+        fetchBest3Data(),
+        fetchCommentData(),
+      ]);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 5000);
     }
-    return () => {};
-  };
+  }, [id]);
 
   const goToPosition = (e) => {
     e.preventDefault();
@@ -82,17 +134,11 @@ function MatchResult() {
   };
 
   const goToFirstPage = () => {
+    setId(null);
     setNickname("");
+    setMatchElem([]);
     navigator("/match");
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      fetchCommentData(); // 매칭된 주민 캐릭터 댓글 요청
-      getChar();
-      setIsLoading(false);
-    }, 5000);
-  }, []);
 
   if (isLoading) {
     return (
@@ -117,32 +163,25 @@ function MatchResult() {
         <BackButton content={"메인으로"} destination={"explore"} />
       </div>
       <div className={styled.inner}>
-        <div className={styled.imgWrapper}>
-          <img src="/images/Aurora.png" alt={"주민 사진"} />
-        </div>
-        <div className={styled.textWrapper}>
-          <div>{nickname} 님과 잘 어울리는 주민은</div>
-          <div className={styled.villagerName}>❝ 오로라 ❞</div>
-          <div>귀염뽀짝 어쩌구 저쩌구</div>
-          <div>구구절절 쫑알쫑알</div>
-          <div>최고의 궁합!</div>
-        </div>
-        <div className={styled.btnsWrapper}>
-          <button>공유하기</button>
-          <button onClick={goToFirstPage}>다시하기</button>
-          <button onClick={goToPosition}>유형별 궁합</button>
-          <button onClick={goToPosition}>가장 많은 유형</button>
-          <button onClick={goToPosition}>반응 남기기</button>
-        </div>
+        <MatchResultMyChar
+          myChar={myChar}
+          goToPosition={goToPosition}
+          goToFirstPage={goToFirstPage}
+        />
       </div>
       <div className={styled.inner}>
-        <MatchResultCompat sample={sample} goToPosition={goToPosition} />
+        <MatchResultCompat goodBad={goodBad} goToPosition={goToPosition} />
       </div>
       <div className={styled.inner}>
-        <MatchResultRank sample={sample} goToPosition={goToPosition} />
+        <MatchResultRank
+          best3={best3}
+          total={total}
+          goToPosition={goToPosition}
+        />
       </div>
       <div className={styled.inner}>
         <MatchResultComment
+          name={myChar.name_ko}
           goToPosition={goToPosition}
           commentList={commentList}
           setCommentList={setCommentList}

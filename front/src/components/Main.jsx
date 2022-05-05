@@ -16,7 +16,7 @@ function Main() {
     <div className="mainWrapper">
       <img
         className={"logo"}
-        src="images/main_logo_rm.png"
+        src="/images/main_logo_rm.png"
         alt={"animal Crossing"}
       />
       <StyledItem

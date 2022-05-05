@@ -1,8 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { GameContext } from "../../context/GameContext";
 
-const FlashCard = ({ flashcard, handleChoice }) => {
+/**
+ * @param flashcard
+ * card data
+ * @param handleChoice
+ * choiceOne, choiceTwo
+ * @param isTwoSelected
+ * check Two card Selected
+ * @param setIsTwoSelected
+ */
+
+const FlashCard = ({
+  flashcard,
+  handleChoice,
+  isTwoSelected,
+  setIsTwoSelected,
+}) => {
   const [flip, setFlip] = useState(false);
   const [height, setHeight] = useState("initial");
+  const { matchedTotal, setMatchedTotal } = useContext(GameContext);
 
   const frontEl = useRef();
   const backEl = useRef();
@@ -12,11 +29,29 @@ const FlashCard = ({ flashcard, handleChoice }) => {
     setHeight(Math.max(frontHeight, backHeight, 150));
   };
 
+  useEffect(() => {
+    setFlip(false);
+  }, [matchedTotal]);
   useEffect(setMaxHeight, [flashcard]);
+  const flipTimer = () => {
+    const timer = setTimeout(() => {
+      setFlip(false);
+      setIsTwoSelected(false);
+    }, 500);
+  };
+  //컨텍스트에서 isTwo 만들고 참조해보기
+  useEffect(() => {
+    if (isTwoSelected) {
+      flipTimer();
+    }
+    return () => window.clearTimeout(flipTimer);
+  }, [isTwoSelected]);
+
   useEffect(() => {
     window.addEventListener("resize", setMaxHeight);
     return () => window.removeEventListener("resize", setMaxHeight);
   }, []);
+
   const handleClick = (e) => {
     setFlip((v) => !v);
     if (e.target.nextSibling && e.target.className !== "card flip") {
@@ -42,16 +77,18 @@ const FlashCard = ({ flashcard, handleChoice }) => {
     <div
       style={{ height: height }}
       onClick={handleClick}
-      className={`card ${flip ? "flip" : ""}`}
+      className={`card ${flashcard.matched ? "correct flip" : ""} ${
+        flip ? "flip" : ""
+      }`}
     >
       <div className="front" ref={frontEl}>
-        <img src="images/cardFront.png" alt="leaf" className="frontLeaf" />
+        <img src="/images/cardFront.png" alt="leaf" className="frontLeaf" />
       </div>
       <div className="back" ref={backEl}>
-        {flashcard.startsWith("http") ? (
-          <img src={flashcard} alt="characters" className="characterImg" />
+        {flashcard.data.startsWith("http") ? (
+          <img src={flashcard.data} alt="characters" className="characterImg" />
         ) : (
-          <p>{flashcard}</p>
+          <p className="cardText">{flashcard.data}</p>
         )}
       </div>
     </div>

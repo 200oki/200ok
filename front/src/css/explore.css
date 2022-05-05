@@ -14,6 +14,7 @@
     position: absolute;
     background-image: url("/public/images/explore_bg.jpg");
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
     overflow: hidden;
     opacity: 0.7;

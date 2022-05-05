@@ -5,20 +5,27 @@ import reportWebVitals from "./reportWebVitals";
 import "./css/index.css";
 
 import { GameProvider } from "./context/GameContext";
+import { GuestIdProvider } from "./context/GuestIdContext";
+import { ParamProvider } from "./context/ParamContext";
 import { NicknameProvider } from "./context/NicknameContext";
 import { MatchElementProvider } from "./context/MatchElementContext";
+import { GameAnswerProvider } from "./context/GameAnswerContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <NicknameProvider>
-      <MatchElementProvider>
+  <NicknameProvider>
+    <MatchElementProvider>
+      <GameAnswerProvider>
         <GameProvider>
-          <App />
+          <ParamProvider>
+            <GuestIdProvider>
+              <App />
+            </GuestIdProvider>
+          </ParamProvider>
         </GameProvider>
-      </MatchElementProvider>
-    </NicknameProvider>
-  </React.StrictMode>
+      </GameAnswerProvider>
+    </MatchElementProvider>
+  </NicknameProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
