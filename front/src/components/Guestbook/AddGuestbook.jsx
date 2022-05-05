@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import ExitButton from "../common/ExitButton.js";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../../api";
 import "../../css/GuestPost.css";
