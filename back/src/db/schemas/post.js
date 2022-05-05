@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 const model = mongoose.model;
 
-const BoardSchema = newSchema(
+const PostSchema = new Schema(
   {
     id: {
       type: String,
@@ -11,21 +11,22 @@ const BoardSchema = newSchema(
     },
     title: {
       type: String,
-      required: true,
     },
     content: {
       type: String,
-      required: true,
     },
     nickname: {
       type: String,
-      required: true,
     },
     images: {
-      type: String,
+      type: Array,
     },
   },
   {
     timestamps: true,
   }
 );
+
+const PostModel = model("posts", PostSchema);
+
+export { PostModel };
