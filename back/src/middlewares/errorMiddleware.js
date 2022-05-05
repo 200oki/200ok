@@ -13,17 +13,18 @@ function errorMiddleware(error, req, res, next) {
     if (error.logas in logger) {
       logger[error.logas](error.stack, error.detail);
     }
-    if (error.exit > 0) {
-      process.exit(error.exit);
-    }
     res.status(error.status).json({
       success: false,
       // 이 부분은 합의가 필요하고 프로젝트마다 달라집니다.
       detail: {
         status: error.status,
         message: error.message,
+        operational: error.exit === 0,
       },
     });
+    if (error.exit > 0) {
+      process.exit(error.exit);
+    }
     /** @todo process.on('uncaughtException') 어디선가 하기! */
   } else {
     res.status(status.STATUS_500_INTERNALSERVERERROR).json({
