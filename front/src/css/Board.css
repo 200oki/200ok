@@ -1,0 +1,65 @@
+.boardPost {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  z-index : 1;
+}
+
+.boardPost::before {
+  background-image: url("/public/images/guestbookBg.jpg");
+  content: " ";
+  display: block;
+  position: absolute;
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.9;
+  z-index: -1;
+}
+
+
+.submitBtn {
+  background-color: #C2F0EC;
+  border: none;
+  border-radius: 30px;
+  width: 170px;
+  height: 60px;
+  font-family: "TmoneyRoundWindExtraBold";
+  font-size: 1.7em;
+  color: #00BAAC;
+  margin-bottom: 30px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.submitBtn:hover {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  transform: translateY(-0.1em);
+}
+
+.exitBtn {
+  background-color: #FFC9CF;
+  opacity: 0.9;
+  border: none;
+  border-radius: 30px;
+  width: 170px;
+  height: 60px;
+  font-family: "TmoneyRoundWindExtraBold";
+  font-size: 1.7em;
+  color: #fe6978;
+  margin-bottom: 30px;
+  margin-right: 20px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.exitBtn:hover {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  transform: translateY(-0.1em);
+}
