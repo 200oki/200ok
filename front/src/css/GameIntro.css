@@ -1,5 +1,5 @@
 .gameIntroImg {
-  top: 8%;
+  top: 7%;
   height: 300px;
   position: relative;
 }
@@ -8,7 +8,6 @@
   position: absolute;
   text-align: center;
   color: #837156;
-  left: 35%;
   top: 55%;
 }
 
@@ -32,7 +31,6 @@
 .btnWrapper {
   position: absolute;
   top: 83%;
-  left: 46%;
 }
 .backBtnWrapper {
   width: 100%;
