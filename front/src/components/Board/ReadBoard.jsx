@@ -8,6 +8,7 @@ import BackButton from "../common/BackButton";
 import { useParams } from "react-router-dom";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
+import { EditorState, Editor, convertFromRaw } from "draft-js";
 import HomeButton from "../common/HomeButton";
 import CommentIcon from "@mui/icons-material/Comment";
 import { useStyles } from "../../utils/useStyles";
@@ -16,6 +17,7 @@ const Read = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [images, setImages] = useState([]);
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [isOpen, setIsOpen] = useState(false);
   const [commentList, setCommentList] = useState([]);
   const [commentContent, setCommentContent] = useState("");
@@ -30,12 +32,20 @@ const Read = () => {
     try {
       const { data } = await Api.get(`posts/${id}`);
       setPost(data.payload);
+
+      setEditorState(
+        EditorState.createWithContent(
+          convertFromRaw(JSON.parse(data.payload.content))
+        )
+      );
       setImages(data.payload.images);
     } catch (err) {
       console.error(err);
     }
   };
-
+  useEffect(() => {
+    console.log(editorState);
+  }, [editorState]);
   // 댓글 데이터 요청
   const fetchCommentData = async () => {
     try {
@@ -190,12 +200,7 @@ const Read = () => {
               <></>
             )}
           </div>
-          <div
-            className="boardTextArea"
-            style={{ fontFamily: "TmoneyRoundWindRegular" }}
-          >
-            {post?.content}
-          </div>
+          <Editor editorState={editorState} readOnly={true} />
         </div>
       </div>
     </div>
