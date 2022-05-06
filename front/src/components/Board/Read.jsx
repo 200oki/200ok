@@ -12,11 +12,7 @@ import "react-slideshow-image/dist/styles.css";
 const Read = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
-  const images = [
-    "/images/main_logo_rm.png",
-    "/images/Aurora.png",
-    "/images/ham.png",
-  ];
+  const [images, setImages] = useState([]);
 
   console.log("id: ", id);
 
@@ -24,11 +20,14 @@ const Read = () => {
     try {
       const { data } = await Api.get(`posts/${id}`);
       setPost(data.payload);
+      setImages(data.payload.images);
       console.log("get요청: ", data.payload);
     } catch (err) {
       console.error(err);
     }
   };
+
+  console.log("이미지들!!!!!!", images);
 
   useEffect(() => {
     fetchPostData();
@@ -72,17 +71,25 @@ const Read = () => {
               bgColor={"transparent"}
               style={sliderStyle}
             /> */}
-            <Slide easing="ease-in-out" transitionDuration="800">
-              <div className={styled.eachSlide}>
-                <div style={{ backgroundImage: `url(${images[0]})` }}></div>
-              </div>
-              <div className={styled.eachSlide}>
-                <div style={{ backgroundImage: `url(${images[1]})` }}></div>
-              </div>
-              <div className={styled.eachSlide}>
-                <div style={{ backgroundImage: `url(${images[2]})` }}></div>
-              </div>
-            </Slide>
+            {images.length > 0 ? (
+              <Slide
+                easing="ease-in-out"
+                transitionDuration="800"
+                autoplay={false}
+              >
+                {images.map((image, idx) => (
+                  <div className={styled.eachSlide}>
+                    <div
+                      style={{
+                        backgroundImage: `url(http://localhost:5001/uploads/${images[idx]})`,
+                      }}
+                    ></div>
+                  </div>
+                ))}
+              </Slide>
+            ) : (
+              <></>
+            )}
           </div>
           <div
             className={styled.textArea}
