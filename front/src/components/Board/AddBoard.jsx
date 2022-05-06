@@ -50,7 +50,10 @@ const AddBoard = () => {
     if (content && title) {
       const formData = new FormData();
 
-      postFiles.map((item) => formData.append("images", item));
+      postFiles.length > 1
+        ? postFiles.map((item) => formData.append("images", item))
+        : formData.append("images", postFiles);
+
       formData.append("title", title);
       formData.append("content", content);
       formData.append("nickname", nickname);
