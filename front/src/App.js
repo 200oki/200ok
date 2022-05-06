@@ -27,6 +27,7 @@ import VillagerList from "./components/Bestiary/VillagerList";
 import VillagerDetail from "./components/Bestiary/VillagerDetail";
 import TeamIntroduction from "./components/TeamIntroduction/TeamIntroduction";
 import Write from "./components/Board/Write";
+import Read from "./components/Board/Read";
 import BoardList from "./components/Board/BoardList";
 import AddBoard from "./components/Board/AddBoard";
 import GuestbookList from "./components/Guestbook/GuestbookList.jsx";
@@ -69,6 +70,7 @@ function App() {
           <Route path="/bestiary/list" element={<VillagerList />} />
           <Route path="/detail/:id" element={<VillagerDetail />} />
           <Route path="/write" element={<Write />} />
+          <Route path="/board/:id" element={<Read />} />
           <Route path="/board" element={<BoardList />} />
           <Route path="/board/post" element={<AddBoard />} />
           <Route path="/guestbook" element={<GuestbookList />} />
