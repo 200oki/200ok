@@ -89,10 +89,17 @@
 }
 
 .imageArea {
-  width: 50%;
-  max-width: 50%;
+  width: 500px;
 }
 
 .textArea {
   align-self: flex-start;
+}
+
+.eachSlide > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: contain;
+  height: 350px;
 }
