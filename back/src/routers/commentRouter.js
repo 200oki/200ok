@@ -177,7 +177,7 @@ commentRouter.post(
  *              type: object
  *              properties:
  *                suceess:
- *                  type: string
+ *                  type: boolean
  *                  description: 응답 여부
  *                  example: true
  *                payload:

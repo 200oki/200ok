@@ -104,6 +104,7 @@ csmRouter.get("/csmdata/counts", async (req, res, next) => {
  *      ```js
  *       {
  *        "birthday": "MM-DD",
+ *        "nickname" : "string",
  *        "hobby": "string",
  *        "personality": "string",
  *        "colors": "array",
@@ -123,6 +124,9 @@ csmRouter.get("/csmdata/counts", async (req, res, next) => {
  *             birthday:
  *               type: string
  *               example: 03-24
+ *             nickname:
+ *               type: string
+ *               example: 닉네임
  *             hobby:
  *               type: string
  *               example: "음악"
@@ -137,7 +141,7 @@ csmRouter.get("/csmdata/counts", async (req, res, next) => {
  *               example: ["심플", "쿨"]
  *    responses:
  *      200:
- *        description: count를 기준으로 상위 3명의 주민을 반환
+ *        description: 나와 매칭된 주민의 카운트를 1 증가
  *        content:
  *          application/json:
  *            schema:
@@ -153,6 +157,9 @@ csmRouter.get("/csmdata/counts", async (req, res, next) => {
  *                    id:
  *                      type: string
  *                      example: lolly
+ *                    nickname:
+ *                      type: string
+ *                      example: 닉네임
  *                    character:
  *                      type: object
  *                      properties:
@@ -210,11 +217,10 @@ csmRouter.put(
         success: true,
         payload: {
           id,
+          nickname: req.body.nickname,
           character: mostSimilar.character,
           distance: mostSimilar.distance,
           count: up.count,
-          /** @todo avg, total? */
-          /** @todo 캐릭터데이터 소스를 이원화하는 건 아주 안좋다고 봅니다. */
         },
       };
       console.log(body);

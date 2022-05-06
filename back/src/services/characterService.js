@@ -13,8 +13,7 @@ import * as status from "../utils/status.js";
 
 /** 캐릭터 서비스 클래스입니다.
  *
- * 캐릭터 데이터는 읽기 전용입니다.
- * 찾는 `id`가 없으면 `errorinfo`를 반환합니다.
+ * 캐릭터 데이터는 읽기 전용입니다. 비동기가 아닌 것에 주의.
  *
  * ## Methods
  *
@@ -37,7 +36,7 @@ class CharacterService {
    * @arg {string} id - `id`는 영문 이름의 소문자/공백제거/아스키 버전입니다.
    * @arg {string[]} [fields] - `fields`는 포함하고 싶은 필드 목록입니다.
    *    빈 배열이면 모든 필드를 포함합니다.
-   * @return {{any}|errorinfo} character
+   * @return {any} character
    */
   static get(id, fields = []) {
     const character = Character.get(id);
@@ -48,10 +47,10 @@ class CharacterService {
         return character;
       }
     } else {
-      return {
-        errorMessage: `character record {${id}} not found`,
-        statusCode: status.STATUS_404_NOTFOUND,
-      };
+      throw new RequestError(
+        { status: status.STATUS_404_NOTFOUND },
+        `character record {${id}} not found`
+      );
     }
   }
 
