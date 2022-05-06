@@ -193,3 +193,7 @@
   background-clip: padding-box;
   border: 6px solid transparent;
 }
+
+.DraftEditor-root{
+  background-color: transparent !important;
+}
