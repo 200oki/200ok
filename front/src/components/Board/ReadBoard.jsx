@@ -5,7 +5,6 @@ import styled from "../../css/readBoard.module.css";
 import * as Api from "../../api";
 import BackButton from "../common/BackButton";
 import { useParams } from "react-router-dom";
-import SimpleImageSlider from "react-simple-image-slider";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 
@@ -60,17 +59,6 @@ const Read = () => {
         <hr />
         <div className={styled.contentArea}>
           <div className={styled.imageArea}>
-            {/* <SimpleImageSlider
-              width={600}
-              height={350}
-              images={images}
-              showBullets={true}
-              showNavs={true}
-              navSize={40}
-              navMargin={20}
-              bgColor={"transparent"}
-              style={sliderStyle}
-            /> */}
             {images.length > 0 ? (
               images.length === 1 ? (
                 <div className={styled.eachSlide}>
