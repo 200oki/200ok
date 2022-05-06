@@ -13,7 +13,7 @@ const Calendar = () => {
           <HomeButton />
         </Wrapper>
       </Navigator>
-      <Content>
+      <Content style={{ transform: "scale(1.4)" }}>
         <MonthCalendar />
       </Content>
     </Container>
