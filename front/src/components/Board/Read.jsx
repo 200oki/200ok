@@ -1,8 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import moment from "moment";
+import "moment/locale/ko";
 import styled from "../../css/read.module.css";
+import * as Api from "../../api";
 import BackButton from "../common/BackButton";
+import { useParams } from "react-router-dom";
+import SimpleImageSlider from "react-simple-image-slider";
+import { Slide } from "react-slideshow-image";
+import "react-slideshow-image/dist/styles.css";
 
 const Read = () => {
+  const { id } = useParams();
+  const [post, setPost] = useState(null);
+  const images = [
+    "/images/main_logo_rm.png",
+    "/images/Aurora.png",
+    "/images/ham.png",
+  ];
+
+  console.log("id: ", id);
+
+  const fetchPostData = async () => {
+    try {
+      const { data } = await Api.get(`posts/${id}`);
+      setPost(data.payload);
+      console.log("get요청: ", data.payload);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchPostData();
+  }, [id]);
+
   return (
     <div className={styled.Wrapper}>
       <div
@@ -14,27 +45,56 @@ const Read = () => {
       <div className={styled.divider}></div>
       <div className={styled.postWrapper}>
         <div className={styled.titleArea}>
-          <div className={styled.title}>글제목입니당</div>
+          <div className={styled.title}>{post?.title}</div>
           <div>
-            <span className={styled.writer}>작성자</span>{" "}
+            <span className={styled.writer}>{post?.nickname}</span>{" "}
             <span
               className={styled.date}
               style={{ fontFamily: "TmoneyRoundWindRegular" }}
             >
-              2022-05-06
+              {moment(moment.utc(post?.createdAt).toDate()).format(
+                "YYYY-MM-DD HH:mm:ss"
+              )}
             </span>
           </div>
         </div>
         <hr />
         <div className={styled.contentArea}>
           <div className={styled.imageArea}>
-            <img src="/images/main_logo_rm.png" alt="user_upload_image" />
+            {/* <SimpleImageSlider
+              width={600}
+              height={350}
+              images={images}
+              showBullets={true}
+              showNavs={true}
+              navSize={40}
+              navMargin={20}
+              bgColor={"transparent"}
+              style={sliderStyle}
+            /> */}
+            <Slide easing="ease">
+              <div className={styled.eachSlide}>
+                <div style={{ backgroundImage: `url(${images[0]})` }}>
+                  <span>Slide 1</span>
+                </div>
+              </div>
+              <div className={styled.eachSlide}>
+                <div style={{ backgroundImage: `url(${images[1]})` }}>
+                  <span>Slide 2</span>
+                </div>
+              </div>
+              <div className={styled.eachSlide}>
+                <div style={{ backgroundImage: `url(${images[2]})` }}>
+                  <span>Slide 3</span>
+                </div>
+              </div>
+            </Slide>
           </div>
           <div
             className={styled.textArea}
             style={{ fontFamily: "TmoneyRoundWindRegular" }}
           >
-            글 내용을 여기에 넣을 거에요!
+            {post?.content}
           </div>
         </div>
       </div>
