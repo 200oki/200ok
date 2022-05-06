@@ -39,7 +39,7 @@ const HobbyChart = () => {
 			<YAxis />
       <Tooltip />
       <Legend />
-			<Bar dataKey="여성" stackId="a" fill="#F4CDD4" />
+			<Bar dataKey="여성" stackId="a" fill="#F3D6A6" />
 			<Bar dataKey="남성" stackId="a" fill="#BDDBF0" />
 		</BarChart>
 	);
