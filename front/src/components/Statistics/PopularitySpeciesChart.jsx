@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import * as Api from "../../api";
 import { HeatMapGrid } from 'react-grid-heatmap';
 
-const SpeciesTierChart = () => {
+const PopularityBySpeciesChart = () => {
   const [dataList, setDataList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   async function getDataList() {
     try {
-      const { data } = await Api.get('stats?groupName=gender');
+      const { data } = await Api.get('stats?groupName=popularity-by-species');
       setDataList([...Object.values(data.payload)]);
       setIsLoading(false);
     } catch (error) {
@@ -57,4 +57,4 @@ const SpeciesTierChart = () => {
   )
 }
 
-export default SpeciesTierChart;
+export default PopularityBySpeciesChart;

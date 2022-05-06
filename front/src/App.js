@@ -62,7 +62,7 @@ function App() {
             <Route path="personality" element={<PersonalityChart />} />
             <Route path="hobby" element={<HobbyChart />} />
             <Route path="style" element={<StyleChart />} />
-            <Route path="popularity-by-species" element={<StyleChart />} />
+            <Route path="popularity-by-species" element={<PopularityBySpeciesChart />} />
           </Route>
           <Route path="/bestiary" element={<Bestiary />} />
           <Route path="/bestiary/list" element={<VillagerList />} />
