@@ -8,6 +8,7 @@ import MatchResultRank from "./MatchResultRank";
 import MatchResultComment from "./MatchResultComment";
 import BackButton from "../common/BackButton";
 import Typewriter from "typewriter-effect";
+import { ToastContainer, toast } from "react-toastify";
 
 import { ParamContext } from "../../context/ParamContext";
 import { NicknameContext } from "../../context/NicknameContext";
@@ -29,6 +30,9 @@ function MatchResult() {
   const [goodBad, setGoodBad] = useState([]);
   const [best3, setBest3] = useState([]);
   const [total, setTotal] = useState(0);
+  const [userId, setUserId] = useState(null);
+  const [value, setValue] = useState(window.location.href);
+  const [copied, setCopied] = useState(false);
 
   const setCharAndTotal = (data) => {
     setMyChar(data);
@@ -40,6 +44,8 @@ function MatchResult() {
     try {
       const { data } = await Api.get(`csmdata/${id}/count`);
       setCharAndTotal(data.payload);
+      setUserId(data.payload.uuid);
+      console.log("userId ???", userId);
       console.log("나와 궁합이 맞는 주민", data.payload);
       return data.payload;
     } catch (err) {
@@ -101,6 +107,13 @@ function MatchResult() {
     }
   }, [id]);
 
+  // 클립보드 공유하기
+  useEffect(() => {
+    if (userId && userId !== null && !value.includes(userId)) {
+      setValue(value + `/${userId}`);
+    }
+  }, [userId]);
+
   const goToPosition = (e) => {
     e.preventDefault();
 
@@ -124,6 +137,25 @@ function MatchResult() {
         left: 0,
         behavior: "smooth",
       });
+    } else if (e.target.innerText === "공유하기") {
+      if (copied) {
+        toast.success(
+          <div>
+            링크가 복사되었다구리!
+            <br /> 공유해보자구리!
+          </div>,
+          {
+            icon: "🎈",
+            position: "top-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
     } else {
       outerDivRef.current.scrollTo({
         top: 0,
@@ -159,9 +191,12 @@ function MatchResult() {
       >
         <BackButton content={"메인으로"} destination={"explore"} />
       </div>
+      <ToastContainer />
       <div className={styled.inner}>
         <MatchResultMyChar
           myChar={myChar}
+          value={value}
+          setCopied={setCopied}
           goToPosition={goToPosition}
           goToFirstPage={goToFirstPage}
         />
