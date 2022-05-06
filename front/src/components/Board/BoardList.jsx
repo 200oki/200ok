@@ -13,6 +13,7 @@ const BoardList = () => {
   const [posts, setPost] = useState([]);
   const [count, setCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [columns, setColumns] = useState([]);
 
   async function getBoardList() {
     try {
@@ -36,46 +37,56 @@ const BoardList = () => {
     getBoardList();
   }, []);
 
-  const cardPerColumn = 2;
-  const columns = [];
+  useEffect(() => {
+    if (posts.length !== 0) {
+      const cardPerColumn = 2;
 
-  for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
-    columns.push(
-      posts
-        .slice(cardPerColumn * i, cardPerColumn * (i + 1))
-        .map((post, idx) => {
-          const title =
-            post.title.length < 8 ? post.title : post.title.slice(0, 8) + "...";
-          return (
-            <Card
-              key={idx}
-              src={post.images[0]}
-              onClick={() => navigate(`/board/${post.id}`)}
-            >
-              <Title> {title} </Title>
-            </Card>
-          );
-        })
-    );
-  }
-  const restCards = count % cardPerColumn;
-  if (restCards > 0) {
-    columns.push(
-      posts.slice(-restCards).map((post, idx) => {
-        const title =
-          post.title.length < 8 ? post.title : post.title.slice(0, 8) + "...";
-        return (
-          <Card
-            key={idx}
-            src={post.images[0]}
-            onClick={() => navigate(`/board/${post.id}`)}
-          >
-            <Title> {title} </Title>
-          </Card>
-        );
-      })
-    );
-  }
+      for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
+        setColumns((v) => [
+          ...v,
+          posts
+            .slice(cardPerColumn * i, cardPerColumn * (i + 1))
+            .map((post, idx) => {
+              const title =
+                post.title.length < 8
+                  ? post.title
+                  : post.title.slice(0, 8) + "...";
+              return (
+                <Card
+                  key={idx}
+                  src={`http://localhost:5001/uploads/${post.images[0]}`}
+                  onClick={() => navigate(`/board/${post.id}`)}
+                >
+                  <Title> {title} </Title>
+                </Card>
+              );
+            }),
+        ]);
+      }
+      const restCards = count % cardPerColumn;
+      if (restCards > 0) {
+        setColumns((v) => [
+          ...v,
+          posts.slice(-restCards).map((post, idx) => {
+            const title =
+              post.title.length < 8
+                ? post.title
+                : post.title.slice(0, 8) + "...";
+            return (
+              <Card
+                key={idx}
+                src={`http://localhost:5001/uploads/${post.images[0]}`}
+                onClick={() => navigate(`/board/${post.id}`)}
+              >
+                <Title> {title} </Title>
+              </Card>
+            );
+          }),
+        ]);
+      }
+    }
+  }, [posts]);
+
   return (
     <Container>
       <Navigator>
@@ -85,14 +96,18 @@ const BoardList = () => {
         </Wrapper>
       </Navigator>
       <Content>
-        <ContentWrapper>
-          <PrettoSlider onChange={scrollHandler} />
-          <ContentContainer id="content">
-            {columns.map((column, idx) => {
-              return <Column key={idx}>{column}</Column>;
-            })}
-          </ContentContainer>
-        </ContentWrapper>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <ContentWrapper>
+            <PrettoSlider onChange={scrollHandler} />
+            <ContentContainer id="content">
+              {columns.map((column, idx) => {
+                return <Column key={idx}>{column}</Column>;
+              })}
+            </ContentContainer>
+          </ContentWrapper>
+        )}
       </Content>
     </Container>
   );
