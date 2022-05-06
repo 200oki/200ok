@@ -12,6 +12,11 @@ const csmSchema = new Schema({
     type: String,
     required: true,
   },
+  uuid: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   name_ko: {
     type: String,
     required: true,

@@ -21,6 +21,7 @@ class CsmService {
     const up = await Csm.upCount({ id });
     const body = {
       id: up.id,
+      uuid: up.uuid,
       name_ko: up.name_ko,
       image_photo: up.image_photo,
       count: up.count,
