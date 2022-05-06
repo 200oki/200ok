@@ -200,4 +200,10 @@ export const statList = [
 일반화하기에는 무리가 있습니다.
 `,
   },
+  {
+    groupName: "popularity-by-gender",
+    colName: [1, 2, 3, 4, 5, 6],
+    female: [3.2, 7.5, 9.7, 16, 31, 32.6],
+    male: [2.9, 4.9, 5.4, 12.3, 27.2, 47.3],
+  }
 ];
