@@ -32,6 +32,9 @@ const StatBtn = () => {
       case "종별 인기도 분포":
         return navigator("/stats/popularity-by-species");
         break;
+      case "종별 인기도 분포":
+        return navigator("/stats/popularity-by-gender");
+        break;
     }
   };
 
