@@ -16,7 +16,7 @@ const BoardList = () => {
 
   async function getBoardList() {
     try {
-      const { data } = await Api.get('posts');
+      const { data } = await Api.get("posts");
       setPost(data.payload);
       console.log(data.payload);
       setCount(data.payload.length);
@@ -41,23 +41,35 @@ const BoardList = () => {
 
   for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
     columns.push(
-      posts.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((post, idx) => {
-        const title = post.title.length < 8 ? post.title : post.title.slice(0, 8) + "...";
-        return (
-          <Card key={idx} src={post.images[0]} onClick={() => navigate(`/board/${post.id}`)}>
-            <Title> {title} </Title>
-          </Card>
-        );
-      })
+      posts
+        .slice(cardPerColumn * i, cardPerColumn * (i + 1))
+        .map((post, idx) => {
+          const title =
+            post.title.length < 8 ? post.title : post.title.slice(0, 8) + "...";
+          return (
+            <Card
+              key={idx}
+              src={post.images[0]}
+              onClick={() => navigate(`/board/${post.id}`)}
+            >
+              <Title> {title} </Title>
+            </Card>
+          );
+        })
     );
   }
   const restCards = count % cardPerColumn;
   if (restCards > 0) {
     columns.push(
       posts.slice(-restCards).map((post, idx) => {
-        const title = post.title.length < 8 ? post.title : post.title.slice(0, 8) + "...";
+        const title =
+          post.title.length < 8 ? post.title : post.title.slice(0, 8) + "...";
         return (
-          <Card key={idx} src={post.images[0]} onClick={() => navigate(`/board/${post.id}`)}>
+          <Card
+            key={idx}
+            src={post.images[0]}
+            onClick={() => navigate(`/board/${post.id}`)}
+          >
             <Title> {title} </Title>
           </Card>
         );
@@ -74,7 +86,7 @@ const BoardList = () => {
       </Navigator>
       <Content>
         <ContentWrapper>
-        <PrettoSlider onChange={scrollHandler} />
+          <PrettoSlider onChange={scrollHandler} />
           <ContentContainer id="content">
             {columns.map((column, idx) => {
               return <Column key={idx}>{column}</Column>;
@@ -98,20 +110,21 @@ const Navigator = styled.div`
 
 const Container = styled.div`
   position: relative;
-&::before {
-  background-image: url("/images/boardBg.png");
-  content: " ";
-  display: block;
-  position: absolute;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  opacity: 0.8;
-  z-index: -1;
+  &::before {
+    background-image: url("/images/boardBg.png");
+    content: " ";
+    display: block;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.8;
+    z-index: -1;
+  }
 `;
 
 const pop = keyframes`
