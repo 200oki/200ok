@@ -52,7 +52,7 @@ const PopularityBySpeciesChart = () => {
             color: '#777'
           })}
           cellStyle={(_x, _y, ratio) => ({
-            background: `rgb(12, 160, 44, ${ratio})`,
+            background: `rgb(33, 154, 255, ${ratio})`,
             fontSize: '.8rem',
             color: `rgb(0, 0, 0, ${ratio / 2 + 0.4})`
           })}
