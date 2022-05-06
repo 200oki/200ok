@@ -111,7 +111,7 @@ csmRouter.get("/csmdata/counts", async (req, res, next) => {
  *               example: ["심플", "쿨"]
  *    responses:
  *      200:
- *        description: count를 기준으로 상위 3명의 주민을 반환
+ *        description: 나와 매칭된 주민의 카운트를 1 증가
  *        content:
  *          application/json:
  *            schema:
