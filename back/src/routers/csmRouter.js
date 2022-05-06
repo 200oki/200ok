@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { body, query } from "express-validator";
+import { body } from "express-validator";
 
 import { CsmService } from "../services/csmService.js";
 import { validate } from "../middlewares/validator.js";
@@ -7,6 +7,36 @@ import { RequestError } from "../utils/errors.js";
 import * as status from "../utils/status.js";
 
 const csmRouter = Router();
+
+/** `top`, `bottom` 쿼리를 정수로 변환을 시도합니다.
+ *
+ * @arg {{top: string?, bottom: string?}} kwargs -
+ *    `req.query`에 있는 `top`, `bottom` 쿼리입니다.
+ *    - nullish이면 0으로 반환합니다. (쿼리가 없음)
+ *    - 값이 있지만 변환이 안 되면 Bad Request 에러입니다.
+ *    - 값이 정수이지만 0-391 사이가 아니면 역시 Bad Request 에러입니다.
+ * @return {[number, number]} `[ top, bottom ]` 순으로 반환합니다.
+ */
+function parseTopBottomQuery({ top, bottom }) {
+  top ??= 0;
+  bottom ??= 0;
+  top = parseInt(top);
+  bottom = parseInt(bottom);
+  if (
+    isNaN(top) ||
+    isNaN(bottom) ||
+    top < 0 ||
+    bottom < 0 ||
+    top > 391 ||
+    bottom > 391
+  ) {
+    throw new RequestError(
+      { status: status.STATUS_400_BADREQUEST },
+      `Unacceptable "top" or "bottom" value`
+    );
+  }
+  return [top, bottom];
+}
 
 /**
  *  @swagger
@@ -52,7 +82,7 @@ const csmRouter = Router();
  *                        example: 16
 
  */
-
+/** query: [ top=n ] [ bottom=n ] */
 csmRouter.get("/csmdata/counts", async (req, res, next) => {
   const rank = await CsmService.getRank();
   const body = {
@@ -152,10 +182,24 @@ csmRouter.get("/csmdata/counts", async (req, res, next) => {
 csmRouter.put(
   "/csmdata/counts",
   [
-    // body("birthday")
-    //   .isDate({ format: "MM-DD", strictMode: true })
-    //   .withMessage(`Invalid "birthday" format`)
-    //   .bail(),
+    async (req, res, next) => {
+      // validator의 작동 방식은 아마도 new Date()로 확인하는 것 같으므로
+      // 지금 연도가 정해지지 않은 상황에선 별로 쓸모가 없을 듯 합니다.
+      // 따라서 수동으로 합니다.
+      if (
+        !/[01][0-9]-[0-3][0-9]/.test(req.body.birthday) ||
+        new Date(req.body.birthday) === "Invalid Date"
+      ) {
+        next(
+          new RequestError(
+            { status: status.STATUS_400_BADREQUEST },
+            `Invalid "birthday" format`
+          )
+        );
+      } else {
+        next();
+      }
+    },
     body(["hobby", "personality"])
       .isString()
       .withMessage(`"Invalid "hobby" or "personality" format`),
@@ -166,20 +210,7 @@ csmRouter.put(
   ],
   async (req, res, next) => {
     try {
-      // validator의 작동 방식은 아마도 new Date()로 확인하는 것 같으므로
-      // 지금 연도가 정해지지 않은 상황에선 별로 쓸모가 없을 듯 합니다.
-      // 따라서 수동으로 합니다.
-      if (
-        !/[01][0-9]-[0-3][0-9]/.test(req.body.birthday) ||
-        new Date(req.body.birthday) === "Invalid Date"
-      ) {
-        throw new RequestError(
-          { status: status.STATUS_400_BADREQUEST },
-          `Invalid "birthday" format`
-        );
-      }
-
-      const mostSimilar = await CsmService.csm({ ...req.body });
+      const mostSimilar = CsmService.csm({ ...req.body });
       const id = mostSimilar.id;
       const up = await CsmService.upCount({ id });
       const body = {
@@ -256,7 +287,7 @@ csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
   return res.status(status.STATUS_200_OK).json(count);
 });
 
-/** GET /csmdata/:id swagger 문서
+/** GET /csmdata/:id swaggerdoc
  * @swagger
  * /csmdata/{id}:
  *  get:
@@ -335,6 +366,9 @@ csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
  *                          image_photo:
  *                            type: string
  *                            example: "https://image_url.com"
+ *                          image_icon:
+ *                            type: string
+ *                            example: "https://image_url.com"
  *      400:
  *        description: |
  *          요청 문법이 틀렸습니다. <br>
@@ -366,26 +400,17 @@ csmRouter.get("/csmdata/:id/count", async (req, res, next) => {
  *                errorMessage:
  *                  type: string
  */
-csmRouter.get(
-  "/csmdata/:id",
-  [
-    query(["top", "bottom"])
-      .isInt({ min: 0, max: 391 })
-      .withMessage(`Unacceptable "top" or "bottom" value`),
-    validate,
-  ],
-  async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      const top = parseInt(req.query.top) || 0;
-      const bottom = parseInt(req.query.bottom) || 0;
+/** query: [ top=n ] [ bottom=n ] */
+csmRouter.get("/csmdata/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const [top, bottom] = parseTopBottomQuery(req.query);
 
-      const result = CsmService.getSimilarCharsOf({ id, top, bottom });
-      res.status(status.STATUS_200_OK).json({ success: true, payload: result });
-    } catch (error) {
-      next(error);
-    }
+    const result = CsmService.getSimilarCharsOf({ id, top, bottom });
+    res.status(status.STATUS_200_OK).json({ success: true, payload: result });
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 export { csmRouter };
