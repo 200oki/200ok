@@ -55,9 +55,9 @@ function CelebrationBtn({ todayCharacter, villagers, date }) {
     }, [getCommentList]);
 
     const Comments = [...comments].sort(function (a, b) {
-        if (a.createdAt > b.createdAt) return 1;
+        if (a.createdAt > b.createdAt) return -1;
         if (a.createdAt === b.createdAt) return 0;
-        if (a.createdAt < b.createdAt) return -1;
+        if (a.createdAt < b.createdAt) return 1;
     });
     const [commentShow, setCommentShow] = useState(false);
     const celebrationHandler = (e) => {
