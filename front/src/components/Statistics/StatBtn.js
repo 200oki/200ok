@@ -47,7 +47,7 @@ const StatBtn = () => {
               key={idx}
               type="whiteItem"
               content={item}
-              className={classes.menuItem}
+              className={classes.statMenuItem}
               onClick={(e) => {
                 handleClick(e);
                 setIsDesc(true);
