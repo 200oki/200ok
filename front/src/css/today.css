@@ -3,7 +3,7 @@
   position: relative;
 }
 .today::before {
-  background-image: url("/public/images/leafBgImg.png");
+  background-image: url("https://i.pinimg.com/originals/b1/1f/e2/b11fe22c47c52875647cd40c465236b2.jpg");
   content: " ";
   display: block;
   position: absolute;
@@ -12,7 +12,7 @@
   width: 100vw;
   height: 100vh;
   opacity: 0.5;
-  background-position: 50% 0;
+  background-position: 50% 50%;
   z-index: -100;
 }
 .today-content {
@@ -60,7 +60,7 @@
 .dropdown {
   border: none;
   color: black;
-  border-right: 1px solid #81d7a4;
+  border-right: 1px solid #00be4c;
   padding: 10px;
   font-size: 1.23rem;
   border-radius: 1.5rem 0 0 1.5rem;
@@ -69,7 +69,7 @@
   width: 10rem;
   height: 3rem;
   box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
-  background-color: #ffffff;
+  background-color: rgb(169, 252, 202);
   transition: all 0.5s;
   font-family: TmoneyRoundWindExtraBold;
 }
@@ -105,7 +105,7 @@
 /* Comment inputbox */
 input.comment {
   border: none;
-  border-left: 1px solid #81d7a4;
+  border-left: 1px solid #00be4c;
   color: black;
   font-size: 1.23rem;
   border-radius: 0 1.5rem 1.5rem 0;
@@ -115,7 +115,7 @@ input.comment {
   width: 100%;
   height: calc(3rem - 2px);
   box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
-  background-color: #ffffff;
+  background-color: rgb(169, 252, 202);
   font-family: TmoneyRoundWindExtraBold;
 }
 input.comment:hover {
@@ -123,7 +123,7 @@ input.comment:hover {
 }
 input.comment::placeholder {
   font-size: 0.9rem;
-  color: #81d7a4;
+  color: #71b18a;
 }
 .submitForm {
   display: flex;
@@ -161,7 +161,7 @@ div.comment {
   width: fit-content;
   height: 3rem;
   box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
-  background-color: #fff9e4;
+  background-color: #9dedd6;
   font-family: TmoneyRoundWindExtraBold;
   animation: twinkling 0.8s alternate ease-in-out infinite;
 }
@@ -180,8 +180,9 @@ div.comment {
 
 /*  Comment Section */
 .comment-section {
-  height: 50vh;
+  height: 45vh;
   overflow: scroll;
+  margin-top: 3rem;
 }
 .comment-section::-webkit-scrollbar {
   display: none;
