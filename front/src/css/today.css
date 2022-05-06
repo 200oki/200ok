@@ -271,6 +271,7 @@ div.comment {
   top: 30px;
   right: 50px;
   position: relative;
+  background-color: #100774 !important;
 }
 
 .refImg {
