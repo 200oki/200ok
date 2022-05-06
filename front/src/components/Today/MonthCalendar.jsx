@@ -23,7 +23,10 @@ const Date = styled.div`
   height: 200px;
   width: 60px;
 `;
-
+const Week = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 const MonthCalendar = ({ month }) => {
   const [villagers, setVillagers] = React.useState(null);
   const fieldsToGet = ["id", "name_ko", "image_icon", "birthday_day"];
@@ -48,6 +51,11 @@ const MonthCalendar = ({ month }) => {
         days[parseInt(villager.birthday_day) - 1].push(villager);
       }
     });
+  }
+  for (let i = 0; i < Constant.MonthDays[month]; i++) {
+    if (!!!days[i]) {
+      days[i] = [];
+    }
   }
   return (
     <Container>
