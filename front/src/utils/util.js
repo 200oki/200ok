@@ -15,6 +15,8 @@ export const statList = [
   "성격 분포",
   "취미 분포",
   "스타일 분포",
+  "종별 성별 분포",
+  "종별 인기도 분포",
 ];
 
 export const guestbookImgList = [

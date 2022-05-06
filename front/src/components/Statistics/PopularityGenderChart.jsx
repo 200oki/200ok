@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import * as Api from "../../api";
-import "../../css/stats.css";
 import { Chart, registerables } from "chart.js";
 import { Bar } from 'react-chartjs-2';
 import CustomModal from "../common/CustomModal";
@@ -8,7 +7,7 @@ import { Typography } from "@mui/material";
 import { useStyles } from "../../utils/useStyles";
 Chart.register(...registerables)
 
-const PersonalityChart = () => {
+const PopularityByGenderChart = () => {
   const [dataList, setDataList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isClicked, setIsClicked] = useState(false);
@@ -20,7 +19,7 @@ const PersonalityChart = () => {
   
   async function getDataList() {
     try {
-      const { data } = await Api.get('stats?groupName=personality');
+      const { data } = await Api.get('stats?groupName=popularity-by-gender');
       setDataList([...Object.values(data.payload)]);
       setIsLoading(false);
     } catch (error) {
@@ -43,21 +42,21 @@ const PersonalityChart = () => {
           sx={{ mt: 2 }}
           className={classes.modalFont}
         >
-          동물의 숲에서는 성별마다 성격이 존재합니다.
+          1티어가 짱 좋은 것
         </Typography>
         <Typography
           id="modal-modal-description"
           sx={{ mt: 2 }}
           className={classes.modalFont}
         >
-          남성은 느끼함, 먹보, 무뚝뚝, 운동광 중 하나입니다.
+          티어별 / 성별 전체
         </Typography>
         <Typography
           id="modal-modal-description"
           sx={{ mt: 2 }}
           className={classes.modalFont}
         >
-          여성은 단순 활발, 성숙함, 아이돌, 친절함 중 하나입니다.
+          남자는 인기도가 낮음을 알 수 있다.
         </Typography>
       </CustomModal>
       <Bar className="graphBack"
@@ -65,31 +64,30 @@ const PersonalityChart = () => {
           labels: dataList[1],
             datasets: [
             {
+              label: '여성',
               data: dataList[2],
               backgroundColor: [
-                'rgba(5, 151, 242, 0.3)',
-                'rgba(5, 151, 242, 0.3)',
-                'rgba(5, 151, 242, 0.3)',
-                'rgba(5, 151, 242, 0.3)',
-                'rgba(242, 135, 5, 0.3)',
-                'rgba(242, 135, 5, 0.3)',
-                'rgba(242, 135, 5, 0.3)',
-                'rgba(242, 135, 5, 0.3)',
+                'rgba(242, 135, 5, 0.3)'
               ],
               borderColor: [
-                'rgba(5, 151, 242, 0.3)',
-                'rgba(5, 151, 242, 0.3)',
-                'rgba(5, 151, 242, 0.3)',
-                'rgba(5, 151, 242, 0.3)',
-                'rgba(242, 135, 5, 0.3)',
-                'rgba(242, 135, 5, 0.3)',
-                'rgba(242, 135, 5, 0.3)',
-                'rgba(242, 135, 5, 0.3)',
+                'rgba(242, 135, 5, 1)'
               ],
-
-              borderWidth: 1,
-              }
-            ]
+              
+              borderWidth: 1
+            },
+            {
+              label: '남성',
+              data: dataList[3],
+              backgroundColor: [
+                'rgba(5, 151, 242, 0.3)',
+              ],
+              borderColor: [
+                'rgba(5, 151, 242, 1)'
+              ],
+              
+              borderWidth: 1
+            },
+          ],
         }}
         height={500}
         width={1200}
@@ -111,7 +109,6 @@ const PersonalityChart = () => {
             datalabels: {
               color: 'white',
             },
-            legend: false // Hide legend
           },
         }}
       />
@@ -119,4 +116,4 @@ const PersonalityChart = () => {
   );
 }
 
-export default PersonalityChart;
+export default PopularityByGenderChart;

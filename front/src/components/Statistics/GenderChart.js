@@ -16,37 +16,39 @@ const SpeciesChart = () => {
       console.error(error);
     }
   }
-
+  
   useEffect(() => {
     getDataList();
   }, []);
-
+  
   return (
-    <Pie className="graphBack"
-      data={{
-        labels: dataList[1],
-        datasets: [
-          {
-            label: '# Species',
-            data: dataList[2],
-            backgroundColor: [
-              'rgba(242, 34, 110, 0.2)',
-              'rgba(5, 151, 242, 0.3)',
-            ],
-            borderColor: [
-              'rgba(242, 34, 110, 1)',
-              'rgba(5, 151, 242, 1)',
-            ],
-            borderWidth: 1
-          }
-        ]
-      }}
-      height={500}
-      width={500}
-      options={{
-        responsive: false,
-      }}
-    />
+    <div>
+      <Pie className="graphBack"
+        data={{
+          labels: dataList[1],
+          datasets: [
+            {
+              label: '# Species',
+              data: dataList[2],
+              backgroundColor: [
+                'rgba(242, 135, 5, 0.3)',
+                'rgba(5, 151, 242, 0.3)',
+              ],
+              borderColor: [
+                'rgba(242, 135, 5, 1)',
+                'rgba(5, 151, 242, 1)',
+              ],
+              borderWidth: 1
+            }
+          ]
+        }}
+        height={500}
+        width={500}
+        options={{
+          responsive: false,
+        }}
+      />
+    </div>
   );
 }
 

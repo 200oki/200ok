@@ -29,6 +29,12 @@ const StatBtn = () => {
       case "스타일 분포":
         return navigator("/stats/style");
         break;
+      case "종별 인기도 분포":
+        return navigator("/stats/popularity-by-species");
+        break;
+      case "종별 성별 분포":
+        return navigator("/stats/popularity-by-gender");
+        break;
     }
   };
 
@@ -41,7 +47,7 @@ const StatBtn = () => {
               key={idx}
               type="whiteItem"
               content={item}
-              className={classes.menuItem}
+              className={classes.statMenuItem}
               onClick={(e) => {
                 handleClick(e);
                 setIsDesc(true);

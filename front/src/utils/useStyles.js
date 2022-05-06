@@ -57,6 +57,9 @@ export const useStyles = makeStyles({
   menuItem: {
     width: "320px",
   },
+  statMenuItem: {
+    width: "200px",
+  },
   navBar: { position: "fixed", top: "0", left: "0", zIndex: "1" },
   quizRoot: {
     height: "100%",
@@ -117,6 +120,21 @@ export const useStyles = makeStyles({
     width: "50px",
     height: "50px",
     marginRight: "30px",
+    marginTop: "30px !important",
+    fontFamily: "TmoneyRoundWindExtraBold !important",
+    textAlign: "center",
+    color: "white",
+    backgroundColor: "#bfbfbf",
+    opacity: "0.95",
+    lineHeight: "2.75em",
+    cursor: "pointer",
+  },
+  desc: {
+    justifyContent: "right",
+    borderRadius: "100%",
+    width: "50px",
+    height: "50px",
+    marginBottom: "5px",
     marginTop: "30px !important",
     fontFamily: "TmoneyRoundWindExtraBold !important",
     textAlign: "center",
