@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import "moment/locale/ko";
-import styled from "../../css/readBoard.module.css";
+import "../../css/readBoard.css";
+import styled from "../../css/match.module.css";
 import * as Api from "../../api";
 import BackButton from "../common/BackButton";
 import { useParams } from "react-router-dom";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
+import HomeButton from "../common/HomeButton";
+import CommentIcon from "@mui/icons-material/Comment";
+import { useStyles } from "../../utils/useStyles";
 
 const Read = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [images, setImages] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [commentList, setCommentList] = useState([]);
+  const [commentContent, setCommentContent] = useState("");
+
+  const classes = useStyles();
+
+  const handleContentChange = (e) => {
+    setCommentContent(e.target.value);
+  };
 
   const fetchPostData = async () => {
     try {
@@ -23,26 +36,119 @@ const Read = () => {
     }
   };
 
+  // 댓글 데이터 요청
+  const fetchCommentData = async () => {
+    try {
+      const { data } = await Api.get(
+        `comments?villager=아그네스&location=recommendation`
+      );
+      setCommentList([...Object.values(data.payload)]);
+      console.log(commentList);
+    } catch (err) {
+      setCommentList([]);
+      console.error(err);
+    }
+    return () => {};
+  };
+
+  console.log(commentList);
+
+  const handleSidebar = () => {
+    setIsOpen((isOpen) => !isOpen);
+    if (isOpen) {
+      document.querySelector(".sidebar").style.right = "-50vw";
+      setTimeout(() => {
+        document.querySelector(".sidebar-overlay").style.display = "none";
+      }, 400);
+    } else {
+      document.querySelector(".sidebar").style.right = 0;
+      document.querySelector(".sidebar-overlay").style.display = "flex";
+    }
+  };
+
   useEffect(() => {
     fetchPostData();
+    fetchCommentData();
   }, [id]);
 
   return (
-    <div className={styled.Wrapper}>
+    <div className="ReadBoardWrapper">
       <div
         className="nav-bar"
         style={{ position: "fixed", top: "0", left: "0", zIndex: "1" }}
       >
         <BackButton content={"뒤로가기"} />
       </div>
-      <div className={styled.divider}></div>
-      <div className={styled.postWrapper}>
-        <div className={styled.titleArea}>
-          <div className={styled.title}>{post?.title}</div>
+
+      <HomeButton
+        Icon={CommentIcon}
+        onClick={handleSidebar}
+        className={classes.fab}
+      />
+
+      <div className="sidebar-overlay"></div>
+      <div className="sidebar">
+        <div className="sidebar-mid">
+          <form className="postCommentForm">
+            <div className={styled.commentBack}>
+              <input
+                type="text"
+                placeholder="댓글을 입력해주세요"
+                value={commentContent}
+                onChange={handleContentChange}
+                required
+              />
+            </div>
+            <button type="submit">등록</button>
+          </form>
+          {commentList.length > 0 ? (
+            <div className="postCommentArea">
+              {commentList.map((item, idx) => {
+                return (
+                  <div
+                    className={
+                      idx % 2 === 0
+                        ? `${styled.commentWrapper} ${styled.speechBubbleLeft}`
+                        : `${styled.commentWrapper} ${styled.speechBubbleRight}`
+                    }
+                    key={commentList.indexOf(item)}
+                  >
+                    <span className={styled.writer}>{item.nickname}</span>
+                    <span
+                      className={styled.commentDate}
+                      style={{ fontFamily: "TmoneyRoundWindRegular" }}
+                    >
+                      {moment(moment.utc(item.createdAt).toDate()).format(
+                        "YYYY-MM-DD HH:mm:ss"
+                      )}
+                    </span>
+                    <div
+                      className={styled.commentContent}
+                      style={{ fontFamily: "TmoneyRoundWindRegular" }}
+                    >
+                      {item.comment}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className={styled.commentArea} style={{ textAlign: "center" }}>
+              <span className={styled.writer}>
+                아직 남겨진 댓글이 없어요 :(
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="postWrapper">
+        <div className="titleArea">
+          <div className="readBoardTitle">{post?.title}</div>
           <div>
-            <span className={styled.writer}>{post?.nickname}</span>{" "}
+            <span className="readBoardWriter">{post?.nickname}</span>{" "}
             <span
-              className={styled.date}
+              className="readBoardDate"
               style={{ fontFamily: "TmoneyRoundWindRegular" }}
             >
               {moment(moment.utc(post?.createdAt).toDate()).format(
@@ -52,11 +158,11 @@ const Read = () => {
           </div>
         </div>
         <hr />
-        <div className={styled.contentArea}>
-          <div className={styled.imageArea}>
+        <div className="contentArea">
+          <div className="postImageArea">
             {images.length > 0 ? (
               images.length === 1 ? (
-                <div className={styled.eachSlide}>
+                <div className="eachSlide">
                   <div
                     style={{
                       backgroundImage: `url(http://localhost:5001/uploads/${images[0]})`,
@@ -70,7 +176,7 @@ const Read = () => {
                   autoplay={false}
                 >
                   {images.map((image, idx) => (
-                    <div className={styled.eachSlide} key={`image${idx}`}>
+                    <div className="eachSlide" key={`image${idx}`}>
                       <div
                         style={{
                           backgroundImage: `url(http://localhost:5001/uploads/${images[idx]})`,
@@ -85,7 +191,7 @@ const Read = () => {
             )}
           </div>
           <div
-            className={styled.textArea}
+            className="boardTextArea"
             style={{ fontFamily: "TmoneyRoundWindRegular" }}
           >
             {post?.content}
