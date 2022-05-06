@@ -72,21 +72,15 @@ const Read = () => {
               bgColor={"transparent"}
               style={sliderStyle}
             /> */}
-            <Slide easing="ease">
+            <Slide easing="ease-in-out" transitionDuration="800">
               <div className={styled.eachSlide}>
-                <div style={{ backgroundImage: `url(${images[0]})` }}>
-                  <span>Slide 1</span>
-                </div>
+                <div style={{ backgroundImage: `url(${images[0]})` }}></div>
               </div>
               <div className={styled.eachSlide}>
-                <div style={{ backgroundImage: `url(${images[1]})` }}>
-                  <span>Slide 2</span>
-                </div>
+                <div style={{ backgroundImage: `url(${images[1]})` }}></div>
               </div>
               <div className={styled.eachSlide}>
-                <div style={{ backgroundImage: `url(${images[2]})` }}>
-                  <span>Slide 3</span>
-                </div>
+                <div style={{ backgroundImage: `url(${images[2]})` }}></div>
               </div>
             </Slide>
           </div>
