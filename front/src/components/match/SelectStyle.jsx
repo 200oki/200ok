@@ -40,7 +40,6 @@ const SelectStyle = ({ array }) => {
         hobby: matchElem[4],
         styles: matchElem[5],
       });
-      console.log("nickname", data.payload);
       setIdKo(data.payload.character.name_ko);
       setId(data.payload.id);
     } catch (err) {
