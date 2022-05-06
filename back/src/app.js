@@ -20,7 +20,6 @@ import "../src/loaders/index.js";
 const __dirname = path.resolve();
 dotenv.config({ path: path.join(__dirname, "../.env") });
 const app = express();
-
 // CORS 에러 방지
 app.use(cors());
 app.use(express.json());
@@ -28,22 +27,10 @@ app.use("/uploads", express.static("./uploads"));
 app.use(express.urlencoded({ extended: false }));
 app.use("/admin", sriracha());
 
-if (process.env.NODE_ENV === "production") {
-  app.use(
-    morgan(":method :status :url :response-time ms", {
-      stream: logger.stream,
-      skip: function (req, res) {
-        return res.statusCode <= 400;
-      },
-    })
-  );
-} else {
-  app.use(
-    morgan(":method :status :url :response-time ms", {
-      stream: logger.stream,
-    })
-  );
-}
+app.use(
+  morgan(":method :status :url :response-time ms", { stream: logger.stream })
+);
+
 app.use(characterRouter);
 app.use(commentRouter);
 app.use(scoreRouter);

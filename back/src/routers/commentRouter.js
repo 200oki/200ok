@@ -1,39 +1,21 @@
 import { CommentService } from "../services/commentService.js";
 import { Router } from "express";
-import {
-  STATUS_201_CREATED,
-  STATUS_200_OK,
-  STATUS_400_BADREQUEST,
-} from "../utils/status.js";
+import { STATUS_201_CREATED, STATUS_200_OK } from "../utils/status.js";
 import { validate, notFoundValidate } from "../middlewares/validator.js";
-import { check, param, body, query } from "express-validator";
-import { logger } from "../utils/winstonLogger.js";
-// import { client, checkCache } from "../middlewares/redisMiddleware.js";
+import { check, param, body, header } from "express-validator";
 const commentRouter = Router();
-
 /**
  *  @swagger
  *  tags:
  *    name: Comments
  *    description: Comments MVP.
  */
-
 /**
  * @swagger
  * /comments:
  *   post:
  *    summary: 댓글을 생성하는 API
- *    description: |
- *      댓글을 생성할 때 사용하는 API 입니다.
- *
- *      ``Request Body``
- *      ```js
- *       {
- *        "villager" : "주민이름",
- *        "nickname" : "닉네임",
- *        "comment" : " 댓글 내용",
- *        "location" : "댓글 위치"
- *      }
+ *    description: 댓글을 생성할 때 사용하는 API 입니다.
  *    tags: [Comments]
  *    requestBody:
  *      x-name: body
@@ -70,18 +52,25 @@ const commentRouter = Router();
  *                success:
  *                  type: string
  *                  example: true
- *                payload:
- *                   type: object
- *                   properties:
+ *                comments:
+ *                  type: object
+ *                  properties:
+ *                    villager:
+ *                      type: string
+ *                      description: 주민 이름.
+ *                      example: 아그네스
+ *                    location:
+ *                      type: string
+ *                      description: 댓글 작성 위치.
+ *                      example: recommendation
  *                    nickname:
  *                      type: string
- *                      example: 고구마
+ *                      description: 댓글 작성자 이름.
+ *                      example: 닉네임
  *                    comment:
  *                      type: string
- *                      example: 댓글내용
- *                    createdAt:
- *                      type: date
- *                      example: 2022-04-21T17:45:00.308Z
+ *                      description: 댓글 내용
+ *                      example: 얍얍
  *      400:
  *        description: 댓글 생성 오류
  *        content:
@@ -122,51 +111,51 @@ const commentRouter = Router();
 commentRouter.post(
   "/comments",
   [
+    body("villager")
+      .exists()
+      .withMessage("주민 이름을 body에 담아주세요")
+      .bail(),
     body("comment").exists().withMessage("댓글 내용을 입력해주세요.").bail(),
     body("nickname").exists().withMessage("닉네임을 입력해주세요.").bail(),
     body("location").exists().withMessage("위치를 입력해주세요").bail(),
     validate,
   ],
   async (req, res, next) => {
-    try {
-      const { villager, comment, nickname, location } = req.body;
-      const createdComment = await CommentService.addComment({
-        villager,
-        nickname,
-        comment,
-        location,
-      });
-      const body = {
-        success: true,
-        payload: createdComment,
-      };
-      return res.status(STATUS_201_CREATED).json(body);
-    } catch (error) {
-      error.status = STATUS_400_BADREQUEST;
-      logger.warn("Comment Post Catch");
-      next(error);
-    }
+    const { villager, comment, nickname, location } = req.body;
+    const createdComment = await CommentService.addComment({
+      villager,
+      comment,
+      nickname,
+      location,
+    });
+    // const data = createComment.comment;
+    const body = {
+      success: true,
+      comments: createdComment,
+    };
+    return res.status(STATUS_201_CREATED).json(body);
   }
 );
 /**
  * @swagger
- * /comments?location="댓글 위치"&villager="주민이름":
+ * /comments/{villager}:
  *   get:
  *    summary: 댓글을 조회하는 API
  *    description: 댓글을 조회할 때 사용하는 API 입니다.
  *    tags: [Comments]
  *    parameters:
- *      - in: query
+ *      - in: path
+ *        name: villager
+ *        required: true
+ *        description: 주민 이름
+ *        example: 아그네스
+ *        schema:
+ *          type: string
+ *      - in: header
  *        name: location
  *        required: true
  *        description: 조회할 댓글이 있는 위치
  *        example: recommendation
- *        schema:
- *          type: string
- *      - in: query
- *        name: villager
- *        description: 주민 이름
- *        example: 아그네스
  *        schema:
  *          type: string
  *    responses:
@@ -180,7 +169,7 @@ commentRouter.post(
  *                  type: boolean
  *                  description: 응답 여부
  *                  example: true
- *                payload:
+ *                comments:
  *                  type: array
  *                  items:
  *                    type: object
@@ -196,104 +185,34 @@ commentRouter.post(
  *                        example: 2022-04-21T17:45:00.308Z
  */
 
-/**
- * query: vilager = 주민 이름, location = 댓글 위치
- */
 commentRouter.get(
-  "/comments",
+  "/comments/:villager",
   [
-    query("location")
+    check("villager")
+      .trim()
+      .isLength({ min: 1 })
       .exists()
-      .withMessage("query에 location 값을 입력해주세요.")
+      .withMessage("parameter 값으로 주민 이름을 입력해주세요.")
+      .bail(),
+    notFoundValidate,
+    header("location")
+      .exists()
+      .withMessage("header에 location 값을 입력해주세요.")
       .bail(),
     validate,
   ],
   async (req, res, next) => {
-    try {
-      const { location, villager } = req.query;
-      let comments;
-      if (villager != null) {
-        comments = await CommentService.listComment({
-          villager,
-          location,
-        });
-      } else {
-        comments = await CommentService.listHonor({ location });
-      }
-      // await client.set(req.url, JSON.stringify(comments));
-      const body = {
-        success: true,
-        payload: comments,
-      };
-      return res.status(STATUS_200_OK).json(body);
-    } catch (error) {
-      error.status = STATUS_400_BADREQUEST;
-      logger.warn("Comment Get Catch");
-      next(error);
-    }
+    const { location } = req.headers;
+    const { villager } = req.params;
+    const comments = await CommentService.listComment({ villager, location });
+    const body = {
+      success: true,
+      comments,
+    };
+    return res.status(STATUS_200_OK).json(body);
   }
 );
 
-/**
- * @swagger
- * /comments?location="댓글 위치":
- *   get:
- *    summary: 댓글을 조회하는 API
- *    description: 댓글을 조회할 때 사용하는 API 입니다.
- *    tags: [Comments]
- *    parameters:
- *      - in: query
- *        name: location
- *        required: true
- *        description: 조회할 댓글이 있는 위치
- *        example: honor
- *        schema:
- *          type: string
- *    responses:
- *      "200":
- *        content:
- *          aplication/json:
- *            schema:
- *              type: object
- *              properties:
- *                suceess:
- *                  type: string
- *                  description: 응답 여부
- *                  example: true
- *                payload:
- *                  type: array
- *                  items:
- *                    type: object
- *                    properties:
- *                      nickname:
- *                        type: string
- *                        example: 고구마
- *                      comment:
- *                        type: string
- *                        example: 댓글내용
- *                      createdAt:
- *                        type: date
- *                        example: 2022-04-21T17:45:00.308Z
- */
-
 export { commentRouter };
 
-// payload:
-//  *                  type: object
-//  *                  properties:
-//  *                    villager:
-//  *                      type: string
-//  *                      description: 주민 이름.
-//  *                      example: 아그네스
-//  *                    location:
-//  *                      type: string
-//  *                      description: 댓글 작성 위치.
-//  *                      example: recommendation
-//  *                    nickname:
-//  *                      type: string
-//  *                      description: 댓글 작성자 이름.
-//  *                      example: 닉네임
-//  *                    comment:
-//  *                      type: string
-//  *                      description: 댓글 내용
-//  *                      example: 얍얍
+// 닉네임 넣기 :)

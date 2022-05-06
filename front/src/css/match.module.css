@@ -82,7 +82,7 @@
   width: 300px;
   height: 50px;
   border-radius: 50px;
-  margin: 0 0 30px 0;
+  margin: 20px 0 30px 0;
   box-shadow: 5px 5px 4px -1px rgba(119, 119, 119, 0.75);
 }
 
@@ -97,6 +97,7 @@
   width: 80%;
   height: 60%;
   border: none;
+  font-size: 1.2rem;
 }
 
 .commentBack > input {
@@ -118,6 +119,7 @@
   height: 50px;
   font-size: 16px;
   transition: all 0.3s ease-in-out;
+  box-shadow: 0px 3px rgba(21, 158, 147, 0.8);
 }
 
 .commentReg:hover {
@@ -129,10 +131,14 @@
 .commentArea {
   width: 50%;
   height: 65%;
-  background-color: white;
+  /* background-color: white; */
+  background-color: rgba(255, 255, 255, 0.5);
   padding: 10px;
   overflow-y: auto;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .commentArea::-webkit-scrollbar {
@@ -153,9 +159,49 @@
 }
 
 .commentWrapper {
-  font-family: "TmoneyRoundWindRegular" !important;
   height: fit-content;
-  padding: 10px;
+  padding: 10px 10px 10px 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.speechBubbleLeft,
+.speechBubbleRight {
+  position: relative;
+  background: #f7e7a3;
+  border-radius: 0.4em;
+  width: 80%;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.speechBubbleLeft:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 25px solid transparent;
+  border-right-color: #f7e7a3;
+  border-left: 0;
+  border-top: 0;
+  margin-top: -12.5px;
+  margin-left: -25px;
+}
+
+.speechBubbleRight:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 25px solid transparent;
+  border-left-color: #f7e7a3;
+  border-right: 0;
+  border-top: 0;
+  margin-top: -12.5px;
+  margin-right: -25px;
 }
 
 .writer {
@@ -166,7 +212,8 @@
 }
 
 .commentDate {
-  color: #cec6ba;
+  color: #837156;
+  font-size: 14px;
 }
 
 .commentContent {
@@ -183,7 +230,7 @@
   border-radius: 30px;
   background: #a5e4ff;
   transition: all 0.5s;
-  font-size: 15px;
+  font-size: 17px;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
 }
 
@@ -205,14 +252,13 @@
 }
 
 .imgWrapper {
-  width: 240px;
-  height: 240px;
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 100%;
   margin-bottom: 20px;
+}
+
+.imgWrapper > img {
+  width: 250px;
+  border-radius: 50%;
+  box-shadow: 4px 3px 4px 0px rgba(0, 0, 0, 0.3);
 }
 
 .textWrapper {
@@ -226,6 +272,17 @@
 .villagerName {
   font-size: 30px;
   margin: 7px 0 7px 0;
+}
+
+.avgText {
+  font-size: 15px;
+  color: grey;
+}
+
+.avgSubText {
+  font-size: 18px;
+  color: #00a3ed;
+  text-shadow: 2px 2px #abe4ff;
 }
 
 .btnsWrapper {
@@ -320,6 +377,7 @@
 }
 
 .rankCharImage > img {
+  width: 250px;
   border-radius: 50%;
   box-shadow: 4px 3px 4px 0px rgba(0, 0, 0, 0.3);
 }
@@ -331,6 +389,7 @@
 
 .testContent {
   width: 100vw;
+  max-height: 100vh;
   float: left;
 }
 

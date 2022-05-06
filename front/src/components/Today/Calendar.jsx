@@ -1,7 +1,25 @@
-import { useState } from "react";
+import React from "react";
 import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 import styled, { keyframes } from "styled-components";
+import MonthCalendar from "./MonthCalendar";
+
+const Calendar = () => {
+  return (
+    <Container>
+      <Navigator>
+        <BackButton content={"뒤로가기"} destination={"today"} />
+        <Wrapper>
+          <HomeButton />
+        </Wrapper>
+      </Navigator>
+      <Content style={{ transform: "scale(1.2)" }}>
+        <Tooltip id="toolTip">연도를 변경해 보세요!</Tooltip>
+        <MonthCalendar />
+      </Content>
+    </Container>
+  );
+};
 
 const Navigator = styled.div`
   position: fixed;
@@ -12,7 +30,6 @@ const Navigator = styled.div`
   justify-content: space-between;
   width: 100vw;
 `;
-
 const Container = styled.div`
   position: relative;
 &::before {
@@ -29,14 +46,6 @@ const Container = styled.div`
   z-index: -100;
 `;
 
-const pop = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
 const Content = styled.div`
   position: relative;
   height: 100vh;
@@ -44,26 +53,18 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  animation: ${pop} 1s linear forwards;
 `;
 const Wrapper = styled.div`
   position: relative;
   top: 30px;
   right: 50px;
 `;
+const Tooltip = styled.div`
+  width: auto;
+  display: none;
+  position: absolute;
+  font-family: TmoneyRoundWindRegular;
+  top: 270px;
+`;
 
-const Bestiary = () => {
-  return (
-    <Container>
-      <Navigator>
-        <BackButton content={"뒤로가기"} destination={"today"} />
-        <Wrapper>
-          <HomeButton />
-        </Wrapper>
-      </Navigator>
-      <Content>이곳에 달력</Content>
-    </Container>
-  );
-};
-
-export default Bestiary;
+export default Calendar;

@@ -19,18 +19,19 @@ const Navigator = styled.div`
 
 const Container = styled.div`
   position: relative;
-&::before {
-  background-image: url("/images/leafBgImg.png");
-  content: " ";
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  opacity: 0.5;
-  background-position: 50% 0;
-  z-index: -100;
+  &::before {
+    background-image: url("/images/leafBgImg.png");
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5;
+    background-position: 50% 0;
+    z-index: -100;
+  }
 `;
 const pop = keyframes`
   from {
@@ -164,8 +165,8 @@ const PrettoSlider = Styled(Slider)({
     border: "none",
   },
   "& .MuiSlider-thumb": {
-    height: 24,
-    width: 24,
+    height: 40,
+    width: 40,
     backgroundColor: "#fff",
     border: "2px solid currentColor",
     "&:focus, &:hover, &.Mui-active, &.Mui-focusVisible": {
@@ -286,7 +287,8 @@ const VillagerList = () => {
   };
 
   const search = async () => {
-    const queryOption = option === "검색조건" ? "" : `&props=${options[option]}&values=${ipt}`;
+    const queryOption =
+      option === "검색조건" ? "" : `&props=${options[option]}&values=${ipt}`;
     const queryString = `?fields=name_ko,image_photo,id${queryOption}`;
     try {
       const { data } = await Api.get(`characters/search${queryString}`);
@@ -316,13 +318,19 @@ const VillagerList = () => {
 
   for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
     columns.push(
-      villagers.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
-        return (
-          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
-            <Name>{villager.name_ko}</Name>
-          </Card>
-        );
-      })
+      villagers
+        .slice(cardPerColumn * i, cardPerColumn * (i + 1))
+        .map((villager, idx) => {
+          return (
+            <Card
+              key={idx}
+              src={villager.image_photo}
+              onClick={() => navigate(`/detail/${villager.id}`)}
+            >
+              <Name>{villager.name_ko}</Name>
+            </Card>
+          );
+        })
     );
   }
   const restCards = count % cardPerColumn;
@@ -330,7 +338,11 @@ const VillagerList = () => {
     columns.push(
       villagers.slice(-restCards).map((villager, idx) => {
         return (
-          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
+          <Card
+            key={idx}
+            src={villager.image_photo}
+            onClick={() => navigate(`/detail/${villager.id}`)}
+          >
             <Name>{villager.name_ko}</Name>
           </Card>
         );
@@ -347,7 +359,14 @@ const VillagerList = () => {
       </Navigator>
       <Content>
         <ContentWrapper>
-          <div style={{ display: "flex", flexDirection: "row", width: "70%", justifyContent: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "70%",
+              justifyContent: "center",
+            }}
+          >
             <Selector>
               <Select onClick={showOptions}>{option}</Select>
               <OptionWrapper id="options" show={show}>
@@ -359,7 +378,12 @@ const VillagerList = () => {
               </OptionWrapper>
             </Selector>
             <SearchForm>
-              <Input placeholder="검색어를 입력해주세요." onChange={inputHandler} value={ipt} onKeyUp={handleKeyUp} />
+              <Input
+                placeholder="검색어를 입력해주세요."
+                onChange={inputHandler}
+                value={ipt}
+                onKeyUp={handleKeyUp}
+              />
               <div>
                 <Button type="submit" onClick={clickHandler}>
                   검색

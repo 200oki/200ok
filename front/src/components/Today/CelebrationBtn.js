@@ -55,14 +55,15 @@ function CelebrationBtn({ todayCharacter, villagers, date }) {
     }, [getCommentList]);
 
     const Comments = [...comments].sort(function (a, b) {
-        if (a.createdAt > b.createdAt) return 1;
+        if (a.createdAt > b.createdAt) return -1;
         if (a.createdAt === b.createdAt) return 0;
-        if (a.createdAt < b.createdAt) return -1;
+        if (a.createdAt < b.createdAt) return 1;
     });
     const [commentShow, setCommentShow] = useState(false);
     const celebrationHandler = (e) => {
         e.preventDefault();
         setCommentShow(!commentShow);
+        Array.from(document.querySelectorAll("img")).map((item) => item.className -= "refImg")
         if (!commentShow) {
             Array.from(document.querySelectorAll("img")).map((item) => item.style.opacity = 0.4)
         } else {
@@ -81,7 +82,7 @@ function CelebrationBtn({ todayCharacter, villagers, date }) {
                     {countComments}명의 유저가 축하해주고 있어요!
                 </button>
             </div>
-            <div>
+            <div style={{ position: "fixed", bottom: "10%" }}>
                 {commentShow ? <CelebrationComments todayCharacter={todayCharacter} comments={Comments} getCommentList={getCommentList} /> : null}
             </div>
         </>

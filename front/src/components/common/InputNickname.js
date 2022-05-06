@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import Typewriter from "typewriter-effect";
 import styled from "../../css/match.module.css";
 import { useNavigate } from "react-router-dom";
@@ -8,12 +8,25 @@ import usePathParams from "../../utils/usePathParams";
 import BackButton from "./BackButton";
 
 import { NicknameContext } from "../../context/NicknameContext";
+import { MatchElementContext } from "../../context/MatchElementContext";
 
 function InputNickname() {
   const { nickname, setNickname } = useContext(NicknameContext);
+  const { setId } = useContext(MatchElementContext);
+  const { setIdKo } = useContext(MatchElementContext);
+  const { setMatchElem } = useContext(MatchElementContext);
   const navigator = useNavigate();
   const pathname = usePathParams();
   const classes = useStyles();
+
+  // 1. InputNickname 페이지로 왔을 때 최초 닉네임 초기화
+  // 2. MatchElem 요소들 초기화
+  useEffect(() => {
+    setNickname("");
+    setId(null);
+    setIdKo(null);
+    setMatchElem([]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

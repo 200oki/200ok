@@ -1,9 +1,12 @@
+/**
+ Explore Button Text
+ */
 export const menuList = [
   "오늘의 주인공",
   "주민매칭",
   "주민도감",
-  "주민퀴즈",
-  "방명록",
+  "미니게임",
+  "글쓰기",
 ];
 
 export const statList = [
@@ -12,14 +15,49 @@ export const statList = [
   "성격 분포",
   "취미 분포",
   "스타일 분포",
+  "종별 성별 분포",
+  "종별 인기도 분포",
 ];
 
+export const guestbookImgList = [
+  { id: 0, img: "https://acnhcdn.com/latest/FtrIcon/ShellDriftTakara.png" },
+  { id: 1, img: "https://acnhcdn.com/latest/FtrIcon/ShellDriftHora.png" },
+  { id: 2, img: "https://acnhcdn.com/latest/FtrIcon/ShellDriftSango.png" },
+  { id: 3, img: "https://acnhcdn.com/latest/FtrIcon/Coconut.png" },
+  { id: 4, img: "https://acnhcdn.com/latest/FtrIcon/PhotoStudioBellBag.png" },
+];
+
+/**
+ Result Button Text
+ */
 export const BtnText = {
   HOME: "홈으로",
   RETRY: "다시하기",
   SHARE: "공유하기",
 };
 
+/**
+ * Game Set Button Text
+ */
+export const GameButtonText = {
+  NextRound: "다음 라운드",
+  RESULT: "결과 보기",
+};
+
+/**
+ Match Result Button Text
+ */
+export const MatchButtonText = {
+  SHARE: "공유하기",
+  RETRY: "다시하기",
+  TYPE: "유형별 궁합",
+  BEST: "가장 많은 유형",
+  COMMENT: "반응 남기기",
+};
+
+/**
+ * Card Game Mock Data
+ */
 export const testData = [
   {
     tier: 1,

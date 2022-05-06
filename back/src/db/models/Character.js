@@ -1,9 +1,11 @@
 import _ from "underscore";
 
-import * as characterSchema from "../schemas/character.js";
-const { characters, characterNames, ...constants } = characterSchema;
-import { RequestError } from "../../utils/errors.js";
-import * as status from "../../utils/status.js";
+import {
+  characters,
+  charactersByBirthday,
+  characterNames,
+} from "../schemas/character.js";
+
 /** 캐릭터 데이터의 모델 인터페이스입니다.
  *
  * 캐릭터 데이터는 실제로는 db에 없고, 읽기 전용입니다.
@@ -128,13 +130,8 @@ class Character {
   static getByBirthday({ birthday }) {
     // const found = _(characters).pick((v, k) => v.birthday === birthday);
     // return found;
-    if (birthday in characters.birthday) {
-      // 호환성을 위해 남겨둔 객체 형식 반환 코드입니다.
-      return _(characters.birthday[birthday])
-        .chain()
-        .map((v) => [v.id, v])
-        .object()
-        .value();
+    if (birthday in charactersByBirthday) {
+      return charactersByBirthday[birthday];
     } else {
       return {};
     }
@@ -148,13 +145,10 @@ class Character {
     return characterNames;
   }
 
-  /** 캐릭터 `n`명을 무작위로 골라 배열로 반환합니다.
+  /** 캐릭터 `n`명을 무작위로 골라 객체로 반환합니다.
    *
-   * @arg {number} n - 골라낼 샘플의 크기입니다.
-   * @arg {string[]} [tiers] - 걸러낼 티어 값들입니다.
-   *  - 티어는 원래 숫자이지만 해시테이블 키이기 때문에, 그리고 쿼리에서 받아오는 값이기
-   *    때문에 여기서는 문자열입니다.
-   * @return {any[]} randomCharacters - 반환값의 순서 역시 무작위입니다.
+   * @arg {{number}} n - 골라낼 샘플의 크기입니다.
+   * @return {{any}} characters
    */
   static sample(n, tiers = []) {
     // const found = _(characters).chain().pairs().sample(n).object().value();
@@ -188,48 +182,7 @@ class Character {
     // is ${v} superstring of keyword?
     const superstringOfKeyword = (v) => v.toLowerCase().includes(value);
 
-    return pool.filter((char) => {
-      switch (scheme) {
-        case constants.MATCH_SUBSTRING:
-          return char[field]?.toLowerCase().includes(value);
-        case constants.MATCH_INCLUDEEXACT:
-          return char[field]?.includes(value);
-        case constants.MATCH_INCLUDESUBSTRING:
-          return char[field]?.some(superstringOfKeyword);
-        default:
-          // 기본적으로 정확히 일치해야 통과합니다.
-          return String(char[field]) === value;
-      }
-    });
-  }
-
-  /** 검색 키워드를 효율적으로 정렬하기 위한 비교 함수입니다.
-   *
-   * @arg {[string, string]} a
-   * @arg {[string, string]} b
-   * - `a`, `b`는 `[ field, value ]` 쌍입니다.
-   *    정렬할때 `zip`하면 됩니다.
-   * @return number - 정렬 결과 *우선도가 높은 필드가 뒤로 갑니다.*
-   */
-  static compareBySearchPriority(a, b) {
-    // 실험 결과 자바스크립트는 불리언에 비트시프트를 하면 알아서 숫자로 바꿉니다.
-    const flag =
-      ((b[0] in constants.SEARCH_PRIORITIES) << 1) |
-      (a[0] in constants.SEARCH_PRIORITIES);
-    switch (flag) {
-      case 0b11:
-        return (
-          constants.SEARCH_PRIORITIES[a[0]] - constants.SEARCH_PRIORITIES[b[0]]
-        );
-      case 0b10:
-        // b가 있고 a는 없으면 b가 뒤로 갑니다. 아래는 그 반대.
-        return -1;
-      case 0b01:
-        return 1;
-      default:
-        return 0;
-    }
-  }
+  // static async searchBirthdayRange({})
 }
 
 export { Character };

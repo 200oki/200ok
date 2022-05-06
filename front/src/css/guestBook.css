@@ -1,0 +1,35 @@
+.modalFont2::-webkit-scrollbar {
+    width: 21px;
+}
+
+.modalFont2::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.modalFont2::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #d1d1d1;
+    background-clip: padding-box;
+    border: 6px solid transparent;
+}
+
+.guestContentWrapper{
+    max-height: 100%;
+    min-height: 100%;
+    overflow-y: auto;
+    display: flex;
+    font-size: 1.3rem;
+    flex-direction: column;
+    justify-content: space-between;
+    /*align-items: end;*/
+}
+
+.modalFont2{
+    overflow-y: auto;
+    font-family: "TmoneyRoundWindRegular";
+    padding-top: 15px;
+    padding-left:  32px;
+    padding-right: 15px;
+}

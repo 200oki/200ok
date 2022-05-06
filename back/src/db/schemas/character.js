@@ -239,39 +239,12 @@ for (const char of characters.ALL) {
   for (const k of styles) {
     characters.styles[k].push(char);
   }
+  charactersByBirthday[birthday][id] = char;
 }
 
-/** 캐릭터 별 `id`와 한국어 이름만을 빠르게 보내주기 위한 작은 맵입니다. */
+/** 캐릭터 별 `id`와 한국어 이름만을 빠르게 보내주기 위한 작은 컨테이너입니다. */
 const characterNames = Object.fromEntries(
-  Object.entries(characters.id).map(([k, v]) => [k, v.name_ko])
+  Object.entries(characters).map(([k, v]) => [k, v.name_ko])
 );
 
-// if (process.env.NODE_ENV === "dev") {
-//   console.log(
-//     _(characters).mapObject((v, k) => {
-//       if (k === "ALL") {
-//         return v.length;
-//       } else if (["id", "name_ko", "birthday"].includes(k)) {
-//         return _(v).keys().length;
-//       }
-//       return _(v).mapObject((v, k) => {
-//         return v.length;
-//       });
-//     })
-//   );
-// }
-
-export {
-  characters,
-  characterNames,
-  ALL_COLORS,
-  ALL_HOBBIES,
-  ALL_PERSONALITIES,
-  ALL_STYLES,
-  MATCH_SCHEMES,
-  MATCH_EXACT,
-  MATCH_INCLUDEEXACT,
-  MATCH_SUBSTRING,
-  MATCH_INCLUDESUBSTRING,
-  SEARCH_PRIORITIES,
-};
+export { characters, charactersByBirthday, characterNames };

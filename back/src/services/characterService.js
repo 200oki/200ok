@@ -1,7 +1,6 @@
 import _ from "underscore";
 
 import { Character } from "../db/index.js";
-import { RequestError } from "../utils/errors.js";
 import * as status from "../utils/status.js";
 
 /**
@@ -54,7 +53,7 @@ class CharacterService {
     }
   }
 
-  /** **DEPRECATED** 생일이 일치하는 캐릭터들의 객체를 반환합니다.
+  /** 생일이 일치하는 캐릭터들의 객체를 반환합니다.
    *
    * @arg {{birthday: string, fields: string[]}} payload -
    * ```js

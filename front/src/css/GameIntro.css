@@ -1,27 +1,5 @@
-.gameIntroRoot {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  z-index: 1;
-}
-.gameIntroRoot::after {
-  top: 0;
-  left: 0;
-  content: "";
-  position: absolute;
-  background-image: url("/public/images/leafBgImg.png");
-  overflow: hidden;
-  opacity: 0.4;
-  height: 100%;
-  width: 100%;
-  z-index: -1;
-}
-
 .gameIntroImg {
-  top: 10%;
+  top: 7%;
   height: 300px;
   position: relative;
 }
@@ -30,7 +8,7 @@
   position: absolute;
   text-align: center;
   color: #837156;
-  top: 42%;
+  top: 55%;
 }
 
 .btnWrapper > button {
@@ -52,8 +30,7 @@
 
 .btnWrapper {
   position: absolute;
-  top: 80%;
-  left: 46%;
+  top: 83%;
 }
 .backBtnWrapper {
   width: 100%;
