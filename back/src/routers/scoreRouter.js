@@ -57,7 +57,7 @@ scoreRouter.get(
         detail: "id가 존재하지 않습니다."
       };
 
-      return res.status(status.STATUS_404_NOTFOUND).json(body);
+      return res.status(status.STATUS_400_BADREQUEST).json(body);
     }
 
     const body = {
