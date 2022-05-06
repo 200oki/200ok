@@ -30,36 +30,38 @@ const PopularityBySpeciesChart = () => {
   console.log("data :", dataList);
 
   return (
-    <div
-      className="graphBack"
-    >
-      {dataList && <HeatMapGrid
-        data={dataList[3]}
-        xLabels={dataList[1]}
-        yLabels={dataList[2]}
-        // Reder cell with tooltip
-        cellRender={(x, y, value) => (
-          <div title={`Pos(${x}, ${y}) = ${value}`}>{value}</div>
-        )}
-        xLabelsStyle={(index) => ({
-          fontSize: '.8rem',
-          color: '#777'
-        })}
-        yLabelsStyle={() => ({
-          fontSize: '.7rem',
-          textTransform: 'uppercase',
-          color: '#777'
-        })}
-        cellStyle={(_x, _y, ratio) => ({
-          background: `rgb(12, 160, 44, ${ratio})`,
-          fontSize: '.8rem',
-          color: `rgb(0, 0, 0, ${ratio / 2 + 0.4})`
-        })}
-        cellHeight='2.5rem'
-        xLabelsPos='bottom'
-        yLabelsPos='left'
-        square
-      />}
+    <div>
+      <div
+        className="graphBack"
+      >
+        {dataList && <HeatMapGrid
+          data={dataList[3]}
+          xLabels={dataList[1]}
+          yLabels={dataList[2]}
+          // Reder cell with tooltip
+          cellRender={(x, y, value) => (
+            <div title={`Pos(${x}, ${y}) = ${value}`}>{value}</div>
+          )}
+          xLabelsStyle={(index) => ({
+            fontSize: '.8rem',
+            color: '#777'
+          })}
+          yLabelsStyle={() => ({
+            fontSize: '.7rem',
+            textTransform: 'uppercase',
+            color: '#777'
+          })}
+          cellStyle={(_x, _y, ratio) => ({
+            background: `rgb(12, 160, 44, ${ratio})`,
+            fontSize: '.8rem',
+            color: `rgb(0, 0, 0, ${ratio / 2 + 0.4})`
+          })}
+          cellHeight='2.5rem'
+          xLabelsPos='bottom'
+          yLabelsPos='left'
+          square
+        />}
+      </div>
       <div className="popularitySpeciesDesc">
         1로 갈수록 인기가 많습니다. <br />
         대체로 귀엽거나 친숙한 동물일수록 미약하게 인기가 많은 경향이 있습니다. <br />
