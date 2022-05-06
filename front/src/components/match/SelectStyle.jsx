@@ -29,7 +29,7 @@ const SelectStyle = ({ array }) => {
     setMatchElem([...matchElem, [style]]);
   };
 
-  // result로 나온 data count를 1 증가시키고 count, id set
+  // result로 나온 data count를 1 증가시키고 count, id와 idKo set
   const fetchResultData = async () => {
     try {
       const { data } = await Api.put("csmdata/counts", {
