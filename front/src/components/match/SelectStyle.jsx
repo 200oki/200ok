@@ -11,7 +11,7 @@ const SelectStyle = ({ array }) => {
   const { nickname } = useContext(NicknameContext);
   const { id, setId } = useContext(MatchElementContext);
   const { matchElem, setMatchElem } = useContext(MatchElementContext);
-  const { idKo, setIdKo } = useContext(MatchElementContext);
+  const { setIdKo } = useContext(MatchElementContext);
 
   const [style, setStyle] = useState(null);
 
