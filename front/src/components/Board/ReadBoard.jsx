@@ -26,6 +26,28 @@ const Read = () => {
     setCommentContent(e.target.value);
   };
 
+  const handleContentSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await Api.post("comments", {
+        villager: id,
+        comment: commentContent,
+        nickname: "익명",
+        location: "post-comment",
+      });
+      setCommentList((current) => {
+        const newComment = [...current];
+        newComment.unshift(response.data.payload);
+        return newComment;
+      });
+      setCommentContent("");
+      console.log("댓글 post: ", response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const fetchPostData = async () => {
     try {
       const { data } = await Api.get(`posts/${id}`);
@@ -40,7 +62,7 @@ const Read = () => {
   const fetchCommentData = async () => {
     try {
       const { data } = await Api.get(
-        `comments?villager=아그네스&location=recommendation`
+        `comments?villager=${id}&location=post-comment`
       );
       setCommentList([...Object.values(data.payload)]);
       console.log(commentList);
@@ -50,8 +72,6 @@ const Read = () => {
     }
     return () => {};
   };
-
-  console.log(commentList);
 
   const handleSidebar = () => {
     setIsOpen((isOpen) => !isOpen);
@@ -89,8 +109,8 @@ const Read = () => {
       <div className="sidebar-overlay"></div>
       <div className="sidebar">
         <div className="sidebar-mid">
-          <form className="postCommentForm">
-            <div className={styled.commentBack}>
+          <form className="postCommentForm" onSubmit={handleContentSubmit}>
+            <div className="postCommentBack">
               <input
                 type="text"
                 placeholder="댓글을 입력해주세요"
@@ -99,7 +119,9 @@ const Read = () => {
                 required
               />
             </div>
-            <button type="submit">등록</button>
+            <button type="submit" className="postCommentReg">
+              등록
+            </button>
           </form>
           {commentList.length > 0 ? (
             <div className="postCommentArea">
@@ -113,7 +135,12 @@ const Read = () => {
                     }
                     key={commentList.indexOf(item)}
                   >
-                    <span className={styled.writer}>{item.nickname}</span>
+                    <span
+                      className={styled.writer}
+                      style={{ fontSize: "1.1rem" }}
+                    >
+                      {item.nickname}
+                    </span>
                     <span
                       className={styled.commentDate}
                       style={{ fontFamily: "TmoneyRoundWindRegular" }}
@@ -133,7 +160,7 @@ const Read = () => {
               })}
             </div>
           ) : (
-            <div className={styled.commentArea} style={{ textAlign: "center" }}>
+            <div className="postCommentArea" style={{ textAlign: "center" }}>
               <span className={styled.writer}>
                 아직 남겨진 댓글이 없어요 :(
               </span>
