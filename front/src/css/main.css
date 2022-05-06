@@ -27,7 +27,6 @@
   margin: 0 auto;
   display: flex;
   padding-top: 30px;
-  justify-content: center;
   animation: 0.7s ease-in-out loadEffect;
 }
 

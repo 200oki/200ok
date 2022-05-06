@@ -14,22 +14,21 @@ const GameResult = () => {
   return (
     <div className="gameResultRoot">
       <img
-        src="images/kk.png"
+        src="/images/kk.png"
         alt="kk"
         className={`gameIntroImg ${styled.fadeInImg}`}
       />
-      <div className="contentRoot">
-        <div className={"gameIntroComment"}>
-          <img src="images/kk_rm.png" alt="comment" />
-          <img
-            className={`${classes.introBottomArrow2} blinkImg`}
-            src="images/triangleBottomArrow.png"
-            alt="arrow"
-          />
-        </div>
-        <div className="btnWrapper">
-          <button onClick={handleClick}>게임 시작</button>
-        </div>
+
+      <div className={"gameIntroComment"}>
+        <img src="/images/kk_rm.png" alt="comment" />
+        <img
+          className={`${classes.introBottomArrow2} blinkImg`}
+          src="/images/triangleBottomArrow.png"
+          alt="arrow"
+        />
+      </div>
+      <div className="btnWrapper">
+        <button onClick={handleClick}>게임 시작</button>
       </div>
     </div>
   );

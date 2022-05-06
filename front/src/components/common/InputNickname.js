@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import Typewriter from "typewriter-effect";
 import styled from "../../css/match.module.css";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,11 @@ function InputNickname() {
   const navigator = useNavigate();
   const pathname = usePathParams();
   const classes = useStyles();
+
+  // InputNickname 페이지로 왔을 때 최초 닉네임 초기화
+  useEffect(() => {
+    setNickname("");
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -1,12 +1,10 @@
-import React, { createRef, useContext } from "react";
+import React, { createRef } from "react";
 import styled from "../../css/match.module.css";
-
 import InputBirthday from "./InputBirthday";
 import SelectColor from "./SelectColor";
 import SelectPersonality from "./SelectPersonality";
-import SelectHobbyStyle from "./SelectHobbyStyle";
-
-import { MatchElementContext } from "../../context/MatchElementContext";
+import SelectHobby from "./SelectHobby";
+import SelectStyle from "./SelectStyle";
 
 /* 
 ? 테스트 순서
@@ -15,7 +13,6 @@ import { MatchElementContext } from "../../context/MatchElementContext";
 
 function MatchTest() {
   const slideRef = createRef(null);
-  const { matchElem } = useContext(MatchElementContext);
 
   const nextSlide = () => {
     slideRef.current.style.transform += "translateX(-100vw)";
@@ -37,8 +34,8 @@ function MatchTest() {
       <InputBirthday nextSlide={nextSlide} />
       <SelectColor nextSlide={nextSlide} />
       <SelectPersonality nextSlide={nextSlide} />
-      <SelectHobbyStyle array={hobby} nextSlide={nextSlide} />
-      <SelectHobbyStyle array={styles} nextSlide={nextSlide} />
+      <SelectHobby array={hobby} nextSlide={nextSlide} />
+      <SelectStyle array={styles} nextSlide={nextSlide} />
     </div>
   );
 }

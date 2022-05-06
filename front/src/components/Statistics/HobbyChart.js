@@ -34,12 +34,12 @@ const HobbyChart = () => {
 
 	return (
 		<BarChart className="graphBack" width={1200} height={500} data={data} >
-			<CartesianGrid />
+      <CartesianGrid horizontal={false} vertical={false} />
 			<XAxis dataKey="name" />
 			<YAxis />
       <Tooltip />
       <Legend />
-			<Bar dataKey="여성" stackId="a" fill="#F5F197" />
+			<Bar dataKey="여성" stackId="a" fill="#F4CDD4" />
 			<Bar dataKey="남성" stackId="a" fill="#BDDBF0" />
 		</BarChart>
 	);

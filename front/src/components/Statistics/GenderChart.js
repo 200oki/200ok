@@ -7,7 +7,6 @@ Chart.register(...registerables)
 const SpeciesChart = () => {
   const [dataList, setDataList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   async function getDataList() {
     try {
       const { data } = await Api.get('stats?groupName=gender');
@@ -31,11 +30,11 @@ const SpeciesChart = () => {
             label: '# Species',
             data: dataList[2],
             backgroundColor: [
-              'rgba(242, 226, 5, 0.3)',
+              'rgba(242, 34, 110, 0.2)',
               'rgba(5, 151, 242, 0.3)',
             ],
             borderColor: [
-              'rgba(242, 226, 5, 1)',
+              'rgba(242, 34, 110, 1)',
               'rgba(5, 151, 242, 1)',
             ],
             borderWidth: 1

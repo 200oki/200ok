@@ -19,7 +19,7 @@ const TeamIntroduction = () => {
       name: "안지우",
       image: "https://acnhcdn.com/latest/NpcBromide/NpcNmlHam01.png",
       character: "애플",
-      introduction: "따봉지우",
+      introduction: "뭐요 왜요",
     },
     {
       position: "Back End",
@@ -33,14 +33,14 @@ const TeamIntroduction = () => {
       name: "권민지",
       image: "https://acnhcdn.com/latest/NpcBromide/NpcNmlDuk01.png",
       character: "리처드",
-      introduction: "따봉민지",
+      introduction: "딱대",
     },
     {
       position: "Front End",
       name: "이창민",
       image: "https://acnhcdn.com/latest/NpcPoster/NpcSpAlw.png",
       character: "리사",
-      introduction: "따봉미니",
+      introduction: "힘드러?",
     },
     {
       position: "Front End",
