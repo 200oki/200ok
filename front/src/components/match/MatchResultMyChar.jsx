@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import styled from "../../css/match.module.css";
+import { MatchButtonText } from "../../utils/util";
 import { CopyToClipboard } from "react-copy-to-clipboard/src";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -41,12 +42,12 @@ const MatchResultMyChar = ({
       </div>
       <div className={styled.btnsWrapper}>
         <CopyToClipboard text={value} onCopy={() => setCopied(true)}>
-          <button onClick={goToPosition}>공유하기</button>
+          <button onClick={goToPosition}>{MatchButtonText.SHARE}</button>
         </CopyToClipboard>
-        <button onClick={goToFirstPage}>다시하기</button>
-        <button onClick={goToPosition}>유형별 궁합</button>
-        <button onClick={goToPosition}>가장 많은 유형</button>
-        <button onClick={goToPosition}>반응 남기기</button>
+        <button onClick={goToFirstPage}>{MatchButtonText.RETRY}</button>
+        <button onClick={goToPosition}>{MatchButtonText.TYPE}</button>
+        <button onClick={goToPosition}>{MatchButtonText.BEST}</button>
+        <button onClick={goToPosition}>{MatchButtonText.COMMENT}</button>
       </div>
     </>
   );
