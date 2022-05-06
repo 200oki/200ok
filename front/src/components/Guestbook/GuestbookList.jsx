@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled, { keyframes } from "styled-components";
 import * as Api from "../../api";
+import moment from "moment";
+import "moment/locale/ko";
 import { Slider } from "@mui/material";
 import { styled as Styled } from "@mui/material/styles";
 import { Box, Modal, Typography } from "@mui/material";
@@ -91,7 +93,7 @@ const GuestbookList = () => {
       setGuestbook(data.payload);
       setCount(data.payload.length);
       setContent(data.payload.content);
-      setDate(data.payload.createdAt.slice(0, 10));
+      setDate(data.payload.createdAt);
       setModal(true);
       setUserId(null);
     } catch (error) {
@@ -135,7 +137,7 @@ const GuestbookList = () => {
   const handleClick = (element) => {
     setModal((v) => !v);
     setContent(element.content);
-    setDate(element.createdAt.slice(0, 10));
+    setDate(element.createdAt);
     console.log("여긴가");
   };
 
@@ -171,7 +173,9 @@ const GuestbookList = () => {
                         style={{ fontFamily: "TmoneyRoundWindRegular" }}
                         className="date"
                       >
-                        {date}
+                        {moment(moment.utc(date).toDate()).format(
+                          "YYYY-MM-DD HH:mm:ss"
+                        )}
                       </p>
                       <p className="sender">익명의 누군가로부터</p>
                     </PostDiv>
