@@ -44,12 +44,24 @@ const GameResult = () => {
   };
 
   useEffect(() => {
-    if (!userId) {
+    if (id) {
+      getCopiedLink();
+    } else {
       console.log("useEffect==>>", userId);
       getScoreAndRank();
     }
+
     return () => setScore(0);
   }, []);
+
+  const getCopiedLink = async () => {
+    const { data } = await Api.get(`scores/userId?userId=${id}`);
+    console.log("getCopied", data);
+    settingDefault(data.userRank);
+    setUserId(data.userRank.id);
+    console.log("idTest=====>", data.payload);
+    return data.userRank;
+  };
 
   useEffect(() => {
     // 클립보드 복사기능 여기에
@@ -86,6 +98,7 @@ const GameResult = () => {
             progress: undefined,
           }
         );
+        setCopied(false);
       }
     } else if (e.target.innerText === BtnText.RETRY) {
       navigator("/game");

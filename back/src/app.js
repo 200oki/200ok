@@ -27,7 +27,6 @@ app.use(characterRouter);
 app.use(commentRouter);
 app.use(scoreRouter);
 app.use(statRouter);
-
 app.use(errorMiddleware);
 
 // .env를 검사합니다.
