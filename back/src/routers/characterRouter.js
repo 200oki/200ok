@@ -13,7 +13,79 @@ const router = Router();
  *  description: Characters API 문서입니다.
  */
 
-/** query: birthday=mm-dd[ &fields=field1,field2,... ] */
+/** query: [ size=n ] [ &tiers=1,3,... ] [ &fields=field1,field2,... ] */
+router.get("/characters/random", async (req, res, next) => {
+  try {
+    let size = Number(req.query.size);
+    if (isNaN(size)) {
+      size = 1;
+    }
+    let tiers = parseArrayQuery(req.query.tiers);
+    let fields = parseArrayQuery(req.query.fields);
+
+    let result = CharacterService.sample(size, tiers, fields);
+    res.status(status.STATUS_200_OK).json({ success: true, payload: result });
+  } catch (error) {
+    next(error);
+  }
+});
+
+/** queries: fields, [ props, ] [ values, ] [ page, size ]
+ *  - fields=field1,field2,...
+ *  - [ props=prop1,prop2,... ]
+ *  - [ values=value1,value2,... ]
+ *  - [ page=n ]
+ *  - [ size=n ]
+ */
+router.get(
+  "/characters/search",
+  async (req, res, next) => {
+    // 미들웨어로 쿼리만 검증합니다.
+    if (!("fields" in req.query)) {
+      next(
+        new RequestError(
+          { status: status.STATUS_400_BADREQUEST },
+          `"fields" query is required`
+        )
+      );
+    }
+    const page = parseInt(req.query.page);
+    const size = parseInt(req.query.size);
+    // page, size 쿼리는 없어도 되지만 있으려면 둘 다 있어야 합니다.
+    if (isNaN(page) != isNaN(size)) {
+      next(
+        new RequestError(
+          { status: status.STATUS_400_BADREQUEST },
+          `"page" and "size" both need to be present if one is provided`
+        )
+      );
+    }
+    req.query.fields = parseArrayQuery(req.query.fields);
+    req.query.props = parseArrayQuery(req.query.props);
+    req.query.values = parseArrayQuery(req.query.values);
+    req.query.page = page;
+    req.query.size = size;
+    next();
+  },
+  async (req, res, next) => {
+    try {
+      const { fields, props, values, page, size } = req.query;
+
+      let result = CharacterService.search(props, values, fields);
+      const total = result.length;
+      if (!isNaN(page)) {
+        result = CharacterService.page(result, size, page);
+      }
+      res
+        .status(status.STATUS_200_OK)
+        .json({ success: true, total, payload: result });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+/** DEPRECATED query: birthday=mm-dd[&fields=field1,field2,...] */
 /**
  * @swagger
  * /characters:
@@ -97,17 +169,14 @@ router.get("/characters", async (req, res, next) => {
     if (req.query.birthday) {
       // birthday 쿼리가 있을 때는 오늘의 생일 모드입니다.
       // 쿼리에 원하는 필드값을 넣을 수 있습니다.
-      let fields = [];
-      if (req.query.fields) {
-        fields = req.query.fields.split(",");
-      }
-      found = await CharacterService.getByBirthday({
+      let fields = parseArrayQuery(req.query.fields);
+      found = CharacterService.getByBirthday({
         birthday: req.query.birthday,
         fields,
       });
     } else {
       // 쿼리가 없으면 전체 캐릭터 이름 사전을 보내줍니다.
-      found = await CharacterService.list();
+      found = CharacterService.list();
     }
 
     res.status(status.STATUS_200_OK).json({ success: true, payload: found });
@@ -172,7 +241,7 @@ router.get("/characters/:id", async (req, res, next) => {
       fields = req.query.fields.split(",");
     }
 
-    let found = await CharacterService.get({ id: req.params.id, fields });
+    let found = CharacterService.get(req.params.id, fields);
     if (found.errorMessage) {
       throw new RequestError({ status: found.statusCode }, found.errorMessage);
     }
