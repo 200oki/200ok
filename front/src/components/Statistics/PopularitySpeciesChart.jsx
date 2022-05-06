@@ -31,9 +31,7 @@ const PopularityBySpeciesChart = () => {
 
   return (
     <div
-      style={{
-        width: '100%'
-      }}
+      className="graphBack"
     >
       {dataList && <HeatMapGrid
         data={dataList[3]}
@@ -57,11 +55,18 @@ const PopularityBySpeciesChart = () => {
           fontSize: '.8rem',
           color: `rgb(0, 0, 0, ${ratio / 2 + 0.4})`
         })}
-        cellHeight='2rem'
+        cellHeight='2.5rem'
         xLabelsPos='bottom'
         yLabelsPos='left'
         square
       />}
+      <div className="popularitySpeciesDesc">
+        1로 갈수록 인기가 많습니다. <br />
+        대체로 귀엽거나 친숙한 동물일수록 미약하게 인기가 많은 경향이 있습니다. <br />
+        하지만, 일반적으로 귀엽다고 여겨지는 동물이더라도 
+        개별 캐릭터의 디자인에 따라 생김새가 천차만별이기 때문에 <br />
+        <u>일반화하기에는 무리가 있습니다.</u>
+      </div>
     </div>
   )
 }
