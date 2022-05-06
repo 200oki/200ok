@@ -32,11 +32,11 @@ const SpeciesChart = () => {
               label: '# Species',
               data: dataList[2],
               backgroundColor: [
-                'rgba(242, 34, 110, 0.2)',
+                'rgba(242, 135, 5, 0.3)',
                 'rgba(5, 151, 242, 0.3)',
               ],
               borderColor: [
-                'rgba(242, 34, 110, 1)',
+                'rgba(242, 135, 5, 1)',
                 'rgba(5, 151, 242, 1)',
               ],
               borderWidth: 1
