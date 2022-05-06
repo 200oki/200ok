@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import * as Api from "../../api";
 import * as Constant from "../../constant";
 
@@ -47,7 +47,7 @@ const MonthCalendar = () => {
     }
   };
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     getVillagers()
       .then((res) => {
         const days = [];
@@ -92,18 +92,20 @@ const MonthCalendar = () => {
   }, [year, month]);
 
   return (
-    <table>
-      <thead>
+    <table style={{ height: "650px" }}>
+      <thead style={{ height: "100px" }}>
         <tr align="center">
           <th colSpan="7">
-            <Input
-              value={tempYear}
-              onChange={(e) => {
-                setTempYear(e.target.value);
-              }}
-              onKeyUp={enterHandler}
-            />
-            <span style={{ cursor: "default" }}>년</span>
+            <div style={{ marginBottom: "10px" }}>
+              <Input
+                value={tempYear}
+                onChange={(e) => {
+                  setTempYear(e.target.value);
+                }}
+                onKeyUp={enterHandler}
+              />
+              <span style={{ cursor: "default" }}>년</span>
+            </div>
             <DateNavigator>
               <img
                 src="/images/triangle.png"
@@ -123,7 +125,7 @@ const MonthCalendar = () => {
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody style={{ backgroundColor: "rgb(255, 255, 255, 0.5)" }}>
         <tr align="center">
           <Weekday style={{ color: "red" }}>Sun</Weekday>
           <Weekday>Mon</Weekday>
@@ -152,10 +154,12 @@ const MonthCalendar = () => {
                           navigate("/today");
                         }}
                       >
-                        {weekNumber * 7 + dayNumber + 1 - offset}
-                        {day.map((villager) => {
-                          return <CharacterDot key={villager.id} src={villager.image_icon} alt={villager.id} />;
-                        })}
+                        <div>{weekNumber * 7 + dayNumber + 1 - offset}</div>
+                        <div style={{ width: "150px", display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                          {day.map((villager) => {
+                            return <CharacterDot key={villager.id} src={villager.image_icon} alt={villager.id} />;
+                          })}
+                        </div>
                       </Day>
                     );
                   }
@@ -181,7 +185,7 @@ const CharacterDot = styled.img`
 `;
 const Day = styled.td`
   width: 150px;
-  height: 70px;
+  height: 80px;
   cursor: ${(props) => (props.offset ? "default" : "pointer")};
   &:hover {
     opacity: 0.6;
@@ -191,12 +195,20 @@ const Weekday = styled.td`
   height: 30px;
   cursor: default;
 `;
+const twinkling = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+`;
 const Input = styled.input`
   width: 4rem;
   background: none;
   border: none;
   font-size: 1.3rem;
   text-align: center;
-  color: Grey;
+  animation: ${twinkling} 0.3s alternate ease-in-out infinite;
 `;
 export default MonthCalendar;
