@@ -11,6 +11,7 @@ import { NicknameProvider } from "./context/NicknameContext";
 import { MatchElementProvider } from "./context/MatchElementContext";
 import { GameAnswerProvider } from "./context/GameAnswerContext";
 import { DateProvider } from "./context/DateContext";
+import { BoardPostIdProvider } from "./context/BoardPostId";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -21,7 +22,9 @@ root.render(
           <ParamProvider>
             <GuestIdProvider>
               <DateProvider>
-                <App />
+                <BoardPostIdProvider>
+                  <App />
+                </BoardPostIdProvider>
               </DateProvider>
             </GuestIdProvider>
           </ParamProvider>

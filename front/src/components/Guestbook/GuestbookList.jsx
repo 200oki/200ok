@@ -128,7 +128,7 @@ const GuestbookList = () => {
   return (
     <Container>
       <Navigator>
-        <BackButton content="메인메뉴" destination="/explore" />
+        <BackButton content="뒤로가기" destination="/write" />
         <Wrapper>
           <PostButton onClick={() => navigate("/guestbook/post")} />
         </Wrapper>
