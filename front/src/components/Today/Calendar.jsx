@@ -45,14 +45,7 @@ const Container = styled.div`
   background-position: 50% 0;
   z-index: -100;
 `;
-const pop = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
+
 const Content = styled.div`
   position: relative;
   height: 100vh;
@@ -60,7 +53,6 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  animation: ${pop} 1s linear forwards;
 `;
 const Wrapper = styled.div`
   position: relative;
