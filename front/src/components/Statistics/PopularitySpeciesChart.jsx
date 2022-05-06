@@ -96,7 +96,7 @@ const PopularityBySpeciesChart = () => {
             fontSize: '.8rem',
             color: `rgb(0, 0, 0, ${ratio / 2 + 0.4})`
           })}
-          cellHeight='2.5rem'
+          cellHeight='3.1rem'
           xLabelsPos='bottom'
           yLabelsPos='left'
           square
