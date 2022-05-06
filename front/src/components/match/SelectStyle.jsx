@@ -33,7 +33,6 @@ const SelectStyle = ({ array }) => {
   const fetchResultData = async () => {
     try {
       const { data } = await Api.put("csmdata/counts", {
-        nickname: nickname,
         birthday: `${matchElem[0]}-${matchElem[1]}`,
         colors: matchElem[2],
         personality: matchElem[3],
