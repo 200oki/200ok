@@ -10,8 +10,10 @@ import { commentRouter } from "./routers/commentRouter.js";
 import { scoreRouter } from "./routers/scoreRouter.js";
 import { statRouter } from "./routers/statRouter.js";
 import { csmRouter } from "./routers/csmRouter.js";
+import { postRouter } from "./routers/postRouter.js";
 import { guestbookRouter } from "./routers/guestbookRouter.js";
 import { errorMiddleware } from "./middlewares/errorMiddleware.js";
+import sriracha from "sriracha";
 import "../src/loaders/index.js";
 
 // 환경 변수 설정을 위한 dotenv 적용
@@ -23,6 +25,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use("/admin", sriracha());
 
 if (process.env.NODE_ENV === "production") {
   app.use(
@@ -45,6 +48,7 @@ app.use(commentRouter);
 app.use(scoreRouter);
 app.use(statRouter);
 app.use(csmRouter);
+app.use(postRouter);
 app.use(guestbookRouter);
 app.use(errorMiddleware);
 

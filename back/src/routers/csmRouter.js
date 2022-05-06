@@ -179,6 +179,7 @@ csmRouter.put(
         success: true,
         payload: {
           id,
+          nickname: req.body.nickname,
           character: mostSimilar.character,
           distance: mostSimilar.distance,
           count: up.count,
