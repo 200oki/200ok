@@ -2,7 +2,7 @@ import multer from "multer";
 import fs from "fs";
 
 try {
-  const test = fs.readdirSync("uploads"); // 폴더 존재 유무 확인
+  fs.readdirSync("uploads"); // 폴더 존재 유무 확인
 } catch (err) {
   console.log("이미지 저장 폴더를 생성 합니다.");
   fs.mkdirSync("uploads");

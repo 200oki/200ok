@@ -95,7 +95,7 @@ postRouter.post("/posts", upload.array("images", 3), async (req, res, next) => {
         success: true,
         payload: post,
       };
-      res.status(status.STATUS_200_OK).send(body);
+      res.status(status.STATUS_201_CREATED).send(body);
     } else {
       const { title, content, nickname } = req.body;
       const post = await PostService.createPost({
@@ -107,7 +107,7 @@ postRouter.post("/posts", upload.array("images", 3), async (req, res, next) => {
         success: true,
         payload: post,
       };
-      res.status(status.STATUS_200_OK).send(body);
+      res.status(status.STATUS_201_CREATED).send(body);
     }
   } catch (error) {
     next(error);
