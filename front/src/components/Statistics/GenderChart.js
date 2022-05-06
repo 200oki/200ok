@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as Api from "../../api";
+import "../../css/stats.css";
 import { Chart, registerables } from "chart.js";
 import { Pie } from 'react-chartjs-2';
 Chart.register(...registerables)
@@ -49,7 +50,7 @@ const SpeciesChart = () => {
           responsive: false,
         }}
       />
-      <div> 
+      <div className="genderDesc"> 
         <p>동물의 숲에서는 성별마다 성격이 존재합니다.</p>
         <p>남성은 느끼함, 먹보, 무뚝뚝, 운동광 중 하나입니다.</p>
         <p>여성은 단순 활발, 성숙함, 아이돌, 친절함 중 하나입니다.</p>
