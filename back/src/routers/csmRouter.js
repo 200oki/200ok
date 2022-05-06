@@ -129,7 +129,7 @@ csmRouter.get("/csmdata/counts", async (req, res, next) => {
  *                      example: lolly
  *                    nickname:
  *                      type: string
- *                      examle: 닉네임
+ *                      example: 닉네임
  *                    character:
  *                      type: object
  *                      properties:
