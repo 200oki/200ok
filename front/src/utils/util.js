@@ -18,11 +18,11 @@ export const statList = [
 ];
 
 export const guestbookImgList = [
-  { id: 0, img: "https://acnhcdn.com/latest/FtrIcon/ShellDriftTakara.png"},
-  { id: 1, img: "https://acnhcdn.com/latest/FtrIcon/ShellDriftHora.png"},
-  { id: 2, img: "https://acnhcdn.com/latest/FtrIcon/ShellDriftSango.png"},
-  { id: 3, img: "https://acnhcdn.com/latest/FtrIcon/Coconut.png"},
-  { id: 4, img: "https://acnhcdn.com/latest/FtrIcon/PhotoStudioBellBag.png"},
+  { id: 0, img: "https://acnhcdn.com/latest/FtrIcon/ShellDriftTakara.png" },
+  { id: 1, img: "https://acnhcdn.com/latest/FtrIcon/ShellDriftHora.png" },
+  { id: 2, img: "https://acnhcdn.com/latest/FtrIcon/ShellDriftSango.png" },
+  { id: 3, img: "https://acnhcdn.com/latest/FtrIcon/Coconut.png" },
+  { id: 4, img: "https://acnhcdn.com/latest/FtrIcon/PhotoStudioBellBag.png" },
 ];
 
 /**
@@ -40,6 +40,17 @@ export const BtnText = {
 export const GameButtonText = {
   NextRound: "다음 라운드",
   RESULT: "결과 보기",
+};
+
+/**
+ Match Result Button Text
+ */
+export const MatchButtonText = {
+  SHARE: "공유하기",
+  RETRY: "다시하기",
+  TYPE: "유형별 궁합",
+  BEST: "가장 많은 유형",
+  COMMENT: "반응 남기기",
 };
 
 /**

@@ -281,7 +281,8 @@
 
 .avgSubText {
   font-size: 18px;
-  color: #0cc6b6;
+  color: #00a3ed;
+  text-shadow: 2px 2px #abe4ff;
 }
 
 .btnsWrapper {
