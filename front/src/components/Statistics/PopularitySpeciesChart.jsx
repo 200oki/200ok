@@ -19,18 +19,17 @@ const SpeciesTierChart = () => {
     try {
       const { data } = await Api.get('stats?groupName=popularity-by-species');
       setDataList([...Object.values(data.payload)]);
-      console.log("data :", dataList);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
   }
-
+  
   useEffect(() => {
     getDataList();
   }, []);
-
-  console.log(data);
+  
+  console.log("data :", dataList);
 
   return (
     <div
@@ -39,9 +38,9 @@ const SpeciesTierChart = () => {
       }}
     >
       <HeatMapGrid
-        data={data}
-        xLabels={xLabels}
-        yLabels={yLabels}
+        data={dataList[3]}
+        xLabels={dataList[2]}
+        yLabels={dataList[1]}
         // Reder cell with tooltip
         cellRender={(x, y, value) => (
           <div title={`Pos(${x}, ${y}) = ${value}`}>{value}</div>
@@ -65,6 +64,7 @@ const SpeciesTierChart = () => {
         yLabelsPos='left'
         square
       />
+      <p> {dataList[4]} </p>
     </div>
   )
 }
