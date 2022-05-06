@@ -1,17 +1,24 @@
-import React from 'react'
-import { HeatMapGrid } from 'react-grid-heatmap'
-
-const xLabels = new Array(24).fill(0).map((_, i) => `${i}`)
-const yLabels = ['1', '2', '3', '4', '5', '6']
-const data = new Array(yLabels.length)
-  .fill(0)
-  .map(() =>
-    new Array(xLabels.length)
-      .fill(0)
-      .map(() => Math.floor(Math.random() * 50 + 50))
-  )
+import React, { useState, useEffect } from 'react';
+import * as Api from "../../api";
+import { HeatMapGrid } from 'react-grid-heatmap';
 
 const SpeciesTierChart = () => {
+  const [dataList, setDataList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  async function getDataList() {
+    try {
+      const { data } = await Api.get('stats?groupName=gender');
+      setDataList([...Object.values(data.payload)]);
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getDataList();
+  }, []);
+
   return (
     <div
       style={{
@@ -19,9 +26,9 @@ const SpeciesTierChart = () => {
       }}
     >
       <HeatMapGrid
-        data={data}
-        xLabels={xLabels}
-        yLabels={yLabels}
+        data={dataList.data}
+        xLabels={dataList.xLabels}
+        yLabels={dataList.yLabels}
         // Reder cell with tooltip
         cellRender={(x, y, value) => (
           <div title={`Pos(${x}, ${y}) = ${value}`}>{value}</div>
