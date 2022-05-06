@@ -1,10 +1,18 @@
 import React, { useContext } from "react";
 import styled from "../../css/match.module.css";
+import { CopyToClipboard } from "react-copy-to-clipboard/src";
+import "react-toastify/dist/ReactToastify.css";
 
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchElementContext } from "../../context/MatchElementContext";
 
-const MatchResultMyChar = ({ myChar, goToPosition, goToFirstPage }) => {
+const MatchResultMyChar = ({
+  myChar,
+  goToPosition,
+  goToFirstPage,
+  setCopied,
+  value,
+}) => {
   const { nickname } = useContext(NicknameContext);
   const { resultMent } = useContext(MatchElementContext);
 
@@ -32,7 +40,9 @@ const MatchResultMyChar = ({ myChar, goToPosition, goToFirstPage }) => {
         </div>
       </div>
       <div className={styled.btnsWrapper}>
-        <button>공유하기</button>
+        <CopyToClipboard text={value} onCopy={() => setCopied(true)}>
+          <button onClick={goToPosition}>공유하기</button>
+        </CopyToClipboard>
         <button onClick={goToFirstPage}>다시하기</button>
         <button onClick={goToPosition}>유형별 궁합</button>
         <button onClick={goToPosition}>가장 많은 유형</button>
