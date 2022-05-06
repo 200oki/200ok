@@ -23,6 +23,7 @@
 
 .input {
   display: flex;
+  height: 100%;
   flex-direction: column;
   margin: 0 auto;
   justify-content: center;
@@ -31,7 +32,7 @@
 .inputNickname,
 .inputTitle {
   width: 100%;
-  height: 100%;
+  height: 47%;
   border: none;
   font-size: 1.5rem;
   font-family: "TmoneyRoundWindRegular";
@@ -120,7 +121,7 @@
   outline: none;
 }
 
-.textarea {
+.boardTextarea {
   width: 100%;
   height: 100%;
   border: none;
