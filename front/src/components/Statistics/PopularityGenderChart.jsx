@@ -28,6 +28,7 @@ const PopularityByGenderChart = () => {
         labels: dataList[1],
           datasets: [
           {
+            label: '여성',
             data: dataList[2],
             backgroundColor: [
               'rgba(242, 135, 5, 0.3)'
@@ -39,12 +40,13 @@ const PopularityByGenderChart = () => {
             borderWidth: 1
           },
           {
+            label: '남성',
             data: dataList[3],
             backgroundColor: [
-              'rgba(242, 135, 5, 0.3)'
+              'rgba(5, 151, 242, 0.3)',
             ],
             borderColor: [
-              'rgba(242, 135, 5, 1)'
+              'rgba(5, 151, 242, 1)'
             ],
             
             borderWidth: 1
@@ -71,7 +73,6 @@ const PopularityByGenderChart = () => {
           datalabels: {
             color: 'white',
           },
-          legend: false // Hide legend
         },
       }}
     />
