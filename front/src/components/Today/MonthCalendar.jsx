@@ -205,6 +205,7 @@ const twinkling = keyframes`
 `;
 const Input = styled.input`
   width: 4rem;
+  cursor: text;
   background: none;
   border: none;
   font-size: 1.3rem;
