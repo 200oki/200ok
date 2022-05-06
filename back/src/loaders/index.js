@@ -2,17 +2,23 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 // import redis from "redis";
 
+import { logger } from "../utils/winstonLogger.js";
+
+process.on("uncaughtException", (err, origin) => {
+  logger.error(`\n\n${origin.toUpperCase()}: THE END OF TIME IS NIGH\n`);
+  logger.error(err.stack);
+  process.exit(1);
+});
+
 // 환경 변수 가져오기
 dotenv.config();
 
 // .env를 검사합니다.
-["SERVER_PORT", "MONGODB_URL", "JWT_SECRET_KEY", "NODE_ENV"].forEach(
-  (envVar) => {
-    if (!(envVar in process.env)) {
-      throw new Error(`OUR STUPID ADMIN FORGOT TO ADD "${envVar}" IN THE ENV`);
-    }
+["SERVER_PORT", "MONGODB_URL", "NODE_ENV"].forEach((envVar) => {
+  if (!(envVar in process.env)) {
+    throw new Error(`OUR STUPID ADMIN FORGOT TO ADD "${envVar}" IN THE ENV`);
   }
-);
+});
 
 // mongoose 설정
 const DB_URL =
