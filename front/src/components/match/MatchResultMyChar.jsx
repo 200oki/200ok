@@ -1,10 +1,19 @@
 import React, { useContext } from "react";
 import styled from "../../css/match.module.css";
+import { MatchButtonText } from "../../utils/util";
+import { CopyToClipboard } from "react-copy-to-clipboard/src";
+import "react-toastify/dist/ReactToastify.css";
 
 import { NicknameContext } from "../../context/NicknameContext";
 import { MatchElementContext } from "../../context/MatchElementContext";
 
-const MatchResultMyChar = ({ myChar, goToPosition, goToFirstPage }) => {
+const MatchResultMyChar = ({
+  myChar,
+  goToPosition,
+  goToFirstPage,
+  setCopied,
+  value,
+}) => {
   const { nickname } = useContext(NicknameContext);
   const { resultMent } = useContext(MatchElementContext);
 
@@ -23,7 +32,7 @@ const MatchResultMyChar = ({ myChar, goToPosition, goToFirstPage }) => {
           ❞
         </div>
         <div>{resultMent[0]} 당신은</div>
-        <div>구구절절 쫑알쫑알</div>
+        <div>귀염뽀짝 {myChar.name_ko} 과(와)</div>
         <div>최고의 궁합!</div>
         <div className={styled.avgText}>
           (전체 참여자 중{" "}
@@ -32,11 +41,13 @@ const MatchResultMyChar = ({ myChar, goToPosition, goToFirstPage }) => {
         </div>
       </div>
       <div className={styled.btnsWrapper}>
-        <button>공유하기</button>
-        <button onClick={goToFirstPage}>다시하기</button>
-        <button onClick={goToPosition}>유형별 궁합</button>
-        <button onClick={goToPosition}>가장 많은 유형</button>
-        <button onClick={goToPosition}>반응 남기기</button>
+        <CopyToClipboard text={value} onCopy={() => setCopied(true)}>
+          <button onClick={goToPosition}>{MatchButtonText.SHARE}</button>
+        </CopyToClipboard>
+        <button onClick={goToFirstPage}>{MatchButtonText.RETRY}</button>
+        <button onClick={goToPosition}>{MatchButtonText.TYPE}</button>
+        <button onClick={goToPosition}>{MatchButtonText.BEST}</button>
+        <button onClick={goToPosition}>{MatchButtonText.COMMENT}</button>
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
 import * as Api from "../../api";
 import { useNavigate } from "react-router-dom";
+import { MatchButtonText } from "../../utils/util";
 import styled from "../../css/match.module.css";
 import MatchResultMyChar from "./MatchResultMyChar";
 import MatchResultCompat from "./MatchResultCompat";
@@ -8,6 +9,7 @@ import MatchResultRank from "./MatchResultRank";
 import MatchResultComment from "./MatchResultComment";
 import BackButton from "../common/BackButton";
 import Typewriter from "typewriter-effect";
+import { ToastContainer, toast } from "react-toastify";
 
 import { ParamContext } from "../../context/ParamContext";
 import { NicknameContext } from "../../context/NicknameContext";
@@ -18,9 +20,9 @@ const DIVIDER_HEIGHT = 5;
 function MatchResult() {
   const navigator = useNavigate();
   const { setParam } = useContext(ParamContext);
-  const { id, setId } = useContext(MatchElementContext);
-  const { setMatchElem } = useContext(MatchElementContext);
-  const { nickname, setNickname } = useContext(NicknameContext);
+  const { id } = useContext(MatchElementContext);
+  const { idKo } = useContext(MatchElementContext);
+  const { nickname } = useContext(NicknameContext);
   const outerDivRef = useRef();
 
   const [commentList, setCommentList] = useState([]);
@@ -29,6 +31,9 @@ function MatchResult() {
   const [goodBad, setGoodBad] = useState([]);
   const [best3, setBest3] = useState([]);
   const [total, setTotal] = useState(0);
+  const [userId, setUserId] = useState(null);
+  const [value, setValue] = useState(window.location.href);
+  const [copied, setCopied] = useState(false);
 
   const setCharAndTotal = (data) => {
     setMyChar(data);
@@ -40,6 +45,8 @@ function MatchResult() {
     try {
       const { data } = await Api.get(`csmdata/${id}/count`);
       setCharAndTotal(data.payload);
+      setUserId(data.payload.uuid);
+      console.log("userId ???", userId);
       console.log("나와 궁합이 맞는 주민", data.payload);
       return data.payload;
     } catch (err) {
@@ -73,7 +80,7 @@ function MatchResult() {
   const fetchCommentData = async () => {
     try {
       const { data } = await Api.get(
-        `comments?villager=${id}&location=recommendation`
+        `comments?location=recommendation&villager=${idKo}`
       );
       setCommentList([...Object.values(data.payload)]);
     } catch (err) {
@@ -101,29 +108,55 @@ function MatchResult() {
     }
   }, [id]);
 
+  // 클립보드 공유하기
+  useEffect(() => {
+    if (userId && userId !== null && !value.includes(userId)) {
+      setValue(value + `/${userId}`);
+    }
+  }, [userId]);
+
   const goToPosition = (e) => {
     e.preventDefault();
 
     const PAGE_HEIGHT = window.innerHeight;
 
-    if (e.target.innerText === "유형별 궁합") {
+    if (e.target.innerText === MatchButtonText.TYPE) {
       outerDivRef.current.scrollTo({
         top: PAGE_HEIGHT + DIVIDER_HEIGHT,
         left: 0,
         behavior: "smooth",
       });
-    } else if (e.target.innerText === "가장 많은 유형") {
+    } else if (e.target.innerText === MatchButtonText.BEST) {
       outerDivRef.current.scrollTo({
         top: PAGE_HEIGHT * 2 + DIVIDER_HEIGHT * 2,
         left: 0,
         behavior: "smooth",
       });
-    } else if (e.target.innerText === "반응 남기기") {
+    } else if (e.target.innerText === MatchButtonText.COMMENT) {
       outerDivRef.current.scrollTo({
         top: PAGE_HEIGHT * 3 + DIVIDER_HEIGHT * 3,
         left: 0,
         behavior: "smooth",
       });
+    } else if (e.target.innerText === MatchButtonText.SHARE) {
+      if (copied) {
+        toast.success(
+          <div>
+            링크가 복사되었다구리!
+            <br /> 공유해보자구리!
+          </div>,
+          {
+            icon: "🎈",
+            position: "top-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
     } else {
       outerDivRef.current.scrollTo({
         top: 0,
@@ -134,9 +167,6 @@ function MatchResult() {
   };
 
   const goToFirstPage = () => {
-    setId(null);
-    setNickname("");
-    setMatchElem([]);
     navigator("/match");
   };
 
@@ -162,9 +192,12 @@ function MatchResult() {
       >
         <BackButton content={"메인으로"} destination={"explore"} />
       </div>
+      <ToastContainer />
       <div className={styled.inner}>
         <MatchResultMyChar
           myChar={myChar}
+          value={value}
+          setCopied={setCopied}
           goToPosition={goToPosition}
           goToFirstPage={goToFirstPage}
         />

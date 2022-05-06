@@ -11,6 +11,7 @@ const SelectStyle = ({ array }) => {
   const { nickname } = useContext(NicknameContext);
   const { id, setId } = useContext(MatchElementContext);
   const { matchElem, setMatchElem } = useContext(MatchElementContext);
+  const { setIdKo } = useContext(MatchElementContext);
 
   const [style, setStyle] = useState(null);
 
@@ -28,7 +29,7 @@ const SelectStyle = ({ array }) => {
     setMatchElem([...matchElem, [style]]);
   };
 
-  // result로 나온 data count를 1 증가시키고 count, id set
+  // result로 나온 data count를 1 증가시키고 count, id와 idKo set
   const fetchResultData = async () => {
     try {
       const { data } = await Api.put("csmdata/counts", {
@@ -38,6 +39,7 @@ const SelectStyle = ({ array }) => {
         hobby: matchElem[4],
         styles: matchElem[5],
       });
+      setIdKo(data.payload.character.name_ko);
       setId(data.payload.id);
     } catch (err) {
       console.error(err);
