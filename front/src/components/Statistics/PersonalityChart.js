@@ -10,7 +10,7 @@ const PersonalityChart = () => {
   
   async function getDataList() {
     try {
-      const { data } = await Api.get('stats', '?groupName=personality');
+      const { data } = await Api.get('stats?groupName=personality');
       setDataList([...Object.values(data.payload)]);
       setIsLoading(false);
     } catch (error) {
@@ -57,8 +57,23 @@ const PersonalityChart = () => {
       height={500}
       width={1200}
       options= {{
-        responsive: false, // 크기 자동 조절 X
+        scales: {
+          x: {
+            grid: {
+              display: false
+            }
+          },
+          y: {
+            grid: {
+              display: false
+            }
+          }
+        },
+        responsive: false,
         plugins: {
+          datalabels: {
+            color: 'white',
+          },
           legend: false // Hide legend
         },
       }}

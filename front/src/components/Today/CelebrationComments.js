@@ -21,6 +21,8 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
 
   const clickMenu = (event) => {
     event.preventDefault();
+    Array.from(document.querySelectorAll("img")).map((item) => item.className -= "refImg")
+    document.getElementById(event.target.title).className = "refImg"
     setShow(false);
     setIsVillager(true);
     setMenu(event.target.value);
@@ -49,35 +51,43 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
     setComment(event.target.value)
   };
 
+  const handleKeyUp = (e) => {
+    if (e.key === "Enter") {
+      clickHandler();
+    }
+  };
+
   return (
-    <div>
-      <div className="submitForm">
-        <div className={!isVillager ? "alert" : "noAlert"}>주민을 선택해주세요.</div>
+    <div className="comment-container">
+      <div className="submitForm" style={{ display: "flex", flexDirection: "row" }}>
+        <div >
+          <div className={!isVillager ? "alert" : "noAlert"}>주민을 선택해주세요.</div>
+          <button onClick={showMenu} className="dropdown">
+            {menu}
+          </button>
+          {show ? (
+            <div className="menu">
+              {villagers.map((villager, index) => {
+                return (
+                  <button onClick={clickMenu} key={index} value={villager} title={todayCharacter[index].id}>
+                    {villager}
+                  </button>
+                );
+              })}
+            </div>
+          ) : null}
+        </div>
         <form
           onSubmit={clickHandler}
           style={{ display: "flex", flexDirection: "row" }}
         >
-          <button onClick={showMenu} className="dropdown">
-            {menu}
-          </button>
           <div className="comment">
-            <input className="comment" placeholder="축하 메시지를 남겨주세요" onChange={inputChangeHandler} value={comment} />
+            <input className="comment" placeholder="축하 메시지를 남겨주세요" onChange={inputChangeHandler} value={comment} onKeyUp={handleKeyUp} />
           </div>
-          <button type="submit" className="btn-comment" style={{ backgroundColor: "#A9FCCA", marginLeft: "2.5rem", width: "12rem" }}>
+          <button type="submit" className="btn-comment" style={{ backgroundColor: "#A9FCCA", marginLeft: "2.5rem", width: "12rem", animation: "none" }}>
             축하해주기
           </button>
         </form>
-        {show ? (
-          <div className="menu">
-            {villagers.map((villager, index) => {
-              return (
-                <button onClick={clickMenu} key={index} value={villager}>
-                  {villager}
-                </button>
-              );
-            })}
-          </div>
-        ) : null}
       </div>
       <div className="comment-section">
         {comments.map((comment, index) => {

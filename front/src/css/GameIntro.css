@@ -1,0 +1,37 @@
+.gameIntroImg {
+  top: 7%;
+  height: 300px;
+  position: relative;
+}
+
+.gameIntroComment {
+  position: absolute;
+  text-align: center;
+  color: #837156;
+  top: 55%;
+}
+
+.btnWrapper > button {
+  font-size: 15px;
+  font-weight: bold;
+  background: #adefff;
+  border-radius: 50px;
+  width: 150px;
+  height: 60px;
+  border: none;
+  box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.15);
+  color: #7e725c;
+  transition: transform 250ms;
+}
+.btnWrapper > button:hover {
+  transform: translateY(-0.25em);
+  cursor: pointer;
+}
+
+.btnWrapper {
+  position: absolute;
+  top: 83%;
+}
+.backBtnWrapper {
+  width: 100%;
+}

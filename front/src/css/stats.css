@@ -15,9 +15,52 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("../../public/images/leafBgImg.jpg");
+  background: url("../../public/images/leafBgImg.png");
   opacity: 0.4;
   z-index: -1;
+}
+
+/* Seperate components from the background image, in order to set the background transparently  */
+.stat {
+  position: relative;
+}
+.stat::before {
+  background-image: url("/public/images/leafBgImg.png");
+  content: " ";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
+  background-position: 50% 0;
+  z-index: -100;
+}
+.stat-content {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation-duration: 1s;
+  animation-name: pop;
+  animation-fill-mode: forwards;
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.homeBtn {
+  top: 30px;
+  right: 50px;
+  position: relative;
 }
 
 .clickBtn {
@@ -49,7 +92,10 @@
 }
 
 .graphBack {
-  background-color: #F7F8EE;
+  background-color: #f7f8ee;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes blink-effect {

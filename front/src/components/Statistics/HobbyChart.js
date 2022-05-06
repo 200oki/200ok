@@ -1,62 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import * as Api from "../../api";
-import { Chart, registerables } from "chart.js";
-import { Bar } from 'react-chartjs-2';
-Chart.register(...registerables)
+import { BarChart, Bar, XAxis, YAxis,
+	CartesianGrid, Legend, Tooltip } from 'recharts';
 
 const HobbyChart = () => {
-  const [dataList, setDataList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // ** 백엔드랑 통신하면 애니메이션이 적용되지 않음 **
+  // const [dataList, setDataList] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
   
-  async function getDataList() {
-    try {
-      const { data } = await Api.get('stats', '?groupName=hobby');
-      setDataList([...Object.values(data.payload)]);
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // async function getDataList() {
+  //   try {
+  //     const { data } = await Api.get('stats?groupName=hobby');
+  //     setDataList([...Object.values(data.payload)]);
+  //     console.log(data);
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
-  useEffect(() => {
-    getDataList();
-  }, []);
+  // useEffect(() => {
+  //   getDataList();
+  // }, []);
 
-  return (
-    <Bar className="graphBack"
-      data={{
-        labels: dataList[1],
-          datasets: [
-          {
-            data: dataList[2],
-            backgroundColor: [
-              'rgba(242, 34, 110, 0.2)',
-              'rgba(242, 135, 5, 0.3)',
-              'rgba(242, 226, 5, 0.3)',
-              'rgba(3, 166, 60, 0.3)',
-              'rgba(5, 151, 242, 0.3)',
-              'rgba(134, 5, 240, 0.15)',
-            ],
-            borderColor: [
-              'rgba(242, 34, 110, 1)',
-              'rgba(242, 135, 5, 1)',
-              'rgba(242, 226, 5, 1)',
-              'rgba(3, 166, 60, 1)',
-              'rgba(5, 151, 242, 1)',
-              'rgba(134, 5, 240, 1)',
-            ],
-            borderWidth: 1,
-            }
-          ]
-      }}
-      height={500}
-      width={1200}
-      options= {{
-        responsive: false,
-      }}
-    />
-  );
+	const data = [
+    { name: '교육', 여성: 32, 남성: 32, z: 122 },
+    { name: '놀이', 여성: 16, 남성: 49, z: 73 },
+    { name: '운동', 여성: 12, 남성: 54, z: 32 },
+    { name: '음악', 여성: 34, 남성: 30, z: 23 },
+    { name: '자연', 여성: 27, 남성: 39, z: 20 },
+    { name: '패션', 여성: 66, 남성: 0, z: 61 },
+  ];
+
+	return (
+		<BarChart className="graphBack" width={1200} height={500} data={data} >
+      <CartesianGrid horizontal={false} vertical={false} />
+			<XAxis dataKey="name" />
+			<YAxis />
+      <Tooltip />
+      <Legend />
+			<Bar dataKey="여성" stackId="a" fill="#F4CDD4" />
+			<Bar dataKey="남성" stackId="a" fill="#BDDBF0" />
+		</BarChart>
+	);
 }
-
 
 export default HobbyChart;

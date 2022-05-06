@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useStyles } from "../../utils/useStyles";
 import { DescContext } from "./Stat";
-import StyledItem from "../StyledItem";
+import StyledItem from "../common/StyledItem";
 import { statList } from "../../utils/util";
 import { useNavigate } from "react-router-dom";
 import "../../css/stats.css";
