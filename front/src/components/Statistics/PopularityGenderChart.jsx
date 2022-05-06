@@ -32,47 +32,31 @@ const PopularityByGenderChart = () => {
   }, []);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
+    <div className="graphDesc">
       <div className={classes.desc} onClick={handleModal}>
         ?
       </div>
       <CustomModal open={isClicked} onClose={handleModal}>
         <Typography
-          id="modal-modal-title"
-          variant="h6"
-          component="h2"
-          className={classes.modalFont}
-        >
-          카드 뒤집기 게임
-        </Typography>
-        <hr />
-        <Typography
           id="modal-modal-description"
           sx={{ mt: 2 }}
           className={classes.modalFont}
         >
-          1분동안 8쌍의 카드 짝을 찾는 게임입니다.
+          1티어가 짱 좋은 것
         </Typography>
         <Typography
           id="modal-modal-description"
           sx={{ mt: 2 }}
           className={classes.modalFont}
         >
-          총 6단계로 게임이 진행됩니다.
+          티어별 / 성별 전체
         </Typography>
         <Typography
           id="modal-modal-description"
           sx={{ mt: 2 }}
           className={classes.modalFont}
         >
-          단, 그 전에 시간을 모두 소모할 시 게임이 종료 됩니다.
-        </Typography>
-        <Typography
-          id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
-        >
-          최종 점수는 각 단계 * 남은 시간으로 계산됩니다.
+          남자는 인기도가 낮음을 알 수 있다.
         </Typography>
       </CustomModal>
       <Bar className="graphBack"

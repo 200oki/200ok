@@ -99,6 +99,12 @@
   font-family: "TmoneyRoundWindRegular";
 }
 
+.graphDesc {
+  display: flex;
+  flex-direction: column;
+  align-items: end; 
+}
+
 .personalityDesc > p {
   text-align: center;
   font-size: 1.24rem;

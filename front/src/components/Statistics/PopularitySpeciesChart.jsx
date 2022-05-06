@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import * as Api from "../../api";
 import { HeatMapGrid } from 'react-grid-heatmap';
-
-const xLabels = new Array(24).fill(0).map((_, i) => `${i}`)
-const yLabels = ['1', '2', '3', '4', '5', '6']
-const data = new Array(yLabels.length)
-  .fill(0)
-  .map(() =>
-    new Array(xLabels.length)
-      .fill(0)
-      .map(() => Math.floor(Math.random() * 50 + 50))
-  )
+import CustomModal from "../common/CustomModal";
+import { Typography } from "@mui/material";
+import { useStyles } from "../../utils/useStyles";
 
 const PopularityBySpeciesChart = () => {
   const [dataList, setDataList] = useState(null);
+  const [isClicked, setIsClicked] = useState(false);
+  const classes = useStyles();
+
+  const handleModal = () => {
+    setIsClicked((v) => !v);
+  };
+
   async function getDataList() {
     try {
       const { data } = await Api.get('stats?groupName=popularity-by-species');
@@ -30,7 +30,47 @@ const PopularityBySpeciesChart = () => {
   console.log("data :", dataList);
 
   return (
-    <div>
+    <div className="graphDesc">
+      <div className={classes.desc} onClick={handleModal}>
+        ?
+      </div>
+      <CustomModal open={isClicked} onClose={handleModal}>
+        <Typography
+          id="modal-modal-description"
+          sx={{ mt: 2 }}
+          className={classes.modalFont}
+        >
+          1로 갈수록 인기가 많습니다.
+        </Typography>
+        <Typography
+          id="modal-modal-description"
+          sx={{ mt: 2 }}
+          className={classes.modalFont}
+        >
+          대체로 귀엽거나 친숙한 동물일수록 미약하게 인기가 많은 경향이 있습니다.
+        </Typography>
+        <Typography
+          id="modal-modal-description"
+          sx={{ mt: 2 }}
+          className={classes.modalFont}
+        >
+          하지만, 일반적으로 귀엽다고 여겨지는 동물이더라도 
+        </Typography>
+        <Typography
+          id="modal-modal-description"
+          sx={{ mt: 2 }}
+          className={classes.modalFont}
+        >
+          개별 캐릭터의 디자인에 따라 생김새가 천차만별이기 때문에
+        </Typography>
+        <Typography
+          id="modal-modal-description"
+          sx={{ mt: 2 }}
+          className={classes.modalFont}
+        >
+          <u>일반화하기에는 무리가 있습니다.</u>
+        </Typography>
+      </CustomModal>
       <div
         className="graphBack"
       >
@@ -61,13 +101,6 @@ const PopularityBySpeciesChart = () => {
           yLabelsPos='left'
           square
         />}
-      </div>
-      <div className="popularitySpeciesDesc">
-        1로 갈수록 인기가 많습니다. <br />
-        대체로 귀엽거나 친숙한 동물일수록 미약하게 인기가 많은 경향이 있습니다. <br />
-        하지만, 일반적으로 귀엽다고 여겨지는 동물이더라도 
-        개별 캐릭터의 디자인에 따라 생김새가 천차만별이기 때문에 <br />
-        <u>일반화하기에는 무리가 있습니다.</u>
       </div>
     </div>
   )
