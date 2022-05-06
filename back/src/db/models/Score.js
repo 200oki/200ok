@@ -3,18 +3,19 @@ import { ScoreModel } from "../schemas/score.js";
 class Score {
   /** 스코어 오브젝트 생성 함수
    * 
-   * @param {Object} NewScore - 생성할 스코어 데이터 오브젝트 
-   * @return {Object}
+   * @param {uuid} id - 유저 id
+   * @param {String} nickname - 유저 닉네임
+   * @param {Number} score - 유저 점수
    */
-  static async create({ newScore }) {
-    const createNewScore = await ScoreModel.create(newScore);
+  static async create({ id, nickname, score }) {
+    const createNewScore = await ScoreModel.create({ id, nickname, score });
     return createNewScore;
   }
   
   /** 아이디가 일치하는 유저 순위 반환 함수
    * 
    * @param {String} id - 유저 id 
-   * @returns {Object} - 
+   * @returns {Object}
    */
   static async findUserRank({ id }) {
     const rankList = await ScoreModel.aggregate([
@@ -30,8 +31,14 @@ class Score {
       }
     ]);
 
-    const userRank = rankList.findIndex(i => i.id == id);
+    const userRank = rankList.findIndex(i => i.id === id);
     
+    // findIndex 값이 없을 때 -1 반환 => 상의하기!!
+    // 이 부분 없이도 router에서 id 없다고 해줌
+    // if (userRank === -1) {
+    //   return [];
+    // }
+
     return rankList[userRank];
   }
 
