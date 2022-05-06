@@ -45,17 +45,9 @@ const GuestbookList = () => {
       for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
         setColumns((v) => [
           ...v,
-          guestbook
-            .slice(cardPerColumn * i, cardPerColumn * (i + 1))
-            .map((guestbook, idx) => {
-              return (
-                <Card
-                  key={idx}
-                  src={guestbookImgList[guestbook.id % 5].img}
-                  onClick={() => handleClick(guestbook)}
-                />
-              );
-            }),
+          guestbook.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((guestbook, idx) => {
+            return <Card key={idx} src={guestbookImgList[guestbook.id % 5].img} onClick={() => handleClick(guestbook)} />;
+          }),
         ]);
       }
       const restCards = count % cardPerColumn;
@@ -64,13 +56,7 @@ const GuestbookList = () => {
         setColumns((v) => [
           ...v,
           guestbook.slice(-restCards).map((guestbook, idx) => {
-            return (
-              <Card
-                key={idx}
-                src={guestbookImgList[guestbook.id % 5].img}
-                onClick={() => handleClick(guestbook)}
-              />
-            );
+            return <Card key={idx} src={guestbookImgList[guestbook.id % 5].img} onClick={() => handleClick(guestbook)} />;
           }),
         ]);
       }
@@ -102,7 +88,7 @@ const GuestbookList = () => {
     getDataList();
     // 처음에 null 값이 들어있어서 오류 => not null일 때만 사용하도록 조건 추가
     if (userId !== null) {
-      console.log("useId no null");
+      console.log("userId no null");
       getModalData();
     }
   }, []);
@@ -157,20 +143,12 @@ const GuestbookList = () => {
               {columns.map((column, idx) => {
                 return <Column key={idx}>{column}</Column>;
               })}
-              <Modal
-                open={modal}
-                onClose={handleClick}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
+              <Modal open={modal} onClose={handleClick} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                 <Box sx={modalStyle} className="modalBg">
                   <div className={"guestContentWrapper postArea"}>
                     <p className="modalFont2">{content}</p>
                     <PostDiv>
-                      <p
-                        style={{ fontFamily: "TmoneyRoundWindRegular" }}
-                        className="date"
-                      >
+                      <p style={{ fontFamily: "TmoneyRoundWindRegular" }} className="date">
                         {date}
                       </p>
                       <p className="sender">익명의 누군가로부터</p>
