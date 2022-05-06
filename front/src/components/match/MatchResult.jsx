@@ -18,10 +18,9 @@ const DIVIDER_HEIGHT = 5;
 function MatchResult() {
   const navigator = useNavigate();
   const { setParam } = useContext(ParamContext);
-  const { id, setId } = useContext(MatchElementContext);
-  const { idKo, setIdKo } = useContext(MatchElementContext);
-  const { setMatchElem } = useContext(MatchElementContext);
-  const { nickname, setNickname } = useContext(NicknameContext);
+  const { id } = useContext(MatchElementContext);
+  const { idKo } = useContext(MatchElementContext);
+  const { nickname } = useContext(NicknameContext);
   const outerDivRef = useRef();
 
   const [commentList, setCommentList] = useState([]);
@@ -135,10 +134,6 @@ function MatchResult() {
   };
 
   const goToFirstPage = () => {
-    setId(null);
-    setIdKo(null);
-    setNickname("");
-    setMatchElem([]);
     navigator("/match");
   };
 
