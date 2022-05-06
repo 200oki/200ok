@@ -74,7 +74,6 @@ csmRouter.get("/csmdata/counts", async (req, res, next) => {
  *      ```js
  *       {
  *        "birthday": "MM-DD",
- *        "nickname" : "string",
  *        "hobby": "string",
  *        "personality": "string",
  *        "colors": "array",
@@ -94,9 +93,6 @@ csmRouter.get("/csmdata/counts", async (req, res, next) => {
  *             birthday:
  *               type: string
  *               example: 03-24
- *             nickname:
- *               type: string
- *               example: 닉네임
  *             hobby:
  *               type: string
  *               example: "음악"
@@ -127,9 +123,9 @@ csmRouter.get("/csmdata/counts", async (req, res, next) => {
  *                    id:
  *                      type: string
  *                      example: lolly
- *                    nickname:
+ *                    uuid:
  *                      type: string
- *                      example: 닉네임
+ *                      example: b6ffb2be-5d4b-4707-9f53-5a16a4d7fae0
  *                    character:
  *                      type: object
  *                      properties:
@@ -186,7 +182,7 @@ csmRouter.put(
         success: true,
         payload: {
           id,
-          nickname: req.body.nickname,
+          uuid: up.uuid,
           character: mostSimilar.character,
           distance: mostSimilar.distance,
           count: up.count,
