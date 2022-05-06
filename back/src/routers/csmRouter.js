@@ -74,7 +74,7 @@ csmRouter.get("/csmdata/counts", async (req, res, next) => {
  *      ```js
  *       {
  *        "birthday": "MM-DD",
- *        "nickname" : "닉네임",
+ *        "nickname" : "string",
  *        "hobby": "string",
  *        "personality": "string",
  *        "colors": "array",
@@ -95,7 +95,7 @@ csmRouter.get("/csmdata/counts", async (req, res, next) => {
  *               type: string
  *               example: 03-24
  *             nickname:
- *               tyle: string
+ *               type: string
  *               example: 닉네임
  *             hobby:
  *               type: string
