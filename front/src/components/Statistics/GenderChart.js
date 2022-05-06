@@ -22,7 +22,6 @@ const SpeciesChart = () => {
     getDataList();
   }, []);
   
-  console.log(dataList);
   return (
     <div>
       <Pie className="graphBack"
