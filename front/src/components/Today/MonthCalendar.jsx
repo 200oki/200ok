@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import * as Api from "../../api";
 import * as Constant from "../../constant";
+import { DateContext } from "../../context/DateContext";
 
 const MonthCalendar = () => {
   const navigate = useNavigate();
+  const { date, setDate } = React.useContext(DateContext);
   const [year, setYear] = React.useState(2022);
   const [tempYear, setTempYear] = React.useState(year);
-  const [month, setMonth] = React.useState(1);
+  const [month, setMonth] = React.useState(parseInt(date.month));
   const fieldsToGet = ["id", "name_ko", "image_icon", "birthday_day"];
   const [stateWeek, setStateWeek] = React.useState(null);
 
@@ -34,7 +36,7 @@ const MonthCalendar = () => {
 
   const getVillagers = async () => {
     try {
-      const { data } = await Api.get(`characters/search?fields=${fieldsToGet.join(",")}&props=birthday_month&values=${month}`);
+      const { data } = await Api.get(`characters/search?fields=${fieldsToGet.join()}&props=birthday_month&values=${month}`);
       return data.payload;
     } catch (error) {
       console.error(error);
@@ -45,6 +47,13 @@ const MonthCalendar = () => {
     if (e.key === "Enter") {
       setYear(e.target.value);
     }
+  };
+
+  const hoverHandler = () => {
+    document.getElementById("toolTip").style.display = "block";
+  };
+  const leaveHandler = () => {
+    document.getElementById("toolTip").style.display = "none";
   };
 
   React.useLayoutEffect(() => {
@@ -91,8 +100,16 @@ const MonthCalendar = () => {
       });
   }, [year, month]);
 
+  const clickHandler = (e, value) => {
+    setDate({
+      month: month,
+      day: value,
+    });
+    navigate("/today");
+  };
+
   return (
-    <table style={{ height: "650px" }}>
+    <table style={{ height: "750px" }}>
       <thead style={{ height: "100px" }}>
         <tr align="center">
           <th colSpan="7">
@@ -103,6 +120,8 @@ const MonthCalendar = () => {
                   setTempYear(e.target.value);
                 }}
                 onKeyUp={enterHandler}
+                onMouseOver={hoverHandler}
+                onMouseLeave={leaveHandler}
               />
               <span style={{ cursor: "default" }}>년</span>
             </div>
@@ -125,7 +144,7 @@ const MonthCalendar = () => {
           </th>
         </tr>
       </thead>
-      <tbody style={{ backgroundColor: "rgb(255, 255, 255, 0.5)" }}>
+      <tbody style={{ backgroundColor: "rgb(0,0,0,0.6)" }}>
         <tr align="center">
           <Weekday style={{ color: "red" }}>Sun</Weekday>
           <Weekday>Mon</Weekday>
@@ -145,13 +164,23 @@ const MonthCalendar = () => {
                   if (day === "offset") {
                     return <Day key={`key - ${index}`} offset={true}></Day>;
                   } else if (day.length === 0) {
-                    return <Day key={`key - ${index}`}>{weekNumber * 7 + dayNumber + 1 - offset}</Day>;
+                    return (
+                      <Day
+                        key={`key - ${index}`}
+                        onClick={(e) => {
+                          clickHandler(e, weekNumber * 7 + dayNumber + 1 - offset);
+                        }}
+                      >
+                        {weekNumber * 7 + dayNumber + 1 - offset}
+                        <div style={{ width: "50px", height: "50px" }} />
+                      </Day>
+                    );
                   } else {
                     return (
                       <Day
                         key={`key - ${index}`}
-                        onClick={() => {
-                          navigate("/today");
+                        onClick={(e) => {
+                          clickHandler(e, weekNumber * 7 + dayNumber + 1 - offset);
                         }}
                       >
                         <div>{weekNumber * 7 + dayNumber + 1 - offset}</div>
@@ -184,8 +213,10 @@ const CharacterDot = styled.img`
   height: 50px;
 `;
 const Day = styled.td`
+  padding: 10px;
   width: 150px;
   height: 80px;
+  color: white;
   cursor: ${(props) => (props.offset ? "default" : "pointer")};
   &:hover {
     opacity: 0.6;
@@ -194,6 +225,7 @@ const Day = styled.td`
 const Weekday = styled.td`
   height: 30px;
   cursor: default;
+  color: white;
 `;
 const twinkling = keyframes`
   from {
@@ -208,8 +240,10 @@ const Input = styled.input`
   cursor: text;
   background: none;
   border: none;
+  border-radius: 0.6rem;
+  background-color: lightgreen;
   font-size: 1.3rem;
   text-align: center;
-  animation: ${twinkling} 0.3s alternate ease-in-out infinite;
+  // animation: ${twinkling} 0.3s alternate ease-in-out infinite;
 `;
 export default MonthCalendar;
