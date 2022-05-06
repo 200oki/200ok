@@ -23,7 +23,7 @@ const MatchResultMyChar = ({ myChar, goToPosition, goToFirstPage }) => {
           ❞
         </div>
         <div>{resultMent[0]} 당신은</div>
-        <div>구구절절 쫑알쫑알</div>
+        <div>귀염뽀짝 {myChar.name_ko} 과(와)</div>
         <div>최고의 궁합!</div>
         <div className={styled.avgText}>
           (전체 참여자 중{" "}
