@@ -4,12 +4,21 @@ import HomeButton from "../common/HomeButton";
 import styled, { keyframes } from "styled-components";
 import MonthCalendar from "./MonthCalendar";
 
-const DateNavigator = styled.div`
-  width: 200px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
+const Calendar = () => {
+  return (
+    <Container>
+      <Navigator>
+        <BackButton content={"뒤로가기"} destination={"today"} />
+        <Wrapper>
+          <HomeButton />
+        </Wrapper>
+      </Navigator>
+      <Content>
+        <MonthCalendar />
+      </Content>
+    </Container>
+  );
+};
 
 const Navigator = styled.div`
   position: fixed;
@@ -20,7 +29,6 @@ const Navigator = styled.div`
   justify-content: space-between;
   width: 100vw;
 `;
-
 const Container = styled.div`
   position: relative;
 &::before {
@@ -36,7 +44,6 @@ const Container = styled.div`
   background-position: 50% 0;
   z-index: -100;
 `;
-
 const pop = keyframes`
   from {
     opacity: 0;
@@ -59,53 +66,5 @@ const Wrapper = styled.div`
   top: 30px;
   right: 50px;
 `;
-
-const Calendar = () => {
-  const [month, setMonth] = React.useState(1);
-  const handleClick = (e) => {
-    if (e.target.alt === "left") {
-      if (month > 1) {
-        setMonth(month - 1);
-      } else {
-        setMonth(12);
-      }
-    } else {
-      if (month < 12) {
-        setMonth(month + 1);
-      } else {
-        setMonth(1);
-      }
-    }
-  };
-  return (
-    <Container>
-      <Navigator>
-        <BackButton content={"뒤로가기"} destination={"today"} />
-        <Wrapper>
-          <HomeButton />
-        </Wrapper>
-      </Navigator>
-      <Content>
-        <DateNavigator>
-          <img
-            src="/images/triangle.png"
-            alt="left"
-            style={{ width: "2rem", height: "1.5rem", transform: "rotate(-90deg)", cursor: "pointer" }}
-            onClick={handleClick}
-          />
-          <div style={{ fontSize: "2rem", lineHeight: "1.5rem", width: "1.5rem" }}>{month}</div>
-          <span>월</span>
-          <img
-            src="/images/triangle.png"
-            alt="right"
-            style={{ width: "2rem", height: "1.5rem", transform: "rotate(90deg)", cursor: "pointer" }}
-            onClick={handleClick}
-          />
-        </DateNavigator>
-        <MonthCalendar month={month} />
-      </Content>
-    </Container>
-  );
-};
 
 export default Calendar;
