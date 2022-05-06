@@ -19,6 +19,7 @@ function MatchResult() {
   const navigator = useNavigate();
   const { setParam } = useContext(ParamContext);
   const { id, setId } = useContext(MatchElementContext);
+  const { idKo, setIdKo } = useContext(MatchElementContext);
   const { setMatchElem } = useContext(MatchElementContext);
   const { nickname, setNickname } = useContext(NicknameContext);
   const outerDivRef = useRef();
@@ -73,8 +74,9 @@ function MatchResult() {
   const fetchCommentData = async () => {
     try {
       const { data } = await Api.get(
-        `comments?villager=${id}&location=recommendation`
+        `comments?location=recommendation&villager=${idKo}`
       );
+      console.log("댓글: ", data.payload);
       setCommentList([...Object.values(data.payload)]);
     } catch (err) {
       setCommentList([]);
@@ -135,6 +137,7 @@ function MatchResult() {
 
   const goToFirstPage = () => {
     setId(null);
+    setIdKo(null);
     setNickname("");
     setMatchElem([]);
     navigator("/match");
