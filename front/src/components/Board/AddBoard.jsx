@@ -6,7 +6,7 @@ import "../../css/Board.css";
 import "../../css/textEditor.css";
 import { BoardPostIdContext } from "../../context/BoardPostId";
 import { useStyles } from "../../utils/useStyles";
-import { EditorState, Editor, convertToRaw } from "draft-js";
+import { EditorState, convertToRaw } from "draft-js";
 import TextEditor from "../common/TextEditor";
 
 const AddBoard = () => {
@@ -120,11 +120,14 @@ const AddBoard = () => {
           {/*  onChange={handleContentChange}*/}
           {/*  required*/}
           {/*/>*/}
-          <TextEditor
-            editorState={editorState}
-            onChange={onEditorChange}
-            placeholder="내용을 입력해주세요"
-          />
+          <div className="editorRoot">
+            <TextEditor
+              editorState={editorState}
+              onChange={onEditorChange}
+              placeholder="내용을 입력해주세요"
+            />
+          </div>
+
           <div className="imageForm">
             <label className="inputFileButton" htmlFor="files">
               업로드

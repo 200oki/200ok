@@ -245,3 +245,7 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.DraftEditor-root {
+  background-color: transparent !important;
+}

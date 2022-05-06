@@ -19,16 +19,6 @@ const plugins = [staticToolbarPlugin, textAlignmentPlugin];
 
 const TextEditor = ({ editorState, onChange, placeholder }) => (
   <div>
-    <Toolbar>
-      {(externalProps) => (
-        <div>
-          <ItalicButton {...externalProps} />
-          <BoldButton {...externalProps} />
-          <UnderlineButton {...externalProps} />
-          <textAlignmentPlugin.TextAlignment {...externalProps} />
-        </div>
-      )}
-    </Toolbar>
     <Editor editorState={editorState} onChange={onChange} plugins={plugins} />
   </div>
 );

@@ -19,17 +19,15 @@ div.public-DraftEditor-content {
     width : 99%;
     margin-bottom : 1rem;
 }
-/*.DraftEditor-editorContainer {*/
-/*    background-color:#fff;*/
-/*    border-left:.1px solid transparent;*/
-/*    position:relative;*/
-/*    width: 800px;*/
-/*    height: 300px;*/
-/*    z-index:1;*/
-/*    cursor: text;*/
-/*}*/
+
 .t16lpgj{
     width : 100%;
+}
+
+.editorRoot{
+    background-color: white;
+    margin-bottom: 10px;
+    border-radius: 5px;
 }
 
 
