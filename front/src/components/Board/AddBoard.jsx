@@ -3,16 +3,33 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../../api";
 import "../../css/Board.css";
+import "../../css/textEditor.css";
 import { BoardPostIdContext } from "../../context/BoardPostId";
+import { useStyles } from "../../utils/useStyles";
+import { EditorState, Editor, convertToRaw } from "draft-js";
+import TextEditor from "../common/TextEditor";
 
 const AddBoard = () => {
   const navigate = useNavigate();
-  const [isTyping, setIsTyping] = useState(false);
   const [nickname, setNickname] = useState("");
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [fileName, setFileName] = useState("파일을 선택해 주세요.");
   const [postFiles, setPostFiles] = useState([]);
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
   const { setPostId } = useContext(BoardPostIdContext);
+
+  const classes = useStyles();
+
+  const onEditorChange = (editorState) => {
+    const contentState = editorState.getCurrentContent();
+    setEditorState(editorState);
+    console.log(contentState);
+    console.log(
+      "editor",
+      JSON.stringify(convertToRaw(editorState.getCurrentContent()))
+    );
+  };
 
   const fileHandler = (e) => {
     if (e.target.files.length > 1) {
@@ -25,30 +42,29 @@ const AddBoard = () => {
       });
     } else {
       console.log("one fileHandle", e.target.files);
+      setFileName(e.target.files[0].name);
       setPostFiles(e.target.files[0]);
     }
   };
-
+  // const blockSubmit = (e) => {
+  //   e.preventDefault();
+  // };
   const handleNicknameChange = (e) => {
-    setIsTyping(true);
     setNickname(e.target.value);
   };
 
   const handleTitleChange = (e) => {
-    setIsTyping(true);
     setTitle(e.target.value);
-  };
-
-  const handleContentChange = (e) => {
-    setIsTyping(true);
-    setContent(e.target.value);
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     e.persist();
-    if (content && title) {
+    if (editorState && title) {
       const formData = new FormData();
+      const content = JSON.stringify(
+        convertToRaw(editorState.getCurrentContent())
+      );
 
       postFiles.length > 1
         ? postFiles.map((item) => formData.append("images", item))
@@ -84,47 +100,71 @@ const AddBoard = () => {
         <div className="contentBack">
           <div className="input">
             <input
-              value={nickname}
-              onChange={handleNicknameChange}
-              placeholder="닉네임을 입력해주세요"
-              className="inputNickname"
-            />
-            <hr style={{ margin: "0 0 0 0" }} />
-            <input
               value={title}
               onChange={handleTitleChange}
               placeholder="제목을 입력해주세요"
               className="inputTitle"
             />
             <input
-              type="file"
-              name="input_files"
-              onChange={fileHandler}
-              multiple
-              className="inputFiles"
+              value={nickname}
+              onChange={handleNicknameChange}
+              placeholder="닉네임을 입력해주세요"
+              className="inputNickname"
             />
           </div>
-          <textarea
-            className="boardTextarea"
-            type="text"
+          {/*<textarea*/}
+          {/*  className="boardTextarea"*/}
+          {/*  type="text"*/}
+          {/*  placeholder="내용을 입력해주세요"*/}
+          {/*  value={isTyping ? content : ""}*/}
+          {/*  onChange={handleContentChange}*/}
+          {/*  required*/}
+          {/*/>*/}
+          <TextEditor
+            editorState={editorState}
+            onChange={onEditorChange}
             placeholder="내용을 입력해주세요"
-            value={isTyping ? content : ""}
-            onChange={handleContentChange}
-            required
           />
+          <div className="imageForm">
+            <label className="inputFileButton" htmlFor="files">
+              업로드
+            </label>
+            <input
+              className={classes.inputVal}
+              type="text"
+              value={fileName}
+              disabled
+            />
+            <input
+              style={{ display: "none" }}
+              name="files"
+              id="files"
+              multiple
+              type="file"
+              onChange={fileHandler}
+              accept={"image/*"}
+            />
+          </div>
         </div>
-        <div className="alignButton">
-          <button
-            type="submit"
-            className="exitBtn"
-            onClick={() => navigate("/board")}
-          >
-            그만 쓸래
-          </button>
-          <button type="submit" className="submitBtn">
-            오케이!
-          </button>
-        </div>
+
+        {fileName.length > 0 ? (
+          fileName.length > 1 ? (
+            <div className="alignButton">
+              <button
+                type="submit"
+                className="exitBtn"
+                onClick={() => navigate("/board")}
+              >
+                그만 쓸래
+              </button>
+              <button type="submit" className="submitBtn">
+                오케이!
+              </button>
+            </div>
+          ) : (
+            <></>
+          )
+        ) : null}
       </form>
     </div>
   );
