@@ -89,7 +89,7 @@
 }
 
 .imageArea {
-  width: 500px;
+  width: 600px;
 }
 
 .textArea {
@@ -101,5 +101,7 @@
   align-items: center;
   justify-content: center;
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   height: 350px;
 }
