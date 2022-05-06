@@ -50,39 +50,53 @@ router.get("/characters/random", async (req, res, next) => {
  *  - [ page=n ]
  *  - [ size=n ]
  */
-router.get("/characters/search", async (req, res, next) => {
-  try {
+router.get(
+  "/characters/search",
+  async (req, res, next) => {
+    // 미들웨어로 쿼리만 검증합니다.
     if (!("fields" in req.query)) {
-      throw new RequestError(
-        { status: status.STATUS_400_BADREQUEST },
-        `"fields" query is required`
+      next(
+        new RequestError(
+          { status: status.STATUS_400_BADREQUEST },
+          `"fields" query is required`
+        )
       );
     }
-    const fields = parseArrayQuery(req.query.fields);
-    const props = parseArrayQuery(req.query.props);
-    const values = parseArrayQuery(req.query.values);
-    const page = Number(req.query.page);
-    const size = Number(req.query.size);
+    const page = parseInt(req.query.page);
+    const size = parseInt(req.query.size);
     // page, size 쿼리는 없어도 되지만 있으려면 둘 다 있어야 합니다.
     if (isNaN(page) != isNaN(size)) {
-      throw new RequestError(
-        { status: status.STATUS_400_BADREQUEST },
-        `"page" and "size" both need to be present if one is provided`
+      next(
+        new RequestError(
+          { status: status.STATUS_400_BADREQUEST },
+          `"page" and "size" both need to be present if one is provided`
+        )
       );
     }
+    req.query.fields = parseArrayQuery(req.query.fields);
+    req.query.props = parseArrayQuery(req.query.props);
+    req.query.values = parseArrayQuery(req.query.values);
+    req.query.page = page;
+    req.query.size = size;
+    next();
+  },
+  async (req, res, next) => {
+    try {
+      const { fields, props, values, page, size } = req.query;
 
-    let result = CharacterService.search(props, values, fields);
-    const total = result.length;
-    if (!isNaN(page)) {
-      result = CharacterService.page(result, size, page);
+      let result = CharacterService.search(props, values, fields);
+      const total = result.length;
+      if (!isNaN(page)) {
+        result = CharacterService.page(result, size, page);
+      }
+      res
+        .status(status.STATUS_200_OK)
+        .json({ success: true, total, payload: result });
+    } catch (error) {
+      next(error);
     }
-    res
-      .status(status.STATUS_200_OK)
-      .json({ success: true, total, payload: result });
-  } catch (error) {
-    next(error);
   }
-});
+);
 
 /** DEPRECATED query: birthday=mm-dd[&fields=field1,field2,...] */
 /**
