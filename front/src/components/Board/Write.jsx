@@ -16,18 +16,19 @@ const Navigator = styled.div`
 
 const Container = styled.div`
   position: relative;
-&::before {
-  background-image: url("/images/leafBgImg.png");
-  content: " ";
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  opacity: 0.5;
-  background-position: 50% 0;
-  z-index: -100;
+  &::before {
+    background-image: url("/images/leafBgImg.png");
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5;
+    background-position: 50% 0;
+    z-index: -100;
+  }
 `;
 
 const pop = keyframes`
