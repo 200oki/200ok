@@ -306,4 +306,23 @@ export const useStyles = makeStyles({
     justifyContent: "end",
     alignItems: "end",
   },
+  inputVal: {
+    border: "1px solid #cdcdcd",
+    width: "fit-content",
+    textAlign: "center",
+    padding: 1.5,
+    height: "35px",
+  },
+  wrapperClass: {
+    marginTop: "1rem",
+    width: "800px",
+    margin: "0 auto",
+    marginBottom: "1rem",
+  },
+  editor: {
+    width: "800px",
+    height: "250px",
+    border: " 1px solid #f1f1f1",
+    borderRadius: "2px",
+  },
 });
