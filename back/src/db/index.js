@@ -3,8 +3,6 @@ import { Comment } from "./models/Comment.js";
 import { Score } from "./models/Score.js";
 import { Csm } from "./models/Csm.js";
 import { Post } from "./models/Post.js";
-
-export { Character, Comment, Score, Csm, Post };
 import { Guestbook } from "./models/Guestbook.js";
 
-export { Character, Comment, Score, Csm, Guestbook };
+export { Character, Comment, Score, Csm, Post, Guestbook };
