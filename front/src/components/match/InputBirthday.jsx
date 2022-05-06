@@ -57,6 +57,8 @@ function InputBirthday({ nextSlide }) {
   };
 
   const handleChangeD = (event) => {
+    console.log(day);
+    console.log(typeof day);
     setDay(event.target.value);
   };
 
@@ -106,8 +108,12 @@ function InputBirthday({ nextSlide }) {
       <button
         className={month && day ? styled.btnActive : styled.btnHidden}
         onClick={() => {
-          if (month < 10) {
+          if (month < 10 && day < 10) {
+            setMatchElem([...matchElem, `0${month}`, `0${day}`]);
+          } else if (month < 10 && day > 10) {
             setMatchElem([...matchElem, `0${month}`, `${day}`]);
+          } else if (month > 10 && day < 10) {
+            setMatchElem([...matchElem, `${month}`, `0${day}`]);
           } else {
             setMatchElem([...matchElem, `${month}`, `${day}`]);
           }
