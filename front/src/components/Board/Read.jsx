@@ -72,21 +72,31 @@ const Read = () => {
               style={sliderStyle}
             /> */}
             {images.length > 0 ? (
-              <Slide
-                easing="ease-in-out"
-                transitionDuration="800"
-                autoplay={false}
-              >
-                {images.map((image, idx) => (
-                  <div className={styled.eachSlide}>
-                    <div
-                      style={{
-                        backgroundImage: `url(http://localhost:5001/uploads/${images[idx]})`,
-                      }}
-                    ></div>
-                  </div>
-                ))}
-              </Slide>
+              images.length === 1 ? (
+                <div className={styled.eachSlide}>
+                  <div
+                    style={{
+                      backgroundImage: `url(http://localhost:5001/uploads/${images[0]})`,
+                    }}
+                  ></div>
+                </div>
+              ) : (
+                <Slide
+                  easing="ease-in-out"
+                  transitionDuration={800}
+                  autoplay={false}
+                >
+                  {images.map((image, idx) => (
+                    <div className={styled.eachSlide} key={`image${idx}`}>
+                      <div
+                        style={{
+                          backgroundImage: `url(http://localhost:5001/uploads/${images[idx]})`,
+                        }}
+                      ></div>
+                    </div>
+                  ))}
+                </Slide>
+              )
             ) : (
               <></>
             )}
