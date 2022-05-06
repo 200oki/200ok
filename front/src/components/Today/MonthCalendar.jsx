@@ -244,6 +244,6 @@ const Input = styled.input`
   background-color: lightgreen;
   font-size: 1.3rem;
   text-align: center;
-  // animation: ${twinkling} 0.3s alternate ease-in-out infinite;
+  animation: ${twinkling} 0.5s alternate ease-in-out infinite;
 `;
 export default MonthCalendar;
