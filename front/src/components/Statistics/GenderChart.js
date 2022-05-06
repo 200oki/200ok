@@ -16,11 +16,12 @@ const SpeciesChart = () => {
       console.error(error);
     }
   }
-
+  
   useEffect(() => {
     getDataList();
   }, []);
-
+  
+  console.log(dataList);
   return (
     <div>
       <Pie className="graphBack"

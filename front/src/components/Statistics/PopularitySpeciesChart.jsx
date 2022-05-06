@@ -12,25 +12,22 @@ const data = new Array(yLabels.length)
       .map(() => Math.floor(Math.random() * 50 + 50))
   )
 
-const SpeciesTierChart = () => {
-  const [dataList, setDataList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+const PopularityBySpeciesChart = () => {
+  const [dataList, setDataList] = useState(null);
   async function getDataList() {
     try {
       const { data } = await Api.get('stats?groupName=popularity-by-species');
       setDataList([...Object.values(data.payload)]);
-      console.log("data :", dataList);
-      setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
   }
-
+  
   useEffect(() => {
     getDataList();
   }, []);
-
-  console.log(data);
+  
+  console.log("data :", dataList);
 
   return (
     <div
@@ -38,17 +35,17 @@ const SpeciesTierChart = () => {
         width: '100%'
       }}
     >
-      <HeatMapGrid
-        data={data}
-        xLabels={xLabels}
-        yLabels={yLabels}
+      {dataList && <HeatMapGrid
+        data={dataList[3]}
+        xLabels={dataList[1]}
+        yLabels={dataList[2]}
         // Reder cell with tooltip
         cellRender={(x, y, value) => (
           <div title={`Pos(${x}, ${y}) = ${value}`}>{value}</div>
         )}
         xLabelsStyle={(index) => ({
-          color: index % 2 ? 'transparent' : '#777',
-          fontSize: '.8rem'
+          fontSize: '.8rem',
+          color: '#777'
         })}
         yLabelsStyle={() => ({
           fontSize: '.7rem',
@@ -64,9 +61,9 @@ const SpeciesTierChart = () => {
         xLabelsPos='bottom'
         yLabelsPos='left'
         square
-      />
+      />}
     </div>
   )
 }
 
-export default SpeciesTierChart;
+export default PopularityBySpeciesChart;
