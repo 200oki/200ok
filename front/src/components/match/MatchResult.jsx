@@ -33,7 +33,6 @@ function MatchResult() {
   const setCharAndTotal = (data) => {
     setMyChar(data);
     setTotal(data.total);
-    console.log("setTotal", total);
   };
 
   // 나와 궁합이 맞는 주민
@@ -42,7 +41,6 @@ function MatchResult() {
       const { data } = await Api.get(`csmdata/${id}/count`);
       setCharAndTotal(data.payload);
       console.log("나와 궁합이 맞는 주민", data.payload);
-      console.log("total", total);
       return data.payload;
     } catch (err) {
       console.error(err);
@@ -84,10 +82,6 @@ function MatchResult() {
     }
     return () => {};
   };
-
-  useEffect(() => {
-    console.log("total", total);
-  }, [total]);
 
   useEffect(() => {
     setParam(null);

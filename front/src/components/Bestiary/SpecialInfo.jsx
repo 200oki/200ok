@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import CharacterInfoKeys from "../../constant";
+import * as Constant from "../../constant";
 import Details from "./Details";
 
 const SpecialInfo = ({ villager }) => {
@@ -8,8 +8,8 @@ const SpecialInfo = ({ villager }) => {
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <Special>스페셜 주민 입니다.</Special>
       <Row>
-        <Details label={CharacterInfoKeys.gender} value={villager.gender} />
-        <Details label={CharacterInfoKeys.birthday} value={villager.birthday} />
+        <Details label={Constant.CharacterInfoKeys.gender} value={villager.gender} />
+        <Details label={Constant.CharacterInfoKeys.birthday} value={villager.birthday} />
       </Row>
     </div>
   );

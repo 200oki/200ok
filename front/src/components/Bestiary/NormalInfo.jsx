@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import CharacterInfoKeys from "../../constant";
+import * as Constant from "../../constant";
 import Details from "./Details";
 
 const NormalInfo = ({ villager }) => {
@@ -13,13 +13,13 @@ const NormalInfo = ({ villager }) => {
       leftInfoKeys.map((key, index) => {
         const value = Array.isArray(villager[key]) ? villager[key].join(" ") : villager[key];
         // villager[key]가 배열인 경우 &nbsp가 중간에 삽입되어 하나의 문자열로 반환됩니다.
-        return <Details key={`details-${index}`} label={CharacterInfoKeys[key]} value={value} />;
+        return <Details key={`details-${index}`} label={Constant.CharacterInfoKeys[key]} value={value} />;
       })
     );
     setRightDetails(
       rightInfoKeys.map((key, index) => {
         const value = Array.isArray(villager[key]) ? villager[key].join(" ") : villager[key];
-        return <Details key={`details-${index}`} label={CharacterInfoKeys[key]} value={value} />;
+        return <Details key={`details-${index}`} label={Constant.CharacterInfoKeys[key]} value={value} />;
       })
     );
   }, [villager]);
