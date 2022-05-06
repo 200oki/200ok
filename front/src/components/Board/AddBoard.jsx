@@ -6,7 +6,7 @@ import "../../css/Board.css";
 import "../../css/textEditor.css";
 import { BoardPostIdContext } from "../../context/BoardPostId";
 import { useStyles } from "../../utils/useStyles";
-import { EditorState, Editor, convertToRaw } from "draft-js";
+import { EditorState, convertToRaw } from "draft-js";
 import TextEditor from "../common/TextEditor";
 
 const AddBoard = () => {
