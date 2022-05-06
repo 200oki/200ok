@@ -2,13 +2,24 @@ import React, { useState, useEffect } from 'react';
 import * as Api from "../../api";
 import { HeatMapGrid } from 'react-grid-heatmap';
 
-const PopularityBySpeciesChart = () => {
+const xLabels = new Array(24).fill(0).map((_, i) => `${i}`)
+const yLabels = ['1', '2', '3', '4', '5', '6']
+const data = new Array(yLabels.length)
+  .fill(0)
+  .map(() =>
+    new Array(xLabels.length)
+      .fill(0)
+      .map(() => Math.floor(Math.random() * 50 + 50))
+  )
+
+const SpeciesTierChart = () => {
   const [dataList, setDataList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   async function getDataList() {
     try {
       const { data } = await Api.get('stats?groupName=popularity-by-species');
       setDataList([...Object.values(data.payload)]);
+      console.log("data :", dataList);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -19,6 +30,8 @@ const PopularityBySpeciesChart = () => {
     getDataList();
   }, []);
 
+  console.log(data);
+
   return (
     <div
       style={{
@@ -26,9 +39,9 @@ const PopularityBySpeciesChart = () => {
       }}
     >
       <HeatMapGrid
-        data={dataList.data}
-        xLabels={dataList.xLabels}
-        yLabels={dataList.yLabels}
+        data={data}
+        xLabels={xLabels}
+        yLabels={yLabels}
         // Reder cell with tooltip
         cellRender={(x, y, value) => (
           <div title={`Pos(${x}, ${y}) = ${value}`}>{value}</div>
@@ -49,12 +62,11 @@ const PopularityBySpeciesChart = () => {
         })}
         cellHeight='2rem'
         xLabelsPos='bottom'
-        onClick={(x, y) => alert(`Clicked (${x}, ${y})`)}
-        yLabelsPos='right'
+        yLabelsPos='left'
         square
       />
     </div>
   )
 }
 
-export default PopularityBySpeciesChart;
+export default SpeciesTierChart;
