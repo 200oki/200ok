@@ -11,6 +11,7 @@ const SelectStyle = ({ array }) => {
   const { nickname } = useContext(NicknameContext);
   const { id, setId } = useContext(MatchElementContext);
   const { matchElem, setMatchElem } = useContext(MatchElementContext);
+  const { idKo, setIdKo } = useContext(MatchElementContext);
 
   const [style, setStyle] = useState(null);
 
@@ -32,12 +33,15 @@ const SelectStyle = ({ array }) => {
   const fetchResultData = async () => {
     try {
       const { data } = await Api.put("csmdata/counts", {
+        nickname: nickname,
         birthday: `${matchElem[0]}-${matchElem[1]}`,
         colors: matchElem[2],
         personality: matchElem[3],
         hobby: matchElem[4],
         styles: matchElem[5],
       });
+      console.log("nickname", data.payload);
+      setIdKo(data.payload.character.name_ko);
       setId(data.payload.id);
     } catch (err) {
       console.error(err);
