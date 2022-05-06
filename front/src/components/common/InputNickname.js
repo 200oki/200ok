@@ -8,16 +8,23 @@ import usePathParams from "../../utils/usePathParams";
 import BackButton from "./BackButton";
 
 import { NicknameContext } from "../../context/NicknameContext";
+import { MatchElementContext } from "../../context/MatchElementContext";
 
 function InputNickname() {
   const { nickname, setNickname } = useContext(NicknameContext);
+  const { setId } = useContext(MatchElementContext);
+  const { setIdKo } = useContext(MatchElementContext);
+  const { setMatchElem } = useContext(MatchElementContext);
   const navigator = useNavigate();
   const pathname = usePathParams();
   const classes = useStyles();
 
-  // InputNickname 페이지로 왔을 때 최초 닉네임 초기화
+  // 1. InputNickname 페이지로 왔을 때 최초 닉네임 초기화
   useEffect(() => {
     setNickname("");
+    setId(null);
+    setIdKo(null);
+    setMatchElem([]);
   }, []);
 
   const handleSubmit = (e) => {
