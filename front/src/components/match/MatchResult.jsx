@@ -76,7 +76,6 @@ function MatchResult() {
       const { data } = await Api.get(
         `comments?location=recommendation&villager=${idKo}`
       );
-      console.log("댓글: ", data.payload);
       setCommentList([...Object.values(data.payload)]);
     } catch (err) {
       setCommentList([]);
