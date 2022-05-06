@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
 import * as Api from "../../api";
 import { useNavigate } from "react-router-dom";
+import { MatchButtonText } from "../../utils/util";
 import styled from "../../css/match.module.css";
 import MatchResultMyChar from "./MatchResultMyChar";
 import MatchResultCompat from "./MatchResultCompat";
@@ -119,25 +120,25 @@ function MatchResult() {
 
     const PAGE_HEIGHT = window.innerHeight;
 
-    if (e.target.innerText === "유형별 궁합") {
+    if (e.target.innerText === MatchButtonText.TYPE) {
       outerDivRef.current.scrollTo({
         top: PAGE_HEIGHT + DIVIDER_HEIGHT,
         left: 0,
         behavior: "smooth",
       });
-    } else if (e.target.innerText === "가장 많은 유형") {
+    } else if (e.target.innerText === MatchButtonText.BEST) {
       outerDivRef.current.scrollTo({
         top: PAGE_HEIGHT * 2 + DIVIDER_HEIGHT * 2,
         left: 0,
         behavior: "smooth",
       });
-    } else if (e.target.innerText === "반응 남기기") {
+    } else if (e.target.innerText === MatchButtonText.COMMENT) {
       outerDivRef.current.scrollTo({
         top: PAGE_HEIGHT * 3 + DIVIDER_HEIGHT * 3,
         left: 0,
         behavior: "smooth",
       });
-    } else if (e.target.innerText === "공유하기") {
+    } else if (e.target.innerText === MatchButtonText.SHARE) {
       if (copied) {
         toast.success(
           <div>
