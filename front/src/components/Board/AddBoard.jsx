@@ -120,11 +120,14 @@ const AddBoard = () => {
           {/*  onChange={handleContentChange}*/}
           {/*  required*/}
           {/*/>*/}
-          <TextEditor
-            editorState={editorState}
-            onChange={onEditorChange}
-            placeholder="내용을 입력해주세요"
-          />
+          <div className="editorRoot">
+            <TextEditor
+              editorState={editorState}
+              onChange={onEditorChange}
+              placeholder="내용을 입력해주세요"
+            />
+          </div>
+
           <div className="imageForm">
             <label className="inputFileButton" htmlFor="files">
               업로드
