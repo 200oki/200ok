@@ -13,20 +13,15 @@ const Read = () => {
   const [post, setPost] = useState(null);
   const [images, setImages] = useState([]);
 
-  console.log("id: ", id);
-
   const fetchPostData = async () => {
     try {
       const { data } = await Api.get(`posts/${id}`);
       setPost(data.payload);
       setImages(data.payload.images);
-      console.log("get요청: ", data.payload);
     } catch (err) {
       console.error(err);
     }
   };
-
-  console.log("이미지들!!!!!!", images);
 
   useEffect(() => {
     fetchPostData();
