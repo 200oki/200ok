@@ -23,6 +23,7 @@ import SpeciesChart from "./components/Statistics/SpeciesChart";
 import PersonalityChart from "./components/Statistics/PersonalityChart";
 import HobbyChart from "./components/Statistics/HobbyChart";
 import StyleChart from "./components/Statistics/StyleChart";
+import PopularityBySpeciesChart from "./components/Statistics/PopularitySpeciesChart";
 import VillagerList from "./components/Bestiary/VillagerList";
 import VillagerDetail from "./components/Bestiary/VillagerDetail";
 import TeamIntroduction from "./components/TeamIntroduction/TeamIntroduction";
@@ -61,6 +62,7 @@ function App() {
             <Route path="personality" element={<PersonalityChart />} />
             <Route path="hobby" element={<HobbyChart />} />
             <Route path="style" element={<StyleChart />} />
+            <Route path="popularity-by-species" element={<StyleChart />} />
           </Route>
           <Route path="/bestiary" element={<Bestiary />} />
           <Route path="/bestiary/list" element={<VillagerList />} />
