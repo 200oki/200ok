@@ -20,6 +20,7 @@ function InputNickname() {
   const classes = useStyles();
 
   // 1. InputNickname 페이지로 왔을 때 최초 닉네임 초기화
+  // 2. MatchElem 요소들 초기화
   useEffect(() => {
     setNickname("");
     setId(null);
