@@ -5,95 +5,26 @@ import moment from "moment";
 import "moment/locale/ko";
 import { Slider } from "@mui/material";
 import { styled as Styled } from "@mui/material/styles";
-import { Box, Modal, Typography } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 import BackButton from "../common/BackButton";
 import PostButton from "../common/PostButton";
 import { useNavigate } from "react-router-dom";
 import { guestbookImgList } from "../../utils/util";
 import "../../css/guestBook.css";
 import { GuestIdContext } from "../../context/GuestIdContext";
+import { convertFromRaw, Editor, EditorState } from "draft-js";
 
 const GuestbookList = () => {
-  const navigate = useNavigate();
-
   const [modal, setModal] = useState(false); // 모달 열기
   const [guestbook, setGuestbook] = useState([]);
-  const [content, setContent] = useState([]);
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [date, setDate] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [count, setCount] = useState(0);
   const [columns, setColumns] = useState([]);
+
+  const navigate = useNavigate();
   const { id, setId } = useContext(GuestIdContext);
-
-  // 글 쓰는 부분에서 state를 받아옴
-  // state { payload: { id: number, content: string, createdAt: date }, modal: true }
-  // 글을 post 한 후, modal 창을 띄우기 위함
-
-  // 백엔드에서 방명록 전체를 받아옴
-  const getDataList = async () => {
-    try {
-      const { data } = await Api.get("guestbooks");
-      setGuestbook(data.payload);
-      setCount(data.payload.length);
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    if (guestbook.length !== 0) {
-      const cardPerColumn = 2;
-      for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
-        setColumns((v) => [
-          ...v,
-          guestbook.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((guestbook, idx) => {
-            return <Card key={idx} src={guestbookImgList[guestbook.id % 5].img} onClick={() => handleClick(guestbook)} />;
-          }),
-        ]);
-      }
-      const restCards = count % cardPerColumn;
-
-      if (restCards > 0) {
-        setColumns((v) => [
-          ...v,
-          guestbook.slice(-restCards).map((guestbook, idx) => {
-            return <Card key={idx} src={guestbookImgList[guestbook.id % 5].img} onClick={() => handleClick(guestbook)} />;
-          }),
-        ]);
-      }
-    }
-  }, [guestbook]);
-
-  useEffect(() => {
-    if (columns.length !== 0) {
-      setIsLoading(false);
-    }
-  }, [columns]);
-  //guestbooks/'${id}'
-  //context 초기화
-  const getModalData = async () => {
-    try {
-      const { data } = await Api.get(`guestbooks/${id}`);
-      console.log(data);
-      setGuestbook(data.payload);
-      setCount(data.payload.length);
-      setContent(data.payload.content);
-      setDate(data.payload.createdAt);
-      setModal(true);
-      setId(null);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    getDataList();
-    // 처음에 null 값이 들어있어서 오류 => not null일 때만 사용하도록 조건 추가
-    if (id !== null) {
-      console.log("id no null");
-      getModalData();
-    }
-  }, []);
 
   const modalStyle = {
     position: "absolute",
@@ -113,6 +44,87 @@ const GuestbookList = () => {
     p: 4,
   };
 
+  const getDataList = async () => {
+    try {
+      const { data } = await Api.get("guestbooks");
+      setGuestbook(data.payload);
+      setCount(data.payload.length);
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (guestbook.length !== 0) {
+      const cardPerColumn = 2;
+      for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
+        setColumns((v) => [
+          ...v,
+          guestbook
+            .slice(cardPerColumn * i, cardPerColumn * (i + 1))
+            .map((guestbook, idx) => {
+              return (
+                <Card
+                  key={idx}
+                  src={guestbookImgList[guestbook.id % 5].img}
+                  onClick={() => handleClick(guestbook)}
+                />
+              );
+            }),
+        ]);
+      }
+      const restCards = count % cardPerColumn;
+
+      if (restCards > 0) {
+        setColumns((v) => [
+          ...v,
+          guestbook.slice(-restCards).map((guestbook, idx) => {
+            return (
+              <Card
+                key={idx}
+                src={guestbookImgList[guestbook.id % 5].img}
+                onClick={() => handleClick(guestbook)}
+              />
+            );
+          }),
+        ]);
+      }
+    }
+  }, [guestbook]);
+
+  useEffect(() => {
+    if (columns.length !== 0) {
+      setIsLoading(false);
+    }
+  }, [columns]);
+
+  const getModalData = async () => {
+    try {
+      const { data } = await Api.get(`guestbooks/${id}`);
+      setGuestbook(data.payload);
+      setCount(data.payload.length);
+      setEditorState(
+        EditorState.createWithContent(
+          convertFromRaw(JSON.parse(data.payload.content))
+        )
+      );
+      setDate(data.payload.createdAt);
+      setModal(true);
+      setId(null);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getDataList();
+    // 처음에 null 값이 들어있어서 오류 => not null일 때만 사용하도록 조건 추가
+    if (id !== null) {
+      getModalData();
+    }
+  }, []);
+
   const scrollHandler = (e, val) => {
     const element = document.getElementById("content");
     const maxScrollLeft = element.scrollWidth - element.clientWidth;
@@ -120,11 +132,14 @@ const GuestbookList = () => {
   };
 
   // 모달로 방명록 보여주는 부분
-  const handleClick = (element) => {
+  const handleClick = (guestBook) => {
     setModal((v) => !v);
-    setContent(element.content);
-    setDate(element.createdAt);
-    console.log("여긴가");
+    setEditorState(
+      EditorState.createWithContent(
+        convertFromRaw(JSON.parse(guestBook.content))
+      )
+    );
+    setDate(guestBook.createdAt);
   };
 
   return (
@@ -145,10 +160,15 @@ const GuestbookList = () => {
               {columns.map((column, idx) => {
                 return <Column key={idx}>{column}</Column>;
               })}
-              <Modal open={modal} onClose={handleClick} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+              <Modal
+                open={modal}
+                onClose={handleClick}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
                 <Box sx={modalStyle} className="modalBg">
                   <div className={"guestContentWrapper postArea"}>
-                    <p className="modalFont2">{content}</p>
+                    <Editor editorState={editorState} readOnly={true} />
                     <PostDiv>
                       <p
                         style={{ fontFamily: "TmoneyRoundWindRegular" }}

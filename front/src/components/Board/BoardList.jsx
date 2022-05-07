@@ -19,7 +19,6 @@ const BoardList = () => {
     try {
       const { data } = await Api.get("posts");
       setPost(data.payload);
-      console.log(data.payload);
       setCount(data.payload.length);
       setIsLoading(false);
     } catch (err) {
@@ -54,7 +53,9 @@ const BoardList = () => {
               return (
                 <Card
                   key={idx}
-                  src={`http://elice-kdt-ai-4th-team04.elicecoding.com/api/uploads/${post.images[0]}`}
+                  src={`http://elice-kdt-ai-4th-team04.elicecoding.com/api/uploads/${encodeURIComponent(
+                    post.images[0]
+                  )}`}
                   onClick={() => navigate(`/board/${post.id}`)}
                 >
                   <Title> {title} </Title>

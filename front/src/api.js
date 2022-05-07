@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const backendPortNumber = "api";
+// const backendPortNumber = "5001";
 const serverUrl =
   " http://elice-kdt-ai-4th-team04.elicecoding.com" +
   "/" +

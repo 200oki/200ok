@@ -32,40 +32,63 @@ const GameResult = () => {
     setGameScore(data.score);
     setRank(data.rank);
   };
-  //공유하기 ===> get score?userId = ""
+
   const getScoreAndRank = async () => {
-    const bodyData = { nickname: nickname, score: score };
-    const { data } = await Api.post("scores", bodyData);
-    settingDefault(data.payload);
-    setUserId(data.payload.id);
-    console.log(data.payload);
-    console.log("_id>>>>>>", data.payload._id);
-    return data.payload;
+    try {
+      const bodyData = { nickname: nickname, score: score };
+      const { data } = await Api.post("scores", bodyData);
+      settingDefault(data.payload);
+      setUserId(data.payload.id);
+      return data.payload;
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useEffect(() => {
     if (id) {
       getCopiedLink();
     } else {
-      console.log("useEffect==>>", userId);
       getScoreAndRank();
     }
-
     return () => setScore(0);
   }, []);
 
   const getCopiedLink = async () => {
-    const { data } = await Api.get(`scores/userId?userId=${id}`);
-    console.log("getCopied", data);
-    settingDefault(data.userRank);
-    setUserId(data.userRank.id);
-    console.log("idTest=====>", data.payload);
-    return data.userRank;
+    try {
+      const { data } = await Api.get(`scores/userId?userId=${id}`);
+      settingDefault(data.payload);
+      setUserId(data.payload.id);
+      return data.payload;
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useEffect(() => {
+    if (copied) {
+      toast.success(
+        <div>
+          링크가 복사되었다구리!
+          <br /> 공유해보자구리!
+        </div>,
+        {
+          icon: "🎈",
+          position: "top-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
+    }
+    return () => setCopied(false);
+  }, [copied]);
+
+  useEffect(() => {
     // 클립보드 복사기능 여기에
-    console.log("userId ====>", userId);
     if (userId && userId !== null && !value.includes(userId)) {
       setValue(value + `/${userId}`);
     }
@@ -76,29 +99,10 @@ const GameResult = () => {
     fontSize: "1.5rem",
   };
   const gameResultHandler = (e) => {
-    e.preventDefault();
     if (e.target.innerText === BtnText.HOME) {
       navigator("/");
     } else if (e.target.innerText === BtnText.SHARE) {
-      if (copied) {
-        toast.success(
-          <div>
-            링크가 복사되었다구리!
-            <br /> 공유해보자구리!
-          </div>,
-          {
-            icon: "🎈",
-            position: "top-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        );
-        setCopied(false);
-      }
+      setCopied(true);
     } else if (e.target.innerText === BtnText.RETRY) {
       navigator("/game");
     } else {

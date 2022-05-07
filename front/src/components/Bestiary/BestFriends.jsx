@@ -3,14 +3,14 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const BestFriends = ({ friends }) => {
-  const [height, setHeight] = React.useState(0);
-  const [offset, setOffset] = React.useState(0);
+  const [height, setHeight] = React.useState(424);
+  const [offset, setOffset] = React.useState(500);
   const navigate = useNavigate();
 
   React.useEffect(() => {
     setHeight(document.getElementById("img-bubble")?.clientHeight);
     setOffset(document.getElementById("columnWrapper")?.clientWidth / 2);
-  }, [height]);
+  }, []);
 
   return (
     <BestFriendWrapper height={height} offset={offset}>

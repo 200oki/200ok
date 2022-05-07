@@ -29,6 +29,7 @@ const HomeButton = ({ Icon, className, ...other }) => {
     //닉네임 초기화 시키는 코드 추가 예정
     navigator("/");
   };
+
   return (
     <Fab
       sx={styles}

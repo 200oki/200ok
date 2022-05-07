@@ -25,22 +25,15 @@ const AddBoard = () => {
   const classes = useStyles();
 
   const onEditorChange = (editorState) => {
-    const contentState = editorState.getCurrentContent();
     setEditorState(editorState);
-    console.log(contentState.hasText());
-    console.log(
-      "editor",
-      JSON.stringify(convertToRaw(editorState.getCurrentContent()))
-    );
   };
+
   const handleModal = () => {
     setModalOpen((v) => !v);
   };
+
   const fileHandler = (e) => {
     if (e.target.files.length > 1) {
-      // setPostFiles((v) => {
-      //   return [[...e.target.files].map((item) => item[0])];
-      // });
       [...e.target.files].map((item) => {
         console.log("mapTest======>", item);
         setPostFiles((v) => [...v, item]);
@@ -51,9 +44,7 @@ const AddBoard = () => {
       setPostFiles(e.target.files[0]);
     }
   };
-  // const blockSubmit = (e) => {
-  //   e.preventDefault();
-  // };
+
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
   };
@@ -65,6 +56,7 @@ const AddBoard = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     e.persist();
+
     if (editorState.getCurrentContent().hasText() && title && nickname) {
       const formData = new FormData();
       const content = JSON.stringify(
@@ -79,7 +71,6 @@ const AddBoard = () => {
       formData.append("content", content);
       formData.append("nickname", nickname);
 
-      console.log("formData=====>", formData.get("images"));
       try {
         const response = await Api.postPostsById("posts", formData, {
           headers: {

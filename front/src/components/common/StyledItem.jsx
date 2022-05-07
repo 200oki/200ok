@@ -23,9 +23,11 @@ const StyledItem = ({ type, content, className, ...other }) => {
   const typoStyles = {
     margin: "0 14px 50px 15px",
   };
+
   const handleOpen = () => {
     setOpen((v) => !v);
   };
+
   return (
     <React.Fragment>
       {type === "button" ? (

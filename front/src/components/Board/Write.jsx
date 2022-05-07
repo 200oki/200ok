@@ -4,6 +4,29 @@ import HomeButton from "../common/HomeButton";
 import styled, { keyframes } from "styled-components";
 import StyledItem from "../common/StyledItem";
 
+const Write = () => {
+  const navigate = useNavigate();
+
+  return (
+    <Container>
+      <Navigator>
+        <BackButton content={"메인메뉴"} destination={"explore"} />
+        <Wrapper>
+          <HomeButton />
+        </Wrapper>
+      </Navigator>
+      <Content>
+        <ButtonWrapper>
+          <StyledItem onClick={() => navigate("/guestbook")} content="방명록" />
+          <StyledItem onClick={() => navigate("/board")} content="게시판" />
+        </ButtonWrapper>
+      </Content>
+    </Container>
+  );
+};
+
+export default Write;
+
 const Navigator = styled.div`
   position: fixed;
   top: 0;
@@ -62,26 +85,3 @@ const Wrapper = styled.div`
   top: 30px;
   right: 50px;
 `;
-
-const Write = () => {
-  const navigate = useNavigate();
-
-  return (
-    <Container>
-      <Navigator>
-        <BackButton content={"메인메뉴"} destination={"explore"} />
-        <Wrapper>
-          <HomeButton />
-        </Wrapper>
-      </Navigator>
-      <Content>
-        <ButtonWrapper>
-          <StyledItem onClick={() => navigate("/guestbook")} content="방명록" />
-          <StyledItem onClick={() => navigate("/board")} content="게시판" />
-        </ButtonWrapper>
-      </Content>
-    </Container>
-  );
-};
-
-export default Write;
