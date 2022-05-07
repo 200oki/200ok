@@ -257,12 +257,14 @@ csmRouter.get(
     try {
       const mostSimilar = CsmService.csm({ ...req.body });
       const id = mostSimilar.id;
+      const count = await CsmService.getCount({ id });
       const body = {
         success: true,
         payload: {
           id,
           character: mostSimilar.character,
           distance: mostSimilar.distance,
+          ...count.payload,
         },
       };
       res.status(status.STATUS_200_OK).json(body);
