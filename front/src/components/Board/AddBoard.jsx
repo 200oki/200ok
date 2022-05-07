@@ -8,6 +8,8 @@ import { BoardPostIdContext } from "../../context/BoardPostId";
 import { useStyles } from "../../utils/useStyles";
 import { EditorState, convertToRaw } from "draft-js";
 import TextEditor from "../common/TextEditor";
+import { Typography } from "@mui/material";
+import CustomModal from "../common/CustomModal";
 
 const AddBoard = () => {
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ const AddBoard = () => {
   const [fileName, setFileName] = useState("파일을 선택해 주세요.");
   const [postFiles, setPostFiles] = useState([]);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [modalOpen, setModalOpen] = useState(false);
 
   const { setPostId } = useContext(BoardPostIdContext);
 
@@ -24,13 +27,15 @@ const AddBoard = () => {
   const onEditorChange = (editorState) => {
     const contentState = editorState.getCurrentContent();
     setEditorState(editorState);
-    console.log(contentState);
+    console.log(contentState.hasText());
     console.log(
       "editor",
       JSON.stringify(convertToRaw(editorState.getCurrentContent()))
     );
   };
-
+  const handleModal = () => {
+    setModalOpen((v) => !v);
+  };
   const fileHandler = (e) => {
     if (e.target.files.length > 1) {
       // setPostFiles((v) => {
@@ -60,7 +65,7 @@ const AddBoard = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     e.persist();
-    if (editorState && title) {
+    if (editorState.getCurrentContent().hasText() && title && nickname) {
       const formData = new FormData();
       const content = JSON.stringify(
         convertToRaw(editorState.getCurrentContent())
@@ -87,6 +92,8 @@ const AddBoard = () => {
       } catch (err) {
         console.error(err);
       }
+    } else {
+      setModalOpen(true);
     }
   };
 
@@ -165,6 +172,17 @@ const AddBoard = () => {
           )
         ) : null}
       </form>
+
+      <CustomModal open={modalOpen} onClose={handleModal}>
+        <Typography
+          id="modal-modal-title"
+          variant="h6"
+          component="h2"
+          className={classes.modalFont}
+        >
+          제목, 닉네임, 혹은 내용을 확인해주세요!
+        </Typography>
+      </CustomModal>
     </div>
   );
 };
