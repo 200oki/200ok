@@ -75,8 +75,20 @@ const VillagerList = () => {
 
   const cardPerColumn = 3;
   const columns = [];
+  const loadedColumns = [];
 
-  for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
+  for (let i = 0; i < 7; i++) {
+    loadedColumns.push(
+      villagers.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
+        return (
+          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
+            <Name>{villager.name_ko}</Name>
+          </Card>
+        );
+      })
+    );
+  }
+  for (let i = 7; i < parseInt(count / cardPerColumn); i++) {
     columns.push(
       villagers.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
         return (
@@ -137,6 +149,9 @@ const VillagerList = () => {
             </SearchForm>
           </div>
           <ContentContainer id="content">
+            {loadedColumns.map((column, idx) => {
+              return <Column key={idx}>{column}</Column>;
+            })}
             {columns.map((column, idx) => {
               return <Column key={idx}>{column}</Column>;
             })}
