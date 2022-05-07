@@ -37,10 +37,16 @@ mongoConnection.on("error", (error) =>
 // const redisClient = redis.createClient(REDIS_PORT);
 // redisClient.connect();
 
-process.on("uncaughtException", (err, origin) => {
-  logger.error(`\n\n${origin.toUpperCase()}: THE END OF TIME IS NIGH\n`);
+const ourFinalWords = (err, origin) => {
+  mongoConnection.close(true);
+  // redisClient.quit();
+  logger.error(
+    `\n\nTHE END OF TIME IS NIGH BECAUSE OF AN ${origin.toUpperCase()}\n`
+  );
   logger.error(err.stack);
   process.exit(1);
-});
+};
+
+process.on("uncaughtException", ourFinalWords);
 
 export { mongoConnection };
