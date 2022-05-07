@@ -62,8 +62,8 @@ const coupDeGrace = ({ message, logas = "info" }, err, origin) => {
 };
 
 process.on("uncaughtException", coupDeGrace.bind(null, {}));
-process.on("SIGBREAK", coupDeGrace.bind(null, { message: "SIGBREAK: BYE" }));
-process.on("SIGTERM", coupDeGrace.bind(null, { message: "SIGTERM: BYE" }));
-process.on("SIGINT", coupDeGrace.bind(null, { message: "SIGINT: BYE" }));
+process.on("SIGBREAK", coupDeGrace.bind(null, { message: "(SIGBREAK) BYE" }));
+process.on("SIGTERM", coupDeGrace.bind(null, { message: "(SIGTERM) BYE" }));
+process.on("SIGINT", coupDeGrace.bind(null, { message: "(SIGINT) BYE" }));
 
 export { mongoConnection };
