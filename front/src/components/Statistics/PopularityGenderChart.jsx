@@ -42,21 +42,21 @@ const PopularityByGenderChart = () => {
           sx={{ mt: 2 }}
           className={classes.modalFont}
         >
-          1티어가 짱 좋은 것
+          각 인기도 티어에 속한 여성/남성 주민의 비율을 도표화한 자료입니다.
         </Typography>
         <Typography
           id="modal-modal-description"
           sx={{ mt: 2 }}
           className={classes.modalFont}
         >
-          티어별 / 성별 전체
+          여성 캐릭터가 인기가 많은 경향이 뚜렷합니다. 여성 캐릭터들이 귀엽기 때문입니다.
         </Typography>
         <Typography
           id="modal-modal-description"
           sx={{ mt: 2 }}
           className={classes.modalFont}
         >
-          남자는 인기도가 낮음을 알 수 있다.
+          성격이나 취미는 인기도와 전혀 관련이 없습니다.
         </Typography>
       </CustomModal>
       <Bar className="graphBack"
