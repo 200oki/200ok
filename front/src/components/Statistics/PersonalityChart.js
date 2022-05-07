@@ -3,7 +3,7 @@ import * as Api from "../../api";
 import "../../css/stats.css";
 import { Chart, registerables } from "chart.js";
 import { Bar } from 'react-chartjs-2';
-import CustomModal from "../common/CustomModal";
+import StatsModal from "../common/StatsModal";
 import { Typography } from "@mui/material";
 import { useStyles } from "../../utils/useStyles";
 Chart.register(...registerables)
@@ -37,7 +37,7 @@ const PersonalityChart = () => {
       <div className={classes.desc} onClick={handleModal}>
         ?
       </div>
-      <CustomModal open={isClicked} onClose={handleModal}>
+      <StatsModal open={isClicked} onClose={handleModal}>
         <Typography
           id="modal-modal-description"
           sx={ typoStyles }
@@ -54,12 +54,12 @@ const PersonalityChart = () => {
         </Typography>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
           여성은 단순 활발, 성숙함, 아이돌, 친절함 중 하나입니다.
         </Typography>
-      </CustomModal>
+      </StatsModal>
       <Bar className="graphBack"
         data={{
           labels: dataList[1],
