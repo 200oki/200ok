@@ -54,7 +54,7 @@ const BoardList = () => {
               return (
                 <Card
                   key={idx}
-                  src={`http://elice-kdt-ai-4th-team04.elicecoding.com:5001/uploads/${post.images[0]}`}
+                  src={`http://elice-kdt-ai-4th-team04.elicecoding.com/api/uploads/${post.images[0]}`}
                   onClick={() => navigate(`/board/${post.id}`)}
                 >
                   <Title> {title} </Title>
@@ -75,7 +75,7 @@ const BoardList = () => {
             return (
               <Card
                 key={idx}
-                src={`http://elice-kdt-ai-4th-team04.elicecoding.com:5001/uploads/${post.images[0]}`}
+                src={`http://elice-kdt-ai-4th-team04.elicecoding.com/api/uploads/${post.images[0]}`}
                 onClick={() => navigate(`/board/${post.id}`)}
               >
                 <Title> {title} </Title>
