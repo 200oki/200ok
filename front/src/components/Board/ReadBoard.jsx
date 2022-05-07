@@ -202,7 +202,9 @@ const Read = () => {
                 <div className="eachSlide">
                   <div
                     style={{
-                      backgroundImage: `url(http://elice-kdt-ai-4th-team04.elicecoding.com/api/uploads/${images[0]})`,
+                      backgroundImage: `url(http://elice-kdt-ai-4th-team04.elicecoding.com/api/uploads/${encodeURIComponent(
+                        images[0]
+                      )})`,
                     }}
                   ></div>
                 </div>
@@ -216,7 +218,9 @@ const Read = () => {
                     <div className="eachSlide" key={`image${idx}`}>
                       <div
                         style={{
-                          backgroundImage: `url(http://elice-kdt-ai-4th-team04.elicecoding.com/api/uploads/${images[idx]})`,
+                          backgroundImage: `url(http://elice-kdt-ai-4th-team04.elicecoding.com/api/uploads/${encodeURIComponent(
+                            images[idx]
+                          )})`,
                         }}
                       ></div>
                     </div>

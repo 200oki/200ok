@@ -13,20 +13,24 @@ const BestFriends = ({ friends }) => {
   }, [height]);
 
   return (
-    <BestFriendWrapper height={height} offset={offset}>
-      <LabelBf>최고의 궁합</LabelBf>
-      {friends.map((friend, idx) => {
-        return (
-          <IconBf
-            key={`friend-${idx}`}
-            src={friend.character.image_icon}
-            onClick={() => {
-              navigate(`/detail/${friend.id}`);
-            }}
-          />
-        );
-      })}
-    </BestFriendWrapper>
+    <>
+      {height !== 0 && (
+        <BestFriendWrapper height={height} offset={offset}>
+          <LabelBf>최고의 궁합</LabelBf>
+          {friends.map((friend, idx) => {
+            return (
+              <IconBf
+                key={`friend-${idx}`}
+                src={friend.character.image_icon}
+                onClick={() => {
+                  navigate(`/detail/${friend.id}`);
+                }}
+              />
+            );
+          })}
+        </BestFriendWrapper>
+      )}
+    </>
   );
 };
 

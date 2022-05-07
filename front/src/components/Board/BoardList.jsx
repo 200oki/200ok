@@ -47,6 +47,8 @@ const BoardList = () => {
           posts
             .slice(cardPerColumn * i, cardPerColumn * (i + 1))
             .map((post, idx) => {
+              console.log("post.images===>", post.images[0]);
+
               const title =
                 post.title.length < 8
                   ? post.title
@@ -54,7 +56,9 @@ const BoardList = () => {
               return (
                 <Card
                   key={idx}
-                  src={`http://elice-kdt-ai-4th-team04.elicecoding.com/api/uploads/${post.images[0]}`}
+                  src={`http://elice-kdt-ai-4th-team04.elicecoding.com/api/uploads/${encodeURIComponent(
+                    post.images[0]
+                  )}`}
                   onClick={() => navigate(`/board/${post.id}`)}
                 >
                   <Title> {title} </Title>

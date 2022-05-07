@@ -20,7 +20,8 @@ const VillagerList = () => {
     주민: "special",
   };
 
-  const [villagers, setVillagers] = React.useState([]);
+  const [villagers, setVillagers] = React.useState(null);
+  const [loadedVillagers, setLoadedVillagers] = React.useState(null);
   const [count, setCount] = React.useState(0);
   const [show, setShow] = React.useState(false);
   const [option, setOption] = React.useState("검색조건");
@@ -74,11 +75,30 @@ const VillagerList = () => {
     const { data } = await Api.get(`characters/search/enums/${field}`);
     return data.payload;
   };
+  const numberLoaded = 21;
+  const initialize = async () => {
+    try {
+      const { data } = await Api.get(`characters/search?fields=name_ko,image_photo,id&page=1&size=${numberLoaded}`);
+      setLoadedVillagers(data.payload);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const initialize2 = async () => {
+    try {
+      const { data } = await Api.get(`characters/search?fields=name_ko,image_photo,id`);
+      setVillagers(data.payload.slice(numberLoaded));
+      setCount(data.total - numberLoaded);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const search = async () => {
     const queryOption = option === "검색조건" ? "" : `&props=${options[option]}&values=${ipt === "스페셜" ? "true" : ipt === "일반" ? "false" : ipt}`;
     const queryString = `?fields=name_ko,image_photo,id${queryOption}`;
     try {
+      setLoadedVillagers(null);
       const { data } = await Api.get(`characters/search${queryString}`);
       setVillagers(data.payload);
       setCount(data.total);
@@ -98,7 +118,8 @@ const VillagerList = () => {
   };
 
   React.useEffect(() => {
-    search();
+    initialize();
+    initialize2();
   }, []);
 
   const cardPerColumn = 3;
@@ -107,7 +128,7 @@ const VillagerList = () => {
 
   for (let i = 0; i < 7; i++) {
     loadedColumns.push(
-      villagers.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
+      loadedVillagers?.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
         return (
           <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
             <Name>{villager.name_ko}</Name>
@@ -116,9 +137,9 @@ const VillagerList = () => {
       })
     );
   }
-  for (let i = 7; i < parseInt(count / cardPerColumn); i++) {
+  for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
     columns.push(
-      villagers.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
+      villagers?.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
         return (
           <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
             <Name>{villager.name_ko}</Name>
@@ -130,7 +151,7 @@ const VillagerList = () => {
   const restCards = count % cardPerColumn;
   if (restCards > 0) {
     columns.push(
-      villagers.slice(-restCards).map((villager, idx) => {
+      villagers?.slice(-restCards).map((villager, idx) => {
         return (
           <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
             <Name>{villager.name_ko}</Name>
@@ -177,12 +198,14 @@ const VillagerList = () => {
             </SearchForm>
           </div>
           <ContentContainer id="content">
-            {loadedColumns.map((column, idx) => {
-              return <Column key={idx}>{column}</Column>;
-            })}
-            {columns.map((column, idx) => {
-              return <Column key={idx}>{column}</Column>;
-            })}
+            {loadedVillagers &&
+              loadedColumns.map((column, idx) => {
+                return <Column key={idx}>{column}</Column>;
+              })}
+            {villagers &&
+              columns.map((column, idx) => {
+                return <Column key={idx}>{column}</Column>;
+              })}
           </ContentContainer>
           <PrettoSlider onChange={scrollHandler} />
         </ContentWrapper>
