@@ -105,7 +105,7 @@ const GuestbookList = () => {
     getDataList();
     // 처음에 null 값이 들어있어서 오류 => not null일 때만 사용하도록 조건 추가
     if (userId !== null) {
-      console.log("useId no null");
+      console.log("userId no null");
       getModalData();
     }
   }, []);
