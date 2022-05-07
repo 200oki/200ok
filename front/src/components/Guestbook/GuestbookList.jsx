@@ -12,13 +12,14 @@ import { useNavigate } from "react-router-dom";
 import { guestbookImgList } from "../../utils/util";
 import "../../css/guestBook.css";
 import { GuestIdContext } from "../../context/GuestIdContext";
+import { convertFromRaw, Editor, EditorState } from "draft-js";
 
 const GuestbookList = () => {
   const navigate = useNavigate();
 
   const [modal, setModal] = useState(false); // 모달 열기
   const [guestbook, setGuestbook] = useState([]);
-  const [content, setContent] = useState([]);
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [date, setDate] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [count, setCount] = useState(0);
@@ -47,9 +48,17 @@ const GuestbookList = () => {
       for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
         setColumns((v) => [
           ...v,
-          guestbook.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((guestbook, idx) => {
-            return <Card key={idx} src={guestbookImgList[guestbook.id % 5].img} onClick={() => handleClick(guestbook)} />;
-          }),
+          guestbook
+            .slice(cardPerColumn * i, cardPerColumn * (i + 1))
+            .map((guestbook, idx) => {
+              return (
+                <Card
+                  key={idx}
+                  src={guestbookImgList[guestbook.id % 5].img}
+                  onClick={() => handleClick(guestbook)}
+                />
+              );
+            }),
         ]);
       }
       const restCards = count % cardPerColumn;
@@ -58,7 +67,13 @@ const GuestbookList = () => {
         setColumns((v) => [
           ...v,
           guestbook.slice(-restCards).map((guestbook, idx) => {
-            return <Card key={idx} src={guestbookImgList[guestbook.id % 5].img} onClick={() => handleClick(guestbook)} />;
+            return (
+              <Card
+                key={idx}
+                src={guestbookImgList[guestbook.id % 5].img}
+                onClick={() => handleClick(guestbook)}
+              />
+            );
           }),
         ]);
       }
@@ -78,7 +93,11 @@ const GuestbookList = () => {
       console.log(data);
       setGuestbook(data.payload);
       setCount(data.payload.length);
-      setContent(data.payload.content);
+      setEditorState(
+        EditorState.createWithContent(
+          convertFromRaw(JSON.parse(data.payload.content))
+        )
+      );
       setDate(data.payload.createdAt);
       setModal(true);
       setId(null);
@@ -120,10 +139,15 @@ const GuestbookList = () => {
   };
 
   // 모달로 방명록 보여주는 부분
-  const handleClick = (element) => {
+  const handleClick = (guestBook) => {
+    console.log(guestBook);
     setModal((v) => !v);
-    setContent(element.content);
-    setDate(element.createdAt);
+    setEditorState(
+      EditorState.createWithContent(
+        convertFromRaw(JSON.parse(guestBook.content))
+      )
+    );
+    setDate(guestBook.createdAt);
     console.log("여긴가");
   };
 
@@ -145,10 +169,15 @@ const GuestbookList = () => {
               {columns.map((column, idx) => {
                 return <Column key={idx}>{column}</Column>;
               })}
-              <Modal open={modal} onClose={handleClick} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+              <Modal
+                open={modal}
+                onClose={handleClick}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
                 <Box sx={modalStyle} className="modalBg">
                   <div className={"guestContentWrapper postArea"}>
-                    <p className="modalFont2">{content}</p>
+                    <Editor editorState={editorState} readOnly={true} />
                     <PostDiv>
                       <p
                         style={{ fontFamily: "TmoneyRoundWindRegular" }}
