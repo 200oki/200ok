@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useStyles } from "../../utils/useStyles";
-import { DescContext } from "./Stat";
+import { StatContext } from "../../context/StatContext";
 import StyledItem from "../common/StyledItem";
 import { statList } from "../../utils/util";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ import "../../css/stats.css";
 const StatBtn = () => {
   const classes = useStyles();
   const navigator = useNavigate();
-  const { setIsDesc } = useContext(DescContext);
+  const { setIsDesc } = useContext(StatContext);
 
   const handleClick = (e) => {
     // eslint-disable-next-line default-case
@@ -29,11 +29,11 @@ const StatBtn = () => {
       case "스타일 분포":
         return navigator("/stats/style");
         break;
+      case "성별 인기도 분포":
+        return navigator("/stats/popularity-by-gender");
+        break;
       case "종별 인기도 분포":
         return navigator("/stats/popularity-by-species");
-        break;
-      case "종별 성별 분포":
-        return navigator("/stats/popularity-by-gender");
         break;
     }
   };

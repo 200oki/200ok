@@ -12,6 +12,7 @@ import { MatchElementProvider } from "./context/MatchElementContext";
 import { GameAnswerProvider } from "./context/GameAnswerContext";
 import { DateProvider } from "./context/DateContext";
 import { BoardPostIdProvider } from "./context/BoardPostId";
+import { StatProvider } from "./context/StatContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -23,7 +24,9 @@ root.render(
             <GuestIdProvider>
               <DateProvider>
                 <BoardPostIdProvider>
-                  <App />
+                  <StatProvider>
+                    <App />
+                  </StatProvider>
                 </BoardPostIdProvider>
               </DateProvider>
             </GuestIdProvider>

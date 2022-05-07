@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as Api from "../../api";
 import { Chart, registerables } from "chart.js";
 import { Bar } from 'react-chartjs-2';
-import CustomModal from "../common/CustomModal";
+import StatsModal from "../common/StatsModal";
 import { Typography } from "@mui/material";
 import { useStyles } from "../../utils/useStyles";
 Chart.register(...registerables)
@@ -36,29 +36,29 @@ const PopularityByGenderChart = () => {
       <div className={classes.desc} onClick={handleModal}>
         ?
       </div>
-      <CustomModal open={isClicked} onClose={handleModal}>
+      <StatsModal open={isClicked} onClose={handleModal}>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
-          1티어가 짱 좋은 것
+          각 인기도 티어에 속한 여성/남성 주민의 비율을 도표화한 자료입니다.
         </Typography>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
-          티어별 / 성별 전체
+          여성 캐릭터가 인기가 많은 경향이 뚜렷합니다. 여성 캐릭터들이 귀엽기 때문입니다.
         </Typography>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
-          남자는 인기도가 낮음을 알 수 있다.
+          성격이나 취미는 인기도와 전혀 관련이 없습니다.
         </Typography>
-      </CustomModal>
+      </StatsModal>
       <Bar className="graphBack"
         data={{
           labels: dataList[1],
@@ -115,5 +115,10 @@ const PopularityByGenderChart = () => {
     </div>
   );
 }
+
+const typoStyles = {
+  fontFamily: "TmoneyRoundWindRegular",
+  fontSize: "1.2rem",
+};
 
 export default PopularityByGenderChart;

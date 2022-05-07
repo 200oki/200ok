@@ -3,7 +3,7 @@ import * as Api from "../../api";
 import "../../css/stats.css";
 import { Chart, registerables } from "chart.js";
 import { Bar } from 'react-chartjs-2';
-import CustomModal from "../common/CustomModal";
+import StatsModal from "../common/StatsModal";
 import { Typography } from "@mui/material";
 import { useStyles } from "../../utils/useStyles";
 Chart.register(...registerables)
@@ -37,29 +37,29 @@ const PersonalityChart = () => {
       <div className={classes.desc} onClick={handleModal}>
         ?
       </div>
-      <CustomModal open={isClicked} onClose={handleModal}>
+      <StatsModal open={isClicked} onClose={handleModal}>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
           동물의 숲에서는 성별마다 성격이 존재합니다.
         </Typography>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
           남성은 느끼함, 먹보, 무뚝뚝, 운동광 중 하나입니다.
         </Typography>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
           여성은 단순 활발, 성숙함, 아이돌, 친절함 중 하나입니다.
         </Typography>
-      </CustomModal>
+      </StatsModal>
       <Bar className="graphBack"
         data={{
           labels: dataList[1],
@@ -118,5 +118,10 @@ const PersonalityChart = () => {
     </div>
   );
 }
+
+const typoStyles = {
+  fontFamily: "TmoneyRoundWindRegular",
+  fontSize: "1.2rem",
+};
 
 export default PersonalityChart;
