@@ -238,6 +238,7 @@ csmRouter.get(
       const jsonStr = utf8.decode(base64.decode(req.params.code));
       const payload = JSON.parse(jsonStr);
       req.body = { ...payload };
+      next();
     } catch (error) {
       next(error);
     }
