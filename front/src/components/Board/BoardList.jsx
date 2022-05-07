@@ -19,7 +19,6 @@ const BoardList = () => {
     try {
       const { data } = await Api.get("posts");
       setPost(data.payload);
-      console.log(data.payload);
       setCount(data.payload.length);
       setIsLoading(false);
     } catch (err) {
@@ -47,8 +46,6 @@ const BoardList = () => {
           posts
             .slice(cardPerColumn * i, cardPerColumn * (i + 1))
             .map((post, idx) => {
-              console.log("post.images===>", post.images[0]);
-
               const title =
                 post.title.length < 8
                   ? post.title

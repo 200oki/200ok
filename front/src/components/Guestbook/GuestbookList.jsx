@@ -26,6 +26,24 @@ const GuestbookList = () => {
   const navigate = useNavigate();
   const { id, setId } = useContext(GuestIdContext);
 
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "40%",
+    height: "40%",
+    bgcolor: "background.paper",
+    backgroundImage: "url(/images/letterBg.png)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "100% 100%",
+    boxShadow: 24,
+    outline: "none",
+    borderRadius: "0.3em",
+    fontFamily: "TmoneyRoundWindRegular",
+    p: 4,
+  };
+
   const getDataList = async () => {
     try {
       const { data } = await Api.get("guestbooks");
@@ -80,8 +98,7 @@ const GuestbookList = () => {
       setIsLoading(false);
     }
   }, [columns]);
-  //guestbooks/'${id}'
-  //context 초기화
+
   const getModalData = async () => {
     try {
       const { data } = await Api.get(`guestbooks/${id}`);
@@ -99,6 +116,7 @@ const GuestbookList = () => {
       console.error(error);
     }
   };
+
   useEffect(() => {
     getDataList();
     // 처음에 null 값이 들어있어서 오류 => not null일 때만 사용하도록 조건 추가
@@ -106,24 +124,6 @@ const GuestbookList = () => {
       getModalData();
     }
   }, []);
-
-  const modalStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "40%",
-    height: "40%",
-    bgcolor: "background.paper",
-    backgroundImage: "url(/images/letterBg.png)",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "100% 100%",
-    boxShadow: 24,
-    outline: "none",
-    borderRadius: "0.3em",
-    fontFamily: "TmoneyRoundWindRegular",
-    p: 4,
-  };
 
   const scrollHandler = (e, val) => {
     const element = document.getElementById("content");

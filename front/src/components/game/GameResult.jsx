@@ -32,13 +32,17 @@ const GameResult = () => {
     setGameScore(data.score);
     setRank(data.rank);
   };
-  //공유하기 ===> get score?userId = ""
+
   const getScoreAndRank = async () => {
-    const bodyData = { nickname: nickname, score: score };
-    const { data } = await Api.post("scores", bodyData);
-    settingDefault(data.payload);
-    setUserId(data.payload.id);
-    return data.payload;
+    try {
+      const bodyData = { nickname: nickname, score: score };
+      const { data } = await Api.post("scores", bodyData);
+      settingDefault(data.payload);
+      setUserId(data.payload.id);
+      return data.payload;
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useEffect(() => {
@@ -47,15 +51,18 @@ const GameResult = () => {
     } else {
       getScoreAndRank();
     }
-
     return () => setScore(0);
   }, []);
 
   const getCopiedLink = async () => {
-    const { data } = await Api.get(`scores/userId?userId=${id}`);
-    settingDefault(data.userRank);
-    setUserId(data.userRank.id);
-    return data.userRank;
+    try {
+      const { data } = await Api.get(`scores/userId?userId=${id}`);
+      settingDefault(data.payload);
+      setUserId(data.payload.id);
+      return data.payload;
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useEffect(() => {

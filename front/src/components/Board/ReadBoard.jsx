@@ -65,9 +65,11 @@ const Read = () => {
       console.error(err);
     }
   };
+
   useEffect(() => {
     console.log(editorState);
   }, [editorState]);
+
   // 댓글 데이터 요청
   const fetchCommentData = async () => {
     try {
