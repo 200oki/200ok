@@ -151,6 +151,12 @@ export const statList = [
 `,
   },
   {
+    groupName: "hobby-by-personality-성숙함",
+    colName: ["패션", "교육", "음악", "운동", "자연", "놀이"],
+    value: [32, 10, 8, 3, 2, 0],
+    comment: `성숙함 성격은 다른 말로는 패션광입니다.`,
+  },
+  {
     groupName: "style",
     colName: ["고져스", "액티브", "엘레강스", "큐트", "쿨", "심플"],
     value: [38, 50, 54, 63, 68, 118],
