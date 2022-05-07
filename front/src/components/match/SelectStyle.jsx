@@ -58,6 +58,7 @@ const SelectStyle = ({ array }) => {
     <div className={`${styled.testContent} ${styled.Wrapper}`}>
       <div className={styled.testTitle}>
         {nickname}님의 스타일을 알려주세요!
+        <span className={styled.subTestTitle}>(5 / 5)</span>
       </div>
       <form className={styled.hobbyStyleForm}>
         <div>

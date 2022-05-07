@@ -35,6 +35,7 @@ const SelectColor = ({ nextSlide }) => {
     <div className={`${styled.testContent} ${styled.Wrapper}`}>
       <div className={styled.testTitle}>
         {nickname}님이 좋아하는 색깔을 알려주세요!
+        <span className={styled.subTestTitle}>(2 / 5)</span>
       </div>
       <form className={styled.colorForm}>
         <div>

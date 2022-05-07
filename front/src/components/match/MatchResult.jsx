@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
 import * as Api from "../../api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { MatchButtonText } from "../../utils/util";
 import styled from "../../css/match.module.css";
 import MatchResultMyChar from "./MatchResultMyChar";
@@ -10,6 +10,8 @@ import MatchResultComment from "./MatchResultComment";
 import BackButton from "../common/BackButton";
 import Typewriter from "typewriter-effect";
 import { ToastContainer, toast } from "react-toastify";
+import base64 from "base-64";
+import utf8 from "utf8";
 
 import { ParamContext } from "../../context/ParamContext";
 import { NicknameContext } from "../../context/NicknameContext";
@@ -23,6 +25,7 @@ function MatchResult() {
   const { id } = useContext(MatchElementContext);
   const { idKo } = useContext(MatchElementContext);
   const { nickname } = useContext(NicknameContext);
+  const { matchElem } = useContext(MatchElementContext);
   const outerDivRef = useRef();
 
   const [commentList, setCommentList] = useState([]);
@@ -31,9 +34,13 @@ function MatchResult() {
   const [goodBad, setGoodBad] = useState([]);
   const [best3, setBest3] = useState([]);
   const [total, setTotal] = useState(0);
-  const [userId, setUserId] = useState(null);
+
   const [value, setValue] = useState(window.location.href);
+  const [data, setData] = useState({}); // 공유하기 요청을 위한 data 객체
+  const [encodedData, setEncodedData] = useState(""); // Base64 인코딩된 data 객체
   const [copied, setCopied] = useState(false);
+
+  const { code } = useParams();
 
   const setCharAndTotal = (data) => {
     setMyChar(data);
@@ -45,8 +52,6 @@ function MatchResult() {
     try {
       const { data } = await Api.get(`csmdata/${id}/count`);
       setCharAndTotal(data.payload);
-      setUserId(data.payload.uuid);
-      console.log("userId ???", userId);
       console.log("나와 궁합이 맞는 주민", data.payload);
       return data.payload;
     } catch (err) {
@@ -90,9 +95,50 @@ function MatchResult() {
     return () => {};
   };
 
+  const encodingData = async () => {
+    setData({
+      birthday: `${matchElem[0]}-${matchElem[1]}`,
+      colors: matchElem[2],
+      personality: matchElem[3],
+      hobby: matchElem[4],
+      styles: matchElem[5],
+    });
+  };
+
+  const fetchShareData = async () => {
+    try {
+      const { data } = await Api.get(`csmdata/share/${code}`);
+      setCharAndTotal(data.payload);
+      console.log(data.payload);
+    } catch (err) {
+      console.error(err);
+    }
+    return () => {};
+  };
+
+  console.log("encodedData >>>>>>>> ", encodedData);
+
+  useEffect(() => {
+    if (code) {
+      fetchShareData();
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 5000);
+    } else {
+      encodingData();
+    }
+  }, [code]);
+
   useEffect(() => {
     setParam(null);
   }, []);
+
+  useEffect(() => {
+    if (data && Object.keys(data).length !== 0) {
+      const jsonStr = base64.encode(utf8.encode(JSON.stringify(data)));
+      setEncodedData(jsonStr);
+    }
+  }, [data]);
 
   useEffect(() => {
     if (id) {
@@ -110,10 +156,32 @@ function MatchResult() {
 
   // 클립보드 공유하기
   useEffect(() => {
-    if (userId && userId !== null && !value.includes(userId)) {
-      setValue(value + `/${userId}`);
+    if (encodedData && encodedData !== null && !value.includes(encodedData)) {
+      setValue(value + `/${encodedData}`);
     }
-  }, [userId]);
+  }, [encodedData]);
+
+  useEffect(() => {
+    if (copied) {
+      toast.success(
+        <div>
+          링크가 복사되었다구리!
+          <br /> 공유해보자구리!
+        </div>,
+        {
+          icon: "🎈",
+          position: "top-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
+    }
+    return () => setCopied(false);
+  }, [copied]);
 
   const goToPosition = (e) => {
     e.preventDefault();
@@ -139,24 +207,7 @@ function MatchResult() {
         behavior: "smooth",
       });
     } else if (e.target.innerText === MatchButtonText.SHARE) {
-      if (copied) {
-        toast.success(
-          <div>
-            링크가 복사되었다구리!
-            <br /> 공유해보자구리!
-          </div>,
-          {
-            icon: "🎈",
-            position: "top-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        );
-      }
+      setCopied(true);
     } else {
       outerDivRef.current.scrollTo({
         top: 0,
@@ -170,57 +221,79 @@ function MatchResult() {
     navigator("/match");
   };
 
-  if (isLoading) {
-    return (
-      <div className={`${styled.loadingWrapper} ${styled.LoadingTitle}`}>
-        {nickname}님과 찰떡궁합인 주민을 찾고 있어요
-        <Typewriter
-          onInit={(typewriter) => {
-            typewriter.typeString("...:)").pauseFor(1000).start();
-          }}
-          options={{ loop: true, cursor: "", deleteSpeed: 100 }}
-        />
-      </div>
-    );
-  }
-
   return (
-    <div className={styled.outer} ref={outerDivRef}>
-      <div
-        className="nav-bar"
-        style={{ position: "fixed", top: "0", left: "0", zIndex: "1" }}
-      >
-        <BackButton content={"메인으로"} destination={"explore"} />
-      </div>
-      <ToastContainer />
-      <div className={styled.inner}>
-        <MatchResultMyChar
-          myChar={myChar}
-          value={value}
-          setCopied={setCopied}
-          goToPosition={goToPosition}
-          goToFirstPage={goToFirstPage}
-        />
-      </div>
-      <div className={styled.inner}>
-        <MatchResultCompat goodBad={goodBad} goToPosition={goToPosition} />
-      </div>
-      <div className={styled.inner}>
-        <MatchResultRank
-          best3={best3}
-          total={total}
-          goToPosition={goToPosition}
-        />
-      </div>
-      <div className={styled.inner}>
-        <MatchResultComment
-          name={myChar.name_ko}
-          goToPosition={goToPosition}
-          commentList={commentList}
-          setCommentList={setCommentList}
-        />
-      </div>
-    </div>
+    <>
+      {isLoading ? (
+        code ? (
+          <div className={`${styled.loadingWrapper} ${styled.LoadingTitle}`}>
+            공유 정보를 가져오고 있어요
+            <Typewriter
+              onInit={(typewriter) => {
+                typewriter.typeString("...:)").pauseFor(1000).start();
+              }}
+              options={{ loop: true, cursor: "", deleteSpeed: 100 }}
+            />
+          </div>
+        ) : (
+          <div className={`${styled.loadingWrapper} ${styled.LoadingTitle}`}>
+            {nickname}님과 찰떡궁합인 주민을 찾고 있어요
+            <Typewriter
+              onInit={(typewriter) => {
+                typewriter.typeString("...:)").pauseFor(1000).start();
+              }}
+              options={{ loop: true, cursor: "", deleteSpeed: 100 }}
+            />
+          </div>
+        )
+      ) : (
+        <div className={styled.outer} ref={outerDivRef}>
+          <div
+            className="nav-bar"
+            style={{ position: "fixed", top: "0", left: "0", zIndex: "1" }}
+          >
+            <BackButton content={"메인으로"} destination={"explore"} />
+          </div>
+          <ToastContainer />
+          <div className={styled.inner}>
+            <MatchResultMyChar
+              myChar={myChar}
+              value={value}
+              setCopied={setCopied}
+              goToPosition={goToPosition}
+              goToFirstPage={goToFirstPage}
+              encodedData={encodedData}
+            />
+          </div>
+          {encodedData && (
+            <>
+              <div className={styled.inner}>
+                <MatchResultCompat
+                  goodBad={goodBad}
+                  goToPosition={goToPosition}
+                />
+              </div>
+              <div className={styled.inner}>
+                <MatchResultRank
+                  best3={best3}
+                  total={total}
+                  goToPosition={goToPosition}
+                />
+              </div>
+              {nickname && (
+                <div className={styled.inner}>
+                  <MatchResultComment
+                    name={myChar.name_ko}
+                    goToPosition={goToPosition}
+                    commentList={commentList}
+                    setCommentList={setCommentList}
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
+    </>
   );
 }
 

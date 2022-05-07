@@ -471,6 +471,12 @@
   margin-bottom: 30px;
 }
 
+.subTestTitle {
+  font-size: 1.3rem;
+  margin-left: 20px;
+  color: grey;
+}
+
 .personRadioBtn input[type="radio"],
 .personRadioBtn input[type="radio"]:checked,
 .hobbyStyleRadioBtn input[type="radio"],
@@ -534,7 +540,7 @@
 }
 
 .fadeInImg {
-  animation: fadein 3s;
+  animation: fadein 2s;
 }
 
 @keyframes fadein {

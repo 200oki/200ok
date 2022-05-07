@@ -75,6 +75,7 @@ function SelectPersonality({ nextSlide }) {
     <div className={`${styled.testContent} ${styled.Wrapper}`}>
       <div className={styled.testTitle}>
         {nickname}님의 성향에 가까운 것을 선택해주세요!
+        <span className={styled.subTestTitle}>(3 / 5)</span>
       </div>
       <form className={styled.personForm}>
         <div>

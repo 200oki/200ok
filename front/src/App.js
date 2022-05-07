@@ -60,15 +60,23 @@ function App() {
           <Route path="/match-intro" element={<MatchIntro />} />
           <Route path="/match" element={<InputNickname />} />
           <Route path="/match-test" element={<MatchTest />} />
-          <Route path="/match-result" element={<MatchResult />} />
+          <Route path="/match-result" element={<MatchResult />}>
+            <Route path=":code" element={<MatchResult />} />
+          </Route>
           <Route path="/stats" element={<Stat />}>
             <Route path="gender" element={<GenderChart />} />
             <Route path="species" element={<SpeciesChart />} />
             <Route path="personality" element={<PersonalityChart />} />
             <Route path="hobby" element={<HobbyChart />} />
             <Route path="style" element={<StyleChart />} />
-            <Route path="popularity-by-species" element={<PopularityBySpeciesChart />} />
-            <Route path="popularity-by-gender" element={<PopularityByGenderChart />} />
+            <Route
+              path="popularity-by-species"
+              element={<PopularityBySpeciesChart />}
+            />
+            <Route
+              path="popularity-by-gender"
+              element={<PopularityByGenderChart />}
+            />
           </Route>
           <Route path="/bestiary" element={<Bestiary />} />
           <Route path="/bestiary/list" element={<VillagerList />} />

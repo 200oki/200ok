@@ -64,7 +64,10 @@ function InputBirthday({ nextSlide }) {
 
   return (
     <div className={`${styled.testContent} ${styled.Wrapper}`}>
-      <div className={styled.testTitle}>{nickname}님의 생일은 언제인가요?</div>
+      <div className={styled.testTitle}>
+        {nickname}님의 생일은 언제인가요?
+        <span className={styled.subTestTitle}>(1 / 5)</span>
+      </div>
       <div className={styled.birthFormWrapper}>
         <FormControl sx={{ m: 1, minWidth: 120 }}>
           <Select
