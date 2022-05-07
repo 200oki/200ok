@@ -87,6 +87,7 @@ class Character {
    * 필드는 아래에 언급된 값 중 하나입니다.
    *  - `ALL`: 전체 캐릭터의 리스트입니다. `value` 인자는 무시됩니다.
    *  - `id`
+   *  - `special`
    *  - `name_ko`
    *  - `birthday`
    *  - `birthday_month`
