@@ -104,7 +104,7 @@ guestbookRouter.post(
 
 /**
  * @swagger
- * /guestbooks/userId/{id}:
+ * /guestbooks/{id}:
  *   get:
  *    summary: 방명록 조회 API
  *    description: 방명록 조회할 때 사용하는 API 입니다.
@@ -165,10 +165,10 @@ guestbookRouter.post(
  *                      description: id가 존재하지 않습니다.
  *
  */
-guestbookRouter.get(
-  "/guestbooks/userId",
+ guestbookRouter.get(
+  "/guestbooks/:id",
   [
-    check("userId")
+    check("id")
       .trim()
       .isLength({ min: 1 })
       .exists()
@@ -178,7 +178,7 @@ guestbookRouter.get(
     validate,
   ],
   async (req, res, next) => {
-    const id = req.query.userId;
+    const { id } = req.params;
     const userGuestbook = await GuestbookService.getGuestbook({ id });
     if (userGuestbook === null) {
       const body = {

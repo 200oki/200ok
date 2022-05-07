@@ -39,20 +39,20 @@ class ObsoleteRequestError extends Error {
 /** 기본 `Error` 타입에 더 구체적인 정보를 담을 수 있도록 확장한 범용 에러입니다. */
 class AppError extends Error {
   static status = STATUS_500_INTERNALSERVERERROR;
-  static exit = 1;
+  static operational = true;
   static logas = "warn";
   /** 더 구체적인 정보를 담을 수 있도록 확장한 범용 에러입니다.
    *
    * @arg {{
    *  name?: string,
    *  status?: number,
-   *  exit?: number,
+   *  operational?: boolean,
    *  logas?: string,
    *  detail?: any
    * }} kwargs - 일부는 생략 가능합니다. 전부 생략하려면 `{}`를 줍니다.
    *    - `name`: 기본값 `this.constructor.name` = `"AppError"`
    *    - `status`: http status code입니다. 기본값 `500 Internal Server Error`
-   *    - `exit`: 0이 아니면 `exit`에 인자로 들어가 프로세스를 끝냅니다. 기본값 `1`
+   *    - `operational`: 참이면 프로세스를 끝냅니다. 기본값 `true`
    *    - `logas`: 거짓값이 아니면 해당 메소드를 사용해 로그합니다. 기본값 `warn`
    *    - `detail`: 에러 분류를 돕기 위한 추가 정보입니다.
    * @arg {string} [message] - `Error` 컨스트럭터로 릴레이할 메시지입니다.
@@ -60,7 +60,7 @@ class AppError extends Error {
    * @arg {string} [fileName]
    * @arg {number} [lineNumber]
    */
-  constructor({ name, status, exit, logas, detail }, ...params) {
+  constructor({ name, status, operational, logas, detail }, ...params) {
     super(...params);
     Object.setPrototypeOf(this, new.target.prototype);
     if (Error.captureStackTrace) {
@@ -69,7 +69,7 @@ class AppError extends Error {
 
     this.name = name ?? this.constructor.name;
     this.status = status ?? this.constructor.status;
-    this.exit = exit ?? this.constructor.exit;
+    this.operational = operational ?? Boolean(this.constructor.operational);
     this.logas = logas; // ?? this.constructor.logas;
     this.detail = detail;
   }
@@ -78,7 +78,7 @@ class AppError extends Error {
 /** `AppError` 타입을 Bad Request 용으로 쓰기 편하게 확장한 에러입니다. */
 class RequestError extends AppError {
   static status = STATUS_400_BADREQUEST;
-  static exit = 0;
+  static operational = false;
   static logas = "info";
   /** `AppError` 타입을 Bad Request 용으로 쓰기 편하게 확장한 에러입니다.
    *
@@ -91,7 +91,7 @@ class RequestError extends AppError {
    * }} kwargs - 일부는 생략 가능합니다. 전부 생략하려면 `{}`를 줍니다.
    *    - `name`: 기본값 `this.constructor.name` = `"RequestError"`
    *    - `status`: http status code입니다. 기본값 `400 Bad Request`
-   *    - `exit`: 0이 아니면 `exit`에 인자로 들어가 프로세스를 끝냅니다. 기본값 `0`
+   *    - `operational`: 참이면 프로세스를 끝냅니다. 기본값 `false`
    *    - `logas`: 거짓값이 아니면 해당 메소드를 사용해 로그합니다. 기본값 `info`
    *    - `detail`: 에러 분류를 돕기 위한 추가 정보입니다.
    * @arg {string} [message] - `Error` 컨스트럭터로 릴레이할 메시지입니다.
@@ -99,7 +99,7 @@ class RequestError extends AppError {
    * @arg {string} [fileName]
    * @arg {number} [lineNumber]
    */
-  constructor({ name, status, exit, logas, detail }, ...params) {
+  constructor({ name, status, operational, logas, detail }, ...params) {
     super(...arguments);
     Object.setPrototypeOf(this, new.target.prototype);
   }

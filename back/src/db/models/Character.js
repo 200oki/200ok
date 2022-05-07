@@ -33,6 +33,7 @@ class Character {
    *
    * 필드는 아래에 언급된 값 중 하나입니다.
    *  - `id`
+   *  - `special`
    *  - `name_ko`
    *  - `birthday`
    *  - `birthday_month`
@@ -87,6 +88,7 @@ class Character {
    * 필드는 아래에 언급된 값 중 하나입니다.
    *  - `ALL`: 전체 캐릭터의 리스트입니다. `value` 인자는 무시됩니다.
    *  - `id`
+   *  - `special`
    *  - `name_ko`
    *  - `birthday`
    *  - `birthday_month`
@@ -146,6 +148,24 @@ class Character {
    */
   static list() {
     return characterNames;
+  }
+
+  /** 지정된 캐릭터 데이터 필드에 어떤 값들이 있는지 반환합니다.
+   *
+   * @arg {string} field - 찾으려는 필드입니다. (`species`, `hobby`, ...)
+   * @return {string[]} - 결과값은 문자열의 배열입니다.
+   */
+  static listCategories(field) {
+    if (
+      !["hobby", "personality", "styles", "colors", "species"].includes(field)
+    ) {
+      throw new RequestError(
+        { status: status.STATUS_404_NOTFOUND },
+        `Field name "${field}" either doesn't exist or not peekable`
+      );
+    }
+
+    return Object.keys(characters[field]);
   }
 
   /** 캐릭터 `n`명을 무작위로 골라 배열로 반환합니다.

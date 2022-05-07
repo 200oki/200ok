@@ -98,6 +98,18 @@ router.get(
   }
 );
 
+router.get("/characters/search/enums/:field", async (req, res, next) => {
+  try {
+    const result = CharacterService.listCategories(req.params.field);
+    res.status(status.STATUS_200_OK).json({
+      success: true,
+      payload: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 /** DEPRECATED query: birthday=mm-dd[&fields=field1,field2,...] */
 /**
  * @swagger
@@ -268,7 +280,7 @@ router.get("/characters/:id", async (req, res, next) => {
   }
 });
 
-/** /characters/random swagger 문서
+/** /characters/random swaggerdoc
  * @swagger
  * /characters/random:
  *  get:
@@ -330,7 +342,7 @@ router.get("/characters/:id", async (req, res, next) => {
  *                      description: character 데이터입니다.
  */
 let _commentFoldDummy1;
-/** /characters/search swagger 문서
+/** /characters/search swaggerdoc
  * @swagger
  * /characters/search:
  *  get:
@@ -376,6 +388,7 @@ let _commentFoldDummy1;
  *          | 필드 | 매치 스킴 |
  *          | --- | -------- |
  *          | id | 일치 |
+ *          | special | 일치 |
  *          | birthday | 일치 |
  *          | birthday_month | 일치 |
  *          | colors | 최대 두가지 속성중 최소 하나가 문자열 포함 |
@@ -471,5 +484,64 @@ let _commentFoldDummy1;
  *
  */
 let _commentFoldDummy2;
+/** /characters/search/enums swaggerdoc
+ * @swagger
+ * /characters/search/enums/{field}:
+ *  get:
+ *    summary: 캐릭터 데이터의 필드에 어떤 값들이 있는지 반환합니다.
+ *    description: |
+ *      `payload`는 다음과 같습니다.
+ *      ```
+ *      [ value1, value2, value3, ]
+ *      ```
+ *    tags: [Characters]
+ *    parameters:
+ *      - in: path
+ *        name: field
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: |
+ *          가능한 값의 목록을 보고 싶은 필드 목록입니다. <br>
+ *          다음 중 하나여야 합니다.
+ *          - hobby
+ *          - personality
+ *          - styles
+ *          - colors
+ *          - species
+ *        example: hobby
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                  description: 요청 성공 여부
+ *                  example: true
+ *                payload:
+ *                  type: array
+ *                  items:
+ *                    type: string,
+ *                    example: 친절함
+ *      404:
+ *        description: |
+ *          없는 필드이거나 허용되지 않은 필드를 요청했습니다.
+ *          - Field name "${field}" either doesn't exist or not peekable
+ *        content:
+ *          application/json:
+ *            schema:
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                  description: 요청 성공 여부
+ *                  example: false
+ *                errorMessage:
+ *                  type: string
+ *                  example: Field name \"${field}\" either doesn't \
+ *                    exist or not peekable
+ */
+let _commentFoldDummy3;
 
 export { router as characterRouter };

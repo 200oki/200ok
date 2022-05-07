@@ -110,6 +110,7 @@ const MATCH_INCLUDESUBSTRING = 4;
 /** 검색 시 매치를 판단하는 스킴입니다. */
 const MATCH_SCHEMES = {
   id: MATCH_EXACT,
+  special: MATCH_EXACT,
   name_ko: MATCH_SUBSTRING,
   birthday: MATCH_EXACT,
   birthday_month: MATCH_EXACT,
@@ -133,6 +134,7 @@ const SEARCH_PRIORITIES = {
   name_ko: 30,
   styles: 20,
   colors: 10,
+  special: 5,
 };
 
 // TIL `Array.fill`은 복사를 안한다.
@@ -163,6 +165,7 @@ const emptyArrays = (len) => Array.from(Array(len), () => []);
 const characters = {
   ALL: _sorted,
   id: _chars,
+  special: { true: [], false: [] },
   name_ko: {},
   birthday: {},
   birthday_month: _.object(_.range(1, 13), emptyArrays(12)),
@@ -184,6 +187,7 @@ for (const char of characters.ALL) {
   // const char = entry[1];
   let {
     name_ko,
+    special,
     birthday,
     birthday_month,
     tier,
@@ -207,6 +211,9 @@ for (const char of characters.ALL) {
     characters.birthday[birthday] = [];
   }
   characters.birthday[birthday].push(char);
+
+  // 프론트엔드에서 특수 주민 필터링 가능하게 해달라고 요청
+  characters.special[special.toString()].push(char);
 
   // birthday_month는 이달의 생일 캐릭터 및 달력에 사용됩니다.
   characters.birthday_month[birthday_month_str].push(char);
