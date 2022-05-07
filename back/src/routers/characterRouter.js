@@ -98,6 +98,13 @@ router.get(
   }
 );
 
+router.get("/characters/search/enums/:field", async (req, res, next) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+});
+
 /** DEPRECATED query: birthday=mm-dd[&fields=field1,field2,...] */
 /**
  * @swagger
