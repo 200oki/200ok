@@ -58,6 +58,13 @@ const coupDeGrace = ({ message, logas = "info" }, err, origin) => {
   }
   mongoConnection.close(true);
   // redisClient.quit();
+  /** 이 부분은 의도한 대로 작동하지 않을 가능성이 있습니다.
+   *
+   * @fixme node 공식 문서에 따르면, process.exit을 직접 사용하는 건 동기적이고
+   * log 등은 비동기적이기 때문에 로그를 마치지 못하고 프로세스가 끝날 수 있습니다.
+   * 따라서 만일 로그 손실이 일어난다면 process.exit(1)을 지우는 방법을 강구해봐야
+   * 할 것 같습니다.
+   */
   process.exit(1);
 };
 
