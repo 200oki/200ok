@@ -1,8 +1,13 @@
 import axios from "axios";
 
-const backendPortNumber = "5001";
+const backendPortNumber = "api";
 const serverUrl =
-  "http://" + window.location.hostname + ":" + backendPortNumber + "/";
+  " http://elice-kdt-ai-4th-team04.elicecoding.com" +
+  "/" +
+  backendPortNumber +
+  "/";
+// const serverUrl =
+//   "http://" + window.location.hostname + ":" + backendPortNumber + "/";
 
 async function get(endpoint) {
   console.log(`GET 요청 ${serverUrl + endpoint}`);
