@@ -3,8 +3,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const BestFriends = ({ friends }) => {
-  const [height, setHeight] = React.useState();
-  const [offset, setOffset] = React.useState();
+  const [height, setHeight] = React.useState(442);
+  const [offset, setOffset] = React.useState(500);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -13,24 +13,20 @@ const BestFriends = ({ friends }) => {
   }, [height, offset]);
 
   return (
-    <>
-      {height && offset && (
-        <BestFriendWrapper height={height} offset={offset}>
-          <LabelBf>최고의 궁합</LabelBf>
-          {friends.map((friend, idx) => {
-            return (
-              <IconBf
-                key={`friend-${idx}`}
-                src={friend.character.image_icon}
-                onClick={() => {
-                  navigate(`/detail/${friend.id}`);
-                }}
-              />
-            );
-          })}
-        </BestFriendWrapper>
-      )}
-    </>
+    <BestFriendWrapper height={height} offset={offset}>
+      <LabelBf>최고의 궁합</LabelBf>
+      {friends.map((friend, idx) => {
+        return (
+          <IconBf
+            key={`friend-${idx}`}
+            src={friend.character.image_icon}
+            onClick={() => {
+              navigate(`/detail/${friend.id}`);
+            }}
+          />
+        );
+      })}
+    </BestFriendWrapper>
   );
 };
 
