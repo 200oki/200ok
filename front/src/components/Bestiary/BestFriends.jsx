@@ -6,7 +6,7 @@ const BestFriends = ({ friends }) => {
   const navigate = useNavigate();
 
   return (
-    <BestFriendWrapper height={height} offset={offset}>
+    <BestFriendWrapper>
       <LabelBf>최고의 궁합</LabelBf>
       {friends.map((friend, idx) => {
         return (
