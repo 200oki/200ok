@@ -61,6 +61,8 @@ const VillagerDetail = () => {
 };
 
 const VillagerImg = styled.img`
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
   box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.2);
   margin-top: 40px;

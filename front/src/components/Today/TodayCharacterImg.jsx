@@ -11,6 +11,8 @@ function TodayCharacterImg({ todayCharacter }) {
           src={villager.image_photo}
           key={index}
           style={{
+            width: "250px",
+            height: "250px",
             borderRadius: "50%",
             display: "block",
             boxShadow: "1px 2px 2px 0px rgba(0, 0, 0, 0.2)",

@@ -3,15 +3,16 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const BestFriends = ({ friends }) => {
-  const [height, setHeight] = React.useState(0);
-  const [offset, setOffset] = React.useState(0);
+  const [height, setHeight] = React.useState();
+  const [offset, setOffset] = React.useState();
   const navigate = useNavigate();
 
   React.useEffect(() => {
     setHeight(document.getElementById("img-bubble")?.clientHeight);
     setOffset(document.getElementById("columnWrapper")?.clientWidth / 2);
-  }, [height]);
+  }, [height, offset]);
 
+  console.log(offset);
   return (
     <BestFriendWrapper height={height} offset={offset}>
       <LabelBf>최고의 궁합</LabelBf>
