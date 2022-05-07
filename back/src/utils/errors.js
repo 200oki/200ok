@@ -69,7 +69,7 @@ class AppError extends Error {
 
     this.name = name ?? this.constructor.name;
     this.status = status ?? this.constructor.status;
-    this.operational = operational ?? this.constructor.operational;
+    this.operational = operational ?? Boolean(this.constructor.operational);
     this.logas = logas; // ?? this.constructor.logas;
     this.detail = detail;
   }
