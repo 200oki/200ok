@@ -40,15 +40,15 @@ const PersonalityChart = () => {
       <CustomModal open={isClicked} onClose={handleModal}>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
           동물의 숲에서는 성별마다 성격이 존재합니다.
         </Typography>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
           남성은 느끼함, 먹보, 무뚝뚝, 운동광 중 하나입니다.
         </Typography>
@@ -118,5 +118,10 @@ const PersonalityChart = () => {
     </div>
   );
 }
+
+const typoStyles = {
+  fontFamily: "TmoneyRoundWindRegular",
+  fontSize: "1.2rem",
+};
 
 export default PersonalityChart;

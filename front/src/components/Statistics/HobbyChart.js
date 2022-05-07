@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as Api from "../../api";
 import { BarChart, Bar, XAxis, YAxis,
 	CartesianGrid, Legend, Tooltip } from 'recharts';
-import CustomModal from "../common/CustomModal";
+import StatsModal from "../common/StatsModal";
 import { Typography } from "@mui/material";
 import { useStyles } from "../../utils/useStyles";
 
@@ -46,22 +46,22 @@ const HobbyChart = () => {
       <div className={classes.desc} onClick={handleModal}>
         ?
       </div>
-      <CustomModal open={isClicked} onClose={handleModal}>
+      <StatsModal open={isClicked} onClose={handleModal}>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
           취미는 숫자가 딱 맞아 보이지만,
         </Typography>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
           사실 성별 등으로 구분해서 살펴보면 보이는 것처럼 균일하지는 않습니다.
         </Typography>
-      </CustomModal>
+      </StatsModal>
       <BarChart className="graphBack" width={1200} height={500} data={data} >
         <CartesianGrid horizontal={false} vertical={false} />
         <XAxis dataKey="name" />
@@ -74,5 +74,10 @@ const HobbyChart = () => {
     </div>
 	);
 }
+
+const typoStyles = {
+  fontFamily: "TmoneyRoundWindRegular",
+  fontSize: "1.2rem",
+};
 
 export default HobbyChart;
