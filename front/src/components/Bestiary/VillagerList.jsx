@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import styled, { keyframes } from "styled-components";
 import * as Api from "../../api";
 import { Slider } from "@mui/material";
@@ -20,12 +20,12 @@ const VillagerList = () => {
     주민: "special",
   };
 
-  const [villagers, setVillagers] = useState([]);
-  const [count, setCount] = useState(0);
-  const [show, setShow] = useState(false);
-  const [option, setOption] = useState("검색조건");
-  const [ipt, setIpt] = useState("");
-  const [placeholder, setPlaceholder] = useState("검색어를 입력해주세요");
+  const [villagers, setVillagers] = React.useState([]);
+  const [count, setCount] = React.useState(0);
+  const [show, setShow] = React.useState(false);
+  const [option, setOption] = React.useState("검색조건");
+  const [ipt, setIpt] = React.useState("");
+  const [placeholder, setPlaceholder] = React.useState("검색어를 입력해주세요");
 
   const scrollHandler = (e, val) => {
     const element = document.getElementById("content");
@@ -97,7 +97,7 @@ const VillagerList = () => {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     search();
   }, []);
 

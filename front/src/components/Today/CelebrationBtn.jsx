@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import React from "react";
 import * as Api from "../../api";
 import CelebrationComments from "./CelebrationComments";
 import TodayCharacterImg from "./TodayCharacterImg";
@@ -34,10 +34,10 @@ import TodayPhrase from "./TodayPhrase";
 */
 
 function CelebrationBtn({ todayCharacter, villagers, date }) {
-    const [comments, setComments] = useState([]);
+    const [comments, setComments] = React.useState([]);
 
 
-    const getCommentList = useCallback(() => {
+    const getCommentList = React.useCallback(() => {
         async function get(villager) {
             const { data } = await Api.get(`comments?villager=${villager}&location=today`);
             return data.payload;
@@ -50,7 +50,7 @@ function CelebrationBtn({ todayCharacter, villagers, date }) {
         getComments();
     }, []);
 
-    useEffect(() => {
+    React.useEffect(() => {
         getCommentList();
     }, [getCommentList]);
 
@@ -59,7 +59,7 @@ function CelebrationBtn({ todayCharacter, villagers, date }) {
         if (a.createdAt === b.createdAt) return 0;
         if (a.createdAt < b.createdAt) return 1;
     });
-    const [commentShow, setCommentShow] = useState(false);
+    const [commentShow, setCommentShow] = React.useState(false);
     const celebrationHandler = (e) => {
         e.preventDefault();
         setCommentShow(!commentShow);

@@ -1,21 +1,21 @@
-import { useState, useEffect, useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../../api";
 import "../../css/today.css";
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CelebrationBtn from "./CelebrationBtn";
 import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 import { DateContext } from "../../context/DateContext";
 
 function Today() {
-  const navigate = useNavigate()
-  const { date, setDate } = useContext(DateContext)
+  const navigate = useNavigate();
+  const { date, setDate } = React.useContext(DateContext);
 
   const fieldsToGet = ["id", "name_ko", "image_photo", "image_icon"].join();
 
-  const [todayCharacter, setTodayCharacter] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [todayCharacter, setTodayCharacter] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   async function getTodayCharacter() {
     try {
@@ -29,22 +29,22 @@ function Today() {
     }
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     getTodayCharacter();
     return () => {
       const today = new Date(); // 오늘 날짜
-      const nowMonth = String(today.getMonth() + 1).padStart(2, "0")
-      const nowDay = String(today.getDate()).padStart(2, "0")
+      const nowMonth = String(today.getMonth() + 1).padStart(2, "0");
+      const nowDay = String(today.getDate()).padStart(2, "0");
       setDate({
         month: nowMonth,
-        day: nowDay
-      })
-    }
+        day: nowDay,
+      });
+    };
   }, []);
 
   const handleClick = () => {
-    navigate("/calendar")
-  }
+    navigate("/calendar");
+  };
 
   const villagers = todayCharacter.map((villager) => (villager ? villager.name_ko : null));
 
@@ -55,20 +55,23 @@ function Today() {
   }
   return (
     <div className="today">
-      <div className="nav-bar" style={{ position: "fixed", top: "0", zIndex: "1", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100vw" }}>
+      <div
+        className="nav-bar"
+        style={{ position: "fixed", top: "0", zIndex: "1", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100vw" }}
+      >
         <BackButton content={"메인메뉴"} destination={"explore"} />
         <HomeButton className="today-calendar" Icon={CalendarMonthIcon} onClick={handleClick} />
       </div>
       <div className="today-content">
-        {villagers.length > 0
-          ?
+        {villagers.length > 0 ? (
           <CelebrationBtn date={date} todayCharacter={todayCharacter} villagers={villagers} />
-          :
+        ) : (
           <div className="phrase" style={{ top: "33%" }}>
             <p>{`오늘은 ${parseInt(date.month)}월 ${parseInt(date.day)}일!`}</p>
             <p>{villagerPhrase}</p>
             <p>내일 다시 와 줄래요?</p>
-          </div>}
+          </div>
+        )}
       </div>
     </div>
   );

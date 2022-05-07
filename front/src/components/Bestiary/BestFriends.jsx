@@ -1,13 +1,13 @@
-import styled, { keyframes } from "styled-components";
-import { useEffect, useState } from "react";
+import styled from "styled-components";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const BestFriends = ({ friends }) => {
-  const [height, setHeight] = useState(0);
-  const [offset, setOffset] = useState(0);
+  const [height, setHeight] = React.useState(0);
+  const [offset, setOffset] = React.useState(0);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  React.useEffect(() => {
     setHeight(document.getElementById("img-bubble")?.clientHeight);
     setOffset(document.getElementById("columnWrapper")?.clientWidth / 2);
   }, [height]);

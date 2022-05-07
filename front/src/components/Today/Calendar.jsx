@@ -1,7 +1,7 @@
 import React from "react";
 import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import MonthCalendar from "./MonthCalendar";
 
 const Calendar = () => {
