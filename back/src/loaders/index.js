@@ -37,7 +37,7 @@ mongoConnection.on("error", (error) =>
 // const redisClient = redis.createClient(REDIS_PORT);
 // redisClient.connect();
 
-const ourFinalWords = (err, origin) => {
+const coupDeGrace = (err, origin) => {
   mongoConnection.close(true);
   // redisClient.quit();
   logger.error(
@@ -47,6 +47,6 @@ const ourFinalWords = (err, origin) => {
   process.exit(1);
 };
 
-process.on("uncaughtException", ourFinalWords);
+process.on("uncaughtException", coupDeGrace);
 
 export { mongoConnection };
