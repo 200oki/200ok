@@ -8,7 +8,8 @@ div.DraftEditor-root {
     width : 100%;
     border-bottom: none;
     height: 350px;
-    /*overflow-y: auto;*/
+    max-height: 350px;
+    overflow-y: auto;
     border-radius: 5px;
 }
 div.DraftEditor-editorContainer,
@@ -31,5 +32,19 @@ div.public-DraftEditor-content {
     flex-direction: row;
 }
 
+.DraftEditor-root::-webkit-scrollbar {
+    width: 21px;
+}
+.DraftEditor-root::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+.DraftEditor-root::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #d1d1d1;
+    background-clip: padding-box;
+    border: 6px solid transparent;
+}
 
 
