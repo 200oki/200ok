@@ -3,9 +3,9 @@ import React, { useState, createContext, useMemo } from "react";
 const GuestIdContext = createContext();
 
 const GuestIdProvider = ({ children }) => {
-  const [userId, setUserId] = useState(null);
+  const [id, setId] = useState(null);
 
-  const store = useMemo(() => ({ userId, setUserId }), [userId, setUserId]);
+  const store = useMemo(() => ({ id, setId }), [id, setId]);
 
   return (
     <GuestIdContext.Provider value={store}>{children}</GuestIdContext.Provider>
