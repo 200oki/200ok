@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled, { keyframes } from "styled-components";
-import { useStyles } from "../../utils/useStyles";
 import * as Api from "../../api";
+import moment from "moment";
+import "moment/locale/ko";
 import { Slider } from "@mui/material";
 import { styled as Styled } from "@mui/material/styles";
 import { Box, Modal, Typography } from "@mui/material";
@@ -23,7 +24,6 @@ const GuestbookList = () => {
   const [count, setCount] = useState(0);
   const [columns, setColumns] = useState([]);
   const { id, setId } = useContext(GuestIdContext);
-  const classes = useStyles();
 
   // 글 쓰는 부분에서 state를 받아옴
   // state { payload: { id: number, content: string, createdAt: date }, modal: true }
@@ -34,7 +34,6 @@ const GuestbookList = () => {
     try {
       const { data } = await Api.get("guestbooks");
       setGuestbook(data.payload);
-      console.log("GuestBook data.payload =====>>", data.payload); // 백엔드에서 데이터 잘 오는지 확인
       setCount(data.payload.length);
       setIsLoading(false);
     } catch (error) {
@@ -48,17 +47,9 @@ const GuestbookList = () => {
       for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
         setColumns((v) => [
           ...v,
-          guestbook
-            .slice(cardPerColumn * i, cardPerColumn * (i + 1))
-            .map((guestbook, idx) => {
-              return (
-                <Card
-                  key={idx}
-                  src={guestbookImgList[guestbook.id % 5].img}
-                  onClick={() => handleClick(guestbook)}
-                />
-              );
-            }),
+          guestbook.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((guestbook, idx) => {
+            return <Card key={idx} src={guestbookImgList[guestbook.id % 5].img} onClick={() => handleClick(guestbook)} />;
+          }),
         ]);
       }
       const restCards = count % cardPerColumn;
@@ -67,13 +58,7 @@ const GuestbookList = () => {
         setColumns((v) => [
           ...v,
           guestbook.slice(-restCards).map((guestbook, idx) => {
-            return (
-              <Card
-                key={idx}
-                src={guestbookImgList[guestbook.id % 5].img}
-                onClick={() => handleClick(guestbook)}
-              />
-            );
+            return <Card key={idx} src={guestbookImgList[guestbook.id % 5].img} onClick={() => handleClick(guestbook)} />;
           }),
         ]);
       }
@@ -94,7 +79,7 @@ const GuestbookList = () => {
       setGuestbook(data.payload);
       setCount(data.payload.length);
       setContent(data.payload.content);
-      setDate(data.payload.createdAt.slice(0, 10));
+      setDate(data.payload.createdAt);
       setModal(true);
       setId(null);
     } catch (error) {
@@ -138,14 +123,14 @@ const GuestbookList = () => {
   const handleClick = (element) => {
     setModal((v) => !v);
     setContent(element.content);
-    setDate(element.createdAt.slice(0, 10));
+    setDate(element.createdAt);
     console.log("여긴가");
   };
 
   return (
     <Container>
       <Navigator>
-        <BackButton content="메인메뉴" destination="/explore" />
+        <BackButton content="뒤로가기" destination="/write" />
         <Wrapper>
           <PostButton onClick={() => navigate("/guestbook/post")} />
         </Wrapper>
@@ -160,12 +145,7 @@ const GuestbookList = () => {
               {columns.map((column, idx) => {
                 return <Column key={idx}>{column}</Column>;
               })}
-              <Modal
-                open={modal}
-                onClose={handleClick}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
+              <Modal open={modal} onClose={handleClick} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                 <Box sx={modalStyle} className="modalBg">
                   <div className={"guestContentWrapper postArea"}>
                     <p className="modalFont2">{content}</p>
@@ -174,7 +154,9 @@ const GuestbookList = () => {
                         style={{ fontFamily: "TmoneyRoundWindRegular" }}
                         className="date"
                       >
-                        {date}
+                        {moment(moment.utc(date).toDate()).format(
+                          "YYYY-MM-DD HH:mm:ss"
+                        )}
                       </p>
                       <p className="sender">익명의 누군가로부터</p>
                     </PostDiv>
@@ -200,20 +182,21 @@ const Navigator = styled.div`
 
 const Container = styled.div`
   position: relative;
-&::before {
-  background-image: url("/images/guestbookBg.jpg");
-  content: " ";
-  display: block;
-  position: absolute;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  opacity: 0.8;
-  z-index: -1;
+  &::before {
+    background-image: url("/images/guestbookBg.jpg");
+    content: " ";
+    display: block;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.8;
+    z-index: -1;
+  }
 `;
 
 const pop = keyframes`
@@ -296,14 +279,14 @@ const PostDiv = styled.div`
 `;
 
 const PrettoSlider = Styled(Slider)({
-  color: "#52af77",
+  color: "#0099FA",
   height: 8,
   "& .MuiSlider-track": {
     border: "none",
   },
   "& .MuiSlider-thumb": {
-    height: 24,
-    width: 24,
+    height: 40,
+    width: 40,
     backgroundColor: "#fff",
     border: "2px solid currentColor",
     "&:focus, &:hover, &.Mui-active, &.Mui-focusVisible": {
