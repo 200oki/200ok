@@ -17,7 +17,7 @@ const upload = multer({
       cb(null, Date.now() + file.originalname);
     },
   }),
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5mb로 이미지 크기 제한
+  limits: { fileSize: 10 * 1024 * 1024 }, // 5mb로 이미지 크기 제한
 });
 
 export { upload };
