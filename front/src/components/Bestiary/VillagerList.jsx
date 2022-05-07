@@ -17,6 +17,7 @@ const VillagerList = () => {
     스타일: "styles",
     티어: "tier",
     동물: "species",
+    주민: "special",
   };
 
   const [villagers, setVillagers] = useState([]);
@@ -24,6 +25,7 @@ const VillagerList = () => {
   const [show, setShow] = useState(false);
   const [option, setOption] = useState("검색조건");
   const [ipt, setIpt] = useState("");
+  const [placeholder, setPlaceholder] = useState("검색어를 입력해주세요");
 
   const scrollHandler = (e, val) => {
     const element = document.getElementById("content");
@@ -45,10 +47,36 @@ const VillagerList = () => {
     e.preventDefault();
     setOption(e.target.value);
     setShow(!show);
+    switch (e.target.value) {
+      case "이름":
+        setPlaceholder("주민 이름으로 검색해보세요~");
+        break;
+      case "성격":
+      case "색깔":
+      case "취미":
+      case "스타일":
+      case "동물":
+        getEnums(options[e.target.value]).then((data) => {
+          const string = data.toString().slice(0, 20);
+          setPlaceholder(`${string}...`);
+        });
+        break;
+      case "티어":
+        setPlaceholder("1부터 6 사이의 숫자를 입력해주세요");
+        break;
+      case "주민":
+        setPlaceholder("스페셜 또는 일반");
+        break;
+    }
+  };
+
+  const getEnums = async (field) => {
+    const { data } = await Api.get(`characters/search/enums/${field}`);
+    return data.payload;
   };
 
   const search = async () => {
-    const queryOption = option === "검색조건" ? "" : `&props=${options[option]}&values=${ipt}`;
+    const queryOption = option === "검색조건" ? "" : `&props=${options[option]}&values=${ipt === "스페셜" ? "true" : ipt === "일반" ? "false" : ipt}`;
     const queryString = `?fields=name_ko,image_photo,id${queryOption}`;
     try {
       const { data } = await Api.get(`characters/search${queryString}`);
@@ -140,7 +168,7 @@ const VillagerList = () => {
               </OptionWrapper>
             </Selector>
             <SearchForm>
-              <Input placeholder="검색어를 입력해주세요." onChange={inputHandler} value={ipt} onKeyUp={handleKeyUp} />
+              <Input placeholder={placeholder} onChange={inputHandler} value={ipt} onKeyUp={handleKeyUp} />
               <div>
                 <Button type="submit" onClick={clickHandler}>
                   검색
