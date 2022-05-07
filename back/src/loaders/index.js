@@ -37,16 +37,33 @@ mongoConnection.on("error", (error) =>
 // const redisClient = redis.createClient(REDIS_PORT);
 // redisClient.connect();
 
-const coupDeGrace = (err, origin) => {
+/** 서버 셧다운 이벤트 핸들러입니다. `bind` 메소드로 옵션을 넣어줍니다.
+ *
+ * @arg {{
+ *    message: string,
+ *    logas: string
+ * }} options - 옵션 넣는 곳; 추가될 수 있습니다.
+ *    - `message`: `logas` 메소드로 메시지를 출력합니다.
+ *    - `logas`: `logger`에서 사용할 메소드 이름입니다. 기본값 `"info"`
+ */
+const coupDeGrace = ({ message, logas = "info" }, err, origin) => {
+  if (err) {
+    logger.error(
+      `\n\nTHE END OF TIME IS NIGH BECAUSE OF AN ${origin.toUpperCase()}\n`
+    );
+    logger.error(err.stack);
+  }
+  if (message && logas in logger) {
+    logger[logas](message);
+  }
   mongoConnection.close(true);
   // redisClient.quit();
-  logger.error(
-    `\n\nTHE END OF TIME IS NIGH BECAUSE OF AN ${origin.toUpperCase()}\n`
-  );
-  logger.error(err.stack);
   process.exit(1);
 };
 
-process.on("uncaughtException", coupDeGrace);
+process.on("uncaughtException", coupDeGrace.bind({}));
+process.on("SIGBREAK", coupDeGrace.bind({ message: "SIGBREAK: BYE" }));
+process.on("SIGTERM", coupDeGrace.bind({ message: "SIGTERM: BYE" }));
+process.on("SIGINT", coupDeGrace.bind({ message: "SIGINT: BYE" }));
 
 export { mongoConnection };
