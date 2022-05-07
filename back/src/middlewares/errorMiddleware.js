@@ -25,7 +25,6 @@ function errorMiddleware(error, req, res, next) {
     if (!error.operational) {
       process.exit(1);
     }
-    /** @todo process.on('uncaughtException') 어디선가 하기! */
   } else {
     res.status(status.STATUS_500_INTERNALSERVERERROR).json({
       errorMessage: error.message,
