@@ -67,7 +67,6 @@ const GameResult = () => {
     // 클립보드 복사기능 여기에
     console.log("userId ====>", userId);
     if (userId && userId !== null && !value.includes(userId)) {
-      //유저아이디가 없고 localhost:3000/game-result/ㅁㄴㅇㅁㄴㅇ/ㅁㄴㅇㅁㅇㄴ/ㅁㄴㅇㅁㄴㅇ
       setValue(value + `/${userId}`);
     }
   }, [userId]);

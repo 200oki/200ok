@@ -76,16 +76,12 @@ const AddBoard = () => {
 
       console.log("formData=====>", formData.get("images"));
       try {
-        const response = await axios.post(
-          "http://localhost:5001/posts",
-          formData,
-          {
-            headers: {
-              // "Content-Type": "multipart/form-data",
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-          }
-        );
+        const response = await Api.postPostsById("posts", formData, {
+          headers: {
+            // "Content-Type": "multipart/form-data",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        });
         setPostId(response.data.payload.id);
         navigate("/board");
       } catch (err) {

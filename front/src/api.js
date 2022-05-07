@@ -2,7 +2,12 @@ import axios from "axios";
 
 const backendPortNumber = "5001";
 const serverUrl =
-  "http://" + window.location.hostname + ":" + backendPortNumber + "/";
+  " http://elice-kdt-ai-4th-team04.elicecoding.com" +
+  ":" +
+  backendPortNumber +
+  "/";
+// const serverUrl =
+//   "http://" + window.location.hostname + ":" + backendPortNumber + "/";
 
 async function get(endpoint) {
   console.log(`GET 요청 ${serverUrl + endpoint}`);
@@ -39,6 +44,13 @@ async function del(endpoint, params = "") {
   return axios.delete(serverUrl + endpoint + "/" + params);
 }
 
+async function postPostsById(endpoint, data, config) {
+  console.log(`%cGET 요청: ${serverUrl + endpoint}`, "color: #059c4b;");
+  console.log(`%cGET 요청 데이터: ${data}`, "color: #059c4b;");
+
+  return axios.post(serverUrl + endpoint, data, config);
+}
+
 // 아래처럼 export한 후, import * as A 방식으로 가져오면,
 // A.get, A.post 로 쓸 수 있음.
-export { get, post, put, del as delete };
+export { get, post, put, del as delete, postPostsById };
