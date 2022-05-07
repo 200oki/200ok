@@ -4,6 +4,7 @@ import styled, { keyframes } from "styled-components";
 import * as Api from "../../api";
 import * as Constant from "../../constant";
 import { DateContext } from "../../context/DateContext";
+import PseudoTable from "./PseudoTable";
 
 const MonthCalendar = () => {
   const navigate = useNavigate();
@@ -38,9 +39,7 @@ const MonthCalendar = () => {
 
   const getVillagers = async () => {
     try {
-      const { data } = await Api.get(
-        `characters/search?fields=${fieldsToGet.join()}&props=birthday_month&values=${month}`
-      );
+      const { data } = await Api.get(`characters/search?fields=${fieldsToGet.join()}&props=birthday_month&values=${month}`);
       return data.payload;
     } catch (error) {
       console.error(error);
@@ -54,10 +53,10 @@ const MonthCalendar = () => {
   };
 
   const hoverHandler = () => {
-    document.getElementById("toolTip").style.display = "block";
+    document.getElementById("toolTip").style.opacity = 1;
   };
   const leaveHandler = () => {
-    document.getElementById("toolTip").style.display = "none";
+    document.getElementById("toolTip").style.opacity = 0;
   };
 
   React.useLayoutEffect(() => {
@@ -113,10 +112,6 @@ const MonthCalendar = () => {
     });
     navigate("/today");
   };
-
-  if (isLoading) {
-    return null;
-  }
 
   return (
     <table style={{ height: "750px" }}>
@@ -183,7 +178,7 @@ const MonthCalendar = () => {
           <Weekday>Fri</Weekday>
           <Weekday style={{ color: "blue" }}>Sat</Weekday>
         </tr>
-        {stateWeek &&
+        {!isLoading && stateWeek ? (
           stateWeek.map((week, index) => {
             const weekNumber = index;
             return (
@@ -197,10 +192,7 @@ const MonthCalendar = () => {
                       <Day
                         key={`key - ${index}`}
                         onClick={(e) => {
-                          clickHandler(
-                            e,
-                            weekNumber * 7 + dayNumber + 1 - offset
-                          );
+                          clickHandler(e, weekNumber * 7 + dayNumber + 1 - offset);
                         }}
                       >
                         {weekNumber * 7 + dayNumber + 1 - offset}
@@ -212,10 +204,7 @@ const MonthCalendar = () => {
                       <Day
                         key={`key - ${index}`}
                         onClick={(e) => {
-                          clickHandler(
-                            e,
-                            weekNumber * 7 + dayNumber + 1 - offset
-                          );
+                          clickHandler(e, weekNumber * 7 + dayNumber + 1 - offset);
                         }}
                       >
                         <div>{weekNumber * 7 + dayNumber + 1 - offset}</div>
@@ -228,13 +217,7 @@ const MonthCalendar = () => {
                           }}
                         >
                           {day.map((villager) => {
-                            return (
-                              <CharacterDot
-                                key={villager.id}
-                                src={villager.image_icon}
-                                alt={villager.id}
-                              />
-                            );
+                            return <CharacterDot key={villager.id} src={villager.image_icon} alt={villager.id} />;
                           })}
                         </div>
                       </Day>
@@ -243,7 +226,10 @@ const MonthCalendar = () => {
                 })}
               </tr>
             );
-          })}
+          })
+        ) : (
+          <PseudoTable />
+        )}
       </tbody>
     </table>
   );
