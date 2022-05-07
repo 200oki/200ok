@@ -22,8 +22,8 @@ function errorMiddleware(error, req, res, next) {
         operational: error.exit === 0,
       },
     });
-    if (error.exit > 0) {
-      process.exit(error.exit);
+    if (!error.operational) {
+      process.exit(1);
     }
     /** @todo process.on('uncaughtException') 어디선가 하기! */
   } else {
