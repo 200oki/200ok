@@ -26,7 +26,7 @@ class Guestbook {
    * @returns {[Object]} - 방명록 전체 반환
    */
   static async findAll() {
-    const guestbookList = await GuestbookModel.find();
+    const guestbookList = await GuestbookModel.find().sort({ createdAt: -1 });
     return guestbookList;
   }
 }
