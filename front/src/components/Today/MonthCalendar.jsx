@@ -14,6 +14,8 @@ const MonthCalendar = () => {
   const fieldsToGet = ["id", "name_ko", "image_icon", "birthday_day"];
   const [stateWeek, setStateWeek] = React.useState(null);
 
+  const [isLoading, setLoading] = React.useState(false);
+
   // offset weekday month by month
   const firstDayofMonth = new Date(`${year}-${month}-01`);
   const offset = firstDayofMonth.getDay();
@@ -36,7 +38,9 @@ const MonthCalendar = () => {
 
   const getVillagers = async () => {
     try {
-      const { data } = await Api.get(`characters/search?fields=${fieldsToGet.join()}&props=birthday_month&values=${month}`);
+      const { data } = await Api.get(
+        `characters/search?fields=${fieldsToGet.join()}&props=birthday_month&values=${month}`
+      );
       return data.payload;
     } catch (error) {
       console.error(error);
@@ -59,6 +63,7 @@ const MonthCalendar = () => {
   React.useLayoutEffect(() => {
     getVillagers()
       .then((res) => {
+        setLoading(true);
         const days = [];
         res.map((villager) => {
           if (Array.isArray(days[parseInt(villager.birthday_day) - 1])) {
@@ -97,6 +102,7 @@ const MonthCalendar = () => {
       })
       .then((weeks) => {
         setStateWeek(weeks);
+        setLoading(false);
       });
   }, [year, month]);
 
@@ -107,6 +113,10 @@ const MonthCalendar = () => {
     });
     navigate("/today");
   };
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <table style={{ height: "750px" }}>
@@ -129,15 +139,34 @@ const MonthCalendar = () => {
               <img
                 src="/images/triangle.png"
                 alt="left"
-                style={{ width: "2rem", height: "1.5rem", transform: "rotate(-90deg)", cursor: "pointer" }}
+                style={{
+                  width: "2rem",
+                  height: "1.5rem",
+                  transform: "rotate(-90deg)",
+                  cursor: "pointer",
+                }}
                 onClick={handleClick}
               />
-              <div style={{ fontSize: "2rem", lineHeight: "1.5rem", width: "1.5rem", cursor: "default" }}>{month}</div>
+              <div
+                style={{
+                  fontSize: "2rem",
+                  lineHeight: "1.5rem",
+                  width: "1.5rem",
+                  cursor: "default",
+                }}
+              >
+                {month}
+              </div>
               <span style={{ cursor: "default" }}>월</span>
               <img
                 src="/images/triangle.png"
                 alt="right"
-                style={{ width: "2rem", height: "1.5rem", transform: "rotate(90deg)", cursor: "pointer" }}
+                style={{
+                  width: "2rem",
+                  height: "1.5rem",
+                  transform: "rotate(90deg)",
+                  cursor: "pointer",
+                }}
                 onClick={handleClick}
               />
             </DateNavigator>
@@ -168,7 +197,10 @@ const MonthCalendar = () => {
                       <Day
                         key={`key - ${index}`}
                         onClick={(e) => {
-                          clickHandler(e, weekNumber * 7 + dayNumber + 1 - offset);
+                          clickHandler(
+                            e,
+                            weekNumber * 7 + dayNumber + 1 - offset
+                          );
                         }}
                       >
                         {weekNumber * 7 + dayNumber + 1 - offset}
@@ -180,13 +212,29 @@ const MonthCalendar = () => {
                       <Day
                         key={`key - ${index}`}
                         onClick={(e) => {
-                          clickHandler(e, weekNumber * 7 + dayNumber + 1 - offset);
+                          clickHandler(
+                            e,
+                            weekNumber * 7 + dayNumber + 1 - offset
+                          );
                         }}
                       >
                         <div>{weekNumber * 7 + dayNumber + 1 - offset}</div>
-                        <div style={{ width: "150px", display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                        <div
+                          style={{
+                            width: "150px",
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "center",
+                          }}
+                        >
                           {day.map((villager) => {
-                            return <CharacterDot key={villager.id} src={villager.image_icon} alt={villager.id} />;
+                            return (
+                              <CharacterDot
+                                key={villager.id}
+                                src={villager.image_icon}
+                                alt={villager.id}
+                              />
+                            );
                           })}
                         </div>
                       </Day>
