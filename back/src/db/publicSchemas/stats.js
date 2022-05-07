@@ -3,6 +3,10 @@ export const statList = [
     groupName: "gender",
     colName: ["여성", "남성"],
     value: [208, 244],
+    comment: `\
+동물의 숲에서 남녀 성비는 게이머가 보기에는 대체로 비슷한 편이지만
+성비를 실제로 계산해 보면 117.3으로 상당한 남초 마을입니다.\
+`,
   },
   {
     groupName: "species",
