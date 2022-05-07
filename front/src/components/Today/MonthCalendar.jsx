@@ -61,9 +61,9 @@ const MonthCalendar = () => {
   };
 
   React.useLayoutEffect(() => {
+    setLoading(true);
     getVillagers()
       .then((res) => {
-        setLoading(true);
         const days = [];
         res.map((villager) => {
           if (Array.isArray(days[parseInt(villager.birthday_day) - 1])) {
