@@ -109,6 +109,12 @@ export const statList = [
     male: [32, 49, 54, 30, 39, 0],
   },
   {
+    groupName: "hobby-by-personality-느끼함",
+    colName: ["음악", "교육", "자연", "운동", "놀이", "패션"],
+    value: [14, 11, 5, 4, 0, 0],
+    comment: `느끼한 캐릭터는 정적인 취미인 음악이나 교육을 좋아합니다.`,
+  },
+  {
     groupName: "style",
     colName: ["고져스", "액티브", "엘레강스", "큐트", "쿨", "심플"],
     value: [38, 50, 54, 63, 68, 118],
