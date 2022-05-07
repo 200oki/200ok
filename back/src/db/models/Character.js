@@ -33,6 +33,7 @@ class Character {
    *
    * 필드는 아래에 언급된 값 중 하나입니다.
    *  - `id`
+   *  - `special`
    *  - `name_ko`
    *  - `birthday`
    *  - `birthday_month`
