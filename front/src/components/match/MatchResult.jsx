@@ -10,6 +10,8 @@ import MatchResultComment from "./MatchResultComment";
 import BackButton from "../common/BackButton";
 import Typewriter from "typewriter-effect";
 import { ToastContainer, toast } from "react-toastify";
+import base64 from "base-64";
+import utf8 from "utf8";
 
 import { ParamContext } from "../../context/ParamContext";
 import { NicknameContext } from "../../context/NicknameContext";
@@ -23,6 +25,7 @@ function MatchResult() {
   const { id } = useContext(MatchElementContext);
   const { idKo } = useContext(MatchElementContext);
   const { nickname } = useContext(NicknameContext);
+  const { matchElem } = useContext(MatchElementContext);
   const outerDivRef = useRef();
 
   const [commentList, setCommentList] = useState([]);
@@ -31,8 +34,10 @@ function MatchResult() {
   const [goodBad, setGoodBad] = useState([]);
   const [best3, setBest3] = useState([]);
   const [total, setTotal] = useState(0);
-  const [userId, setUserId] = useState(null);
+
   const [value, setValue] = useState(window.location.href);
+  const [data, setData] = useState({}); // 공유하기 요청을 위한 data 객체
+  const [encodedData, setEncodedData] = useState(""); // Base64 인코딩된 data 객체
   const [copied, setCopied] = useState(false);
 
   const setCharAndTotal = (data) => {
@@ -45,8 +50,6 @@ function MatchResult() {
     try {
       const { data } = await Api.get(`csmdata/${id}/count`);
       setCharAndTotal(data.payload);
-      setUserId(data.payload.uuid);
-      console.log("userId ???", userId);
       console.log("나와 궁합이 맞는 주민", data.payload);
       return data.payload;
     } catch (err) {
@@ -90,9 +93,27 @@ function MatchResult() {
     return () => {};
   };
 
+  const encodingData = async () => {
+    setData({
+      birthday: `${matchElem[0]}-${matchElem[1]}`,
+      colors: matchElem[2],
+      personality: matchElem[3],
+      hobby: matchElem[4],
+      styles: matchElem[5],
+    });
+  };
+
+  console.log("encodedData >>>>>>>> ", encodedData);
+
   useEffect(() => {
     setParam(null);
+    encodingData();
   }, []);
+
+  useEffect(() => {
+    const jsonStr = base64.encode(utf8.encode(JSON.stringify(data)));
+    setEncodedData(jsonStr);
+  }, [data]);
 
   useEffect(() => {
     if (id) {
@@ -110,10 +131,10 @@ function MatchResult() {
 
   // 클립보드 공유하기
   useEffect(() => {
-    if (userId && userId !== null && !value.includes(userId)) {
-      setValue(value + `/${userId}`);
+    if (encodedData && encodedData !== null && !value.includes(encodedData)) {
+      setValue(value + `/${encodedData}`);
     }
-  }, [userId]);
+  }, [encodedData]);
 
   const goToPosition = (e) => {
     e.preventDefault();
