@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
-import axios from "axios";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Api from "../../api";
 import "../../css/Board.css";

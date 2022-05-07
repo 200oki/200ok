@@ -3,12 +3,6 @@ import createTextAlignmentPlugin from "@draft-js-plugins/text-alignment";
 import createStaticToolbarPlugin from "@draft-js-plugins/static-toolbar";
 import "@draft-js-plugins/text-alignment/lib/plugin.css";
 import "@draft-js-plugins/static-toolbar/lib/plugin.css";
-
-import {
-  ItalicButton,
-  BoldButton,
-  UnderlineButton,
-} from "@draft-js-plugins/buttons";
 import React from "react";
 
 const textAlignmentPlugin = createTextAlignmentPlugin();

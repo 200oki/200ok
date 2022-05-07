@@ -24,12 +24,11 @@ root.render(
             <GuestIdProvider>
               <DateProvider>
                 <BoardPostIdProvider>
-                  <App />
+                  <StatProvider>
+                    <App />
+                  </StatProvider>
                 </BoardPostIdProvider>
               </DateProvider>
-              <StatProvider>
-                <App />
-              </StatProvider>
             </GuestIdProvider>
           </ParamProvider>
         </GameProvider>
