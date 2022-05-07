@@ -2,14 +2,12 @@ div.DraftEditor-root {
     /* border: 1px solid #000;
 
     height: 200px;
-    width: 300px;
-    overflow-y: auto; */
+    width: 300px;*/
+    overflow-y: auto;
     background-color: white;
     width : 100%;
     border-bottom: none;
     height: 350px;
-    max-height: 350px;
-    overflow-y: auto;
     border-radius: 5px;
 }
 div.DraftEditor-editorContainer,
