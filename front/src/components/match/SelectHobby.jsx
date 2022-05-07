@@ -27,7 +27,11 @@ const SelectHobby = ({ array, nextSlide }) => {
 
   return (
     <div className={`${styled.testContent} ${styled.Wrapper}`}>
-      <div className={styled.testTitle}>{nickname}님의 취미는 무엇인가요?</div>
+      <div className={styled.testTitle}>
+        {nickname}님의 취미는 무엇인가요?
+        <span className={styled.subTestTitle}>(4 / 5)</span>
+      </div>
+
       <form className={styled.hobbyStyleForm}>
         <div>
           <div className={styled.hobbyStyleDiv}>
