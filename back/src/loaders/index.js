@@ -8,7 +8,7 @@ import { logger } from "../utils/winstonLogger.js";
 dotenv.config();
 
 // .env를 검사합니다.
-["SERVER_PORT", "MONGODB_URL", "NODE_ENV"].forEach((envVar) => {
+["SERVER_PORT", "MONGODB_URL", "NODE_ENV", "IMAGE_DIR"].forEach((envVar) => {
   if (!(envVar in process.env)) {
     throw new Error(`OUR STUPID ADMIN FORGOT TO ADD "${envVar}" IN THE ENV`);
   }
