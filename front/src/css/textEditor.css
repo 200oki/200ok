@@ -28,7 +28,6 @@ div.public-DraftEditor-content {
     background-color: white;
     margin-bottom: 10px;
     border-radius: 5px;
-    display: flex;
     flex-direction: row;
 }
 
