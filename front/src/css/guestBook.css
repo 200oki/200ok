@@ -46,4 +46,21 @@
 
 .guestContentWrapper.DraftEditor-root{
     width : 60%;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.guestContentWrapper.DraftEditor-root::-webkit-scrollbar {
+    width: 21px;
+}
+.guestContentWrapper.DraftEditor-root::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+.guestContentWrapper.DraftEditor-root::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #d1d1d1;
+    background-clip: padding-box;
+    border: 6px solid transparent;
 }
