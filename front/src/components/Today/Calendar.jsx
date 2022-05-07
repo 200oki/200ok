@@ -63,6 +63,8 @@ const Tooltip = styled.div`
   width: auto;
   opacity: 0;
   font-family: TmoneyRoundWindRegular;
+  cursor: default;
+  user-select: none;
 `;
 
 export default Calendar;
