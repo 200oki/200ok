@@ -376,6 +376,7 @@ let _commentFoldDummy1;
  *          | 필드 | 매치 스킴 |
  *          | --- | -------- |
  *          | id | 일치 |
+ *          | special | 일치 |
  *          | birthday | 일치 |
  *          | birthday_month | 일치 |
  *          | colors | 최대 두가지 속성중 최소 하나가 문자열 포함 |
