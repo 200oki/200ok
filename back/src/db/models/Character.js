@@ -156,7 +156,9 @@ class Character {
    * @return {string[]} - 결과값은 문자열의 배열입니다.
    */
   static listCategories(field) {
-    if (!["hobby", "personality", "styles", "colors"].includes(field)) {
+    if (
+      !["hobby", "personality", "styles", "colors", "species"].includes(field)
+    ) {
       throw new RequestError(
         { status: status.STATUS_404_NOTFOUND },
         `Field name "${field}" either doesn't exist or not peekable`
