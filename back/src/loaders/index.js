@@ -47,7 +47,7 @@ mongoConnection.on("error", (error) =>
  *    - `logas`: `logger`에서 사용할 메소드 이름입니다. 기본값 `"info"`
  */
 const coupDeGrace = ({ message, logas = "info" }, err, origin) => {
-  if (err) {
+  if (err instanceof Error) {
     logger.error(`\n\nTHE END OF TIME IS NIGH BECAUSE OF AN ${origin}\n`);
     logger.error(err.stack);
   }
