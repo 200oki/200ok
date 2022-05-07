@@ -23,7 +23,7 @@ const GuestbookList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [count, setCount] = useState(0);
   const [columns, setColumns] = useState([]);
-  const { userId, setUserId } = useContext(GuestIdContext);
+  const { id, setId } = useContext(GuestIdContext);
 
   // 글 쓰는 부분에서 state를 받아옴
   // state { payload: { id: number, content: string, createdAt: date }, modal: true }
@@ -70,18 +70,18 @@ const GuestbookList = () => {
       setIsLoading(false);
     }
   }, [columns]);
-  //guestbooks/userId?userId='${context}'
+  //guestbooks/'${id}'
   //context 초기화
   const getModalData = async () => {
     try {
-      const { data } = await Api.get(`guestbooks/userId?userId=${userId}`);
+      const { data } = await Api.get(`guestbooks/${id}`);
       console.log(data);
       setGuestbook(data.payload);
       setCount(data.payload.length);
       setContent(data.payload.content);
       setDate(data.payload.createdAt);
       setModal(true);
-      setUserId(null);
+      setId(null);
     } catch (error) {
       console.error(error);
     }
@@ -89,8 +89,8 @@ const GuestbookList = () => {
   useEffect(() => {
     getDataList();
     // 처음에 null 값이 들어있어서 오류 => not null일 때만 사용하도록 조건 추가
-    if (userId !== null) {
-      console.log("userId no null");
+    if (id !== null) {
+      console.log("id no null");
       getModalData();
     }
   }, []);

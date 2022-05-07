@@ -9,7 +9,7 @@ const AddGuestbook = () => {
   const navigate = useNavigate();
   const [isTyping, setIsTyping] = useState(false);
   const [content, setContent] = useState("");
-  const { setUserId } = useContext(GuestIdContext);
+  const { setId } = useContext(GuestIdContext);
 
   const handleContentChange = (e) => {
     setIsTyping(true);
@@ -25,7 +25,7 @@ const AddGuestbook = () => {
         content: content,
       });
       console.log("data.payload==========>", data.payload);
-      setUserId(data.payload.id);
+      setId(data.payload.id);
       navigate("/guestbook");
       setIsTyping(false);
     } catch (err) {
