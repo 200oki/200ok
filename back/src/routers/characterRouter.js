@@ -486,15 +486,30 @@ let _commentFoldDummy1;
 let _commentFoldDummy2;
 /** /characters/search/enums swaggerdoc
  * @swagger
- * /characters:
+ * /characters/search/enums/{field}:
  *  get:
- *    summary: "전체 캐릭터를 반환합니다."
+ *    summary: 캐릭터 데이터의 필드에 어떤 값들이 있는지 반환합니다.
  *    description: |
- *      반환 형식은 다음과 같습니다.
- *      ```js
- *      { id: name_ko }
+ *      `payload`는 다음과 같습니다.
+ *      ```
+ *      [ value1, value2, value3, ]
  *      ```
  *    tags: [Characters]
+ *    parameters:
+ *      - in: path
+ *        name: field
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: |
+ *          가능한 값의 목록을 보고 싶은 필드 목록입니다. <br>
+ *          다음 중 하나여야 합니다.
+ *          - hobby
+ *          - personality
+ *          - styles
+ *          - colors
+ *          - species
+ *        example: hobby
  *    responses:
  *      200:
  *        content:
@@ -506,12 +521,27 @@ let _commentFoldDummy2;
  *                  description: 요청 성공 여부
  *                  example: true
  *                payload:
- *                  type: object
- *                  additionalProperties:
- *                    type: string
- *                    example: 일섭
- *                  description: |
- *                    키는 캐릭터의 id이고, 값은 한국어판 이름입니다.
+ *                  type: array
+ *                  items:
+ *                    type: string,
+ *                    example: 친절함
+ *      404:
+ *        description: |
+ *          없는 필드이거나 허용되지 않은 필드를 요청했습니다.
+ *          - Field name "${field}" either doesn't exist or not peekable
+ *        content:
+ *          application/json:
+ *            schema:
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                  description: 요청 성공 여부
+ *                  example: false
+ *                errorMessage:
+ *                  type: string
+ *                  example: Field name \"${field}\" either doesn't \
+ *                    exist or not peekable
  */
+let _commentFoldDummy3;
 
 export { router as characterRouter };
