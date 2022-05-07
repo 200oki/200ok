@@ -13,7 +13,7 @@ const Calendar = () => {
           <HomeButton />
         </Wrapper>
       </Navigator>
-      <Content style={{ transform: "scale(1.2)" }}>
+      <Content>
         <Tooltip id="toolTip">연도를 변경해 보세요!</Tooltip>
         <MonthCalendar />
       </Content>
@@ -61,10 +61,8 @@ const Wrapper = styled.div`
 `;
 const Tooltip = styled.div`
   width: auto;
-  display: none;
-  position: absolute;
+  opacity: 0;
   font-family: TmoneyRoundWindRegular;
-  top: 270px;
 `;
 
 export default Calendar;

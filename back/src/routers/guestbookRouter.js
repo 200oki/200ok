@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { GuestbookService } from "../services/GuestbookService.js";
+import { GuestbookService } from "../services/guestbookService.js";
 import { validate, notFoundValidate } from "../middlewares/validator.js";
 import { check, body } from "express-validator";
 import * as status from "../utils/status.js";
@@ -82,17 +82,11 @@ const guestbookRouter = Router();
  *                          type: string
  *                          description: 오류 내용
  *                          example: 글을 입력해주세요.
- *                          
-*/
+ *
+ */
 guestbookRouter.post(
   "/guestbooks",
-  [
-    body("content")
-      .exists()
-      .withMessage("글을 입력해주세요.")
-      .bail(),
-    validate,
-  ],
+  [body("content").exists().withMessage("글을 입력해주세요.").bail(), validate],
   async (req, res, next) => {
     const { content } = req.body;
     const newGuestbook = await GuestbookService.addGuestbook({
@@ -105,7 +99,7 @@ guestbookRouter.post(
     };
 
     return res.status(status.STATUS_201_CREATED).json(body);
-  } 
+  }
 );
 
 /**
@@ -144,7 +138,7 @@ guestbookRouter.post(
  *                      type: string
  *                      description: 방명록 내용
  *                      example: 안녕
- *                    
+ *
  *      400:
  *        description: 방명록 조회 오류
  *        content:
@@ -169,8 +163,8 @@ guestbookRouter.post(
  *                    detail:
  *                      type: string
  *                      description: id가 존재하지 않습니다.
- *                          
-*/
+ *
+ */
 guestbookRouter.get(
   "/guestbooks/userId",
   [
@@ -189,7 +183,7 @@ guestbookRouter.get(
     if (userGuestbook === null) {
       const body = {
         success: false,
-        detail: "id가 존재하지 않습니다."
+        detail: "id가 존재하지 않습니다.",
       };
 
       return res.status(status.STATUS_400_BADREQUEST).json(body);
@@ -240,7 +234,7 @@ guestbookRouter.get(
  *                      type: string
  *                      description: 방명록 내용
  *                      example: 안녕
- *                    
+ *
  *      400:
  *        description: 방명록 조회 오류
  *        content:
@@ -265,19 +259,16 @@ guestbookRouter.get(
  *                    detail:
  *                      type: string
  *                      description: id가 존재하지 않습니다.
- *                          
-*/
-guestbookRouter.get(
-  "/guestbooks",
-  async (req, res, next) => {
-    const userGuestbook = await GuestbookService.getGuestbookList();
-    const body = {
-      success: true,
-      payload: userGuestbook,
-    }
+ *
+ */
+guestbookRouter.get("/guestbooks", async (req, res, next) => {
+  const userGuestbook = await GuestbookService.getGuestbookList();
+  const body = {
+    success: true,
+    payload: userGuestbook,
+  };
 
-    return res.status(status.STATUS_200_OK).json(body);
-  }
-);
+  return res.status(status.STATUS_200_OK).json(body);
+});
 
 export { guestbookRouter };

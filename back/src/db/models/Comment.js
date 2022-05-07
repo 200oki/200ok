@@ -1,5 +1,5 @@
-import { CommentModel } from "../schemas/Comment.js";
-
+import { CommentModel } from "../schemas/comment.js";
+// import { client } from "../../middlewares/redisMiddleware.js";
 class Comment {
   /** 댓글을 생성하는 함수
    *

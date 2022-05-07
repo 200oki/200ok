@@ -4,6 +4,7 @@ import styled, { keyframes } from "styled-components";
 import * as Api from "../../api";
 import * as Constant from "../../constant";
 import { DateContext } from "../../context/DateContext";
+import PseudoTable from "./PseudoTable";
 
 const MonthCalendar = () => {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ const MonthCalendar = () => {
   const [month, setMonth] = React.useState(parseInt(date.month));
   const fieldsToGet = ["id", "name_ko", "image_icon", "birthday_day"];
   const [stateWeek, setStateWeek] = React.useState(null);
+
+  const [isLoading, setLoading] = React.useState(false);
 
   // offset weekday month by month
   const firstDayofMonth = new Date(`${year}-${month}-01`);
@@ -50,13 +53,14 @@ const MonthCalendar = () => {
   };
 
   const hoverHandler = () => {
-    document.getElementById("toolTip").style.display = "block";
+    document.getElementById("toolTip").style.opacity = 1;
   };
   const leaveHandler = () => {
-    document.getElementById("toolTip").style.display = "none";
+    document.getElementById("toolTip").style.opacity = 0;
   };
 
   React.useLayoutEffect(() => {
+    setLoading(true);
     getVillagers()
       .then((res) => {
         const days = [];
@@ -97,6 +101,7 @@ const MonthCalendar = () => {
       })
       .then((weeks) => {
         setStateWeek(weeks);
+        setLoading(false);
       });
   }, [year, month]);
 
@@ -129,15 +134,34 @@ const MonthCalendar = () => {
               <img
                 src="/images/triangle.png"
                 alt="left"
-                style={{ width: "2rem", height: "1.5rem", transform: "rotate(-90deg)", cursor: "pointer" }}
+                style={{
+                  width: "2rem",
+                  height: "1.5rem",
+                  transform: "rotate(-90deg)",
+                  cursor: "pointer",
+                }}
                 onClick={handleClick}
               />
-              <div style={{ fontSize: "2rem", lineHeight: "1.5rem", width: "1.5rem", cursor: "default" }}>{month}</div>
+              <div
+                style={{
+                  fontSize: "2rem",
+                  lineHeight: "1.5rem",
+                  width: "1.5rem",
+                  cursor: "default",
+                }}
+              >
+                {month}
+              </div>
               <span style={{ cursor: "default" }}>월</span>
               <img
                 src="/images/triangle.png"
                 alt="right"
-                style={{ width: "2rem", height: "1.5rem", transform: "rotate(90deg)", cursor: "pointer" }}
+                style={{
+                  width: "2rem",
+                  height: "1.5rem",
+                  transform: "rotate(90deg)",
+                  cursor: "pointer",
+                }}
                 onClick={handleClick}
               />
             </DateNavigator>
@@ -154,7 +178,7 @@ const MonthCalendar = () => {
           <Weekday>Fri</Weekday>
           <Weekday style={{ color: "blue" }}>Sat</Weekday>
         </tr>
-        {stateWeek &&
+        {!isLoading && stateWeek ? (
           stateWeek.map((week, index) => {
             const weekNumber = index;
             return (
@@ -184,7 +208,14 @@ const MonthCalendar = () => {
                         }}
                       >
                         <div>{weekNumber * 7 + dayNumber + 1 - offset}</div>
-                        <div style={{ width: "150px", display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                        <div
+                          style={{
+                            width: "150px",
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "center",
+                          }}
+                        >
                           {day.map((villager) => {
                             return <CharacterDot key={villager.id} src={villager.image_icon} alt={villager.id} />;
                           })}
@@ -195,7 +226,10 @@ const MonthCalendar = () => {
                 })}
               </tr>
             );
-          })}
+          })
+        ) : (
+          <PseudoTable />
+        )}
       </tbody>
     </table>
   );
