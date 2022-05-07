@@ -1,3 +1,4 @@
+import React from "react";
 import NormalInfo from "./NormalInfo";
 import SpecialInfo from "./SpecialInfo";
 

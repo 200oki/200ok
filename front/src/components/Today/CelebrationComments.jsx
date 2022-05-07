@@ -1,14 +1,14 @@
-import { useState } from "react";
-import * as Api from "../../api"
+import React from "react";
+import * as Api from "../../api";
 
 function CelebrationComments({ todayCharacter, comments, getCommentList }) {
   const Default = "images/default.png";
   const villagers = todayCharacter.map((villager) => villager.name_ko);
 
-  const [show, setShow] = useState(false);
-  const [isVillager, setIsVillager] = useState(false)
-  const [menu, setMenu] = useState("주민");
-  const [comment, setComment] = useState("");
+  const [show, setShow] = React.useState(false);
+  const [isVillager, setIsVillager] = React.useState(false);
+  const [menu, setMenu] = React.useState("주민");
+  const [comment, setComment] = React.useState("");
 
   const showMenu = (event) => {
     event.preventDefault();
@@ -21,8 +21,8 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
 
   const clickMenu = (event) => {
     event.preventDefault();
-    Array.from(document.querySelectorAll("img")).map((item) => item.className -= "refImg")
-    document.getElementById(event.target.title).className = "refImg"
+    Array.from(document.querySelectorAll("img")).map((item) => (item.className -= "refImg"));
+    document.getElementById(event.target.title).className = "refImg";
     setShow(false);
     setIsVillager(true);
     setMenu(event.target.value);
@@ -38,17 +38,19 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
       villager: menu,
       comment: comment,
       nickname: "anonymous",
-      location: "today"
+      location: "today",
     };
     try {
       await Api.post("comments", data);
       getCommentList();
-      setComment("")
-    } catch (error) { console.error(error) }
+      setComment("");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const inputChangeHandler = (event) => {
-    setComment(event.target.value)
+    setComment(event.target.value);
   };
 
   const handleKeyUp = (e) => {
@@ -60,7 +62,7 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
   return (
     <div className="comment-container">
       <div className="submitForm" style={{ display: "flex", flexDirection: "row" }}>
-        <div >
+        <div>
           <div className={!isVillager ? "alert" : "noAlert"}>주민을 선택해주세요.</div>
           <button onClick={showMenu} className="dropdown">
             {menu}
@@ -77,10 +79,7 @@ function CelebrationComments({ todayCharacter, comments, getCommentList }) {
             </div>
           ) : null}
         </div>
-        <form
-          onSubmit={clickHandler}
-          style={{ display: "flex", flexDirection: "row" }}
-        >
+        <form onSubmit={clickHandler} style={{ display: "flex", flexDirection: "row" }}>
           <div className="comment">
             <input className="comment" placeholder="축하 메시지를 남겨주세요" onChange={inputChangeHandler} value={comment} onKeyUp={handleKeyUp} />
           </div>

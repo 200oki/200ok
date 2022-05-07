@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router";
 import * as Api from "../../api";
 import styled, { keyframes } from "styled-components";
@@ -9,11 +9,11 @@ import BestFriends from "./BestFriends";
 import Info from "./Info";
 
 const VillagerDetail = () => {
-  const [villager, setVillager] = useState(null);
-  const [friends, setFriends] = useState(null);
+  const [villager, setVillager] = React.useState(null);
+  const [friends, setFriends] = React.useState(null);
   const { id } = useParams();
 
-  useEffect(() => {
+  React.useEffect(() => {
     const getVillager = async () => {
       try {
         const { data } = await Api.get(`characters/${id}`);
@@ -25,7 +25,7 @@ const VillagerDetail = () => {
     getVillager();
   }, [id]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const getFriends = async () => {
       try {
         const { data } = await Api.get(`csmdata/${id}?top=3&bottom=0`);
