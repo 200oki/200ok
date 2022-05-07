@@ -158,7 +158,7 @@ class Character {
   static listCategories(field) {
     if (!["hobby", "personality", "styles", "colors"].includes(field)) {
       throw new RequestError(
-        { status: status.STATUS_405_METHODNOTALLOWED },
+        { status: status.STATUS_404_NOTFOUND },
         `Field name "${field}" either doesn't exist or not peekable`
       );
     }
