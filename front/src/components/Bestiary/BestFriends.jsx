@@ -3,16 +3,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const BestFriends = ({ friends }) => {
-  const [height, setHeight] = React.useState();
-  const [offset, setOffset] = React.useState();
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    setHeight(document.getElementById("img-bubble")?.clientHeight);
-    setOffset(document.getElementById("columnWrapper")?.clientWidth / 2);
-  }, [height, offset]);
-
-  console.log(offset);
   return (
     <BestFriendWrapper height={height} offset={offset}>
       <LabelBf>최고의 궁합</LabelBf>
@@ -38,10 +30,10 @@ const BestFriendWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(${(props) => props.height}px - 10px);
+  height: 414px;
   width: 200px;
   position: absolute;
-  right: calc(50vw - ${(props) => props.offset}px);
+  right: calc(50vw - 500px);
   background-color: rgb(75, 144, 104, 0.5);
 `;
 
