@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as Api from "../../api";
 import { HeatMapGrid } from 'react-grid-heatmap';
-import CustomModal from "../common/CustomModal";
+import StatsModal from "../common/StatsModal";
 import { Typography } from "@mui/material";
 import { useStyles } from "../../utils/useStyles";
 
@@ -34,43 +34,43 @@ const PopularityBySpeciesChart = () => {
       <div className={classes.desc} onClick={handleModal}>
         ?
       </div>
-      <CustomModal open={isClicked} onClose={handleModal}>
+      <StatsModal open={isClicked} onClose={handleModal}>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
           1로 갈수록 인기가 많습니다.
         </Typography>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
           대체로 귀엽거나 친숙한 동물일수록 미약하게 인기가 많은 경향이 있습니다.
         </Typography>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
           하지만, 일반적으로 귀엽다고 여겨지는 동물이더라도 
         </Typography>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
           개별 캐릭터의 디자인에 따라 생김새가 천차만별이기 때문에
         </Typography>
         <Typography
           id="modal-modal-description"
-          sx={{ mt: 2 }}
-          className={classes.modalFont}
+          sx={ typoStyles }
+          className={classes.modalFont2}
         >
           <u>일반화하기에는 무리가 있습니다.</u>
         </Typography>
-      </CustomModal>
+      </StatsModal>
       <div
         className="graphBack"
       >
@@ -105,5 +105,10 @@ const PopularityBySpeciesChart = () => {
     </div>
   )
 }
+
+const typoStyles = {
+  fontFamily: "TmoneyRoundWindRegular",
+  fontSize: "1.2rem",
+};
 
 export default PopularityBySpeciesChart;

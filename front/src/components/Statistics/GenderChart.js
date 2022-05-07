@@ -2,11 +2,21 @@ import React, { useState, useEffect } from "react";
 import * as Api from "../../api";
 import { Chart, registerables } from "chart.js";
 import { Pie } from 'react-chartjs-2';
+import StatsModal from "../common/StatsModal";
+import { Typography } from "@mui/material";
+import { useStyles } from "../../utils/useStyles";
 Chart.register(...registerables)
 
 const SpeciesChart = () => {
   const [dataList, setDataList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isClicked, setIsClicked] = useState(false);
+  const classes = useStyles();
+
+  const handleModal = () => {
+    setIsClicked((v) => !v);
+  };
+  
   async function getDataList() {
     try {
       const { data } = await Api.get('stats?groupName=gender');
@@ -20,9 +30,28 @@ const SpeciesChart = () => {
   useEffect(() => {
     getDataList();
   }, []);
-  
+
   return (
-    <div>
+    <div className="graphDesc">
+      <div className={classes.desc} onClick={handleModal}>
+        ?
+      </div>
+      <StatsModal open={isClicked} onClose={handleModal}>
+        <Typography
+          id="modal-modal-description"
+          sx={ typoStyles }
+          className={classes.modalFont2}
+        >
+          동물의 숲에서 남녀 성비는 게이머가 보기에는 대체로 비슷한 편이지만
+        </Typography>
+        <Typography
+          id="modal-modal-description"
+          sx={ typoStyles }
+          className={classes.modalFont2}
+        >
+          성비를 실제로 계산해 보면 117.3으로 상당한 남초 마을입니다.
+        </Typography>
+      </StatsModal>
       <Pie className="graphBack"
         data={{
           labels: dataList[1],
@@ -51,6 +80,11 @@ const SpeciesChart = () => {
     </div>
   );
 }
+
+const typoStyles = {
+  fontFamily: "TmoneyRoundWindRegular",
+  fontSize: "1.2rem",
+};
 
 
 export default SpeciesChart;
