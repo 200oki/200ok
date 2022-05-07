@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
 import * as Api from "../../api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { MatchButtonText } from "../../utils/util";
 import styled from "../../css/match.module.css";
 import MatchResultMyChar from "./MatchResultMyChar";
@@ -39,6 +39,8 @@ function MatchResult() {
   const [data, setData] = useState({}); // 공유하기 요청을 위한 data 객체
   const [encodedData, setEncodedData] = useState(""); // Base64 인코딩된 data 객체
   const [copied, setCopied] = useState(false);
+
+  const { code } = useParams();
 
   const setCharAndTotal = (data) => {
     setMyChar(data);
@@ -103,16 +105,39 @@ function MatchResult() {
     });
   };
 
+  const fetchShareData = async () => {
+    try {
+      const { data } = await Api.get(`csmdata/share/${code}`);
+      setCharAndTotal(data.payload);
+      console.log(data.payload);
+    } catch (err) {
+      console.error(err);
+    }
+    return () => {};
+  };
+
   console.log("encodedData >>>>>>>> ", encodedData);
 
   useEffect(() => {
+    if (code) {
+      fetchShareData();
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 5000);
+    } else {
+      encodingData();
+    }
+  }, [code]);
+
+  useEffect(() => {
     setParam(null);
-    encodingData();
   }, []);
 
   useEffect(() => {
-    const jsonStr = base64.encode(utf8.encode(JSON.stringify(data)));
-    setEncodedData(jsonStr);
+    if (data && Object.keys(data).length !== 0) {
+      const jsonStr = base64.encode(utf8.encode(JSON.stringify(data)));
+      setEncodedData(jsonStr);
+    }
   }, [data]);
 
   useEffect(() => {
@@ -135,6 +160,28 @@ function MatchResult() {
       setValue(value + `/${encodedData}`);
     }
   }, [encodedData]);
+
+  useEffect(() => {
+    if (copied) {
+      toast.success(
+        <div>
+          링크가 복사되었다구리!
+          <br /> 공유해보자구리!
+        </div>,
+        {
+          icon: "🎈",
+          position: "top-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
+    }
+    return () => setCopied(false);
+  }, [copied]);
 
   const goToPosition = (e) => {
     e.preventDefault();
@@ -160,24 +207,7 @@ function MatchResult() {
         behavior: "smooth",
       });
     } else if (e.target.innerText === MatchButtonText.SHARE) {
-      if (copied) {
-        toast.success(
-          <div>
-            링크가 복사되었다구리!
-            <br /> 공유해보자구리!
-          </div>,
-          {
-            icon: "🎈",
-            position: "top-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        );
-      }
+      setCopied(true);
     } else {
       outerDivRef.current.scrollTo({
         top: 0,
@@ -191,57 +221,79 @@ function MatchResult() {
     navigator("/match");
   };
 
-  if (isLoading) {
-    return (
-      <div className={`${styled.loadingWrapper} ${styled.LoadingTitle}`}>
-        {nickname}님과 찰떡궁합인 주민을 찾고 있어요
-        <Typewriter
-          onInit={(typewriter) => {
-            typewriter.typeString("...:)").pauseFor(1000).start();
-          }}
-          options={{ loop: true, cursor: "", deleteSpeed: 100 }}
-        />
-      </div>
-    );
-  }
-
   return (
-    <div className={styled.outer} ref={outerDivRef}>
-      <div
-        className="nav-bar"
-        style={{ position: "fixed", top: "0", left: "0", zIndex: "1" }}
-      >
-        <BackButton content={"메인으로"} destination={"explore"} />
-      </div>
-      <ToastContainer />
-      <div className={styled.inner}>
-        <MatchResultMyChar
-          myChar={myChar}
-          value={value}
-          setCopied={setCopied}
-          goToPosition={goToPosition}
-          goToFirstPage={goToFirstPage}
-        />
-      </div>
-      <div className={styled.inner}>
-        <MatchResultCompat goodBad={goodBad} goToPosition={goToPosition} />
-      </div>
-      <div className={styled.inner}>
-        <MatchResultRank
-          best3={best3}
-          total={total}
-          goToPosition={goToPosition}
-        />
-      </div>
-      <div className={styled.inner}>
-        <MatchResultComment
-          name={myChar.name_ko}
-          goToPosition={goToPosition}
-          commentList={commentList}
-          setCommentList={setCommentList}
-        />
-      </div>
-    </div>
+    <>
+      {isLoading ? (
+        code ? (
+          <div className={`${styled.loadingWrapper} ${styled.LoadingTitle}`}>
+            공유 정보를 가져오고 있어요
+            <Typewriter
+              onInit={(typewriter) => {
+                typewriter.typeString("...:)").pauseFor(1000).start();
+              }}
+              options={{ loop: true, cursor: "", deleteSpeed: 100 }}
+            />
+          </div>
+        ) : (
+          <div className={`${styled.loadingWrapper} ${styled.LoadingTitle}`}>
+            {nickname}님과 찰떡궁합인 주민을 찾고 있어요
+            <Typewriter
+              onInit={(typewriter) => {
+                typewriter.typeString("...:)").pauseFor(1000).start();
+              }}
+              options={{ loop: true, cursor: "", deleteSpeed: 100 }}
+            />
+          </div>
+        )
+      ) : (
+        <div className={styled.outer} ref={outerDivRef}>
+          <div
+            className="nav-bar"
+            style={{ position: "fixed", top: "0", left: "0", zIndex: "1" }}
+          >
+            <BackButton content={"메인으로"} destination={"explore"} />
+          </div>
+          <ToastContainer />
+          <div className={styled.inner}>
+            <MatchResultMyChar
+              myChar={myChar}
+              value={value}
+              setCopied={setCopied}
+              goToPosition={goToPosition}
+              goToFirstPage={goToFirstPage}
+              encodedData={encodedData}
+            />
+          </div>
+          {encodedData && (
+            <>
+              <div className={styled.inner}>
+                <MatchResultCompat
+                  goodBad={goodBad}
+                  goToPosition={goToPosition}
+                />
+              </div>
+              <div className={styled.inner}>
+                <MatchResultRank
+                  best3={best3}
+                  total={total}
+                  goToPosition={goToPosition}
+                />
+              </div>
+              {nickname && (
+                <div className={styled.inner}>
+                  <MatchResultComment
+                    name={myChar.name_ko}
+                    goToPosition={goToPosition}
+                    commentList={commentList}
+                    setCommentList={setCommentList}
+                  />
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
+    </>
   );
 }
 
