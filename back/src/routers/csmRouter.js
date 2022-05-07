@@ -229,6 +229,23 @@ csmRouter.put(
   }
 );
 
+csmRouter.get(
+  "/csmdata/share/:code",
+  async (req, res, next) => {
+    try {
+      const code = req.params.code;
+    } catch (error) {
+      next(error);
+    }
+  },
+  async (req, res, next) => {
+    try {
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 /** GET /csmdata/:id/count swaggerdoc
  * @swagger
  * /csmdata/{id}/count:
