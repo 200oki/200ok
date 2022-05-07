@@ -4,12 +4,6 @@ import mongoose from "mongoose";
 
 import { logger } from "../utils/winstonLogger.js";
 
-process.on("uncaughtException", (err, origin) => {
-  logger.error(`\n\n${origin.toUpperCase()}: THE END OF TIME IS NIGH\n`);
-  logger.error(err.stack);
-  process.exit(1);
-});
-
 // 환경 변수 가져오기
 dotenv.config();
 
@@ -42,5 +36,11 @@ mongoConnection.on("error", (error) =>
 // const REDIS_PORT = process.env.REDIS_PORT;
 // const redisClient = redis.createClient(REDIS_PORT);
 // redisClient.connect();
+
+process.on("uncaughtException", (err, origin) => {
+  logger.error(`\n\n${origin.toUpperCase()}: THE END OF TIME IS NIGH\n`);
+  logger.error(err.stack);
+  process.exit(1);
+});
 
 export { mongoConnection };
