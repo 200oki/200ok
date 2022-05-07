@@ -93,7 +93,9 @@ class CharacterService {
    * @arg {string} field - 찾으려는 필드입니다. (`species`, `hobby`, ...)
    * @return {string[]} - 결과값은 문자열의 배열입니다.
    */
-  static listCategories(field) {}
+  static listCategories(field) {
+    return Character.listCategories(field);
+  }
 
   /** 캐릭터 `n`명을 무작위로 골라 배열로 반환합니다.
    *
