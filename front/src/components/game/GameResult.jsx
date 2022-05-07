@@ -38,8 +38,6 @@ const GameResult = () => {
     const { data } = await Api.post("scores", bodyData);
     settingDefault(data.payload);
     setUserId(data.payload.id);
-    console.log(data.payload);
-    console.log("_id>>>>>>", data.payload._id);
     return data.payload;
   };
 
@@ -47,7 +45,6 @@ const GameResult = () => {
     if (id) {
       getCopiedLink();
     } else {
-      console.log("useEffect==>>", userId);
       getScoreAndRank();
     }
 
@@ -56,16 +53,13 @@ const GameResult = () => {
 
   const getCopiedLink = async () => {
     const { data } = await Api.get(`scores/userId?userId=${id}`);
-    console.log("getCopied", data);
     settingDefault(data.userRank);
     setUserId(data.userRank.id);
-    console.log("idTest=====>", data.payload);
     return data.userRank;
   };
 
   useEffect(() => {
     // 클립보드 복사기능 여기에
-    console.log("userId ====>", userId);
     if (userId && userId !== null && !value.includes(userId)) {
       setValue(value + `/${userId}`);
     }
