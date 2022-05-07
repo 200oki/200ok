@@ -49,7 +49,7 @@ mongoConnection.on("error", (error) =>
 const coupDeGrace = ({ message, logas = "info" }, err, origin) => {
   if (err) {
     logger.error(
-      `\n\nTHE END OF TIME IS NIGH BECAUSE OF AN ${origin.toUpperCase()}\n`
+      `\n\nTHE END OF TIME IS NIGH BECAUSE OF AN ${origin?.toUpperCase()}\n`
     );
     logger.error(err.stack);
   }
