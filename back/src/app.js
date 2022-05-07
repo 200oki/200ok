@@ -24,7 +24,7 @@ const app = express();
 // CORS 에러 방지
 app.use(cors());
 app.use(express.json());
-app.use("/uploads", express.static("./uploads"));
+// app.use("/uploads", express.static("./uploads"));
 app.use(express.urlencoded({ extended: false }));
 app.use("/admin", sriracha());
 

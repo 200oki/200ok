@@ -3,6 +3,11 @@ import { Character } from "../db/index.js";
 import { SortingHat } from "../utils/csmTools.js";
 
 class CsmService {
+  
+  /**
+   * 카운트를 불러오는 함수
+   * @param {String} id - 카운트를 조회할 주민의 ID
+   */
   static async getCount({ id }) {
     const count = await Csm.getCount({ id });
     const totalList = await Csm.totalCount();
@@ -16,6 +21,11 @@ class CsmService {
     };
     return body;
   }
+
+  /**
+   * 카운트를 증가시키는 함수
+   * @param {String} id - 카운트를 증가시킬 주민 ID
+   */
 
   static async upCount({ id }) {
     const up = await Csm.upCount({ id });

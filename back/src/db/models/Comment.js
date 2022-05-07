@@ -25,7 +25,11 @@ class Comment {
       .lean();
     return list;
   }
-
+  /** 주민 없이 댓글을 검색하는 함수
+   *
+   * @param {String} location - 댓글을 검색할 위치
+   * @returns {Object}
+   */
   static async honorList({ location }) {
     const list = await CommentModel.find(
       { location },
