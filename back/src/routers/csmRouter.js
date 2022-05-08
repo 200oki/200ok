@@ -231,6 +231,65 @@ csmRouter.put(
   }
 );
 
+/** GET /csmdata/share/:code swaggerdoc
+ * @swagger
+ * /csmdata/share/{code}:
+ *   get:
+ *    summary: 사용자 csm 정보를 재현합니다.
+ *    description: |
+ *      `PUT /csmdata/counts`와 비슷하지만 매칭 카운트를 올리지 않습니다.
+ *    tags: [Csm]
+ *    parameters:
+ *      - in: path
+ *        name: code
+ *        required: true
+ *        description: |
+ *          `PUT /csmdata/counts`를 json화한 후 `base64` 코덱으로 인코딩한
+ *          문자열입니다.
+ *        example: |
+ *          eyJiaXJ0aGRheSI6IjAzLTE0IiwiY29sb3JzIjpbIu2Vke2BrOyDiSJdLCJwZXJzb25hbGl0eSI6IuyEseyIme2VqCIsImhvYmJ5Ijoi7J2M7JWFIiwic3R5bGVzIjpbIuyVoe2LsOu4jCJdfQ==
+ *        schema:
+ *          type: string
+ *          format: json.utf8.base64
+ *    responses:
+ *      200:
+ *        description: 매칭 기록 재현에 성공했습니다.
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                success:
+ *                  type: string
+ *                  example: true
+ *                payload:
+ *                   type: object
+ *                   properties:
+ *                    id:
+ *                      type: string
+ *                      example: admiral
+ *                    character:
+ *                      type: object
+ *                      properties:
+ *                        id:
+ *                          type: string
+ *                          example: judy
+ *                        name_ko:
+ *                          type: string
+ *                          example: 미애
+ *                        image_photo:
+ *                          type: string
+ *                          example: https://acnhcdn.com/latest/NpcBromide/NpcNmlCbr19.png
+ *                    distance:
+ *                      type: number
+ *                      example: 1.1277667859523386
+ *                    count:
+ *                      type: number
+ *                      example: 1
+ *                    total:
+ *                      type: number
+ *                      example: 417
+ */
 csmRouter.get(
   "/csmdata/share/:code",
   async (req, res, next) => {
