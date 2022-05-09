@@ -1,42 +1,43 @@
-# 🌳 되어봐요 숲잘알
-- 최종 서비스 명을 위 괄호 부분에 작성하세요.
+# 🌳 되어봐요 숲잘알!
 - 최종 서비스의 한 줄 소개를 작성하세요.
 
 ## 프로젝트 기간
-- 2022-04-19 ~ 2022-05-07
+2022-04-19 ~ 2022-05-07
 
-## 프로젝트 구성 안내
+<!-- ## 프로젝트 구성 안내
 
 * `bullet point 에 적힌 내용을 수정해 주시면 됩니다.`
 
-* `초기 기획은 언제든 수정될 수 있으니 웹서비스 결과를 내는데 초점을 두시기 바랍니다.`
+* `초기 기획은 언제든 수정될 수 있으니 웹서비스 결과를 내는데 초점을 두시기 바랍니다.` -->
 
 ## 1. 프로젝트 소개
 
-### 사용한 데이터
+### `사용한 데이터`
+- [주민 데이터](https://www.kaggle.com/datasets/prasertk/animal-crossing-new-horizons-with-image-url?select=posters.csv)
+- [주민 사진 데이터 셋](https://www.kaggle.com/code/jahysama/animal-crossing-nightmare-fuel-villagers)
+- [주민 인기도 데이터](https://www.kaggle.com/datasets/ampiiere/acnh-villager-popularity)
 
-### 기술 스택
-  - 백엔드 : Express + MongoDB
+### `기술 스택`
   - 프론트엔드 : Javascript + React
+  - 백엔드 : Express + MongoDB
 
-### 사용한 라이브러리
-** 백엔드 **
-    - 로그 관리 : Morgan, Winston, Winston-daily-rotate-file
-    - 유효성 검사 : express-validator
-    - UUID 생성 : crypto
-    - MongoDB ODM : Mongoose
-    - API 문서 : Swagger
+### `사용 라이브러리`
   
-** 프론트엔드 **
-    - 공유하기 : react-copy-to-clipboard, react-toasify
-    - WYSIWYG(게시판 텍스트 에디터)
+**프론트엔드**
+  - 공유하기 : react-copy-to-clipboard, react-toasify
+  - WYSIWYG(게시판 텍스트 에디터) : draft.js, draft-js-plugins
+  - css : mui, progress
+  - 차트 : Chart.js Recharts
 
-**어떠한 데이터셋와 도구 및 기술을 사용했는지에 대한 설명과 엔드유저에게 보이는 웹서비스에 대한 소개**
+**백엔드**
+  - 로그 관리 : Morgan, Winston, Winston-daily-rotate-file
+  - 유효성 검사 : express-validator
+  - UUID 생성 : crypto
+  - MongoDB ODM : Mongoose
+  - API 문서 : [Swagger](http://elice-kdt-ai-4th-team04.elicecoding.com/api/docs/)
 
-  - 사용하려는 데이터(제안된 데이터 중 하나 또는 선택한 다른 데이터 세트)를 명시, 이에 대한 설명
-  - 기술 스택 (python, d3, pandas, jupyter, javascript, MySQL 등)
-  - 사용된 라이브러리 (numpy, matplotlib, wordcloud 등)
-  - 웹서비스에 대한 자세한 개요
+<!-- **어떠한 데이터셋와 도구 및 기술을 사용했는지에 대한 설명과 엔드유저에게 보이는 웹서비스에 대한 소개**
+  - 웹서비스에 대한 자세한 개요 -->
 
 ## 2. 프로젝트 목표
 
@@ -48,39 +49,41 @@
 
 ## 3. 프로젝트 기능 설명
 
-### 메인 기능
+### `메인 기능`
   - 나와 잘 어울리는 주민 추천 테스트
-
   - 카드 뒤집기 미니 게임 
-
+  - 동물의 숲 위키
   - 주민 생일 달력
-
   - 자유 게시판
 
-### 서브 기능
+### `서브 기능`
   - 오늘 생일인 주민에게 축하 댓글 남기기
+  - 테스트, 미니 게임 공유하기, 댓글 남기기
   - 방명록 
 
 
-### 프로젝트만의 차별점, 기대 효과
+### `프로젝트만의 차별점, 기대 효과`
+누구나 동물의 숲 주민이 될 수 있다는 모토로 회원가입 기능을 지원하지 않고 있습니다. <br>
+동물의 숲을 플레이해본 유저들에게 향수를 불러일으키고, <br>
+플레이해보지 않았다면 매칭 테스트 & 미니 게임을 통해 동물의 숲을 몰라도 즐길 수 있게 합니다.
 
 
 ## 4. 프로젝트 구성도
-  - 와이어프레임/스토리보드 추가
+[Wireframe](https://www.figma.com/file/ZaDFSChJRzw85ml4r8tA1u/wireframe)
 
 ## 5. 프로젝트 팀원 역할 분담
 | 이름 | 담당 업무 |
 | ------ | ------ |
-| [권민지]() | 프론트엔드 |
-| [신광천]() | 백엔드 |
-| [안지우]() | 백엔드/팀장 |
-| [윤성준]() | 백엔드/데이터 분석 |
+| [권민지](https://github.com/kminzy) | 프론트엔드 |
+| [신광천](https://github.com/Shin-GC) | 백엔드 |
+| [안지우](https://github.com/JiwooAn) | 백엔드 / 팀장 |
+| [윤성준]() | 백엔드 / 데이터 분석 |
 | [이창민]() | 프론트엔드 |
 | [홍지운]() | 프론트엔드 |
 
 **멤버별 responsibility**
 
-1. 팀장 
+<!-- 1. 팀장 
 
 - 기획 단계: 구체적인 설계와 지표에 따른 프로젝트 제안서 작성
 - 개발 단계: 팀원간의 일정 등 조율 + 프론트 or 백엔드 개발
@@ -96,12 +99,12 @@
 
 - 기획 단계: 기획 데이터 분석을 통해 해결하고자 하는 문제를 정의
 - 개발 단계: 웹 서버 사용자가 직접 백엔드에 저장할수 있는 기능 구현, 데이터 베이스 구축 및 API 활용, 데이터 분석 개념 총동원하기
-- 수정 단계: 코치님 피드백 반영해서 분석/ 시각화 방식 수정
+- 수정 단계: 코치님 피드백 반영해서 분석/ 시각화 방식 수정 -->
 
 ## 6. 버전
   - 1.0.0
 
 ## 7. FAQ
-** Q. 글/댓글 삭제 기능은 없나요? **
-  - 회원 가입 부분이 없어서 
+**Q. 글/댓글 삭제 기능은 없나요?**
+  - 글 작성 시 비밀번호를 같이 입력받아 삭제할 때 비밀번호를 입력하면 삭제 가능하도록 기능을 추가할 예정입니다 :)
  
