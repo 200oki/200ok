@@ -13,6 +13,24 @@
 
 ## 1. 프로젝트 소개
 
+### 사용한 데이터
+
+### 기술 스택
+  - 백엔드 : Express + MongoDB
+  - 프론트엔드 : Javascript + React
+
+### 사용한 라이브러리
+** 백엔드 **
+    - 로그 관리 : Morgan, Winston, Winston-daily-rotate-file
+    - 유효성 검사 : express-validator
+    - UUID 생성 : crypto
+    - MongoDB ODM : Mongoose
+    - API 문서 : Swagger
+  
+** 프론트엔드 **
+    - 공유하기 : react-copy-to-clipboard, react-toasify
+    - WYSIWYG(게시판 텍스트 에디터)
+
 **어떠한 데이터셋와 도구 및 기술을 사용했는지에 대한 설명과 엔드유저에게 보이는 웹서비스에 대한 소개**
 
   - 사용하려는 데이터(제안된 데이터 중 하나 또는 선택한 다른 데이터 세트)를 명시, 이에 대한 설명
@@ -31,15 +49,16 @@
 ## 3. 프로젝트 기능 설명
 
 ### 메인 기능
-  1. 나와 잘 어울리는 주민 추천 테스트
+  - 나와 잘 어울리는 주민 추천 테스트
 
-  2. 카드 뒤집기 미니 게임 
-    (https://s3.us-west-2.amazonaws.com/secure.notion-static.com/014121bc-a406-4d0b-9353-65f0a206d139/Animation.gif?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220509%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220509T101224Z&X-Amz-Expires=86400&X-Amz-Signature=824d9b228a4ae1c7d263f32a6c3f2d89873dbff59bcb1089969334e4ac370e50&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Animation.gif%22&x-id=GetObject)
+  - 카드 뒤집기 미니 게임 
 
-  3. 자유 게시판
+  - 주민 생일 달력
+
+  - 자유 게시판
 
 ### 서브 기능
-  - 주민 생일 달력
+  - 오늘 생일인 주민에게 축하 댓글 남기기
   - 방명록 
 
 
