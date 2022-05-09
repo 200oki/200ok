@@ -13,7 +13,8 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: "http://localhost:5001",
+      // url: "http://localhost:5001",
+      url: "http://elice-kdt-ai-4th-team04.elicecoding.com/api",
       description: "Development server",
     },
   ],
