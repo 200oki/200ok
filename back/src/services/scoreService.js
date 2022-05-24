@@ -10,8 +10,14 @@ class ScoreService {
   */
   static async addScore({ nickname, score }) {
     const id = crypto.randomUUID()
-    const createdScore = await Score.create({ id, nickname, score });
-    return createdScore;
+    const newScore = { 
+      id, 
+      nickname, 
+      score,
+    };
+    const createdScore = await Score.create({ newScore });
+    const userRankScore = await Score.findUserRank({ id });
+    return userRankScore;
   }
 
   /** 현재 유저 랭크 반환 함수

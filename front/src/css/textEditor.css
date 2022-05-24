@@ -1,0 +1,48 @@
+div.DraftEditor-root {
+    /* border: 1px solid #000;
+
+    height: 200px;
+    width: 300px;*/
+    overflow-y: auto;
+    background-color: white;
+    width : 100%;
+    border-bottom: none;
+    height: 350px;
+    border-radius: 5px;
+}
+div.DraftEditor-editorContainer,
+div.public-DraftEditor-content {
+    margin-top : 3px;
+    padding: 5px;
+    height: 350px;
+    width : 99%;
+    margin-bottom : 1rem;
+}
+
+.t16lpgj{
+    width : 100%;
+}
+
+.editorRoot{
+    background-color: white;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    flex-direction: row;
+}
+
+.DraftEditor-root::-webkit-scrollbar {
+    width: 21px;
+}
+.DraftEditor-root::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+.DraftEditor-root::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #d1d1d1;
+    background-clip: padding-box;
+    border: 6px solid transparent;
+}
+
+

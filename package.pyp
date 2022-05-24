@@ -1,4 +1,5 @@
 asttokens==2.0.5
+autopep8==1.6.0
 backcall==0.2.0
 colorama==0.4.4
 debugpy==1.6.0
@@ -22,6 +23,7 @@ pickleshare==0.7.5
 prompt-toolkit==3.0.29
 psutil==5.9.0
 pure-eval==0.2.2
+pycodestyle==2.8.0
 Pygments==2.11.2
 pyparsing==3.0.8
 python-dateutil==2.8.2
@@ -30,6 +32,7 @@ pywin32==303
 pyzmq==22.3.0
 six==1.16.0
 stack-data==0.2.0
+toml==0.10.2
 tornado==6.1
 traitlets==5.1.1
 wcwidth==0.2.5

@@ -23,9 +23,17 @@ import SpeciesChart from "./components/Statistics/SpeciesChart";
 import PersonalityChart from "./components/Statistics/PersonalityChart";
 import HobbyChart from "./components/Statistics/HobbyChart";
 import StyleChart from "./components/Statistics/StyleChart";
+import PopularityBySpeciesChart from "./components/Statistics/PopularitySpeciesChart";
+import PopularityByGenderChart from "./components/Statistics/PopularityGenderChart";
 import VillagerList from "./components/Bestiary/VillagerList";
 import VillagerDetail from "./components/Bestiary/VillagerDetail";
 import TeamIntroduction from "./components/TeamIntroduction/TeamIntroduction";
+import Write from "./components/Board/Write";
+import ReadBoard from "./components/Board/ReadBoard";
+import BoardList from "./components/Board/BoardList";
+import AddBoard from "./components/Board/AddBoard";
+import GuestbookList from "./components/Guestbook/GuestbookList.jsx";
+import AddGuestbook from "./components/Guestbook/AddGuestbook.jsx";
 
 const GlobalFont = createGlobalStyle`
   * { font-family: "TmoneyRoundWindExtraBold" }
@@ -43,24 +51,42 @@ function App() {
           <Route path="/game" element={<InputNickname />} />
           <Route path="/game-intro" element={<GameIntro />} />
           <Route path="/game-start" element={<Game />} />
-          <Route path="/game-result" element={<GameResult />} />
+          <Route path="/game-result" element={<GameResult />}>
+            <Route path=":id" element={<GameResult />} />
+          </Route>
           <Route path="/game-hof" element={<GameHOF />} />
           <Route path="/today" element={<Today />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/match-intro" element={<MatchIntro />} />
           <Route path="/match" element={<InputNickname />} />
           <Route path="/match-test" element={<MatchTest />} />
-          <Route path="/match-result" element={<MatchResult />} />
+          <Route path="/match-result" element={<MatchResult />}>
+            <Route path=":code" element={<MatchResult />} />
+          </Route>
           <Route path="/stats" element={<Stat />}>
             <Route path="gender" element={<GenderChart />} />
             <Route path="species" element={<SpeciesChart />} />
             <Route path="personality" element={<PersonalityChart />} />
             <Route path="hobby" element={<HobbyChart />} />
             <Route path="style" element={<StyleChart />} />
+            <Route
+              path="popularity-by-species"
+              element={<PopularityBySpeciesChart />}
+            />
+            <Route
+              path="popularity-by-gender"
+              element={<PopularityByGenderChart />}
+            />
           </Route>
           <Route path="/bestiary" element={<Bestiary />} />
           <Route path="/bestiary/list" element={<VillagerList />} />
           <Route path="/detail/:id" element={<VillagerDetail />} />
+          <Route path="/write" element={<Write />} />
+          <Route path="/board/:id" element={<ReadBoard />} />
+          <Route path="/board" element={<BoardList />} />
+          <Route path="/board/post" element={<AddBoard />} />
+          <Route path="/guestbook" element={<GuestbookList />} />
+          <Route path="/guestbook/post" element={<AddGuestbook />} />
         </Routes>
       </Router>
     </div>

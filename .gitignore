@@ -4,4 +4,6 @@ node_modules/
 .git
 .vscode
 .gitlab
+~$*
+node_modules
 bundle.js

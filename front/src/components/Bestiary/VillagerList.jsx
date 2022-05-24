@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import styled, { keyframes } from "styled-components";
 import * as Api from "../../api";
 import { Slider } from "@mui/material";
@@ -6,6 +6,213 @@ import { styled as Styled } from "@mui/material/styles";
 import BackButton from "../common/BackButton";
 import HomeButton from "../common/HomeButton";
 import { useNavigate } from "react-router-dom";
+
+const VillagerList = () => {
+  const navigate = useNavigate();
+  const options = {
+    이름: "name_ko",
+    성격: "personality",
+    취미: "hobby",
+    색깔: "colors",
+    스타일: "styles",
+    티어: "tier",
+    동물: "species",
+    주민: "special",
+  };
+
+  const [villagers, setVillagers] = React.useState(null);
+  const [loadedVillagers, setLoadedVillagers] = React.useState(null);
+  const [count, setCount] = React.useState(0);
+  const [show, setShow] = React.useState(false);
+  const [option, setOption] = React.useState("검색조건");
+  const [ipt, setIpt] = React.useState("");
+  const [placeholder, setPlaceholder] = React.useState("검색어를 입력해주세요");
+
+  const scrollHandler = (e, val) => {
+    const element = document.getElementById("content");
+    const maxScrollLeft = element.scrollWidth - element.clientWidth;
+    element.scrollLeft = (maxScrollLeft / 100) * val;
+  };
+
+  const clickHandler = (e) => {
+    e.preventDefault();
+    search();
+  };
+
+  const showOptions = (e) => {
+    e.preventDefault();
+    setShow(!show);
+  };
+
+  const optionHandler = (e) => {
+    e.preventDefault();
+    setOption(e.target.value);
+    setShow(!show);
+    switch (e.target.value) {
+      case "이름":
+        setPlaceholder("주민 이름으로 검색해보세요~");
+        break;
+      case "성격":
+      case "색깔":
+      case "취미":
+      case "스타일":
+      case "동물":
+        getEnums(options[e.target.value]).then((data) => {
+          const string = data.toString().slice(0, 20);
+          setPlaceholder(`${string}...`);
+        });
+        break;
+      case "티어":
+        setPlaceholder("1부터 6 사이의 숫자를 입력해주세요");
+        break;
+      case "주민":
+        setPlaceholder("스페셜 또는 일반");
+        break;
+    }
+  };
+
+  const getEnums = async (field) => {
+    const { data } = await Api.get(`characters/search/enums/${field}`);
+    return data.payload;
+  };
+  const numberLoaded = 21;
+  const initialize = async () => {
+    try {
+      const { data } = await Api.get(`characters/search?fields=name_ko,image_photo,id&page=1&size=${numberLoaded}`);
+      setLoadedVillagers(data.payload);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const initialize2 = async () => {
+    try {
+      const { data } = await Api.get(`characters/search?fields=name_ko,image_photo,id`);
+      setVillagers(data.payload.slice(numberLoaded));
+      setCount(data.total - numberLoaded);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const search = async () => {
+    const queryOption = option === "검색조건" ? "" : `&props=${options[option]}&values=${ipt === "스페셜" ? "true" : ipt === "일반" ? "false" : ipt}`;
+    const queryString = `?fields=name_ko,image_photo,id${queryOption}`;
+    try {
+      setLoadedVillagers(null);
+      const { data } = await Api.get(`characters/search${queryString}`);
+      setVillagers(data.payload);
+      setCount(data.total);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const inputHandler = (e) => {
+    setIpt(e.target.value);
+  };
+
+  const handleKeyUp = (e) => {
+    if (e.key === "Enter") {
+      search();
+    }
+  };
+
+  React.useEffect(() => {
+    initialize();
+    initialize2();
+  }, []);
+
+  const cardPerColumn = 3;
+  const columns = [];
+  const loadedColumns = [];
+
+  for (let i = 0; i < 7; i++) {
+    loadedColumns.push(
+      loadedVillagers?.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
+        return (
+          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
+            <Name>{villager.name_ko}</Name>
+          </Card>
+        );
+      })
+    );
+  }
+  for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
+    columns.push(
+      villagers?.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
+        return (
+          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
+            <Name>{villager.name_ko}</Name>
+          </Card>
+        );
+      })
+    );
+  }
+  const restCards = count % cardPerColumn;
+  if (restCards > 0) {
+    columns.push(
+      villagers?.slice(-restCards).map((villager, idx) => {
+        return (
+          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
+            <Name>{villager.name_ko}</Name>
+          </Card>
+        );
+      })
+    );
+  }
+  return (
+    <Container>
+      <Navigator>
+        <BackButton content={"뒤로가기"} destination={"bestiary"} />
+        <Wrapper>
+          <HomeButton />
+        </Wrapper>
+      </Navigator>
+      <Content>
+        <ContentWrapper>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "70%",
+              justifyContent: "center",
+            }}
+          >
+            <Selector>
+              <Select onClick={showOptions}>{option}</Select>
+              <OptionWrapper id="options" show={show}>
+                {Object.keys(options).map((option, i) => (
+                  <Option key={i} value={option} onClick={optionHandler}>
+                    {option}
+                  </Option>
+                ))}
+              </OptionWrapper>
+            </Selector>
+            <SearchForm>
+              <Input placeholder={placeholder} onChange={inputHandler} value={ipt} onKeyUp={handleKeyUp} />
+              <div>
+                <Button type="submit" onClick={clickHandler}>
+                  검색
+                </Button>
+              </div>
+            </SearchForm>
+          </div>
+          <ContentContainer id="content">
+            {loadedVillagers &&
+              loadedColumns.map((column, idx) => {
+                return <Column key={idx}>{column}</Column>;
+              })}
+            {villagers &&
+              columns.map((column, idx) => {
+                return <Column key={idx}>{column}</Column>;
+              })}
+          </ContentContainer>
+          <PrettoSlider onChange={scrollHandler} />
+        </ContentWrapper>
+      </Content>
+    </Container>
+  );
+};
 
 const Navigator = styled.div`
   position: fixed;
@@ -19,18 +226,19 @@ const Navigator = styled.div`
 
 const Container = styled.div`
   position: relative;
-&::before {
-  background-image: url("/images/leafBgImg.png");
-  content: " ";
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  opacity: 0.5;
-  background-position: 50% 0;
-  z-index: -100;
+  &::before {
+    background-image: url("/images/leafBgImg.png");
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5;
+    background-position: 50% 0;
+    z-index: -100;
+  }
 `;
 const pop = keyframes`
   from {
@@ -164,8 +372,8 @@ const PrettoSlider = Styled(Slider)({
     border: "none",
   },
   "& .MuiSlider-thumb": {
-    height: 24,
-    width: 24,
+    height: 40,
+    width: 40,
     backgroundColor: "#fff",
     border: "2px solid currentColor",
     "&:focus, &:hover, &.Mui-active, &.Mui-focusVisible": {
@@ -244,139 +452,5 @@ const Selector = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-const VillagerList = () => {
-  const navigate = useNavigate();
-  const options = {
-    이름: "name_ko",
-    성격: "personality",
-    취미: "hobby",
-    색깔: "colors",
-    스타일: "styles",
-    티어: "tier",
-    동물: "species",
-  };
-
-  const [villagers, setVillagers] = useState([]);
-  const [count, setCount] = useState(0);
-  const [show, setShow] = useState(false);
-  const [option, setOption] = useState("검색조건");
-  const [ipt, setIpt] = useState("");
-
-  const scrollHandler = (e, val) => {
-    const element = document.getElementById("content");
-    const maxScrollLeft = element.scrollWidth - element.clientWidth;
-    element.scrollLeft = (maxScrollLeft / 100) * val;
-  };
-
-  const clickHandler = (e) => {
-    e.preventDefault();
-    search();
-  };
-
-  const showOptions = (e) => {
-    e.preventDefault();
-    setShow(!show);
-  };
-
-  const optionHandler = (e) => {
-    e.preventDefault();
-    setOption(e.target.value);
-    setShow(!show);
-  };
-
-  const search = async () => {
-    const queryOption = option === "검색조건" ? "" : `&props=${options[option]}&values=${ipt}`;
-    const queryString = `?fields=name_ko,image_photo,id${queryOption}`;
-    try {
-      const { data } = await Api.get(`characters/search${queryString}`);
-      setVillagers(data.payload);
-      setCount(data.total);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const inputHandler = (e) => {
-    setIpt(e.target.value);
-  };
-
-  const handleKeyUp = (e) => {
-    if (e.key === "Enter") {
-      search();
-    }
-  };
-
-  useEffect(() => {
-    search();
-  }, []);
-
-  const cardPerColumn = 3;
-  const columns = [];
-
-  for (let i = 0; i < parseInt(count / cardPerColumn); i++) {
-    columns.push(
-      villagers.slice(cardPerColumn * i, cardPerColumn * (i + 1)).map((villager, idx) => {
-        return (
-          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
-            <Name>{villager.name_ko}</Name>
-          </Card>
-        );
-      })
-    );
-  }
-  const restCards = count % cardPerColumn;
-  if (restCards > 0) {
-    columns.push(
-      villagers.slice(-restCards).map((villager, idx) => {
-        return (
-          <Card key={idx} src={villager.image_photo} onClick={() => navigate(`/detail/${villager.id}`)}>
-            <Name>{villager.name_ko}</Name>
-          </Card>
-        );
-      })
-    );
-  }
-  return (
-    <Container>
-      <Navigator>
-        <BackButton content={"뒤로가기"} destination={"bestiary"} />
-        <Wrapper>
-          <HomeButton />
-        </Wrapper>
-      </Navigator>
-      <Content>
-        <ContentWrapper>
-          <div style={{ display: "flex", flexDirection: "row", width: "70%", justifyContent: "center" }}>
-            <Selector>
-              <Select onClick={showOptions}>{option}</Select>
-              <OptionWrapper id="options" show={show}>
-                {Object.keys(options).map((option, i) => (
-                  <Option key={i} value={option} onClick={optionHandler}>
-                    {option}
-                  </Option>
-                ))}
-              </OptionWrapper>
-            </Selector>
-            <SearchForm>
-              <Input placeholder="검색어를 입력해주세요." onChange={inputHandler} value={ipt} onKeyUp={handleKeyUp} />
-              <div>
-                <Button type="submit" onClick={clickHandler}>
-                  검색
-                </Button>
-              </div>
-            </SearchForm>
-          </div>
-          <ContentContainer id="content">
-            {columns.map((column, idx) => {
-              return <Column key={idx}>{column}</Column>;
-            })}
-          </ContentContainer>
-          <PrettoSlider onChange={scrollHandler} />
-        </ContentWrapper>
-      </Content>
-    </Container>
-  );
-};
 
 export default VillagerList;
