@@ -41,6 +41,11 @@ class CommentService {
     });
     return readComment;
   }
+
+  static async listHonor({ location }) {
+    const comments = await Comment.honorList({ location });
+    return comments;
+  }
 }
 
 export { CommentService };

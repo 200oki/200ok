@@ -1,3 +1,5 @@
+// import dotenv from "dotenv";
+// dotenv.config();
 import fs from "fs";
 import path from "path";
 // json 임포트 불가: 아마 babel을 사용하지 않아서 그런 것 같습니다.
@@ -6,57 +8,58 @@ import path from "path";
 // import * as characters from "./src/db/schemas/characters.json";
 
 import _ from "underscore";
-// import { logger } from "../../utils/winstonLogger.js";
 
 const __dirname = path.resolve();
 let raw = fs.readFileSync(
   path.resolve(__dirname, "./src/db/schemas/characters.json")
 );
 
-/* 필드 예시 (outdated)
-const charactersMock = {
-  admiral: {
-    id: "admiral",
-    special: false,
-    name_en: "Admiral",
-    name_ko: "일섭",
-    image_icon: "https://acnhcdn.com/latest/NpcIcon/brd06.png",
-    image_photo: "https://acnhcdn.com/latest/NpcBromide/NpcNmlBrd06.png",
-    image_house:
-      "https://acnhcdn.com/drivesync/render/houses/brd06_39_Admiral.png",
-    species: "Bird",
-    gender: "Male",
-    gender_asia: "Male",
-    personality: "Cranky",
-    personality_subtype: "A",
-    hobby: "Nature",
-    birthday: "01-27",
-    birthday_month: 1,
-    birthday_day: 27,
-    catchphrase: "aye aye",
-    favorite_song: "Steep Hill",
-    favorite_saying: "Only quitters give up.",
-    styles: ["Cool"],
-    colors: ["Black", "Blue"],
-  },
-  cyrus: {
-    id: "cyrus",
-    special: true,
-    name_en: "Cyrus",
-    name_ko: "리포",
-    image_icon: "https://acnhcdn.com/latest/NpcIcon/alp.png",
-    image_photo: "https://acnhcdn.com/latest/NpcPoster/NpcSpAlp.png",
-    gender: "Male",
-    gender_asia: "Male",
-    birthday: "01-26",
-    birthday_month: 1,
-    birthday_day: 26,
-  },
-};
+/** 캐릭터 데이터 예시 (일반 주민)
+ * {
+ *   birthday: "01-27",
+ *   birthday_day: 27,
+ *   birthday_month: 1,
+ *   birthday_yday: 27,
+ *   catchphrase: "aye aye",
+ *   colors: ["검정색", "파랑색"],
+ *   favorite_saying: "Only quitters give up.",
+ *   favorite_song: "Steep Hill",
+ *   gender: "남",
+ *   gender_asia: "남",
+ *   hobby: "자연",
+ *   id: "admiral",
+ *   image_house:
+ *     "https://acnhcdn.com/drivesync/render/houses/brd06_39_Admiral.png",
+ *   image_icon: "https://acnhcdn.com/latest/NpcIcon/brd06.png",
+ *   image_photo: "https://acnhcdn.com/latest/NpcBromide/NpcNmlBrd06.png",
+ *   name_en: "Admiral",
+ *   name_ko: "일섭",
+ *   personality: "무뚝뚝",
+ *   personality_subtype: "A",
+ *   rank: 89.0,
+ *   special: False,
+ *   species: "새",
+ *   styles: ["쿨"],
+ *   tier: 6.0,
+ * }
  */
-
+/** 캐릭터 데이터 예시 (특수 주민)
+ * {
+ *   birthday: "01-26",
+ *   birthday_day: 26,
+ *   birthday_month: 1,
+ *   birthday_yday: 26,
+ *   gender: "남",
+ *   gender_asia: "남",
+ *   id: "cyrus",
+ *   image_icon: "https://acnhcdn.com/latest/NpcIcon/alp.png",
+ *   image_photo: "https://acnhcdn.com/latest/NpcPoster/NpcSpAlp.png",
+ *   name_en: "Cyrus",
+ *   name_ko: "리포",
+ *   special: True,
+ * }
+ */
 /** `id`별 캐릭터 데이터를 담고 있습니다. */
-// const characters = charactersMock;
 const _chars = JSON.parse(raw);
 // 미리 한국어 이름으로 정렬해서 이후에 정렬을 할 필요가 없게 합니다.
 // 물론 검색 시에 커스텀 정렬 쿼리를 받는 기능이 생기면 다 쓸데없는 짓입니다.
@@ -107,12 +110,14 @@ const MATCH_INCLUDESUBSTRING = 4;
 /** 검색 시 매치를 판단하는 스킴입니다. */
 const MATCH_SCHEMES = {
   id: MATCH_EXACT,
+  special: MATCH_EXACT,
   name_ko: MATCH_SUBSTRING,
   birthday: MATCH_EXACT,
   birthday_month: MATCH_EXACT,
   tier: MATCH_EXACT,
   hobby: MATCH_SUBSTRING,
   personality: MATCH_SUBSTRING,
+  species: MATCH_SUBSTRING,
   colors: MATCH_INCLUDESUBSTRING,
   styles: MATCH_INCLUDESUBSTRING,
   "*": MATCH_EXACT,
@@ -121,6 +126,7 @@ const MATCH_SCHEMES = {
 const SEARCH_PRIORITIES = {
   id: 90,
   birthday: 80,
+  species: 75,
   birthday_month: 70,
   tier: 60,
   personality: 50,
@@ -128,6 +134,7 @@ const SEARCH_PRIORITIES = {
   name_ko: 30,
   styles: 20,
   colors: 10,
+  special: 5,
 };
 
 // TIL `Array.fill`은 복사를 안한다.
@@ -146,6 +153,7 @@ const emptyArrays = (len) => Array.from(Array(len), () => []);
  *    "tier": { [tier]: [ char ] },
  *    "hobby": { [hobby]: [ char ] },
  *    "personality": { [personality]: [ char ] },
+ *    "species": { [species]: [ char ] },
  *    "colors": { [color]: [ char ] },
  *    "styles": { [style]: [ char ] },
  * }
@@ -157,6 +165,7 @@ const emptyArrays = (len) => Array.from(Array(len), () => []);
 const characters = {
   ALL: _sorted,
   id: _chars,
+  special: { true: [], false: [] },
   name_ko: {},
   birthday: {},
   birthday_month: _.object(_.range(1, 13), emptyArrays(12)),
@@ -166,19 +175,10 @@ const characters = {
     ALL_PERSONALITIES,
     emptyArrays(ALL_PERSONALITIES.length)
   ),
+  species: {},
   colors: _.object(ALL_COLORS, emptyArrays(ALL_COLORS.length)),
   styles: _.object(ALL_STYLES, emptyArrays(ALL_STYLES.length)),
 };
-
-/** 모든 캐릭터의 한국어 이름을 담고 있습니다. 존재 여부 검사에 사용합니다.
- *
- * - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
- * - https://leetcode.com/problems/contains-duplicate/discuss/515531/javascript-set-vs-object
- *
- * 언급된 두 아티클을 참고해 보면 자바스크립트 `Set`은 해시테이블 방식이 아닌 듯 합니다.
- * 그래서 이것도 `Set`이 아니고 값이 없는 객체입니다.
- */
-// const ALLNAMES_KO = {};
 
 // characters.id 이외의 다른 프로퍼티를 채워 넣습니다.
 /** 한국어 이름으로 정렬된 모든 캐릭터입니다. */
@@ -187,12 +187,14 @@ for (const char of characters.ALL) {
   // const char = entry[1];
   let {
     name_ko,
+    special,
     birthday,
     birthday_month,
     tier,
-    colors,
     hobby,
     personality,
+    species,
+    colors,
     styles,
   } = char;
   let birthday_month_str = birthday_month.toString();
@@ -209,6 +211,9 @@ for (const char of characters.ALL) {
     characters.birthday[birthday] = [];
   }
   characters.birthday[birthday].push(char);
+
+  // 프론트엔드에서 특수 주민 필터링 가능하게 해달라고 요청
+  characters.special[special.toString()].push(char);
 
   // birthday_month는 이달의 생일 캐릭터 및 달력에 사용됩니다.
   characters.birthday_month[birthday_month_str].push(char);
@@ -227,6 +232,12 @@ for (const char of characters.ALL) {
   characters.personality[personality].push(char);
   characters.hobby[hobby].push(char);
 
+  // species는 너무 많아서 엔트리를 미리 안만들었습니다.
+  if (!(species in characters.species)) {
+    characters.species[species] = [];
+  }
+  characters.species[species].push(char);
+
   // color, style은 원래 배열이기 때문에 까먹지 말고 한바퀴 더 돌립니다.
   for (const k of colors) {
     characters.colors[k].push(char);
@@ -241,25 +252,21 @@ for (const char of characters.ALL) {
 const characterNames = Object.fromEntries(
   Object.entries(characters.id).map(([k, v]) => [k, v.name_ko])
 );
-// const characterNamesMock = {
-//   admiral: "일섭",
-//   cyrus: "리포",
-// };
 
-if (process.env.NODE_ENV === "dev") {
-  console.log(
-    _(characters).mapObject((v, k) => {
-      if (k === "ALL") {
-        return v.length;
-      } else if (["id", "name_ko", "birthday"].includes(k)) {
-        return _(v).keys().length;
-      }
-      return _(v).mapObject((v, k) => {
-        return v.length;
-      });
-    })
-  );
-}
+// if (process.env.NODE_ENV === "dev") {
+//   console.log(
+//     _(characters).mapObject((v, k) => {
+//       if (k === "ALL") {
+//         return v.length;
+//       } else if (["id", "name_ko", "birthday"].includes(k)) {
+//         return _(v).keys().length;
+//       }
+//       return _(v).mapObject((v, k) => {
+//         return v.length;
+//       });
+//     })
+//   );
+// }
 
 export {
   characters,

@@ -36,7 +36,7 @@ router.get("/characters/random", async (req, res, next) => {
     let tiers = parseArrayQuery(req.query.tiers);
     let fields = parseArrayQuery(req.query.fields);
 
-    let result = await CharacterService.sample(size, tiers, fields);
+    let result = CharacterService.sample(size, tiers, fields);
     res.status(status.STATUS_200_OK).json({ success: true, payload: result });
   } catch (error) {
     next(error);
@@ -50,35 +50,61 @@ router.get("/characters/random", async (req, res, next) => {
  *  - [ page=n ]
  *  - [ size=n ]
  */
-router.get("/characters/search", async (req, res, next) => {
-  try {
+router.get(
+  "/characters/search",
+  async (req, res, next) => {
+    // 미들웨어로 쿼리만 검증합니다.
     if (!("fields" in req.query)) {
-      throw new RequestError(
-        { status: status.STATUS_400_BADREQUEST },
-        `"fields" query is required`
+      next(
+        new RequestError(
+          { status: status.STATUS_400_BADREQUEST },
+          `"fields" query is required`
+        )
       );
     }
-    const fields = parseArrayQuery(req.query.fields);
-    const props = parseArrayQuery(req.query.props);
-    const values = parseArrayQuery(req.query.values);
-    const page = Number(req.query.page);
-    const size = Number(req.query.size);
+    const page = parseInt(req.query.page);
+    const size = parseInt(req.query.size);
     // page, size 쿼리는 없어도 되지만 있으려면 둘 다 있어야 합니다.
     if (isNaN(page) != isNaN(size)) {
-      throw new RequestError(
-        { status: status.STATUS_400_BADREQUEST },
-        `"page" and "size" both need to be present if one is provided`
+      next(
+        new RequestError(
+          { status: status.STATUS_400_BADREQUEST },
+          `"page" and "size" both need to be present if one is provided`
+        )
       );
     }
+    req.query.fields = parseArrayQuery(req.query.fields);
+    req.query.props = parseArrayQuery(req.query.props);
+    req.query.values = parseArrayQuery(req.query.values);
+    req.query.page = page;
+    req.query.size = size;
+    next();
+  },
+  async (req, res, next) => {
+    try {
+      const { fields, props, values, page, size } = req.query;
 
-    let result = await CharacterService.search(props, values, fields);
-    const total = result.length;
-    if (!isNaN(page)) {
-      result = CharacterService.page(result, size, page);
+      let result = CharacterService.search(props, values, fields);
+      const total = result.length;
+      if (!isNaN(page)) {
+        result = CharacterService.page(result, size, page);
+      }
+      res
+        .status(status.STATUS_200_OK)
+        .json({ success: true, total, payload: result });
+    } catch (error) {
+      next(error);
     }
-    res
-      .status(status.STATUS_200_OK)
-      .json({ success: true, total, payload: result });
+  }
+);
+
+router.get("/characters/search/enums/:field", async (req, res, next) => {
+  try {
+    const result = CharacterService.listCategories(req.params.field);
+    res.status(status.STATUS_200_OK).json({
+      success: true,
+      payload: result,
+    });
   } catch (error) {
     next(error);
   }
@@ -169,13 +195,13 @@ router.get("/characters", async (req, res, next) => {
       // birthday 쿼리가 있을 때는 오늘의 생일 모드입니다.
       // 쿼리에 원하는 필드값을 넣을 수 있습니다.
       let fields = parseArrayQuery(req.query.fields);
-      found = await CharacterService.getByBirthday({
+      found = CharacterService.getByBirthday({
         birthday: req.query.birthday,
         fields,
       });
     } else {
       // 쿼리가 없으면 전체 캐릭터 이름 사전을 보내줍니다.
-      found = await CharacterService.list();
+      found = CharacterService.list();
     }
 
     res.status(status.STATUS_200_OK).json({ success: true, payload: found });
@@ -244,7 +270,7 @@ router.get("/characters/:id", async (req, res, next) => {
     // 쿼리에 원하는 필드값을 넣을 수 있습니다.
     let fields = parseArrayQuery(req.query.fields);
 
-    let found = await CharacterService.get({ id: req.params.id, fields });
+    let found = CharacterService.get(req.params.id, fields);
     if (found.errorMessage) {
       throw new RequestError({ status: found.statusCode }, found.errorMessage);
     }
@@ -254,7 +280,7 @@ router.get("/characters/:id", async (req, res, next) => {
   }
 });
 
-/** /characters/random swagger 문서
+/** /characters/random swaggerdoc
  * @swagger
  * /characters/random:
  *  get:
@@ -316,7 +342,7 @@ router.get("/characters/:id", async (req, res, next) => {
  *                      description: character 데이터입니다.
  */
 let _commentFoldDummy1;
-/** /characters/search swagger 문서
+/** /characters/search swaggerdoc
  * @swagger
  * /characters/search:
  *  get:
@@ -362,12 +388,14 @@ let _commentFoldDummy1;
  *          | 필드 | 매치 스킴 |
  *          | --- | -------- |
  *          | id | 일치 |
+ *          | special | 일치 |
  *          | birthday | 일치 |
  *          | birthday_month | 일치 |
  *          | colors | 최대 두가지 속성중 최소 하나가 문자열 포함 |
  *          | hobby | 문자열 포함 |
  *          | name_ko | 문자열 포함 |
  *          | personality | 문자열 포함 |
+ *          | species | 문자열 포함 |
  *          | styles | 최대 두가지 속성중 최소 하나가 문자열 포함 |
  *          | tier | 일치 |
  *          이외의 프로퍼티를 쿼리하면 `405 Method Not Allowed` 에러입니다.
@@ -456,5 +484,64 @@ let _commentFoldDummy1;
  *
  */
 let _commentFoldDummy2;
+/** /characters/search/enums swaggerdoc
+ * @swagger
+ * /characters/search/enums/{field}:
+ *  get:
+ *    summary: 캐릭터 데이터의 필드에 어떤 값들이 있는지 반환합니다.
+ *    description: |
+ *      `payload`는 다음과 같습니다.
+ *      ```
+ *      [ value1, value2, value3, ]
+ *      ```
+ *    tags: [Characters]
+ *    parameters:
+ *      - in: path
+ *        name: field
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: |
+ *          가능한 값의 목록을 보고 싶은 필드 목록입니다. <br>
+ *          다음 중 하나여야 합니다.
+ *          - hobby
+ *          - personality
+ *          - styles
+ *          - colors
+ *          - species
+ *        example: hobby
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                  description: 요청 성공 여부
+ *                  example: true
+ *                payload:
+ *                  type: array
+ *                  items:
+ *                    type: string,
+ *                    example: 친절함
+ *      404:
+ *        description: |
+ *          없는 필드이거나 허용되지 않은 필드를 요청했습니다.
+ *          - Field name "${field}" either doesn't exist or not peekable
+ *        content:
+ *          application/json:
+ *            schema:
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                  description: 요청 성공 여부
+ *                  example: false
+ *                errorMessage:
+ *                  type: string
+ *                  example: Field name \"${field}\" either doesn't \
+ *                    exist or not peekable
+ */
+let _commentFoldDummy3;
 
 export { router as characterRouter };

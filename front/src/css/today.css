@@ -1,0 +1,273 @@
+/* Seperate components from the background image, in order to set the background transparently  */
+.today {
+  position: relative;
+}
+.today::before {
+  background-image: url("/public/images/leafBgImg.png");
+  content: " ";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.5;
+  background-position: 50% 0;
+  z-index: -100;
+}
+.today-content {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation-duration: 1s;
+  animation-name: pop;
+  animation-fill-mode: forwards;
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Font application to phrases */
+.phrase {
+  font-family: TmoneyRoundWindExtraBold;
+  font-size: 3rem;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 5%;
+}
+.phrase p {
+  margin: 0.7em 0 0 0;
+}
+
+/*  */
+.phrase-transparent {
+  opacity: 0;
+}
+
+/* Villager selector as dropdown menu*/
+.dropdown {
+  border: none;
+  color: black;
+  border-right: 1px solid #81d7a4;
+  padding: 10px;
+  font-size: 1.23rem;
+  border-radius: 1.5rem 0 0 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  width: 10rem;
+  height: 3rem;
+  box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
+  background-color: #ffffff;
+  transition: all 0.5s;
+  font-family: TmoneyRoundWindExtraBold;
+}
+.dropdown:hover {
+  opacity: 0.75;
+}
+.menu > button {
+  border: none;
+  color: black;
+  padding: 10px;
+  font-size: 1.23rem;
+  border-radius: 25px;
+  text-align: center;
+  cursor: pointer;
+  width: fit-content;
+  transition: all 0.5s;
+  height: 45px;
+  box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
+  background-color: #ffb9ed;
+  font-family: TmoneyRoundWindExtraBold;
+}
+.menu > button:hover {
+  opacity: 0.8;
+}
+.menu {
+  margin-top: 5px;
+  margin-bottom: -50px;
+  margin-right: -100vw;
+  z-index: 100;
+}
+
+/* Comment inputbox */
+input.comment {
+  border: none;
+  border-left: 1px solid #81d7a4;
+  color: black;
+  font-size: 1.23rem;
+  border-radius: 0 1.5rem 1.5rem 0;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
+  width: 100%;
+  height: calc(3rem - 2px);
+  box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
+  background-color: #ffffff;
+  font-family: TmoneyRoundWindExtraBold;
+}
+input.comment:hover {
+  opacity: 0.75;
+}
+input.comment::placeholder {
+  font-size: 0.9rem;
+  color: #81d7a4;
+}
+.submitForm {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Notification to select a villager */
+.alert {
+  font-family: TmoneyRoundWindExtraBold;
+  font-size: 1rem;
+  color: #f14d41;
+  width: 100%;
+  margin-left: 5%;
+  margin-top: -21px;
+}
+.noAlert {
+  display: none;
+}
+
+div.comment {
+  width: 30vw;
+  height: 100%;
+}
+
+/* Buttons */
+.btn-comment {
+  border: none;
+  color: black;
+  padding: 10px;
+  font-size: 1.23rem;
+  border-radius: 1.5rem;
+  transition: all 0.5s;
+  text-align: center;
+  cursor: pointer;
+  width: fit-content;
+  height: 3rem;
+  box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
+  background-color: #fff9e4;
+  font-family: TmoneyRoundWindExtraBold;
+  animation: twinkling 0.8s alternate ease-in-out infinite;
+}
+@keyframes twinkling {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+.btn-comment:hover {
+  background-color: #cdcdcd !important;
+  transform: translateY(-10%);
+}
+
+/*  Comment Section */
+.comment-section {
+  z-index: 0;
+}
+.comment-box {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.speech-bubble {
+  position: relative;
+  border: none;
+  color: black;
+  padding: 10px;
+  font-size: 1.23rem;
+  line-height: 1.2em;
+  border-radius: 10px;
+  text-align: center;
+  width: 75%;
+  height: 25px;
+  box-shadow: 1px 3px 2px 1px rgba(25, 25, 25, 0.2);
+  background-color: #bbffbb;
+  font-family: TmoneyRoundWindExtraBold;
+}
+.comment-container {
+  animation: show forwards 1s;
+}
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Apply animations */
+.presenting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  animation-name: enlarge;
+  animation-fill-mode: forwards;
+  position: fixed;
+}
+.writing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  animation-name: smallen;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  position: fixed;
+}
+@keyframes smallen {
+  from {
+    transform: scale(100%);
+    top: 38vh;
+  }
+  to {
+    transform: scale(60%);
+    top: 5%;
+  }
+}
+@keyframes enlarge {
+  from {
+    transform: scale(60%);
+    top: 5%;
+  }
+  to {
+    transform: scale(100%);
+    top: 38vh;
+  }
+}
+
+.today-calendar {
+  top: 30px;
+  right: 50px;
+  position: relative;
+}
+
+.refImg {
+  opacity: 1 !important;
+  transform: scale(130%);
+}

@@ -1,6 +1,9 @@
 .venv
+.DS_Store
+node_modules/
 .git
 .vscode
 .gitlab
 ~$*
-
+node_modules
+bundle.js
